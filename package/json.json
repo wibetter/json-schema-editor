@@ -1,0 +1,149 @@
+{
+  "type": "object",
+  "properties": {
+    "input": {
+      "type": "string",
+      "description": "单文本框"
+    },
+    "color": {
+      "type": "string",
+      "format": "color",
+      "description": "Color"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date"
+    },
+    "datetime": {
+      "type": "string",
+      "format": "datetime",
+      "description": "Datetime"
+    },
+    "time": {
+      "type": "string",
+      "format": "time",
+      "description": "Time"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email"
+    },
+    "url": {
+      "type": "string",
+      "format": "url",
+      "description": "Url"
+    },
+    "textarea": {
+      "type": "string",
+      "format": "textarea",
+      "description": "多行文本框"
+    },
+    "json": {
+      "type": "string",
+      "format": "json",
+      "description": "JSON"
+    },
+    "number": {
+      "type": "number",
+      "default": "15",
+      "minimum": 10,
+      "maximum": 20,
+      "description": "Number"
+    },
+    "radio": {
+      "type": "string",
+      "format": "radio",
+      "enum": ["aa", "cc"],
+      "enumextra": ["aa描述", "cc"],
+      "description": "单选"
+    },
+    "select": {
+      "type": "array",
+      "format": "select",
+      "items": {
+        "type": "string",
+        "enum": ["a", "b", "c"],
+        "enumextra": ["选项a", "选项b", "选项c"]
+      },
+      "uniqueItems": true,
+      "description": "多选"
+    },
+    "quantity": {
+      "type": "object",
+      "properties": {
+        "unit": {
+          "type": "number"
+        },
+        "quantity": {
+          "type": "string",
+          "format": "radio",
+          "enum": ["px", "em", "rem"],
+          "enumextra": ["px", "em", "rem"]
+        }
+      },
+      "description": "单位计量输入",
+      "required": ["unit", "quantity"]
+    },
+    "datasource": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "faker": "lorem.word"
+        },
+        "filter": {
+          "type": "string",
+          "format": "textarea",
+          "default": "return data;"
+        },
+        "type": {
+          "type": "string",
+          "default": "local",
+          "enum": ["local", "remote"]
+        }
+      },
+      "description": "数据源",
+      "required": ["name", "filter", "type"]
+    },
+    "event": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "faker": "lorem.word"
+        },
+        "filter": {
+          "type": "string",
+          "format": "textarea",
+          "default": "return data;"
+        },
+        "type": {
+          "type": "string",
+          "default": "in",
+          "enum": ["in", "out"]
+        }
+      },
+      "description": "事件",
+      "required": ["name", "filter", "type"]
+    }
+  },
+  "required": [
+    "input",
+    "color",
+    "date",
+    "datetime",
+    "time",
+    "email",
+    "url",
+    "textarea",
+    "json",
+    "number",
+    "radio",
+    "select",
+    "quantity",
+    "datasource",
+    "event"
+  ]
+}
