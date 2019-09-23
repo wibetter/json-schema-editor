@@ -1,40 +1,9 @@
 import React, { Component, PureComponent } from "react";
-import {
-  Dropdown,
-  Menu,
-  Row,
-  Col,
-  Form,
-  Select,
-  Checkbox,
-  Button,
-  Icon,
-  Input,
-  Modal,
-  message,
-  Tooltip,
-  InputNumber,
-  Table,
-  Tag,
-  Divider
-} from "antd";
-import FieldInput from "./FieldInput";
-
-import utils from "../../utils";
+import { InputNumber } from "antd";
 
 import _ from "underscore";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-
-import SchemaItem from "./schemaItem";
-
-import { JSONPATH_JOIN_CHAR, SCHEMA_TYPE } from "../../utils.js";
-
-import LocaleProvider from "../LocalProvider/index.js";
-
-import MockSelect from "../MockSelect/index.js";
-
-import mapping from "./mapping";
 
 class SchemaNumberComponent extends Component {
   constructor(props, context) {

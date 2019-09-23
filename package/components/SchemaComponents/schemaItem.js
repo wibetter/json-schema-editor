@@ -66,8 +66,15 @@ class SchemaItem extends PureComponent {
     if (data.properties[value] && typeof data.properties[value] === "object") {
       return message.error(`The field "${value}" already exists.`);
     }
-
-    this.Model.changeNameAction({ value, prefix, name });
+    // this.Model.changeNameAction({
+    //   value,
+    //   prefix: [].concat(prefix, name),
+    //   name: "local"
+    // });
+    this.Model.changeValueAction({
+      key: [].concat(prefix, [name, "default"]),
+      value: value
+    });
   };
 
   // 修改备注信息
@@ -223,16 +230,19 @@ class SchemaItem extends PureComponent {
                 ) : null}
               </Col>
               <Col span={22}>
-                {value.sType && value.sType === "quantitySelect" ? (
+                {value.format &&
+                (value.format === "quantitySelect" ||
+                  value.format === "typeSelect") ? (
                   <Select
-                    defaultValue={name}
+                    defaultValue={value.default}
                     onChange={this.handleChangeName}
                     style={{ width: "100%" }}
                   >
-                    <Option value="px">px</Option>
-                    <Option value="rem">rem</Option>
-                    <Option value="em">em</Option>
-                    <Option value="percentage">percentage</Option>
+                    {value.enum.map((d, i) => (
+                      <Option value={d} key={i}>
+                        {d}
+                      </Option>
+                    ))}
                   </Select>
                 ) : (
                   <FieldInput
@@ -240,13 +250,7 @@ class SchemaItem extends PureComponent {
                       let value = e.target.value;
                       this.handleChangeName(value);
                     }}
-                    disabled={
-                      value.format === "func" ||
-                      value.format === "style" ||
-                      value.format === "data"
-                        ? true
-                        : false
-                    }
+                    disabled={value.readOnly ? true : false}
                     value={name}
                   />
                 )}

@@ -4,18 +4,12 @@ import {
   Row,
   Tooltip,
   Col,
-  Form,
-  Select,
-  Checkbox,
-  Button,
   Icon,
   Modal,
   message,
   Tabs,
-  AutoComplete
+  Button
 } from "antd";
-const FormItem = Form.Item;
-const { Option } = Select;
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
@@ -25,13 +19,12 @@ import _ from "underscore";
 import { connect } from "react-redux";
 import SchemaJson from "./components/SchemaComponents/SchemaJson.js";
 import PropTypes from "prop-types";
-import { SCHEMA_TYPE, debounce } from "./utils.js";
+import { debounce } from "./utils.js";
 import handleSchema from "./schema";
 const GenerateSchema = require("generate-schema/src/schemas/json.js");
 const utils = require("./utils");
 import CustomItem from "./components/SchemaComponents/SchemaOther.js";
 import LocalProvider from "./components/LocalProvider/index.js";
-import MockSelect from "./components/MockSelect/index.js";
 
 class jsonSchema extends React.Component {
   constructor(props) {
@@ -56,12 +49,12 @@ class jsonSchema extends React.Component {
   }
 
   // json 导入弹窗
-  showModal = () => {
+  showModal() {
     this.setState({
       visible: true
     });
-  };
-  handleOk = () => {
+  }
+  handleOk() {
     if (this.importJsonType !== "schema") {
       if (!this.jsonData) {
         return message.error("json 数据格式有误");
@@ -76,10 +69,10 @@ class jsonSchema extends React.Component {
       this.Model.changeEditorSchemaAction({ value: this.jsonSchemaData });
     }
     this.setState({ visible: false });
-  };
-  handleCancel = () => {
+  }
+  handleCancel() {
     this.setState({ visible: false });
-  };
+  }
 
   componentWillReceiveProps(nextProps) {
     if (
@@ -278,13 +271,6 @@ class jsonSchema extends React.Component {
 
     return (
       <div className="json-schema-react-editor">
-        <Button
-          className="import-json-button"
-          type="primary"
-          onClick={this.showModal}
-        >
-          {LocalProvider("import_json")}
-        </Button>
         <Modal
           maskClosable={false}
           visible={visible}
