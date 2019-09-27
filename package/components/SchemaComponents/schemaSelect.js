@@ -68,14 +68,15 @@ class SchemaSelectComponent extends Component {
   handleChangeName = (e, i, title) => {
     const { data, prefix, name } = this.props;
     let value = e.target.value;
-    let tmpValue = [...data.items[title]];
+    let tmpValue = JSON.parse(JSON.stringify([...data.items[title]]));
     tmpValue[i] = value;
-    let totalValue = { ...data };
+    let totalValue = JSON.parse(JSON.stringify(data));
     totalValue.items[title] = tmpValue;
-    // console.log(prefix, totalValue, "prefix");
+    totalValue = JSON.stringify(totalValue);
+
     this.Model.changeValueAction({
       key: [].concat(prefix.slice(0, prefix.length - 1)),
-      value: totalValue
+      value: JSON.parse(totalValue)
     });
     // this.Model.changeNameAction({ value, prefix, name });
   };

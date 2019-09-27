@@ -60,21 +60,33 @@ class SchemaItem extends PureComponent {
   }
 
   // 修改节点字段名
-  handleChangeName = value => {
+  handleChangeName = (value, format) => {
     const { data, prefix, name } = this.props;
 
-    if (data.properties[value] && typeof data.properties[value] === "object") {
-      return message.error(`The field "${value}" already exists.`);
-    }
     // this.Model.changeNameAction({
     //   value,
-    //   prefix: [].concat(prefix, name),
-    //   name: "local"
+    //   prefix: [].concat(prefix, name)
     // });
-    this.Model.changeValueAction({
-      key: [].concat(prefix, [name, "default"]),
-      value: value
-    });
+
+    if (format === "typeSelect" || format === "quantitySelect") {
+      this.Model.changeValueAction({
+        key: [].concat(prefix, [name, "default"]),
+        value: value
+      });
+    } else {
+      if (
+        data.properties[value] &&
+        typeof data.properties[value] === "object"
+      ) {
+        return message.error(`The field "${value}" already exists.`);
+      }
+      this.Model.changeNameAction({ value, prefix, name });
+    }
+
+    // this.Model.changeValueAction({
+    //   key: [].concat(prefix, name),
+    //   value: value
+    // });
   };
 
   // 修改备注信息
@@ -235,7 +247,9 @@ class SchemaItem extends PureComponent {
                   value.format === "typeSelect") ? (
                   <Select
                     defaultValue={value.default}
-                    onChange={this.handleChangeName}
+                    onChange={e => {
+                      this.handleChangeName(e, value.format);
+                    }}
                     style={{ width: "100%" }}
                   >
                     {value.enum.map((d, i) => (
@@ -247,8 +261,7 @@ class SchemaItem extends PureComponent {
                 ) : (
                   <FieldInput
                     onChange={e => {
-                      let value = e.target.value;
-                      this.handleChangeName(value);
+                      this.handleChangeName(e.target.value, value.format);
                     }}
                     disabled={value.readOnly ? true : false}
                     value={name}

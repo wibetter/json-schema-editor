@@ -27,13 +27,13 @@ class SchemaNumberComponent extends Component {
     const tmpValue = { ...data };
     tmpValue[title] = value;
     this.Model.changeValueAction({
-      key: ["properties", name.splice(name.length - 1, name.length)],
+      key: name,
       value: tmpValue
     });
   };
 
   render() {
-    const { data, prefix, showEdit, showAdv, level } = this.props;
+    const { data } = this.props;
 
     return (
       <div className="array-inner-style">

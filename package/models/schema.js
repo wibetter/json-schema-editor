@@ -172,7 +172,7 @@ export default {
         }
       }
     }
-    console.log(state.data, keys, newPropertiesData);
+
     utils.setData(state.data, keys, newPropertiesData);
     // add required
     parentKeys.push("required");

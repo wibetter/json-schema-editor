@@ -81,6 +81,7 @@ class jsonSchema extends React.Component {
     ) {
       let oldData = JSON.stringify(this.props.schema || "");
       let newData = JSON.stringify(nextProps.schema || "");
+
       if (oldData !== newData) return this.props.onChange(newData);
     }
     if (this.props.data && this.props.data !== nextProps.data) {

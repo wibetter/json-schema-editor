@@ -121,9 +121,12 @@ exports.defaultSchema = {
         type: "number",
         description: "数量"
       },
-      px: {
+      quantity: {
         type: "string",
-        sType: "quantitySelect",
+        default: "px",
+        format: "quantitySelect",
+        enum: ["px", "rem", "em", "percent"],
+        enumextra: ["px", "rem", "em", "percent"],
         description: "单位"
       }
     },
@@ -137,7 +140,8 @@ exports.defaultSchema = {
       name: {
         type: "string",
         faker: "lorem.word",
-        description: "名字"
+        description: "名字",
+        readOnlyInJson: true
       },
       filter: {
         type: "string",
@@ -148,7 +152,9 @@ exports.defaultSchema = {
       type: {
         type: "string",
         default: "local",
+        format: "typeSelect",
         enum: ["local", "remote"],
+        enumextra: ["local", "remote"],
         description: "类型"
       }
     },
@@ -162,7 +168,8 @@ exports.defaultSchema = {
       name: {
         type: "string",
         faker: "lorem.word",
-        description: "事件名"
+        description: "事件名",
+        readOnlyInJson: true
       },
       filter: {
         type: "string",
@@ -172,8 +179,10 @@ exports.defaultSchema = {
       },
       type: {
         type: "string",
-        default: "in",
+        default: "out",
+        format: "typeSelect",
         enum: ["in", "out"],
+        enumextra: ["in", "out"],
         description: "类型"
       }
     },

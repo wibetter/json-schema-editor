@@ -3,7 +3,7 @@ module.exports = {
   entry: "./package/index.js",
   mode: "production",
   output: {
-    publicPath: "/dist/",
+    publicPath: "/build/",
     libraryTarget: "umd",
     library: ["schema"],
     filename: "[name].js"
