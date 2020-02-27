@@ -9,6 +9,7 @@ const mapping = (name, data, showEdit, showAdv) => {
   if (data.format === "radio" || data.format === "select") {
     type = data.format;
   }
+
   switch (type) {
     case "array":
       return (

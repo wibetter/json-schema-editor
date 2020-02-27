@@ -14,6 +14,34 @@ const _ = require("underscore");
 exports.FUNCSCHEME_TYPE = [
   "input",
   "date",
+  "boolean",
+  "date-time",
+  "time",
+  "url",
+  "textarea",
+  "number",
+  "radio",
+  "select",
+  "array",
+  "object"
+];
+exports.STYLESCHEME_TYPE = [
+  "input",
+  "boolean",
+  "color",
+  "url",
+  "number",
+  "radio",
+  "select",
+  "quantity",
+  "array",
+  "object"
+];
+exports.ARRAY_TYPE = [
+  "input",
+  "boolean",
+  "color",
+  "date",
   "date-time",
   "time",
   "url",
@@ -22,18 +50,17 @@ exports.FUNCSCHEME_TYPE = [
   "radio",
   "select"
 ];
-exports.STYLESCHEME_TYPE = [
+exports.DATASCHEME_TYPE = [
   "input",
-  "color",
-  "url",
   "number",
-  "radio",
-  "select",
-  "quantity"
+  "json",
+  "datasource",
+  "event",
+  "object"
 ];
-exports.DATASCHEME_TYPE = ["input", "number", "json", "datasource", "event"];
 exports.SCHEMA_TYPE = [
   "input",
+  "boolean",
   "color",
   "date",
   "date-time",
@@ -46,12 +73,37 @@ exports.SCHEMA_TYPE = [
   "select",
   "quantity",
   "datasource",
-  "event"
+  "event",
+  "array"
 ];
 exports.defaultSchema = {
   input: {
     type: "string",
-    description: "单文本框"
+    description: "单文本框",
+    format: "input"
+  },
+  object: {
+    type: "object",
+    format: "object",
+    properties: {
+      a: {
+        type: "string",
+        description: "单文本框",
+        format: "input"
+      }
+    },
+    description: "普通对象",
+    required: ["a"]
+  },
+  boolean: {
+    type: "boolean",
+    description: "布尔值",
+    format: "boolean"
+  },
+  boolean: {
+    type: "boolean",
+    description: "布尔值",
+    format: "boolean"
   },
   color: {
     type: "string",
@@ -63,9 +115,9 @@ exports.defaultSchema = {
     format: "date",
     description: "Date"
   },
-  datetime: {
+  "date-time": {
     type: "string",
-    format: "datetime",
+    format: "date-time",
     description: "Datetime"
   },
   time: {
@@ -113,6 +165,23 @@ exports.defaultSchema = {
     uniqueItems: true,
     description: "多选"
   },
+  array: {
+    type: "array",
+    format: "array",
+    items: {
+      type: "object",
+      properties: {
+        name: {
+          type: "string",
+          format: "input",
+          description: "名字"
+        }
+      },
+      description: "数组项"
+    },
+    description: "数组",
+    required: ["type"]
+  },
   quantity: {
     type: "object",
     format: "quantity",
@@ -137,18 +206,6 @@ exports.defaultSchema = {
     type: "object",
     format: "datasource",
     properties: {
-      name: {
-        type: "string",
-        faker: "lorem.word",
-        description: "名字",
-        readOnlyInJson: true
-      },
-      filter: {
-        type: "string",
-        format: "textarea",
-        default: "return data;",
-        description: "过滤器"
-      },
       type: {
         type: "string",
         default: "local",
@@ -156,6 +213,18 @@ exports.defaultSchema = {
         enum: ["local", "remote"],
         enumextra: ["local", "remote"],
         description: "类型"
+      },
+      data: {
+        type: "string",
+        format: "typeSelectData",
+        default: "local",
+        readOnlyInJson: true
+      },
+      filter: {
+        type: "string",
+        format: "textarea",
+        default: "return data;",
+        description: "过滤器"
       }
     },
     description: "数据源",
@@ -165,10 +234,19 @@ exports.defaultSchema = {
     type: "object",
     format: "event",
     properties: {
-      name: {
+      // name: {
+      //   type: "string",
+      //   faker: "lorem.word",
+      //   description: "事件名",
+      //   readOnlyInJson: true
+      // },
+      type: {
         type: "string",
-        faker: "lorem.word",
-        description: "事件名",
+        default: "out",
+        format: "typeSelect",
+        enum: ["in", "out"],
+        enumextra: ["in", "out"],
+        description: "类型",
         readOnlyInJson: true
       },
       filter: {
@@ -176,14 +254,6 @@ exports.defaultSchema = {
         format: "textarea",
         default: "return data;",
         description: "过滤器"
-      },
-      type: {
-        type: "string",
-        default: "out",
-        format: "typeSelect",
-        enum: ["in", "out"],
-        enumextra: ["in", "out"],
-        description: "类型"
       }
     },
     description: "事件",
@@ -228,6 +298,7 @@ exports.setData = function(state, keys, value) {
   for (let i = 0; i < keys.length - 1; i++) {
     curState = curState[keys[i]];
   }
+
   curState[keys[keys.length - 1]] = value;
 };
 

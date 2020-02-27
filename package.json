@@ -1,8 +1,8 @@
 {
   "name": "@jdcfe/json-schema-editor",
-  "version": "0.3.7",
+  "version": "0.5.2",
   "description": "jsonschema editor",
-  "main": "package/index.js",
+  "main": "dist/index.js",
   "license": "MIC",
   "scripts": {
     "start": "ykit s -p 8084",

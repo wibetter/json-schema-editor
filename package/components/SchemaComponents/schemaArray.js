@@ -108,6 +108,7 @@ class SchemaArray extends PureComponent {
       .concat(prefixArray, "properties")
       .join(JSONPATH_JOIN_CHAR);
     let showIcon = this.context.getOpenValue([prefixArrayStr]);
+
     return (
       !_.isUndefined(data.items) && (
         <div className="array-type">
@@ -149,6 +150,11 @@ class SchemaArray extends PureComponent {
                 className="type-select-style"
                 onChange={this.handleChangeType}
                 value={items.type}
+                disabled={
+                  data.format === "array" && data.type === "array"
+                    ? true
+                    : false
+                }
               >
                 {SCHEMA_TYPE.map((item, index) => {
                   return (

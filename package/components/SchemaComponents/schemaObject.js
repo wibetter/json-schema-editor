@@ -46,7 +46,6 @@ class SchemaObjectComponent extends Component {
 
   render() {
     const { data, prefix, showEdit, showAdv, level } = this.props;
-
     return (
       <div className="object-style">
         {Object.keys(data.properties).map((name, index) => (

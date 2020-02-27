@@ -27,7 +27,8 @@ import {
   SCHEMA_TYPE,
   FUNCSCHEME_TYPE,
   STYLESCHEME_TYPE,
-  DATASCHEME_TYPE
+  DATASCHEME_TYPE,
+  ARRAY_TYPE
 } from "../../utils.js";
 
 import LocaleProvider from "../LocalProvider/index.js";
@@ -73,6 +74,12 @@ class SchemaItem extends PureComponent {
         key: [].concat(prefix, [name, "default"]),
         value: value
       });
+      if (format === "typeSelect" && data.format === "datasource") {
+        this.Model.changeValueAction({
+          key: [].concat(prefix, ["data", "default"]),
+          value: value
+        });
+      }
     } else {
       if (
         data.properties[value] &&
@@ -190,7 +197,7 @@ class SchemaItem extends PureComponent {
     });
   };
 
-  renderTypeSelect = format => {
+  renderTypeSelect = (format, value) => {
     switch (format) {
       case "func":
         return this.renderTypeSelectOption(FUNCSCHEME_TYPE);
@@ -198,6 +205,8 @@ class SchemaItem extends PureComponent {
         return this.renderTypeSelectOption(STYLESCHEME_TYPE);
       case "data":
         return this.renderTypeSelectOption(DATASCHEME_TYPE);
+      case "object":
+        return this.renderTypeSelectOption(ARRAY_TYPE);
       default:
         return this.renderTypeSelectOption(SCHEMA_TYPE);
     }
@@ -221,7 +230,11 @@ class SchemaItem extends PureComponent {
       .join(JSONPATH_JOIN_CHAR);
     let show = this.context.getOpenValue([prefixStr]);
     let showIcon = this.context.getOpenValue([prefixArrayStr]);
-    return show ? (
+    return show &&
+      !(
+        (value.default === "local" || value.default === "remote") &&
+        name === "data"
+      ) ? (
       <div>
         <Row type="flex" justify="space-around" align="middle">
           <Col
@@ -279,7 +292,9 @@ class SchemaItem extends PureComponent {
               disabled={
                 value.format === "func" ||
                 value.format === "style" ||
-                value.format === "data"
+                value.format === "data" ||
+                parentType === "datasource" ||
+                parentType === "event"
                   ? true
                   : false
               }
@@ -287,7 +302,6 @@ class SchemaItem extends PureComponent {
               {this.renderTypeSelect(parentType)}
             </Select>
           </Col>
-
           <Col span={5} className="col-item col-item-desc">
             <Input
               placeholder={LocaleProvider("description")}
@@ -306,7 +320,9 @@ class SchemaItem extends PureComponent {
           <Col span={3} className="col-item col-item-setting">
             {((parentType !== "event" && parentType !== "datasource") ||
               (parentType === "datasource" &&
-                (name !== "name" && name !== "filter" && name !== "type"))) && (
+                name !== "name" &&
+                name !== "filter" &&
+                name !== "type")) && (
               <div>
                 {parentType !== "quantity" &&
                   value.format !== "func" &&

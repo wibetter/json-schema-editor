@@ -91,10 +91,18 @@ export default {
     let parentDataItem = parentData.description
       ? { description: parentData.description }
       : {};
+
     let newParentData = Object.assign({}, newParentDataItem, {
-      description: utils.defaultSchema[action.value].description
+      description:
+        (
+          utils.defaultSchema[parentData.type] ||
+          utils.defaultSchema[parentData.format]
+        ).description === parentData.description
+          ? utils.defaultSchema[action.value].description
+          : parentData.description
     });
     let newKeys = [].concat("data", parentKeys);
+
     utils.setData(state, newKeys, newParentData);
   },
 
