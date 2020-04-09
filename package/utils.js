@@ -218,7 +218,7 @@ exports.defaultSchema = {
         type: "string",
         format: "typeSelectData",
         default: "local",
-        readOnlyInJson: true
+        readOnlyInJson: false
       },
       filter: {
         type: "string",
@@ -247,7 +247,7 @@ exports.defaultSchema = {
         enum: ["in", "out"],
         enumextra: ["in", "out"],
         description: "类型",
-        readOnlyInJson: true
+        readOnlyInJson: false
       },
       filter: {
         type: "string",

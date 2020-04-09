@@ -1,6 +1,6 @@
 {
-  "name": "@jdcfe/json-schema-editor",
-  "version": "0.5.2",
+  "name": "@jdwork/json-schema-editor",
+  "version": "0.5.3",
   "description": "jsonschema editor",
   "main": "dist/index.js",
   "license": "MIC",
