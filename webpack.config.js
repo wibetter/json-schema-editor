@@ -1,12 +1,14 @@
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require("path");
+
 module.exports = {
-  entry: "./package/index.js",
+  entry: "./src/index.js",
   mode: "production",
   output: {
-    publicPath: "/build/",
+    path: path.resolve(__dirname, 'dist'),
     libraryTarget: "umd",
-    library: ["schema"],
-    filename: "[name].js"
+    library: ["JSONSchema"],
+    filename: "index.js"
   },
   module: {
     rules: [
@@ -34,7 +36,7 @@ module.exports = {
       { test: /\.less$/, use: ["style-loader", "css-loader", "less-loader"] }
     ]
   },
-  plugins: [new ExtractTextPlugin("main.css")],
+  plugins: [new ExtractTextPlugin("index.css")],
   externals: [
     {
       react: {
