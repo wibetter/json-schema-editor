@@ -1,6 +1,7 @@
 const JSONPATH_JOIN_CHAR = ".";
 exports.JSONPATH_JOIN_CHAR = JSONPATH_JOIN_CHAR;
 exports.lang = "en_US";
+
 exports.format = [
   { name: "date-time" },
   { name: "date" },
@@ -11,6 +12,7 @@ exports.format = [
   { name: "uri" }
 ];
 const _ = require("underscore");
+// 功能类型可选项
 exports.FUNCSCHEME_TYPE = [
   "input",
   "date",
@@ -25,6 +27,7 @@ exports.FUNCSCHEME_TYPE = [
   "array",
   "object"
 ];
+// 样式类型可选项
 exports.STYLESCHEME_TYPE = [
   "input",
   "boolean",
@@ -37,6 +40,7 @@ exports.STYLESCHEME_TYPE = [
   "array",
   "object"
 ];
+// 数据类型可选项
 exports.ARRAY_TYPE = [
   "input",
   "boolean",
@@ -50,6 +54,7 @@ exports.ARRAY_TYPE = [
   "radio",
   "select"
 ];
+// 数据类型可选项
 exports.DATASCHEME_TYPE = [
   "input",
   "number",
@@ -58,6 +63,7 @@ exports.DATASCHEME_TYPE = [
   "event",
   "object"
 ];
+// schema基本类型
 exports.SCHEMA_TYPE = [
   "input",
   "boolean",
@@ -76,6 +82,7 @@ exports.SCHEMA_TYPE = [
   "event",
   "array"
 ];
+// 默认的schema对象
 exports.defaultSchema = {
   input: {
     type: "string",
@@ -94,11 +101,6 @@ exports.defaultSchema = {
     },
     description: "普通对象",
     required: ["a"]
-  },
-  boolean: {
-    type: "boolean",
-    description: "布尔值",
-    format: "boolean"
   },
   boolean: {
     type: "boolean",
@@ -282,7 +284,7 @@ exports.debounce = (func, wait) => {
     timeout = setTimeout(func, wait);
   };
 };
-
+// 根据keys从state对象中获取数据，其中keys是key值路径组成的数组。
 function getData(state, keys) {
   let curState = state;
   for (let i = 0; i < keys.length; i++) {
@@ -292,13 +294,12 @@ function getData(state, keys) {
 }
 
 exports.getData = getData;
-
+// 根据keys向state对象中设置新的数值
 exports.setData = function(state, keys, value) {
   let curState = state;
   for (let i = 0; i < keys.length - 1; i++) {
     curState = curState[keys[i]];
   }
-
   curState[keys[keys.length - 1]] = value;
 };
 
@@ -310,14 +311,14 @@ exports.deleteData = function(state, keys) {
 
   delete curState[keys[keys.length - 1]];
 };
-
+// 获取父元素的key值路径数组
 exports.getParentKeys = function(keys) {
   if (keys.length === 1) return [];
   let arr = [].concat(keys);
   arr.splice(keys.length - 1, 1);
   return arr;
 };
-
+// 根据系列key值删除对象中的指定属性（一级属性）
 exports.clearSomeFields = function(keys, data) {
   const newData = Object.assign({}, data);
   keys.forEach(key => {
@@ -325,7 +326,7 @@ exports.clearSomeFields = function(keys, data) {
   });
   return newData;
 };
-
+// 获取当前对象的所有属性key，组成requiredTitle
 function getFieldstitle(data) {
   const requiredtitle = [];
   Object.keys(data).map(title => {
@@ -334,7 +335,7 @@ function getFieldstitle(data) {
 
   return requiredtitle;
 }
-
+// 给schema对象设置required属性，其中required记录当前schema的所有属性key值
 function handleSchemaRequired(schema, checked) {
   if (schema.type === "object") {
     let requiredtitle = getFieldstitle(schema.properties);
@@ -363,6 +364,7 @@ function handleObject(properties, checked) {
 
 exports.handleSchemaRequired = handleSchemaRequired;
 
+// copy某个对象的数值，且避免产生关联（js深复制）
 function cloneObject(obj) {
   if (typeof obj === "object") {
     if (Array.isArray(obj)) {

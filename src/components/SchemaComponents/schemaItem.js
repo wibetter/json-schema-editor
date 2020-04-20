@@ -29,7 +29,7 @@ import {
   STYLESCHEME_TYPE,
   DATASCHEME_TYPE,
   ARRAY_TYPE
-} from "../../utils.js";
+} from "../../utils";
 
 import LocaleProvider from "../LocalProvider/index.js";
 

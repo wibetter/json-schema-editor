@@ -28,7 +28,7 @@ import PropTypes, { string } from "prop-types";
 
 import SchemaItem from "./schemaItem";
 
-import { JSONPATH_JOIN_CHAR, SCHEMA_TYPE } from "../../utils.js";
+import { JSONPATH_JOIN_CHAR, SCHEMA_TYPE } from "../../utils";
 
 import LocaleProvider from "../LocalProvider/index.js";
 

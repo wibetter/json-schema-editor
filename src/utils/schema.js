@@ -1,7 +1,4 @@
 
-
-module.exports = handleSchema;
-
 function handleType(schema) {
   if(!schema.type && schema.properties && typeof schema.properties === 'object') {
     
@@ -33,3 +30,5 @@ function handleObject(properties) {
   }
 }
 
+// 用于矫正schema数据格式
+module.exports = handleSchema;
