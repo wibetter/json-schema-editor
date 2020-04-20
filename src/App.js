@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   Input,
   Row,
@@ -13,18 +15,17 @@ import {
 const { TextArea } = Input;
 const TabPane = Tabs.TabPane;
 
-import "./index.css";
-import AceEditor from "./components/AceEditor/AceEditor.js";
-import _ from "underscore";
-import { connect } from "react-redux";
-import SchemaJson from "./components/SchemaComponents/SchemaJson.js";
-import PropTypes from "prop-types";
-import { debounce } from "./utils";
-import handleSchema from "./utils/schema";
 const GenerateSchema = require("generate-schema/src/schemas/json.js");
-const utils = require("./utils");
+import AceEditor from "./components/AceEditor/AceEditor.js";
+import SchemaJson from "./components/SchemaComponents/SchemaJson.js";
 import CustomItem from "./components/SchemaComponents/SchemaOther.js";
 import LocalProvider from "./components/LocalProvider/index.js";
+
+import { debounce } from "./utils";
+import handleSchema from "./utils/schema";
+const utils = require("./utils");
+
+import "./index.css";
 
 class jsonSchema extends React.Component {
   constructor(props) {

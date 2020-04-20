@@ -47,6 +47,14 @@ module.exports = {
       }
     },
     {
+      "react-dom": {
+        commonjs: "react-dom",
+        commonjs2: "react-dom",
+        amd: "react-dom",
+        root: ["ReactDom"]
+      }
+    },
+    {
       "react-redux": {
         commonjs: "react-redux",
         commonjs2: "react-redux",
@@ -70,14 +78,6 @@ module.exports = {
       }
     },
     { moox: { commonjs: "moox", commonjs2: "moox", amd: "moox" } },
-    {
-      "react-dom": {
-        commonjs: "react-dom",
-        commonjs2: "react-dom",
-        amd: "react-dom",
-        root: ["ReactDom"]
-      }
-    },
     { redux: { commonjs: "redux", commonjs2: "redux", amd: "redux" } },
     {
       "prop-types": {
