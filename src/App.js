@@ -60,7 +60,7 @@ class jsonSchema extends React.Component {
       if (!this.jsonData) {
         return message.error("json 数据格式有误");
       }
-
+      // Generates JSON Schema from object
       let jsonData = GenerateSchema(this.jsonData);
       this.Model.changeEditorSchemaAction({ value: jsonData });
     } else {
