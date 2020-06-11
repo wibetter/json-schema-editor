@@ -41,5 +41,3 @@ class Example extends Component {
 | `showEditor` | boolean  | false   |
 
 ## License
-
-MIT © [wibetter](https://github.com/wibetter)
