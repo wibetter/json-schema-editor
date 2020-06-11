@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   Input,
   Row,
@@ -10,90 +10,44 @@ import {
   Modal,
   message,
   Tabs,
-  Button
-} from "antd";
+  Button,
+} from 'antd';
 const { TextArea } = Input;
-const TabPane = Tabs.TabPane;
+const { TabPane } = Tabs;
+import GenerateSchema from 'generate-schema/src/schemas/json'; // schema生成器
+import AceEditor from './components/AceEditor/AceEditor'; // ace编辑器
+import SchemaJson from './components/SchemaComponents/SchemaJson';
+import CustomItem from './components/SchemaComponents/SchemaOther';
+import LocalProvider from './components/LocalProvider/index'; // 多语言包
+import * as utils from './utils';
+import handleSchema from './utils/schema'; // schema相关工具方法
 
-const GenerateSchema = require("generate-schema/src/schemas/json.js");
-import AceEditor from "./components/AceEditor/AceEditor.js";
-import SchemaJson from "./components/SchemaComponents/SchemaJson.js";
-import CustomItem from "./components/SchemaComponents/SchemaOther.js";
-import LocalProvider from "./components/LocalProvider/index.js";
-
-import { debounce } from "./utils";
-import handleSchema from "./utils/schema";
-const utils = require("./utils");
-
-import "./index.css";
+import './index.css';
 
 class jsonSchema extends React.Component {
   constructor(props) {
     super(props);
-    this.alterMsg = debounce(this.alterMsg, 2000);
+    this.alterMsg = utils.debounce(this.alterMsg, 2000);
     this.state = {
       visible: false,
       show: true,
       editVisible: false,
-      description: "",
+      description: '',
       descriptionKey: null,
       advVisible: false,
       itemKey: [],
       curItemCustomValue: null,
       checked: false,
-      editorModalName: "", // 弹窗名称desctiption | mock
-      mock: ""
+      editorModalName: '', // 弹窗名称desctiption | mock
+      mock: '',
     };
     this.Model = this.props.Model.schema;
     this.jsonSchemaData = null;
     this.jsonData = null;
   }
 
-  // json 导入弹窗
-  showModal() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk() {
-    if (this.importJsonType !== "schema") {
-      if (!this.jsonData) {
-        return message.error("json 数据格式有误");
-      }
-      // Generates JSON Schema from object
-      let jsonData = GenerateSchema(this.jsonData);
-      this.Model.changeEditorSchemaAction({ value: jsonData });
-    } else {
-      if (!this.jsonSchemaData) {
-        return message.error("json 数据格式有误");
-      }
-      this.Model.changeEditorSchemaAction({ value: this.jsonSchemaData });
-    }
-    this.setState({ visible: false });
-  }
-  handleCancel() {
-    this.setState({ visible: false });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (
-      typeof this.props.onChange === "function" &&
-      this.props.schema !== nextProps.schema
-    ) {
-      let oldData = JSON.stringify(this.props.schema || "");
-      let newData = JSON.stringify(nextProps.schema || "");
-
-      if (oldData !== newData) return this.props.onChange(newData);
-    }
-    if (this.props.data && this.props.data !== nextProps.data) {
-      this.Model.changeEditorSchemaAction({
-        value: JSON.parse(nextProps.data)
-      });
-    }
-  }
-
   componentWillMount() {
-    let data = this.props.data;
+    let { data } = this.props;
     if (!data) {
       data = `{
         "type": "object",
@@ -104,14 +58,59 @@ class jsonSchema extends React.Component {
     this.Model.changeEditorSchemaAction({ value: JSON.parse(data) });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (
+      typeof this.props.onChange === 'function' &&
+      this.props.schema !== nextProps.schema
+    ) {
+      const oldData = JSON.stringify(this.props.schema || '');
+      const newData = JSON.stringify(nextProps.schema || '');
+
+      if (oldData !== newData) return this.props.onChange(newData);
+    }
+    if (this.props.data && this.props.data !== nextProps.data) {
+      this.Model.changeEditorSchemaAction({
+        value: JSON.parse(nextProps.data),
+      });
+    }
+  }
+
+  // 显示json 导入弹窗
+  showModal() {
+    this.setState({
+      visible: true,
+    });
+  }
+
+  // 确认导入json数据
+  handleOk() {
+    if (this.importJsonType !== 'schema') {
+      if (!this.jsonData) {
+        return message.error('json 数据格式有误');
+      }
+      // Generates JSON Schema from object（根据json数据对象获取对应的schema数据）
+      const jsonData = GenerateSchema(this.jsonData);
+      this.Model.changeEditorSchemaAction({ value: jsonData });
+    } else {
+      if (!this.jsonSchemaData) {
+        return message.error('json 数据格式有误');
+      }
+      this.Model.changeEditorSchemaAction({ value: this.jsonSchemaData });
+    }
+    this.setState({ visible: false });
+  }
+
+  // 取消导入json数据
+  handleCancel() {
+    this.setState({ visible: false });
+  }
+
   getChildContext() {
     return {
-      getOpenValue: keys => {
-        return utils.getData(this.props.open, keys);
-      },
+      getOpenValue: (keys) => utils.getData(this.props.open, keys),
       changeCustomValue: this.changeCustomValue,
       Model: this.props.Model,
-      isMock: this.props.isMock
+      isMock: this.props.isMock,
     };
   }
 
@@ -120,7 +119,7 @@ class jsonSchema extends React.Component {
   };
 
   // AceEditor 中的数据
-  handleParams = e => {
+  handleParams = (e) => {
     if (!e.text) return;
     // 将数据map 到store中
     if (e.format !== true) {
@@ -128,7 +127,7 @@ class jsonSchema extends React.Component {
     }
     handleSchema(e.jsonData);
     this.Model.changeEditorSchemaAction({
-      value: e.jsonData
+      value: e.jsonData,
     });
   };
 
@@ -137,21 +136,22 @@ class jsonSchema extends React.Component {
     this.Model.changeTypeAction({ key: [key], value });
   };
 
-  handleImportJson = e => {
+  handleImportJson = (e) => {
     if (!e.text || e.format !== true) {
       return (this.jsonData = null);
     }
     this.jsonData = e.jsonData;
   };
 
-  handleImportJsonSchema = e => {
+  handleImportJsonSchema = (e) => {
     if (!e.text || e.format !== true) {
       return (this.jsonSchemaData = null);
     }
     this.jsonSchemaData = e.jsonData;
   };
+
   // 增加子节点
-  addChildField = key => {
+  addChildField = (key) => {
     this.Model.addChildFieldAction({ key: [key] });
     this.setState({ show: true });
   };
@@ -162,29 +162,30 @@ class jsonSchema extends React.Component {
 
   // 修改备注信息
   changeValue = (key, value) => {
-    if (key[0] === "mock") {
-      value = value ? { mock: value } : "";
+    if (key[0] === 'mock') {
+      value = value ? { mock: value } : '';
     }
     this.Model.changeValueAction({ key, value });
   };
 
   // 备注/mock弹窗 点击ok 时
-  handleEditOk = name => {
+  handleEditOk = (name) => {
     this.setState({
-      editVisible: false
+      editVisible: false,
     });
     let value = this.state[name];
-    if (name === "mock") {
-      value = value ? { mock: value } : "";
+    if (name === 'mock') {
+      value = value ? { mock: value } : '';
     }
     this.Model.changeValueAction({ key: this.state.descriptionKey, value });
   };
 
   handleEditCancel = () => {
     this.setState({
-      editVisible: false
+      editVisible: false,
     });
   };
+
   /*
     展示弹窗modal
     prefix: 节点前缀信息
@@ -193,24 +194,24 @@ class jsonSchema extends React.Component {
     type: 如果当前字段是object || array showEdit 不可用
   */
   showEdit = (prefix, name, value, type) => {
-    if (type === "object" || type === "array") {
+    if (type === 'object' || type === 'array') {
       return;
     }
-    let descriptionKey = [].concat(prefix, name);
+    const descriptionKey = [].concat(prefix, name);
 
-    value = name === "mock" ? (value ? value.mock : "") : value;
+    value = name === 'mock' ? (value ? value.mock : '') : value;
     this.setState({
       editVisible: true,
       [name]: value,
       descriptionKey,
-      editorModalName: name
+      editorModalName: name,
     });
   };
 
   // 修改备注/mock参数信息
   changeDesc = (e, name) => {
     this.setState({
-      [name]: e
+      [name]: e,
     });
   };
 
@@ -218,39 +219,41 @@ class jsonSchema extends React.Component {
   handleAdvOk = () => {
     if (this.state.itemKey.length === 0) {
       this.Model.changeEditorSchemaAction({
-        value: this.state.curItemCustomValue
+        value: this.state.curItemCustomValue,
       });
     } else {
       this.Model.changeValueAction({
         key: this.state.itemKey,
-        value: this.state.curItemCustomValue
+        value: this.state.curItemCustomValue,
       });
     }
     this.setState({
-      advVisible: false
+      advVisible: false,
     });
   };
+
   handleAdvCancel = () => {
     this.setState({
-      advVisible: false
+      advVisible: false,
     });
   };
+
   showAdv = (key, value) => {
     this.setState({
       advVisible: true,
       itemKey: key,
-      curItemCustomValue: value // 当前节点的数据信息
+      curItemCustomValue: value, // 当前节点的数据信息
     });
   };
 
   //  修改弹窗中的json-schema 值
-  changeCustomValue = newValue => {
+  changeCustomValue = (newValue) => {
     this.setState({
-      curItemCustomValue: newValue
+      curItemCustomValue: newValue,
     });
   };
 
-  changeCheckBox = e => {
+  changeCheckBox = (e) => {
     this.setState({ checked: e });
     this.Model.requireAllAction({ required: e, value: this.props.schema });
   };
@@ -263,37 +266,36 @@ class jsonSchema extends React.Component {
       advVisible,
       type,
       checked,
-      editorModalName
+      editorModalName,
     } = this.state;
     const { schema } = this.props;
-    let disabled =
-      this.props.schema.type === "object" || this.props.schema.type === "array"
-        ? false
-        : true;
+    const disabled = !(
+      this.props.schema.type === 'object' || this.props.schema.type === 'array'
+    );
 
     return (
       <div className="json-schema-react-editor">
         <Modal
           maskClosable={false}
           visible={visible}
-          title={LocalProvider("import_json")}
+          title={LocalProvider('import_json')}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           className="json-schema-react-editor-import-modal"
-          okText={"ok"}
-          cancelText={LocalProvider("cancel")}
+          okText={'ok'}
+          cancelText={LocalProvider('cancel')}
           footer={[
             <Button key="back" onClick={this.handleCancel}>
-              {LocalProvider("cancel")}
+              {LocalProvider('cancel')}
             </Button>,
             <Button key="submit" type="primary" onClick={this.handleOk}>
-              {LocalProvider("ok")}
-            </Button>
+              {LocalProvider('ok')}
+            </Button>,
           ]}
         >
           <Tabs
             defaultActiveKey="json"
-            onChange={key => {
+            onChange={(key) => {
               this.importJsonType = key;
             }}
           >
@@ -315,8 +317,8 @@ class jsonSchema extends React.Component {
             <div>
               {LocalProvider(editorModalName)}
               &nbsp;
-              {editorModalName === "mock" && (
-                <Tooltip title={LocalProvider("mockLink")}>
+              {editorModalName === 'mock' && (
+                <Tooltip title={LocalProvider('mockLink')}>
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
@@ -332,27 +334,27 @@ class jsonSchema extends React.Component {
           visible={editVisible}
           onOk={() => this.handleEditOk(editorModalName)}
           onCancel={this.handleEditCancel}
-          okText={LocalProvider("ok")}
-          cancelText={LocalProvider("cancel")}
+          okText={LocalProvider('ok')}
+          cancelText={LocalProvider('cancel')}
         >
           <TextArea
             value={this.state[editorModalName]}
             placeholder={LocalProvider(editorModalName)}
-            onChange={e => this.changeDesc(e.target.value, editorModalName)}
+            onChange={(e) => this.changeDesc(e.target.value, editorModalName)}
             autosize={{ minRows: 6, maxRows: 10 }}
           />
         </Modal>
 
         {advVisible && (
           <Modal
-            title={LocalProvider("adv_setting")}
+            title={LocalProvider('adv_setting')}
             maskClosable={false}
             visible={advVisible}
             onOk={this.handleAdvOk}
             onCancel={this.handleAdvCancel}
-            okText={LocalProvider("ok")}
+            okText={LocalProvider('ok')}
             width={780}
-            cancelText={LocalProvider("cancel")}
+            cancelText={LocalProvider('cancel')}
             className="json-schema-react-editor-adv-modal"
           >
             <CustomItem
@@ -394,7 +396,7 @@ jsonSchema.childContextTypes = {
   getOpenValue: PropTypes.func,
   changeCustomValue: PropTypes.func,
   Model: PropTypes.object,
-  isMock: PropTypes.bool
+  isMock: PropTypes.bool,
 };
 
 jsonSchema.propTypes = {
@@ -402,10 +404,10 @@ jsonSchema.propTypes = {
   onChange: PropTypes.func,
   showEditor: PropTypes.bool,
   isMock: PropTypes.bool,
-  Model: PropTypes.object
+  Model: PropTypes.object,
 };
 
-export default connect(state => ({
+export default connect((state) => ({
   schema: state.schema.data,
-  open: state.schema.open
+  open: state.schema.open,
 }))(jsonSchema);

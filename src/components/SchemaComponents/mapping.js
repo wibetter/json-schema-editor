@@ -1,17 +1,19 @@
-import React, { Component, PureComponent } from "react";
-import SchemaArray from "./schemaArray";
-import SchemaObject from "./schemaObject";
-import SchemaNumber from "./schemaNumber";
-import SchemaRadio from "./schemaRadio";
-import SchemaSelect from "./schemaSelect";
+import React from 'react';
+
+import SchemaArray from './schemaArray';
+import SchemaObject from './schemaObject';
+import SchemaNumber from './schemaNumber';
+import SchemaRadio from './schemaRadio';
+import SchemaSelect from './schemaSelect';
+
 const mapping = (name, data, showEdit, showAdv) => {
-  let type = data.type;
-  if (data.format === "radio" || data.format === "select") {
+  let { type } = data;
+  if (data.format === 'radio' || data.format === 'select') {
     type = data.format;
   }
 
   switch (type) {
-    case "array":
+    case 'array':
       return (
         <SchemaArray
           prefix={name}
@@ -21,11 +23,10 @@ const mapping = (name, data, showEdit, showAdv) => {
         />
       );
       break;
-    case "object":
-      let nameArray = [].concat(name, "properties");
+    case 'object':
       return (
         <SchemaObject
-          prefix={nameArray}
+          prefix={ [].concat(name, 'properties') }
           data={data}
           showEdit={showEdit}
           showAdv={showAdv}
@@ -33,11 +34,11 @@ const mapping = (name, data, showEdit, showAdv) => {
         />
       );
       break;
-    case "number":
+    case 'number':
       return (
         <SchemaNumber
           name={name}
-          prefix={[].concat(name, "properties")}
+          prefix={[].concat(name, 'properties')}
           data={data}
           showEdit={showEdit}
           showAdv={showAdv}
@@ -45,11 +46,11 @@ const mapping = (name, data, showEdit, showAdv) => {
         />
       );
       break;
-    case "radio":
+    case 'radio':
       return (
         <SchemaRadio
           name={name}
-          prefix={[].concat(name, "properties")}
+          prefix={[].concat(name, 'properties')}
           data={data}
           showEdit={showEdit}
           showAdv={showAdv}
@@ -57,11 +58,11 @@ const mapping = (name, data, showEdit, showAdv) => {
         />
       );
       break;
-    case "select":
+    case 'select':
       return (
         <SchemaSelect
           name={name}
-          prefix={[].concat(name, "properties")}
+          prefix={[].concat(name, 'properties')}
           data={data}
           showEdit={showEdit}
           showAdv={showAdv}
@@ -73,4 +74,5 @@ const mapping = (name, data, showEdit, showAdv) => {
       return null;
   }
 };
+
 export default mapping;

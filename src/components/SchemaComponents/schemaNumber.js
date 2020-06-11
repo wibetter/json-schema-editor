@@ -1,9 +1,9 @@
-import React, { Component, PureComponent } from "react";
-import { InputNumber } from "antd";
+import React, { Component } from 'react';
+import { InputNumber } from 'antd';
 
-import _ from "underscore";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import _ from 'underscore';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class SchemaNumberComponent extends Component {
   constructor(props, context) {
@@ -13,9 +13,9 @@ class SchemaNumberComponent extends Component {
 
   shouldComponentUpdate(nextProps) {
     if (
-      _.isEqual(nextProps.data, this.props.data) &&
-      _.isEqual(nextProps.prefix, this.props.prefix) &&
-      _.isEqual(nextProps.open, this.props.open)
+      _.isEqual(nextProps.data, this.props.data)
+      && _.isEqual(nextProps.prefix, this.props.prefix)
+      && _.isEqual(nextProps.open, this.props.open)
     ) {
       return false;
     }
@@ -28,7 +28,7 @@ class SchemaNumberComponent extends Component {
     tmpValue[title] = value;
     this.Model.changeValueAction({
       key: name,
-      value: tmpValue
+      value: tmpValue,
     });
   };
 
@@ -38,13 +38,13 @@ class SchemaNumberComponent extends Component {
     return (
       <div className="array-inner-style">
         {Object.keys(data)
-          .filter(d => d !== "type" && d !== "description")
+          .filter((d) => d !== 'type' && d !== 'description')
           .map((d, i) => (
             <div className="array-inner-item" key={i}>
               <span>{d}</span>
               <InputNumber
                 defaultValue={data[d]}
-                onChange={value => {
+                onChange={(value) => {
                   this.changeValue(value, d);
                 }}
               />
@@ -55,10 +55,10 @@ class SchemaNumberComponent extends Component {
   }
 }
 SchemaNumberComponent.contextTypes = {
-  Model: PropTypes.object
+  Model: PropTypes.object,
 };
-const SchemaNumber = connect(state => ({
-  open: state.schema.open
+const SchemaNumber = connect((state) => ({
+  open: state.schema.open,
 }))(SchemaNumberComponent);
 
 export default SchemaNumber;

@@ -1,48 +1,52 @@
-import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
-import { Input } from "antd";
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { Input } from 'antd';
 
 export default class FieldInput extends PureComponent {
   static propTypes = {
     onChange: PropTypes.func,
-    value: PropTypes.string
+    value: PropTypes.string,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      value: props.value
+      value: props.value,
     };
   }
 
-  handleChange = e => {
-    let value = e.target.value;
+  handleChange = (e) => {
+    const { value } = e.target;
     this.setState({
-      value
+      value,
     });
   };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setState({
-        value: nextProps.value
+        value: nextProps.value,
       });
     }
   }
 
-  onKeyup = e => {
+  onKeyup = (e) => {
     if (e.keyCode === 13) {
       if (e.target.value !== this.props.value) return this.props.onChange(e);
     }
   };
 
-  handleBlur = e => {
+  handleBlur = (e) => {
     if (e.target.value !== this.props.value) return this.props.onChange(e);
   };
 
   render() {
     const { value } = this.state;
     const { addonAfter, onChange, disabled } = this.props;
+
+    console.log('FieldInput-addonAfter:', addonAfter);
+    console.log('FieldInput-onChange:', onChange);
+    console.log('FieldInput-disabled:', disabled);
     return (
       <Input
         {...this.props}

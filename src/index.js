@@ -1,41 +1,40 @@
-import React from "react";
-import { Provider } from "react-redux";
-import moox from "moox";
-import PropTypes from "prop-types";
-import schema from "./models/schema";
-import App from "./App.js";
-import utils from "./utils";
+import React from 'react';
+import { render } from 'react-dom';
+import JSONEditor from './main';
 
-module.exports = (config = {}) => {
-  if (config.lang) utils.lang = config.lang;
+const mock = [
+  { name: '字符串', mock: '@string' },
+  { name: '自然数', mock: '@natural' },
+  { name: '浮点数', mock: '@float' },
+  { name: '字符', mock: '@character' },
+  { name: '布尔', mock: '@boolean' },
+  { name: 'url', mock: '@url' },
+  { name: '域名', mock: '@domain' },
+  { name: 'ip地址', mock: '@ip' },
+  { name: 'id', mock: '@id' },
+  { name: 'guid', mock: '@guid' },
+  { name: '当前时间', mock: '@now' },
+  { name: '时间戳', mock: '@timestamp' },
+];
 
-  const Model = moox({
-    schema
-  });
-  if (config.format) {
-    Model.__jsonSchemaFormat = config.format;
-  } else {
-    Model.__jsonSchemaFormat = utils.format;
-  }
+const JEditor = JSONEditor({ mock });
 
-  if (config.mock) {
-    Model.__jsonSchemaMock = config.mock;
-  }
+render(
+  <div>
+    <h1>JSON-Schema-Editor</h1>
 
-  const store = Model.getStore();
+    <br />
+    <h2>Example:</h2>
+    <hr />
 
-  const Component = props => {
-    return (
-      <Provider store={store} className="wrapper">
-        <App Model={Model} {...props} />
-      </Provider>
-    );
-  };
-
-  Component.propTypes = {
-    data: PropTypes.string,
-    onChange: PropTypes.func,
-    showEditor: PropTypes.bool
-  };
-  return Component;
-};
+    <JEditor
+      showEditor={true}
+      isMock={true}
+      data={''}
+      onChange={(e) => {
+        console.log('changeValue', e);
+      }}
+    />
+  </div>,
+  document.getElementById('root'),
+);

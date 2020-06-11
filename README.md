@@ -1,36 +1,29 @@
-# json-schema-editor-visual
+# json-schema-editor
 
-A json-schema editor of high efficient and easy-to-use, base on React.
+> JSON数据可视化/JSONSchema
 
+## Install
 
-## build
-
-```
-yarn build
-```
-
-## upload
-
-修改版本号
-
-```
-npm publish
+```bash
+npm install --save @jdwork/json-schema-editor
 ```
 
 ## Usage
 
-```
-npm install json-schema-editor-visual
-```
+```jsx
+import React, { Component } from 'react';
 
-```js
+import SchemaEditor from '@jdwork/json-schema-editor';
+import '@jdwork/json-schema-editor/dist/index.css';
+
+const SchemaEditorElem = schemaEditor(option);
 const option = {};
-import "antd/dist/antd.css";
-require("json-schema-editor-visual/dist/main.css");
-const schemaEditor = require("json-schema-editor-visual/dist/main.js");
-const SchemaEditor = schemaEditor(option);
 
-render(<SchemaEditor />, document.getElementById("root"));
+class Example extends Component {
+  render() {
+    return <SchemaEditorElem />
+  }
+}
 ```
 
 ## Option Object
@@ -46,3 +39,7 @@ render(<SchemaEditor />, document.getElementById("root"));
 | `data`       | string   | null    | the data of editor |
 | `onChange`   | function | null    |
 | `showEditor` | boolean  | false   |
+
+## License
+
+MIT © [wibetter](https://github.com/wibetter)

@@ -1,40 +1,23 @@
-import React, { Component, PureComponent } from "react";
+import React, { Component } from 'react';
 import {
-  Dropdown,
-  Menu,
   Row,
   Col,
-  Form,
   Select,
-  Checkbox,
-  Button,
   Icon,
   Input,
-  Modal,
-  message,
   Tooltip,
-  InputNumber,
-  Table,
-  Tag,
-  Divider
-} from "antd";
-import FieldInput from "./FieldInput";
+} from 'antd';
 
-import utils from "../../utils";
+import _ from 'underscore';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { JSONPATH_JOIN_CHAR } from '../../utils';
+import * as utils from '../../utils';
+import FieldInput from './FieldInput';
 
-import _ from "underscore";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
-import SchemaItem from "./schemaItem";
+import LocaleProvider from '../LocalProvider/index';
 
-import { JSONPATH_JOIN_CHAR, SCHEMA_TYPE } from "../../utils";
-
-import LocaleProvider from "../LocalProvider/index.js";
-
-import MockSelect from "../MockSelect/index.js";
-
-import mapping from "./mapping";
 const { Option } = Select;
 
 class SchemaRadioComponent extends Component {
@@ -45,18 +28,18 @@ class SchemaRadioComponent extends Component {
 
   componentWillMount() {
     const { prefix } = this.props;
-    let length = prefix.filter(name => name != "properties").length;
+    const { length } = prefix.filter((name) => name !== 'properties');
     this.__tagPaddingLeftStyle = {
       paddingLeft: `${20 * (length + 1)}px`,
-      marginBottom: "10px"
+      marginBottom: '10px',
     };
   }
 
   shouldComponentUpdate(nextProps) {
     if (
-      _.isEqual(nextProps.data, this.props.data) &&
-      _.isEqual(nextProps.prefix, this.props.prefix) &&
-      _.isEqual(nextProps.open, this.props.open)
+      _.isEqual(nextProps.data, this.props.data)
+      && _.isEqual(nextProps.prefix, this.props.prefix)
+      && _.isEqual(nextProps.open, this.props.open)
     ) {
       return false;
     }
@@ -66,55 +49,55 @@ class SchemaRadioComponent extends Component {
   // 修改节点字段名
   handleChangeName = (e, i, title) => {
     const { data, prefix, name } = this.props;
-    let value = e.target.value;
-    let tmpValue = [...data[title]];
+    const { value } = e.target;
+    const tmpValue = [...data[title]];
     tmpValue[i] = value;
-    let totalValue = { ...data };
+    const totalValue = { ...data };
     totalValue[title] = tmpValue;
 
     this.Model.changeValueAction({
       key: [].concat(prefix.slice(0, prefix.length - 1)),
-      value: totalValue
+      value: totalValue,
     });
     // this.Model.changeNameAction({ value, prefix, name });
   };
 
   // 修改备注信息
-  handleChangeDesc = e => {
-    let prefix = this.getPrefix();
-    let key = [].concat(prefix, "description");
-    let value = e.target.value;
+  handleChangeDesc = (e) => {
+    const prefix = this.getPrefix();
+    const key = [].concat(prefix, 'description');
+    const { value } = e.target;
     this.Model.changeValueAction({ key, value });
   };
 
   //  增加子节点
   handleAddField = () => {
     const { prefix, name, data } = this.props;
-    let tmpValue = [...data.enum];
-    tmpValue[data.enum.length] = "默认选项";
-    let tmpValue1 = [...data.enum];
-    tmpValue1[data.enumextra.length] = "默认描述";
-    let totalValue = { ...data };
+    const tmpValue = [...data.enum];
+    tmpValue[data.enum.length] = '默认选项';
+    const tmpValue1 = [...data.enum];
+    tmpValue1[data.enumextra.length] = '默认描述';
+    const totalValue = { ...data };
     totalValue.enum = tmpValue;
     totalValue.enumextra = tmpValue;
     this.Model.changeValueAction({
       key: [].concat(prefix.slice(0, prefix.length - 1)),
-      value: totalValue
+      value: totalValue,
     });
   };
 
-  handleDeleteItem = i => {
+  handleDeleteItem = (i) => {
     const { prefix, name, data } = this.props;
-    let enumArr = [...data.enum];
-    let extarArr = [[...data.enum]];
+    const enumArr = [...data.enum];
+    const extarArr = [[...data.enum]];
     enumArr.splice(i, 1);
     extarArr.splice(i, 1);
-    let totalValue = { ...data };
+    const totalValue = { ...data };
     totalValue.enum = enumArr;
     totalValue.enumextra = extarArr;
     this.Model.changeValueAction({
       key: [].concat(prefix.splice(0, prefix.length - 1)),
-      value: totalValue
+      value: totalValue,
     });
   };
 
@@ -129,15 +112,17 @@ class SchemaRadioComponent extends Component {
   //   };
 
   render() {
-    const { name, data, prefix, level, parentType } = this.props;
-    let value = data;
-    let prefixArray = [].concat(prefix, name);
-    let prefixStr = prefix.join(JSONPATH_JOIN_CHAR);
-    let prefixArrayStr = []
-      .concat(prefixArray, "properties")
+    const {
+      name, data, prefix, level, parentType
+    } = this.props;
+    const value = data;
+    const prefixArray = [].concat(prefix, name);
+    const prefixStr = prefix.join(JSONPATH_JOIN_CHAR);
+    const prefixArrayStr = []
+      .concat(prefixArray, 'properties')
       .join(JSONPATH_JOIN_CHAR);
-    let show = this.context.getOpenValue([prefixStr]);
-    let showIcon = this.context.getOpenValue([prefixArrayStr]);
+    const show = this.context.getOpenValue([prefixStr]);
+    const showIcon = this.context.getOpenValue([prefixArrayStr]);
     return show ? (
       <div>
         {data.enum.map((d, i) => (
@@ -185,8 +170,8 @@ class SchemaRadioComponent extends Component {
                     //     />
                     //   </Tooltip>
                     // }
-                    onChange={e => {
-                      this.handleChangeName(e, i, "enum");
+                    onChange={(e) => {
+                      this.handleChangeName(e, i, 'enum');
                     }}
                     value={d}
                   />
@@ -197,21 +182,17 @@ class SchemaRadioComponent extends Component {
             <Col span={4} className="col-item col-item-type">
               <Select
                 disabled={
-                  parentType === "event" || parentType === "datasource"
-                    ? true
-                    : false
+                  !!(parentType === 'event' || parentType === 'datasource')
                 }
                 className="type-select-style"
                 onChange={this.handleChangeType}
                 value="string"
               >
-                {["string"].map((item, index) => {
-                  return (
+                {['string'].map((item, index) => (
                     <Option value={item} key={index}>
                       {item}
                     </Option>
-                  );
-                })}
+                ))}
               </Select>
             </Col>
             <Col span={5} className="col-item col-item-desc">
@@ -222,16 +203,16 @@ class SchemaRadioComponent extends Component {
                 //     onClick={() => this.handleShowEdit("description")}
                 //   />
                 // }
-                placeholder={LocaleProvider("description")}
+                placeholder={LocaleProvider('description')}
                 defaultValue={value.enumextra[i]}
-                onChange={e => {
-                  this.handleChangeName(e, i, "enumextra");
+                onChange={(e) => {
+                  this.handleChangeName(e, i, 'enumextra');
                 }}
               />
             </Col>
 
             <Col span={3} className="col-item col-item-setting">
-              {parentType !== "event" && parentType !== "datasource" && (
+              {parentType !== 'event' && parentType !== 'datasource' && (
                 <div>
                   {data.enum.length > 2 && (
                     <span
@@ -242,13 +223,13 @@ class SchemaRadioComponent extends Component {
                     </span>
                   )}
 
-                  {value.type === "object" ? (
+                  {value.type === 'object' ? (
                     <DropPlus prefix={prefix} name={name} />
                   ) : (
                     <span onClick={this.handleAddField}>
                       <Tooltip
                         placement="top"
-                        title={LocaleProvider("add_sibling_node")}
+                        title={LocaleProvider('add_sibling_node')}
                       >
                         <Icon type="plus" className="plus" />
                       </Tooltip>
@@ -266,10 +247,10 @@ class SchemaRadioComponent extends Component {
 
 SchemaRadioComponent.contextTypes = {
   Model: PropTypes.object,
-  getOpenValue: PropTypes.func
+  getOpenValue: PropTypes.func,
 };
-const SchemaRadio = connect(state => ({
-  open: state.schema.open
+const SchemaRadio = connect((state) => ({
+  open: state.schema.open,
 }))(SchemaRadioComponent);
 
 export default SchemaRadio;

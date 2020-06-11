@@ -1,24 +1,16 @@
-import React, { Component, PureComponent } from "react";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import {
-  Dropdown,
-  Menu,
-  Row,
-  Col,
-  Form,
-  Select,
-  Checkbox,
-  Button,
-  Icon,
-  Input,
-  Modal,
-  message,
-  Tooltip
-} from "antd";
-import LocaleProvider from "../LocalProvider/index.js";
+  Dropdown, Menu, Icon, Tooltip
+} from 'antd';
+
+import LocaleProvider from '../LocalProvider/index';
+
 const DropPlus = (props, context) => {
-  const { prefix, name, add, size } = props;
+  const {
+    prefix, name, add, size
+  } = props;
   const Model = context.Model.schema;
+  console.log('DropPlus-add:', add);
 
   const menu = (
     <Menu>
@@ -29,7 +21,7 @@ const DropPlus = (props, context) => {
               Model.addFieldAction({ prefix, name });
             }}
           >
-            {LocaleProvider("sibling_node")}
+            {LocaleProvider('sibling_node')}
           </span>
         </Menu.Item>
       )}
@@ -38,22 +30,22 @@ const DropPlus = (props, context) => {
         <span
           onClick={() => {
             Model.setOpenValueAction({
-              key: [].concat(prefix, name, "properties"),
-              value: true
+              key: [].concat(prefix, name, 'properties'),
+              value: true,
             });
             Model.addChildFieldAction({
-              key: [].concat(prefix, name, "properties")
+              key: [].concat(prefix, name, 'properties'),
             });
           }}
         >
-          {LocaleProvider("child_node")}
+          {LocaleProvider('child_node')}
         </span>
       </Menu.Item>
     </Menu>
   );
 
   return (
-    <Tooltip placement="top" title={LocaleProvider("add_node")}>
+    <Tooltip placement="top" title={LocaleProvider('add_node')}>
       <Dropdown overlay={menu}>
         <Icon type="plus" className="plus" />
       </Dropdown>
@@ -62,6 +54,7 @@ const DropPlus = (props, context) => {
 };
 
 DropPlus.contextTypes = {
-  Model: PropTypes.object
+  Model: PropTypes.object,
 };
+
 export default DropPlus;
