@@ -84,7 +84,8 @@ class SchemaString extends PureComponent {
             <Input
               value={data.default}
               placeholder={LocalProvider('default')}
-              onChange={(e) => this.changeOtherValue(e.target.value, 'default', data)
+              onChange={(e) =>
+                this.changeOtherValue(e.target.value, 'default', data)
               }
             />
           </Col>
@@ -133,7 +134,8 @@ class SchemaString extends PureComponent {
             <Input
               value={data.pattern}
               placeholder="Pattern"
-              onChange={(e) => this.changeOtherValue(e.target.value, 'pattern', data)
+              onChange={(e) =>
+                this.changeOtherValue(e.target.value, 'pattern', data)
               }
             />
           </Col>
@@ -193,17 +195,16 @@ class SchemaString extends PureComponent {
               optionFilterProp="children"
               optionLabelProp="value"
               onChange={(e) => this.changeOtherValue(e, 'format', data)}
-              filterOption={(input, option) => (
-                option.props.value
-                  .toLowerCase()
-                  .indexOf(input.toLowerCase()) >= 0
-              )}
+              filterOption={(input, option) =>
+                option.props.value.toLowerCase().indexOf(input.toLowerCase()) >=
+                0
+              }
             >
               {this.format.map((item) => (
-                  <Option value={item.name} key={item.name}>
-                    {item.name}{' '}
-                    <span className="format-items-title">{item.title}</span>
-                  </Option>
+                <Option value={item.name} key={item.name}>
+                  {item.name}{' '}
+                  <span className="format-items-title">{item.title}</span>
+                </Option>
               ))}
             </Select>
           </Col>
@@ -289,12 +290,13 @@ class SchemaNumber extends PureComponent {
             <Input
               value={data.default}
               placeholder={LocalProvider('default')}
-              onChange={(e) => changeOtherValue(
-                e.target.value,
-                'default',
-                data,
-                this.context.changeCustomValue,
-              )
+              onChange={(e) =>
+                changeOtherValue(
+                  e.target.value,
+                  'default',
+                  data,
+                  this.context.changeCustomValue,
+                )
               }
             />
           </Col>
@@ -315,12 +317,13 @@ class SchemaNumber extends PureComponent {
                 <Switch
                   checked={data.exclusiveMinimum}
                   placeholder="exclusiveMinimum"
-                  onChange={(e) => changeOtherValue(
-                    e,
-                    'exclusiveMinimum',
-                    data,
-                    this.context.changeCustomValue,
-                  )
+                  onChange={(e) =>
+                    changeOtherValue(
+                      e,
+                      'exclusiveMinimum',
+                      data,
+                      this.context.changeCustomValue,
+                    )
                   }
                 />
               </Col>
@@ -341,12 +344,13 @@ class SchemaNumber extends PureComponent {
                 <Switch
                   checked={data.exclusiveMaximum}
                   placeholder="exclusiveMaximum"
-                  onChange={(e) => changeOtherValue(
-                    e,
-                    'exclusiveMaximum',
-                    data,
-                    this.context.changeCustomValue,
-                  )
+                  onChange={(e) =>
+                    changeOtherValue(
+                      e,
+                      'exclusiveMaximum',
+                      data,
+                      this.context.changeCustomValue,
+                    )
                   }
                 />
               </Col>
@@ -363,12 +367,13 @@ class SchemaNumber extends PureComponent {
                 <InputNumber
                   value={data.minimum}
                   placeholder={LocalProvider('minimum')}
-                  onChange={(e) => changeOtherValue(
-                    e,
-                    'minimum',
-                    data,
-                    this.context.changeCustomValue,
-                  )
+                  onChange={(e) =>
+                    changeOtherValue(
+                      e,
+                      'minimum',
+                      data,
+                      this.context.changeCustomValue,
+                    )
                   }
                 />
               </Col>
@@ -383,12 +388,13 @@ class SchemaNumber extends PureComponent {
                 <InputNumber
                   value={data.maximum}
                   placeholder={LocalProvider('maximum')}
-                  onChange={(e) => changeOtherValue(
-                    e,
-                    'maximum',
-                    data,
-                    this.context.changeCustomValue,
-                  )
+                  onChange={(e) =>
+                    changeOtherValue(
+                      e,
+                      'maximum',
+                      data,
+                      this.context.changeCustomValue,
+                    )
                   }
                 />
               </Col>
@@ -416,7 +422,8 @@ class SchemaNumber extends PureComponent {
               onChange={(e) => {
                 this.changeEnumOtherValue(e.target.value, data);
               }}
-              onPressEnter={(e) => this.onEnterEnumOtherValue(e.target.value, data)
+              onPressEnter={(e) =>
+                this.onEnterEnumOtherValue(e.target.value, data)
               }
             />
           </Col>
@@ -453,8 +460,8 @@ const SchemaBoolean = (props, context) => {
   const value = _.isUndefined(data.default)
     ? ''
     : data.default
-      ? 'true'
-      : 'false';
+    ? 'true'
+    : 'false';
   return (
     <div>
       <div className="default-setting">{LocalProvider('base_setting')}</div>
@@ -465,12 +472,13 @@ const SchemaBoolean = (props, context) => {
         <Col span={20}>
           <Select
             value={value}
-            onChange={(e) => changeOtherValue(
-              e === 'true',
-              'default',
-              data,
-              context.changeCustomValue,
-            )
+            onChange={(e) =>
+              changeOtherValue(
+                e === 'true',
+                'default',
+                data,
+                context.changeCustomValue,
+              )
             }
             style={{ width: 200 }}
           >
@@ -506,12 +514,13 @@ const SchemaArray = (props, context) => {
           <Switch
             checked={data.uniqueItems}
             placeholder="uniqueItems"
-            onChange={(e) => changeOtherValue(
-              e,
-              'uniqueItems',
-              data,
-              context.changeCustomValue,
-            )
+            onChange={(e) =>
+              changeOtherValue(
+                e,
+                'uniqueItems',
+                data,
+                context.changeCustomValue,
+              )
             }
           />
         </Col>
@@ -526,12 +535,13 @@ const SchemaArray = (props, context) => {
               <InputNumber
                 value={data.minItems}
                 placeholder="minItems"
-                onChange={(e) => changeOtherValue(
-                  e,
-                  'minItems',
-                  data,
-                  context.changeCustomValue,
-                )
+                onChange={(e) =>
+                  changeOtherValue(
+                    e,
+                    'minItems',
+                    data,
+                    context.changeCustomValue,
+                  )
                 }
               />
             </Col>
@@ -546,12 +556,13 @@ const SchemaArray = (props, context) => {
               <InputNumber
                 value={data.maxItems}
                 placeholder="maxItems"
-                onChange={(e) => changeOtherValue(
-                  e,
-                  'maxItems',
-                  data,
-                  context.changeCustomValue,
-                )
+                onChange={(e) =>
+                  changeOtherValue(
+                    e,
+                    'maxItems',
+                    data,
+                    context.changeCustomValue,
+                  )
                 }
               />
             </Col>
@@ -566,13 +577,14 @@ SchemaArray.contextTypes = {
   changeCustomValue: PropTypes.func,
 };
 
-const mapping = (data) => ({
-  string: <SchemaString data={data} />,
-  number: <SchemaNumber data={data} />,
-  boolean: <SchemaBoolean data={data} />,
-  integer: <SchemaNumber data={data} />,
-  array: <SchemaArray data={data} />,
-}[data.type]);
+const mapping = (data) =>
+  ({
+    string: <SchemaString data={data} />,
+    number: <SchemaNumber data={data} />,
+    boolean: <SchemaBoolean data={data} />,
+    integer: <SchemaNumber data={data} />,
+    array: <SchemaArray data={data} />,
+  }[data.type]);
 
 const handleInputEditor = (e, change) => {
   if (!e.text) return;

@@ -51,8 +51,8 @@ class AceEditor extends React.Component {
     if (!this.editor) return;
 
     if (
-      isNotMatch(nextProps.data, this.props.data)
-      && isNotMatch(this.editor.getValue(), nextProps.data)
+      isNotMatch(nextProps.data, this.props.data) &&
+      isNotMatch(this.editor.getValue(), nextProps.data)
     ) {
       this.editor.setValue(nextProps.data);
 

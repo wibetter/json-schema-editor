@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Row,
-  Col,
-  Select,
-  Icon,
-  Input,
-  Tooltip,
-} from 'antd';
+import { Row, Col, Select, Icon, Input, Tooltip } from 'antd';
 
 import _ from 'underscore';
 import { connect } from 'react-redux';
@@ -14,7 +7,6 @@ import PropTypes from 'prop-types';
 import { JSONPATH_JOIN_CHAR } from '../../utils';
 import * as utils from '../../utils';
 import FieldInput from './FieldInput';
-
 
 import LocaleProvider from '../LocalProvider/index';
 
@@ -37,9 +29,9 @@ class SchemaRadioComponent extends Component {
 
   shouldComponentUpdate(nextProps) {
     if (
-      _.isEqual(nextProps.data, this.props.data)
-      && _.isEqual(nextProps.prefix, this.props.prefix)
-      && _.isEqual(nextProps.open, this.props.open)
+      _.isEqual(nextProps.data, this.props.data) &&
+      _.isEqual(nextProps.prefix, this.props.prefix) &&
+      _.isEqual(nextProps.open, this.props.open)
     ) {
       return false;
     }
@@ -112,9 +104,7 @@ class SchemaRadioComponent extends Component {
   //   };
 
   render() {
-    const {
-      name, data, prefix, level, parentType
-    } = this.props;
+    const { name, data, prefix, level, parentType } = this.props;
     const value = data;
     const prefixArray = [].concat(prefix, name);
     const prefixStr = prefix.join(JSONPATH_JOIN_CHAR);
@@ -189,9 +179,9 @@ class SchemaRadioComponent extends Component {
                 value="string"
               >
                 {['string'].map((item, index) => (
-                    <Option value={item} key={index}>
-                      {item}
-                    </Option>
+                  <Option value={item} key={index}>
+                    {item}
+                  </Option>
                 ))}
               </Select>
             </Col>

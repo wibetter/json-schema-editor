@@ -22,10 +22,10 @@ function run(options_) {
     }
   }
   if (
-    options.wordList
-    && typeof options.wordList === 'object'
-    && options.wordList.name
-    && options.wordList.mock
+    options.wordList &&
+    typeof options.wordList === 'object' &&
+    options.wordList.name &&
+    options.wordList.mock
   ) {
     wordList.push(options.wordList);
   }
@@ -61,7 +61,8 @@ function run(options_) {
     const newData = data_ || '';
     if (typeof newData === 'string') {
       return newData;
-    } if (typeof newData === 'object') {
+    }
+    if (typeof newData === 'object') {
       return JSON.stringify(newData, null, '  ');
     }
   }

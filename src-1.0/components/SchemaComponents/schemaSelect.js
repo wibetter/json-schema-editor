@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Row,
-  Col,
-  Select,
-  Icon,
-  Input,
-  Tooltip,
-} from 'antd';
+import { Row, Col, Select, Icon, Input, Tooltip } from 'antd';
 
 import _ from 'underscore';
 import { connect } from 'react-redux';
@@ -36,9 +29,9 @@ class SchemaSelectComponent extends Component {
 
   shouldComponentUpdate(nextProps) {
     if (
-      _.isEqual(nextProps.data, this.props.data)
-      && _.isEqual(nextProps.prefix, this.props.prefix)
-      && _.isEqual(nextProps.open, this.props.open)
+      _.isEqual(nextProps.data, this.props.data) &&
+      _.isEqual(nextProps.prefix, this.props.prefix) &&
+      _.isEqual(nextProps.open, this.props.open)
     ) {
       return false;
     }
@@ -115,9 +108,7 @@ class SchemaSelectComponent extends Component {
   //   };
 
   render() {
-    const {
-      name, data, prefix, level, parentType
-    } = this.props;
+    const { name, data, prefix, level, parentType } = this.props;
     const value = data;
     const prefixArray = [].concat(prefix, name);
     const prefixStr = prefix.join(JSONPATH_JOIN_CHAR);
@@ -158,9 +149,9 @@ class SchemaSelectComponent extends Component {
                 value="string"
               >
                 {['string'].map((item, index) => (
-                    <Option value={item} key={index}>
-                      {item}
-                    </Option>
+                  <Option value={item} key={index}>
+                    {item}
+                  </Option>
                 ))}
               </Select>
             </Col>

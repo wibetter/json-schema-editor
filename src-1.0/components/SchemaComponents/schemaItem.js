@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
-import {
-  Row, Col, Select, Icon, Input, message, Tooltip
-} from 'antd';
+import { Row, Col, Select, Icon, Input, message, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
 import FieldInput from './FieldInput';
 
@@ -62,8 +60,8 @@ class SchemaItem extends PureComponent {
       }
     } else {
       if (
-        data.properties[value]
-        && typeof data.properties[value] === 'object'
+        data.properties[value] &&
+        typeof data.properties[value] === 'object'
       ) {
         return message.error(`The field "${value}" already exists.`);
       }
@@ -168,11 +166,12 @@ class SchemaItem extends PureComponent {
     this.Model.enableRequireAction({ prefix, name, required });
   };
 
-  renderTypeSelectOption = (typeArr) => typeArr.map((item, index) => (
+  renderTypeSelectOption = (typeArr) =>
+    typeArr.map((item, index) => (
       <Option value={item} key={index}>
         {item}
       </Option>
-  ));
+    ));
 
   renderTypeSelect = (format, value) => {
     switch (format) {
@@ -207,10 +206,10 @@ class SchemaItem extends PureComponent {
       .join(JSONPATH_JOIN_CHAR);
     const show = this.context.getOpenValue([prefixStr]);
     const showIcon = this.context.getOpenValue([prefixArrayStr]);
-    return show
-      && !(
-        (value.default === 'local' || value.default === 'remote')
-        && name === 'data'
+    return show &&
+      !(
+        (value.default === 'local' || value.default === 'remote') &&
+        name === 'data'
       ) ? (
       <div>
         <Row type="flex" justify="space-around" align="middle">
@@ -232,9 +231,9 @@ class SchemaItem extends PureComponent {
                 ) : null}
               </Col>
               <Col span={22}>
-                {value.format
-                && (value.format === 'quantitySelect'
-                  || value.format === 'typeSelect') ? (
+                {value.format &&
+                (value.format === 'quantitySelect' ||
+                  value.format === 'typeSelect') ? (
                   <Select
                     defaultValue={value.default}
                     onChange={(e) => {
@@ -248,7 +247,7 @@ class SchemaItem extends PureComponent {
                       </Option>
                     ))}
                   </Select>
-                  ) : (
+                ) : (
                   <FieldInput
                     onChange={(e) => {
                       this.handleChangeName(e.target.value, value.format);
@@ -256,7 +255,7 @@ class SchemaItem extends PureComponent {
                     disabled={!!value.readOnly}
                     value={name}
                   />
-                  )}
+                )}
               </Col>
             </Row>
           </Col>
@@ -268,11 +267,11 @@ class SchemaItem extends PureComponent {
               value={value.format || value.type}
               disabled={
                 !!(
-                  value.format === 'func'
-                  || value.format === 'style'
-                  || value.format === 'data'
-                  || parentType === 'datasource'
-                  || parentType === 'event'
+                  value.format === 'func' ||
+                  value.format === 'style' ||
+                  value.format === 'data' ||
+                  parentType === 'datasource' ||
+                  parentType === 'event'
                 )
               }
             >
@@ -286,37 +285,37 @@ class SchemaItem extends PureComponent {
               onChange={this.handleChangeDesc}
               disabled={
                 !!(
-                  value.format === 'func'
-                  || value.format === 'style'
-                  || value.format === 'data'
+                  value.format === 'func' ||
+                  value.format === 'style' ||
+                  value.format === 'data'
                 )
               }
             />
           </Col>
 
           <Col span={3} className="col-item col-item-setting">
-            {((parentType !== 'event' && parentType !== 'datasource')
-              || (parentType === 'datasource'
-                && name !== 'name'
-                && name !== 'filter'
-                && name !== 'type')) && (
+            {((parentType !== 'event' && parentType !== 'datasource') ||
+              (parentType === 'datasource' &&
+                name !== 'name' &&
+                name !== 'filter' &&
+                name !== 'type')) && (
               <div>
-                {parentType !== 'quantity'
-                  && value.format !== 'func'
-                  && value.format !== 'style'
-                  && value.format !== 'data' && (
+                {parentType !== 'quantity' &&
+                  value.format !== 'func' &&
+                  value.format !== 'style' &&
+                  value.format !== 'data' && (
                     <span
                       className="delete-item"
                       onClick={this.handleDeleteItem}
                     >
                       <Icon type="close" className="close" />
                     </span>
-                )}
-                {parentType !== 'quantity'
-                  && (value.type === 'object'
-                  && value.format !== 'quantity'
-                  && value.format !== 'datasource'
-                  && value.format !== 'event' ? (
+                  )}
+                {parentType !== 'quantity' &&
+                  (value.type === 'object' &&
+                  value.format !== 'quantity' &&
+                  value.format !== 'datasource' &&
+                  value.format !== 'event' ? (
                     <span onClick={this.handleChildNode}>
                       <Tooltip
                         placement="top"
@@ -325,7 +324,7 @@ class SchemaItem extends PureComponent {
                         <Icon type="plus" className="plus" />
                       </Tooltip>
                     </span>
-                    ) : (
+                  ) : (
                     <span onClick={this.handleAddField}>
                       <Tooltip
                         placement="top"
@@ -334,7 +333,7 @@ class SchemaItem extends PureComponent {
                         <Icon type="plus" className="plus" />
                       </Tooltip>
                     </span>
-                    ))}
+                  ))}
               </div>
             )}
           </Col>
@@ -343,7 +342,7 @@ class SchemaItem extends PureComponent {
           {mapping(prefixArray, value, showEdit, showAdv)}
         </div>
       </div>
-      ) : null;
+    ) : null;
   }
 }
 

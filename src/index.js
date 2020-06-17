@@ -1,25 +1,34 @@
-import React from 'react';
-import { render } from 'react-dom';
-import JSONEditor from './main';
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import JSONSchemaEditor from './main';
+import './index.scss';
 
-const mock = [
-  { name: '字符串', mock: '@string' },
-  { name: '自然数', mock: '@natural' },
-  { name: '浮点数', mock: '@float' },
-  { name: '字符', mock: '@character' },
-  { name: '布尔', mock: '@boolean' },
-  { name: 'url', mock: '@url' },
-  { name: '域名', mock: '@domain' },
-  { name: 'ip地址', mock: '@ip' },
-  { name: 'id', mock: '@id' },
-  { name: 'guid', mock: '@guid' },
-  { name: '当前时间', mock: '@now' },
-  { name: '时间戳', mock: '@timestamp' },
-];
+/**
+ * JSONSchema的测试Demo
+ */
+class IndexDemo extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-const JEditor = JSONEditor({ mock });
+    this.state = {
+      jsonSchema: {},
+    };
+  }
 
-render(
+  render() {
+    const { jsonSchema } = this.state;
+    return (
+      <JSONSchemaEditor
+        data={jsonSchema}
+        onChange={(e) => {
+          console.log('changeValue', e);
+        }}
+      />
+    );
+  }
+}
+
+ReactDOM.render(
   <div>
     <h1>JSON-Schema-Editor</h1>
 
@@ -27,14 +36,7 @@ render(
     <h2>Example:</h2>
     <hr />
 
-    <JEditor
-      showEditor={true}
-      isMock={true}
-      data={''}
-      onChange={(e) => {
-        console.log('changeValue', e);
-      }}
-    />
+    <IndexDemo />
   </div>,
   document.getElementById('root'),
 );

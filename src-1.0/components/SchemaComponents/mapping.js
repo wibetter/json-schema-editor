@@ -26,7 +26,7 @@ const mapping = (name, data, showEdit, showAdv) => {
     case 'object':
       return (
         <SchemaObject
-          prefix={ [].concat(name, 'properties') }
+          prefix={[].concat(name, 'properties')}
           data={data}
           showEdit={showEdit}
           showAdv={showAdv}

@@ -1,14 +1,10 @@
 import PropTypes from 'prop-types';
-import {
-  Dropdown, Menu, Icon, Tooltip
-} from 'antd';
+import { Dropdown, Menu, Icon, Tooltip } from 'antd';
 
 import LocaleProvider from '../LocalProvider/index';
 
 const DropPlus = (props, context) => {
-  const {
-    prefix, name, add, size
-  } = props;
+  const { prefix, name, add, size } = props;
   const Model = context.Model.schema;
   console.log('DropPlus-add:', add);
 

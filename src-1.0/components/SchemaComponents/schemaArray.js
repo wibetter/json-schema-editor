@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
-import {
-  Row, Col, Select, Icon, Input, Tooltip
-} from 'antd';
+import { Row, Col, Select, Icon, Input, Tooltip } from 'antd';
 
 import _ from 'underscore';
 import PropTypes from 'prop-types';

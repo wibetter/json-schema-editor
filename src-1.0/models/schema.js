@@ -97,8 +97,8 @@ export default {
       ...newParentDataItem,
       description:
         (
-          utils.defaultSchema[parentData.type]
-          || utils.defaultSchema[parentData.format]
+          utils.defaultSchema[parentData.type] ||
+          utils.defaultSchema[parentData.format]
         ).description === parentData.description
           ? utils.defaultSchema[action.value].description
           : parentData.description,

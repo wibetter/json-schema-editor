@@ -1,40 +1,38 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import moox from 'moox';
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'mobx-react';
 import PropTypes from 'prop-types';
-import schema from './models/schema';
-import App from './App';
-import * as utils from './utils';
 
-export default (config = {}) => {
-  if (config.lang) utils.lang = config.lang;
+import JSONStore from '$store/index';
+import JSONSchema from '$components/JSONSchema/index';
+import './main.scss';
 
-  const Model = moox({
-    schema,
-  });
-  if (config.format) {
-    Model.__jsonSchemaFormat = config.format;
-  } else {
-    Model.__jsonSchemaFormat = utils.format;
-  }
-
-  if (config.mock) {
-    Model.__jsonSchemaMock = config.mock;
-  }
-
-  const store = Model.getStore();
-
-  const Component = (props) => (
-    <Provider store={store} className="wrapper">
-      <App Model={Model} {...props} />
-    </Provider>
-  );
-
-  Component.propTypes = {
-    data: PropTypes.string,
+/**
+ * JSONSchema功能组件
+ * @param props
+ * @constructor
+ */
+export default class JSONSchemaEditor extends React.PureComponent {
+  static propTypes = {
     onChange: PropTypes.func,
-    showEditor: PropTypes.bool,
+    data: PropTypes.any,
+    element: PropTypes.any,
   };
 
-  return Component;
-};
+  render() {
+    const { data, onChange, element } = this.props;
+
+    const renderContent = (
+      <Provider jsonSchemaStore={JSONStore.jsonSchemaStore}>
+        <JSONSchema data={data} onChange={onChange} />
+      </Provider>
+    );
+
+    if (element) {
+      ReactDOM.render(renderContent, element); // 挂载到指定位置
+      return '';
+    } else {
+      return renderContent; // 直接输出dom元素
+    }
+  }
+}

@@ -13,9 +13,9 @@ class SchemaNumberComponent extends Component {
 
   shouldComponentUpdate(nextProps) {
     if (
-      _.isEqual(nextProps.data, this.props.data)
-      && _.isEqual(nextProps.prefix, this.props.prefix)
-      && _.isEqual(nextProps.open, this.props.open)
+      _.isEqual(nextProps.data, this.props.data) &&
+      _.isEqual(nextProps.prefix, this.props.prefix) &&
+      _.isEqual(nextProps.open, this.props.open)
     ) {
       return false;
     }
