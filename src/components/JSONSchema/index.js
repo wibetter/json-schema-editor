@@ -82,9 +82,9 @@ class JSONSchema extends React.PureComponent {
     return (
       <BaseFormSchema
         indexRoute={params.indexRoute}
-        jsonKey={params.indexRoute}
-        targetJsonData={params.indexRoute}
-        parentType={params.indexRoute}
+        jsonKey={params.jsonKey}
+        targetJsonData={params.targetJsonData}
+        parentType={params.parentType}
       />
     );
   };
@@ -109,7 +109,7 @@ class JSONSchema extends React.PureComponent {
 
       return (
         <TreeNode
-          className={`${currentSchemaData.format}-schema`}
+          className={`${currentSchemaData.format}-schema schema-item-form`}
           key={currentIndexRoute}
           title={this.getTreeNodeTitleCont({
             indexRoute: currentIndexRoute,
@@ -139,7 +139,6 @@ class JSONSchema extends React.PureComponent {
           jsonSchema.propertyOrder &&
           jsonSchema.propertyOrder.length > 0 && (
             <Tree
-              showLine
               draggable={true}
               onDragStart={this.onDragStart}
               onDrop={this.onDrop}

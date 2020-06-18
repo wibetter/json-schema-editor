@@ -2,17 +2,20 @@
 
 .base-schema-box {
   position: relative;
-  height: 50px;
+  min-height: 35px;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
 
   .key-input-item {
     flex: 1 1 200px;
+    padding-right: 8px;
   }
 
   .type-select-item {
     flex: 0 1 100px;
+    padding-right: 8px;
   }
 
   .title-input-item {

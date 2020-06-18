@@ -39,7 +39,11 @@ class BaseFormSchema extends React.PureComponent {
           <Input value={jsonKey} />
         </div>
         <div className="type-select-item">
-          <Select style={{ width: 120 }} onChange={this.selectHandleChange}>
+          <Select
+            defaultValue={targetJsonData.format}
+            style={{ width: 120 }}
+            onChange={this.selectHandleChange}
+          >
             {currentTypeList.map((item) => {
               return (
                 <Option key={item} value={item}>

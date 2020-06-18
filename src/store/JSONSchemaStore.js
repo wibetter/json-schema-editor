@@ -34,8 +34,9 @@ export default class JSONSchemaStore {
       this.jsonSchema = objClone(initJSONSchemaData);
     } else {
       // 进行一次转换，以便兼容旧版数据
-      this.jsonSchema = oldJSONSchemaToNewJSONSchema(jsonSchemaData);
-      console.log(this.jsonSchema);
+      const newJSONSchema = oldJSONSchemaToNewJSONSchema(jsonSchemaData);
+      console.log(newJSONSchema);
+      this.jsonSchema = newJSONSchema;
     }
   }
 

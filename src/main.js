@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 import JSONStore from '$store/index';
 import JSONSchema from '$components/JSONSchema/index';
-import './main.scss';
 
 /**
  * JSONSchema功能组件
