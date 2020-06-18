@@ -14,6 +14,14 @@ export default class JSONSchemaStore {
    */
   @observable jsonSchema = {};
 
+  /**
+   * triggerChangeAction: 用于主动触发更新事件
+   */
+  @action.bound
+  triggerChangeAction() {
+    this.triggerChange = !this.triggerChange;
+  }
+
   /** 根据索引路径获取对应的json数据[非联动式数据获取]  */
   @action.bound
   initJSONSchemaData(jsonSchemaData) {
@@ -48,6 +56,23 @@ export default class JSONSchemaStore {
     } else {
       // 注：非数组和对象类型字段不允许插入子元素
       message.warning('非数组和对象类型字段不允许插入子元素');
+    }
+  }
+
+  /**
+   * 判断是否是同一个父元素
+   * 备注：用于判断两个元素是否在同一个父级容器中
+   */
+  @action.bound
+  isSameParentElem(curIndex, targetIndex) {
+    const curIndexArr = curIndex.split('-');
+    const targetIndexArr = targetIndex.split('-');
+    curIndexArr.pop();
+    targetIndexArr.pop();
+    if (curIndexArr.join('-') === targetIndexArr.join('-')) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

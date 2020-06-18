@@ -10,7 +10,7 @@
  * */
 export const initJSONSchemaData = {
   type: 'object',
-  title: 'JSONSchema Object',
+  title: 'jsonSchemaObject',
   properties: {
     func: {
       type: 'object',
@@ -19,6 +19,7 @@ export const initJSONSchemaData = {
       readOnly: true,
       properties: {},
       required: [],
+      propertyOrder: [],
     },
     style: {
       type: 'object',
@@ -27,6 +28,7 @@ export const initJSONSchemaData = {
       readOnly: true,
       properties: {},
       required: [],
+      propertyOrder: [],
     },
     data: {
       type: 'object',
@@ -35,6 +37,7 @@ export const initJSONSchemaData = {
       readOnly: true,
       properties: {},
       required: [],
+      propertyOrder: [],
     },
   },
   required: ['func', 'style', 'data'],

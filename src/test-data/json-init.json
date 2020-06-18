@@ -8,14 +8,17 @@
       "title": "功能设置",
       "readOnly": true,
       "properties": {},
-      "required": []
+      "required": [],
+      "propertyOrder": []
     },
     "style": {
       "type": "object",
       "format": "style",
       "title": "样式设置",
       "readOnly": true,
-      "properties": {}
+      "properties": {},
+      "required": [],
+      "propertyOrder": []
     },
     "data": {
       "type": "object",
@@ -23,7 +26,8 @@
       "title": "数据设置",
       "readOnly": true,
       "properties": {},
-      "required": []
+      "required": [],
+      "propertyOrder": []
     }
   },
   "required": [
