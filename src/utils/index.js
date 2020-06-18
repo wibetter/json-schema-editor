@@ -35,7 +35,8 @@ export function isBaseSchemaElem(elemClassName) {
 }
 
 /** 根据className判断是否是容器类型元素
- *  容器类型元素：func、style、data、object、array
+ *  容器类型元素：func、style、data、object
+ *  备注：array类型字段没有properties属性
  * */
 export function isBoxSchemaElem(elemClassName) {
   let isBoxSchema = false;
@@ -43,8 +44,7 @@ export function isBoxSchemaElem(elemClassName) {
     elemClassName.indexOf('func-schema') > 0 ||
     elemClassName.indexOf('style-schema') > 0 ||
     elemClassName.indexOf('data-schema') > 0 ||
-    elemClassName.indexOf('object-schema') > 0 ||
-    elemClassName.indexOf('array-schema') > 0
+    elemClassName.indexOf('object-schema') > 0
   ) {
     isBoxSchema = true;
   }
@@ -52,7 +52,8 @@ export function isBoxSchemaElem(elemClassName) {
 }
 
 /** 根据format判断是否是容器类型字段
- *  容器类型字段：func、style、data、object、array
+ *  容器类型字段：func、style、data、object
+ *  备注：array类型字段没有properties属性
  * */
 export function isBoxSchemaData(format) {
   let isBoxSchema = false;
@@ -60,8 +61,7 @@ export function isBoxSchemaData(format) {
     format === 'func' ||
     format === 'style' ||
     format === 'data' ||
-    format === 'object' ||
-    format === 'array'
+    format === 'object'
   ) {
     isBoxSchema = true;
   }

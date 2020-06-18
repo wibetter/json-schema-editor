@@ -1,7 +1,11 @@
 import { observable, computed, action, set, remove, get, toJS } from 'mobx';
 import { message } from 'antd';
 import { objClone } from '$utils/index';
-import { isJSONSchemaFormat, getJSONDataByIndex } from '$utils/jsonSchema';
+import {
+  isJSONSchemaFormat,
+  getJSONDataByIndex,
+  oldJSONSchemaToNewJSONSchema,
+} from '$utils/jsonSchema';
 import { initJSONSchemaData } from '$data/index';
 
 export default class JSONSchemaStore {
@@ -29,9 +33,9 @@ export default class JSONSchemaStore {
       // 使用默认的jsonschema数据进行初始化
       this.jsonSchema = objClone(initJSONSchemaData);
     } else {
-      // 需要进行一次转换，以便兼容旧版数据
-      this.jsonSchema = objClone(jsonSchemaData);
-      // 使用objClone可避免后续jsonSchema变动影响数据源
+      // 进行一次转换，以便兼容旧版数据
+      this.jsonSchema = oldJSONSchemaToNewJSONSchema(jsonSchemaData);
+      console.log(this.jsonSchema);
     }
   }
 
