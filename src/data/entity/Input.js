@@ -14,8 +14,8 @@ export const initInputData = {
   title: '单文本框',
   format: 'input',
   isRequired: false,
-  default: '123',
-  description: '字段项的说明和描述',
-  placeholder: '请输入...',
+  default: '', // 默认值
+  description: '', // 字段项的说明和描述
+  placeholder: '', // 输入提示
   readOnly: false,
 };

@@ -14,8 +14,8 @@ export const initDateTimeData = {
   title: '日期',
   format: 'date-time',
   isRequired: false,
-  default: '',
-  description: '字段项的说明和描述',
-  placeholder: '请输入时间...',
+  default: '', // 默认值
+  description: '', // 字段项的说明和描述
+  placeholder: '', // 输入提示
   readOnly: false,
 };

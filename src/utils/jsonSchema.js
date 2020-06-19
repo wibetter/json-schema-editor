@@ -36,7 +36,7 @@ export function isJSONSchemaFormat(targetJsonObj) {
   return isFormat;
 }
 
-/* 根据索引路径获取对应的json数据  */
+/** 根据索引路径获取对应的json数据  */
 export function getJSONDataByIndex(
   indexRoute,
   targetJsonSchemaObj,
@@ -57,4 +57,30 @@ export function getJSONDataByIndex(
     }
   }
   return curJsonSchemaObj;
+}
+
+/** 旧版jsonSchema转新版jsonSchema
+ * 新版有propertyOrder属性，旧版的required需要根据properties重新生成一份
+ * 新版的title需要从description中获取值（旧版的title值使用的是description字段的值）
+ * */
+export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
+  let newJSONSchema = objClone(oldJSONSchema); // 进行深拷贝，避免影响原有数据;
+  // 1.根据原有的description值生成title值
+  if (!newJSONSchema.title && newJSONSchema.description) {
+    newJSONSchema.title = newJSONSchema.description;
+  }
+  // 判断是否有propertyOrder属性
+  if (!oldJSONSchema.propertyOrder && newJSONSchema.properties) {
+    // 2.重新生成required属性
+    newJSONSchema.required = Object.keys(newJSONSchema.properties);
+    // 3.生成propertyOrder属性
+    newJSONSchema.propertyOrder = newJSONSchema.required;
+    // 4.继续遍历properties属性进行转换
+    newJSONSchema.propertyOrder.map((jsonKey) => {
+      newJSONSchema.properties[jsonKey] = oldJSONSchemaToNewJSONSchema(
+        newJSONSchema.properties[jsonKey],
+      );
+    });
+  }
+  return newJSONSchema;
 }
