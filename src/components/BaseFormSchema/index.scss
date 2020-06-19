@@ -24,12 +24,17 @@
 
   .operate-item {
     flex: 0 1 100px;
+    padding-left: 10px;
 
     .operate-btn {
       width: 15px;
-      margin: 0 8px 0 10px;
+      margin-right: 8px;
       color: #2395f1;
       cursor: pointer;
+    }
+
+    .delete-operate {
+      color: #ff561b;
     }
   }
 }
