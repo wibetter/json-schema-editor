@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import { Tree } from 'antd';
 import BaseFormSchema from '$components/BaseFormSchema/index';
 const { TreeNode } = Tree;
-import { isEqual, isBoxSchemaData, isBoxSchemaElem } from '$utils/index';
+import {
+  isEqual,
+  isBoxSchemaData,
+  isBoxSchemaElem,
+  isSameParentElem,
+} from '$utils/index';
 import './index.scss';
 
 class JSONSchema extends React.PureComponent {
@@ -60,10 +65,7 @@ class JSONSchema extends React.PureComponent {
     const _props = this.props;
 
     // 判断是否是同一个父级容器
-    const isSameParentElem = _props.isSameParentElem(
-      curEventKey,
-      targetEventKey,
-    );
+    const isSameParentElem = isSameParentElem(curEventKey, targetEventKey);
     // 如果是同级父级容器，则判断先后顺序
     let elemOrder = true; // 默认为true：表示拖动元素在前目标元素在后，
     if (isSameParentElem) {
@@ -144,7 +146,7 @@ class JSONSchema extends React.PureComponent {
               draggable={true}
               onDragStart={this.onDragStart}
               onDrop={this.onDrop}
-              defaultExpandAll={true}
+              defaultExpandAll={false}
             >
               {this.propertiesRender({
                 propertyOrder: jsonSchema.propertyOrder,
@@ -168,5 +170,4 @@ export default inject((stores) => ({
   jsonSchema: stores.jsonSchemaStore.jsonSchema,
   initJSONSchemaData: stores.jsonSchemaStore.initJSONSchemaData,
   getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
-  isSameParentElem: stores.jsonSchemaStore.isSameParentElem,
 }))(observer(JSONSchema));

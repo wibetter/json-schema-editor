@@ -3,8 +3,8 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Input, Select, Tooltip } from 'antd';
 const { Option } = Select;
-import { TypeList } from '$data/TypeList';
 import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
+import { TypeList } from '$data/TypeList';
 import './index.scss';
 
 class BaseFormSchema extends React.PureComponent {
@@ -14,6 +14,14 @@ class BaseFormSchema extends React.PureComponent {
     indexRoute: PropTypes.string,
     targetJsonData: PropTypes.any,
   };
+
+  constructor(props) {
+    super(props);
+
+    // 这边绑定是必要的，这样 `this` 才能在回调函数中使用
+    this.onAddBtnEvent = this.onAddBtnEvent.bind(this);
+    this.onDeleteBtnEvent = this.onDeleteBtnEvent.bind(this);
+  }
 
   selectHandleChange = (value) => {
     console.log(`selected ${value}`);
@@ -46,11 +54,23 @@ class BaseFormSchema extends React.PureComponent {
     return currentType;
   };
 
+  /** 新增字段项
+   *  备注：如果当前字段是容器类型，则为其添加子字段项，如果是基本类型则为其添加兄弟节点字段项 */
+  onAddBtnEvent = () => {
+    console.log('新增，开发中');
+    const { parentType, jsonKey, indexRoute, targetJsonData } = this.props;
+  };
+
+  /** 删除字段项 */
+  onDeleteBtnEvent = () => {
+    console.log('删除，开发中');
+    const { jsonKey, indexRoute, deleteJsonByIndex } = this.props;
+    deleteJsonByIndex(indexRoute, jsonKey); // 删除对应的json数据对象
+  };
+
   render() {
     const { parentType, jsonKey, targetJsonData } = this.props;
-
     const readOnly = targetJsonData.readOnly || false; // 是否不可编辑状态，默认为可编辑状态
-
     const currentTypeList = this.getCurrentTypeList(parentType); // 根据父级元素类型获取可供使用的类型清单
 
     return (
@@ -79,9 +99,12 @@ class BaseFormSchema extends React.PureComponent {
         </div>
         <div className="operate-item">
           {!readOnly && (
-            <CloseOutlined className="operate-btn delete-operate" />
+            <CloseOutlined
+              className="operate-btn delete-operate"
+              onClick={this.onDeleteBtnEvent}
+            />
           )}
-          <PlusOutlined className="operate-btn" />
+          <PlusOutlined className="operate-btn" onClick={this.onAddBtnEvent} />
         </div>
       </div>
     );
@@ -89,5 +112,5 @@ class BaseFormSchema extends React.PureComponent {
 }
 
 export default inject((stores) => ({
-  jsonSchema: stores.jsonSchema,
+  deleteJsonByIndex: stores.jsonSchemaStore.deleteJsonByIndex,
 }))(observer(BaseFormSchema));

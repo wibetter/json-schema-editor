@@ -3,7 +3,7 @@
  */
 import { objClone } from '$utils/index';
 
-/** 校验是否是合法的JsonSchema数据格式
+/** 【校验是否是合法的JsonSchema数据格式】
  *  主要判断当前JSON对象中是否有预先定义的属性：
  *  Object类型必须有的属性：type、format、title、properties、required、propertyOrder；
  *  Array类型必须有的属性：type、format、title、properties、propertyOrder；
@@ -59,7 +59,32 @@ export function getJSONDataByIndex(
   return curJsonSchemaObj;
 }
 
-/** 旧版jsonSchema转新版jsonSchema
+/**
+ * 判断是否是同一个父元素
+ * 备注：用于判断两个元素是否在同一个父级容器中
+ */
+export function isSameParentElem(curIndex, targetIndex) {
+  const curIndexArr = curIndex.split('-');
+  const targetIndexArr = targetIndex.split('-');
+  curIndexArr.pop();
+  targetIndexArr.pop();
+  if (curIndexArr.join('-') === targetIndexArr.join('-')) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+/**
+ * 获取父元素的路径值
+ */
+export function getParentIndexRoute(curIndex) {
+  const curIndexArr = curIndex.split('-');
+  curIndexArr.pop();
+  return curIndexArr.join('-');
+}
+
+/** 【旧版jsonSchema转新版jsonSchema】
  * 新版有propertyOrder属性，旧版的required需要根据properties重新生成一份
  * 新版的title需要从description中获取值（旧版的title值使用的是description字段的值）
  * */

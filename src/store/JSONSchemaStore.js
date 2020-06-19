@@ -1,11 +1,11 @@
 import { observable, computed, action, set, remove, get, toJS } from 'mobx';
 import { message } from 'antd';
-import { objClone } from '$utils/index';
 import {
-  isJSONSchemaFormat,
+  getParentIndexRoute,
   getJSONDataByIndex,
   oldJSONSchemaToNewJSONSchema,
 } from '$utils/jsonSchema';
+import { objClone, isJSONSchemaFormat } from '$utils/index';
 import { initJSONSchemaData } from '$data/index';
 
 export default class JSONSchemaStore {
@@ -47,7 +47,7 @@ export default class JSONSchemaStore {
   /** 根据索引路径获取对应的json数据[非联动式数据获取]  */
   @action.bound
   getJSONDataByIndex(indexRoute) {
-    return getJSONDataByIndex(indexRoute, this.jsonSchema, true); // useObjClone: true
+    return getJSONDataByIndex(indexRoute, this.jsonSchema, true); // useObjClone: true 避免后续产生数据联动
   }
 
   /** 根据索引路径值(indexRoute)和关键字(childKey)插入新的json数据对象(childObj) */
@@ -64,20 +64,19 @@ export default class JSONSchemaStore {
     }
   }
 
-  /**
-   * 判断是否是同一个父元素
-   * 备注：用于判断两个元素是否在同一个父级容器中
-   */
+  /** 根据索引路径值(indexRoute)和关键字(childKey)删除对应的json数据对象 */
   @action.bound
-  isSameParentElem(curIndex, targetIndex) {
-    const curIndexArr = curIndex.split('-');
-    const targetIndexArr = targetIndex.split('-');
-    curIndexArr.pop();
-    targetIndexArr.pop();
-    if (curIndexArr.join('-') === targetIndexArr.join('-')) {
-      return true;
-    } else {
-      return false;
-    }
+  deleteJsonByIndex(indexRoute, curKey) {
+    // 1.获取当前元素的父元素路径值
+    const parentIndex = getParentIndexRoute(indexRoute);
+    const parentJsonObj = getJSONDataByIndex(parentIndex, this.jsonSchema);
+    // 2.根据curKey删除在properties中删除对应的字段对象
+    delete parentJsonObj[curKey];
+    // 3.删除propertyOrder中对应的curKey
+    const deleteIndex = parentJsonObj.propertyOrder.indexOf(curKey);
+    parentJsonObj.propertyOrder.splice(deleteIndex, 1);
+    // 4.删除required中对应的curKey
+    const deleteIndex2 = parentJsonObj.required.indexOf(curKey);
+    parentJsonObj.required.splice(deleteIndex2, 1);
   }
 }
