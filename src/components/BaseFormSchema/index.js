@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Input, Select, Tooltip } from 'antd';
 const { Option } = Select;
 import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
+import { isBoxSchemaData } from '$utils/jsonSchema';
 import { TypeList } from '$data/TypeList';
 import './index.scss';
 
@@ -40,13 +41,11 @@ class BaseFormSchema extends React.PureComponent {
 
   /** 获取当前字段的类型（format）
    *  如果当前字段没有format字段，则根据type字段赋予默认的类型 */
-  getCurrentType = (targetJsonData) => {
+  getCurrentFormat = (targetJsonData) => {
     let currentType = targetJsonData.format;
     if (!currentType) {
-      if (targetJsonData.type === 'object') {
-        currentType = 'object';
-      } else if (targetJsonData.type === 'array') {
-        currentType = 'array';
+      if (targetJsonData.type === 'object' || targetJsonData.type === 'array') {
+        currentType = targetJsonData.type;
       } else {
         currentType = 'input';
       }
@@ -57,13 +56,23 @@ class BaseFormSchema extends React.PureComponent {
   /** 新增字段项
    *  备注：如果当前字段是容器类型，则为其添加子字段项，如果是基本类型则为其添加兄弟节点字段项 */
   onAddBtnEvent = () => {
-    console.log('新增，开发中');
-    const { parentType, jsonKey, indexRoute, targetJsonData } = this.props;
+    const {
+      indexRoute,
+      targetJsonData,
+      addChildJson,
+      insertJsonData,
+    } = this.props;
+    if (isBoxSchemaData(targetJsonData.format)) {
+      // 表示当前是容器类型字段
+      addChildJson(indexRoute);
+    } else {
+      // 插入兄弟节点
+      insertJsonData(indexRoute);
+    }
   };
 
   /** 删除字段项 */
   onDeleteBtnEvent = () => {
-    console.log('删除，开发中');
     const { jsonKey, indexRoute, deleteJsonByIndex } = this.props;
     deleteJsonByIndex(indexRoute, jsonKey); // 删除对应的json数据对象
   };
@@ -80,7 +89,7 @@ class BaseFormSchema extends React.PureComponent {
         </div>
         <div className="type-select-item">
           <Select
-            defaultValue={this.getCurrentType(targetJsonData)}
+            defaultValue={this.getCurrentFormat(targetJsonData)}
             style={{ width: 120 }}
             onChange={this.selectHandleChange}
             disabled={readOnly}
@@ -113,4 +122,7 @@ class BaseFormSchema extends React.PureComponent {
 
 export default inject((stores) => ({
   deleteJsonByIndex: stores.jsonSchemaStore.deleteJsonByIndex,
+  getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
+  addChildJson: stores.jsonSchemaStore.addChildJson,
+  insertJsonData: stores.jsonSchemaStore.insertJsonData,
 }))(observer(BaseFormSchema));

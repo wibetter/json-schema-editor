@@ -50,20 +50,3 @@ export function isBoxSchemaElem(elemClassName) {
   }
   return isBoxSchema;
 }
-
-/** 根据format判断是否是容器类型字段
- *  容器类型字段：func、style、data、object
- *  备注：array类型字段没有properties属性
- * */
-export function isBoxSchemaData(format) {
-  let isBoxSchema = false;
-  if (
-    format === 'func' ||
-    format === 'style' ||
-    format === 'data' ||
-    format === 'object'
-  ) {
-    isBoxSchema = true;
-  }
-  return isBoxSchema;
-}

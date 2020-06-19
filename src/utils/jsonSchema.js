@@ -50,8 +50,9 @@ export function getJSONDataByIndex(
     const indexRouteArr = indexRoute.split('-');
     for (let index = 0, size = indexRouteArr.length; index < size; index++) {
       // 获取指定路径的json数据对象，需要按以下步骤（备注：确保是符合规则的json格式数据，使用isJSONSchemaFormat进行校验）
+      const curIndex = indexRouteArr[index];
       // 1、先根据路径值获取key值
-      const curKeyTemp = curJsonSchemaObj['propertyOrder'][index];
+      const curKeyTemp = curJsonSchemaObj['propertyOrder'][curIndex];
       // 2、根据key值获取对应的json数据对象
       curJsonSchemaObj = curJsonSchemaObj.properties[curKeyTemp];
     }
@@ -78,10 +79,36 @@ export function isSameParentElem(curIndex, targetIndex) {
 /**
  * 获取父元素的路径值
  */
-export function getParentIndexRoute(curIndex) {
-  const curIndexArr = curIndex.split('-');
+export function getParentIndexRoute(curIndexRoute) {
+  const curIndexArr = curIndexRoute.split('-');
   curIndexArr.pop();
   return curIndexArr.join('-');
+}
+
+/**
+ * 获取父元素的路径值和当前index
+ */
+export function getParentIndexRoute_CurIndex(curIndexRoute) {
+  const curIndexArr = curIndexRoute.split('-');
+  const curIndex = curIndexArr.pop();
+  return [curIndexArr.join('-'), curIndex];
+}
+
+/** 根据format判断是否是容器类型字段
+ *  容器类型字段：func、style、data、object
+ *  备注：array类型字段没有properties属性
+ * */
+export function isBoxSchemaData(format) {
+  let isBoxSchema = false;
+  if (
+    format === 'func' ||
+    format === 'style' ||
+    format === 'data' ||
+    format === 'object'
+  ) {
+    isBoxSchema = true;
+  }
+  return isBoxSchema;
 }
 
 /** 【旧版jsonSchema转新版jsonSchema】

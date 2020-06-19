@@ -4,12 +4,8 @@ import PropTypes from 'prop-types';
 import { Tree } from 'antd';
 import BaseFormSchema from '$components/BaseFormSchema/index';
 const { TreeNode } = Tree;
-import {
-  isEqual,
-  isBoxSchemaData,
-  isBoxSchemaElem,
-  isSameParentElem,
-} from '$utils/index';
+import { isEqual, isBoxSchemaElem, isSameParentElem } from '$utils/index';
+import { isBoxSchemaData } from '$utils/jsonSchema';
 import './index.scss';
 
 class JSONSchema extends React.PureComponent {
