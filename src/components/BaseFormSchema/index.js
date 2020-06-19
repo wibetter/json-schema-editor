@@ -19,6 +19,8 @@ class BaseFormSchema extends React.PureComponent {
     console.log(`selected ${value}`);
   };
 
+  /** 获取当前字段的类型清单
+   *  根据父元素的类型决定当前字段的类型可选择范围，如果父类型为空则默认使用全新的可选择类型 */
   getCurrentTypeList = (parentType) => {
     const myParentType = parentType || 'all';
     let typeList = TypeList[myParentType];
@@ -26,6 +28,22 @@ class BaseFormSchema extends React.PureComponent {
       typeList = TypeList['all']; // 如果当前类型清单为空，则默认展示所有的字段类型
     }
     return typeList;
+  };
+
+  /** 获取当前字段的类型（format）
+   *  如果当前字段没有format字段，则根据type字段赋予默认的类型 */
+  getCurrentType = (targetJsonData) => {
+    let currentType = targetJsonData.format;
+    if (!currentType) {
+      if (targetJsonData.type === 'object') {
+        currentType = 'object';
+      } else if (targetJsonData.type === 'array') {
+        currentType = 'array';
+      } else {
+        currentType = 'input';
+      }
+    }
+    return currentType;
   };
 
   render() {
@@ -42,7 +60,7 @@ class BaseFormSchema extends React.PureComponent {
         </div>
         <div className="type-select-item">
           <Select
-            defaultValue={targetJsonData.format}
+            defaultValue={this.getCurrentType(targetJsonData)}
             style={{ width: 120 }}
             onChange={this.selectHandleChange}
             disabled={readOnly}

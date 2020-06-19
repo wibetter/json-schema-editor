@@ -37,6 +37,7 @@ class JSONSchema extends React.PureComponent {
       isBoxSchemaElem(info.node.props.className)
     ) {
       message.warning('该类型元素不支持拖拽哦');
+      /** 【待开发】 */
       info.event.preventDefault();
       info.event.stopPropagation();
     }
@@ -78,6 +79,7 @@ class JSONSchema extends React.PureComponent {
     /** 【待开发】 */
   };
 
+  /** 渲染当前字段的表单项（Tree的单项内容） */
   getTreeNodeTitleCont = (params) => {
     return (
       <BaseFormSchema
