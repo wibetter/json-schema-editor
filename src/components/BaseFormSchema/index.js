@@ -81,8 +81,8 @@ class BaseFormSchema extends React.PureComponent {
 
   /** 删除字段项 */
   onDeleteBtnEvent = () => {
-    const { jsonKey, indexRoute, deleteJsonByIndex } = this.props;
-    deleteJsonByIndex(indexRoute, jsonKey); // 删除对应的json数据对象
+    const { jsonKey, indexRoute, deleteJsonByIndex_CurKey } = this.props;
+    deleteJsonByIndex_CurKey(indexRoute, jsonKey); // 删除对应的json数据对象
   };
 
   render() {
@@ -139,7 +139,7 @@ class BaseFormSchema extends React.PureComponent {
 }
 
 export default inject((stores) => ({
-  deleteJsonByIndex: stores.jsonSchemaStore.deleteJsonByIndex,
+  deleteJsonByIndex_CurKey: stores.jsonSchemaStore.deleteJsonByIndex_CurKey,
   getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
   addChildJson: stores.jsonSchemaStore.addChildJson,
   addNextJsonData: stores.jsonSchemaStore.addNextJsonData,

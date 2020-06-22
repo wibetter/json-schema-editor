@@ -84,6 +84,7 @@ export default class JSONSchemaStore {
       // 注：非数组和对象类型字段不允许插入子元素
       message.warning('非对象类型字段不允许插入子元素');
     }
+    console.log(this.JSONSchemaObj);
   }
 
   /** 根据索引路径值(indexRoute)编辑对应的json数据对象
@@ -94,9 +95,11 @@ export default class JSONSchemaStore {
     const parentIndexRoute = getParentIndexRoute(curIndexRoute);
     const parentJSONObj = getJSONDataByIndex(parentIndexRoute, this.jsonSchema);
     parentJSONObj.properties[jsonKey] = Object.assign(
+      {},
       objClone(parentJSONObj.properties[jsonKey]),
       newJsonDataObj,
     );
+    console.log(this.JSONSchemaObj);
   }
 
   /** 根据索引路径值(indexRoute)编辑对应的jsonKey
@@ -152,10 +155,30 @@ export default class JSONSchemaStore {
 
   /** 根据索引路径值(indexRoute)和关键字(childKey)删除对应的json数据对象 */
   @action.bound
-  deleteJsonByIndex(indexRoute, curKey) {
+  deleteJsonByIndex_CurKey(indexRoute, curKey) {
     // 1.获取当前元素的父元素路径值
     const parentIndexRoute = getParentIndexRoute(indexRoute);
     const parentJsonObj = getJSONDataByIndex(parentIndexRoute, this.jsonSchema);
+    // 2.根据curKey删除在properties中删除对应的字段对象
+    delete parentJsonObj.properties[curKey];
+    // 3.删除propertyOrder中对应的curKey
+    const deleteIndex = parentJsonObj.propertyOrder.indexOf(curKey);
+    parentJsonObj.propertyOrder.splice(deleteIndex, 1);
+    // 4.删除required中对应的curKey
+    const deleteIndex2 = parentJsonObj.required.indexOf(curKey);
+    parentJsonObj.required.splice(deleteIndex2, 1);
+    console.log(this.JSONSchemaObj);
+  }
+
+  /** 根据索引路径值(indexRoute)删除对应的json数据对象 */
+  @action.bound
+  deleteJsonByIndex(indexRoute) {
+    // 1.获取当前元素的父元素路径值和最后一个路径值，以便定位插入的位置
+    const parentIndexRoute_CurIndex = getParentIndexRoute_CurIndex(indexRoute);
+    const parentIndexRoute = parentIndexRoute_CurIndex[0];
+    const curIndex = parentIndexRoute_CurIndex[1];
+    const parentJsonObj = getJSONDataByIndex(parentIndexRoute, this.jsonSchema);
+    const curKey = parentJsonObj.propertyOrder[curIndex];
     // 2.根据curKey删除在properties中删除对应的字段对象
     delete parentJsonObj.properties[curKey];
     // 3.删除propertyOrder中对应的curKey
