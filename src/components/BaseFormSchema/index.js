@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { Input, Select, Tooltip } from 'antd';
+import { Input, message, Select, Tooltip } from 'antd';
 const { Option } = Select;
 import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
 import { isBoxSchemaData, getCurrentFormat } from '$utils/jsonSchema';
@@ -34,8 +34,12 @@ class BaseFormSchema extends React.PureComponent {
   /** jsonKey类型输入值变动事件处理器 */
   handleJsonKeyChange = (event) => {
     const { value } = event.target;
-    const { indexRoute, jsonKey, editJsonKey } = this.props;
+    const { indexRoute, jsonKey, editJsonKey, isExitJsonKey } = this.props;
     if (jsonKey === value) return; // jsonKey值未改变则直接跳出
+    if (isExitJsonKey(indexRoute, value)) {
+      message.warning('当前key已存在，请换一个吧。');
+      return;
+    }
     editJsonKey(indexRoute, value);
   };
 
@@ -145,4 +149,5 @@ export default inject((stores) => ({
   insertJsonData: stores.jsonSchemaStore.insertJsonData,
   editJsonData: stores.jsonSchemaStore.editJsonData,
   editJsonKey: stores.jsonSchemaStore.editJsonKey,
+  isExitJsonKey: stores.jsonSchemaStore.isExitJsonKey,
 }))(observer(BaseFormSchema));
