@@ -12,7 +12,7 @@ import { initJSONSchemaData, initInputData } from '$data/index';
 
 export default class JSONSchemaStore {
   /** 主要用于自动生成jsonKey中的index */
-  curJsonKeyIndex = 1;
+  curJsonKeyIndex = 1; // 非响应式
   /**
    * triggerChange: 用于强制触发更新事件
    */
@@ -130,25 +130,29 @@ export default class JSONSchemaStore {
     console.log(this.JSONSchemaObj);
   }
 
-  /** 根据索引路径值(indexRoute)插入指定的json数据对象（jsonKey、curJSONObj）*/
+  /** 根据索引路径值(indexRoute)插入指定的json数据对象（jsonKey、curJSONObj）
+   * position（非必填）: after（表示插入到指定位置后面，默认值）、before（表示插入到指定位置前面）
+   * */
   @action.bound
-  insertJsonData(curIndexRoute, jsonKey, curJSONObj) {
+  insertJsonData(curIndexRoute, jsonKey, curJSONObj, position) {
     // 1.获取当前元素的父元素路径值和最后一个路径值，以便定位插入的位置
     const parentIndexRoute_CurIndex = getParentIndexRoute_CurIndex(
       curIndexRoute,
     );
     const parentIndexRoute = parentIndexRoute_CurIndex[0];
     const curIndex = parentIndexRoute_CurIndex[1];
-    // 2.生成新的jsonKey值
+    // 2.获取父级元素
     const parentJSONObj = getJSONDataByIndex(parentIndexRoute, this.jsonSchema);
     // 3.插入新增的对象数据
     parentJSONObj.required.push(jsonKey);
-    /** 如果没有设置新增的对象数据，则默认使用initInputData */
     parentJSONObj.properties[jsonKey] = curJSONObj;
     // 4.在propertyOrder的对应位置插入newJsonKey【有序插入newJsonKey】
     const currentPropertyOrder = parentJSONObj['propertyOrder'];
-    const startArr = currentPropertyOrder.slice(0, Number(curIndex) + 1);
-    const endArr = currentPropertyOrder.slice(Number(curIndex) + 1);
+    // 5.获取插入位置
+    const positionIndex =
+      position === 'before' ? Number(curIndex) : Number(curIndex) + 1;
+    const startArr = currentPropertyOrder.slice(0, positionIndex);
+    const endArr = currentPropertyOrder.slice(positionIndex);
     parentJSONObj['propertyOrder'] = [...startArr, jsonKey, ...endArr];
     console.log(this.JSONSchemaObj);
   }

@@ -19,7 +19,6 @@ class BaseFormSchema extends React.PureComponent {
 
   constructor(props) {
     super(props);
-
     // 这边绑定是必要的，这样 `this` 才能在回调函数中使用
     this.onAddBtnEvent = this.onAddBtnEvent.bind(this);
     this.onDeleteBtnEvent = this.onDeleteBtnEvent.bind(this);

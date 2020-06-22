@@ -64,7 +64,7 @@ export function getJSONDataByIndex(
  * 判断是否是同一个父元素
  * 备注：用于判断两个元素是否在同一个父级容器中
  */
-export function isSameParentElem(curIndex, targetIndex) {
+export function isSameParent(curIndex, targetIndex) {
   const curIndexArr = curIndex.split('-');
   const targetIndexArr = targetIndex.split('-');
   curIndexArr.pop();
@@ -106,6 +106,26 @@ export function getParentIndexRoute_CurIndex(curIndexRoute) {
   const curIndexArr = curIndexRoute.split('-');
   const curIndex = curIndexArr.pop();
   return [curIndexArr.join('-'), curIndex];
+}
+
+/**
+ * 将当前路径值向前移动一位
+ */
+export function moveForward(curIndexRoute) {
+  const curIndexArr = curIndexRoute.split('-');
+  const curIndex = curIndexArr.pop();
+  curIndexArr.push(Number(curIndex) - 1);
+  return curIndexArr.join('-');
+}
+
+/**
+ * 将当前路径值向后移动一位
+ */
+export function moveBackward(curIndexRoute) {
+  const curIndexArr = curIndexRoute.split('-');
+  const curIndex = curIndexArr.pop();
+  curIndexArr.push(Number(curIndex) + 1);
+  return curIndexArr.join('-');
 }
 
 /** 根据format判断是否是容器类型字段

@@ -1,11 +1,16 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { Tree } from 'antd';
+import { Tree, message } from 'antd';
 import BaseFormSchema from '$components/BaseFormSchema/index';
 const { TreeNode } = Tree;
-import { isEqual, isBoxSchemaElem, isSameParentElem } from '$utils/index';
-import { isBoxSchemaData, getCurrentFormat } from '$utils/jsonSchema';
+import { isEqual, isBoxSchemaElem } from '$utils/index';
+import {
+  isBoxSchemaData,
+  getCurrentFormat,
+  isSameParent,
+  moveForward,
+} from '$utils/jsonSchema';
 import './index.scss';
 
 class JSONSchema extends React.PureComponent {
@@ -31,50 +36,83 @@ class JSONSchema extends React.PureComponent {
   /**
    * 拖拽相关方法：开始拖动时触发的事件
    */
-  onDragStart = (info) => {
+  onDragStart = (eventData) => {
+    const { event, node } = eventData;
     // 设置只有指定类型的元素可以拖拽
-    if (
-      info.node.props.className &&
-      isBoxSchemaElem(info.node.props.className)
-    ) {
+    if (node.className && isBoxSchemaElem(node.className)) {
       message.warning('该类型元素不支持拖拽哦');
-      /** 【待开发】 */
-      info.event.preventDefault();
-      info.event.stopPropagation();
+      // event.preventDefault();
+      // event.stopPropagation();
     }
   };
 
   /**
    * 拖拽相关方法：拖动完成时触发的事件
    */
-  onDrop = (info) => {
+  onDrop = (eventData) => {
+    /**
+     * dragNode：拖动的元素
+     * node：拖拽的目标位置上的元素
+     * 根据eventData中的dropPosition值判断插入位置会不准确
+     * */
+    const { dragNode, node } = eventData;
+    if (dragNode.className && isBoxSchemaElem(dragNode.className)) return; // 容器类型元素不允许拖拽
     // 拖动的元素key
-    const curEventKey = info.dragNode.props.eventKey;
+    const curEventKey = dragNode.indexRoute;
+    const curJsonKey = dragNode.jsonKey;
     console.log(curEventKey);
 
     // 放置的目标元素key
-    const targetEventKey = info.node.props.eventKey;
+    let targetEventKey = node.indexRoute;
     console.log(targetEventKey);
 
-    console.log(info);
-
-    const _props = this.props;
-
     // 判断是否是同一个父级容器
-    const isSameParentElem = isSameParentElem(curEventKey, targetEventKey);
+    const isSameParentElem = isSameParent(curEventKey, targetEventKey);
     // 如果是同级父级容器，则判断先后顺序
-    let elemOrder = true; // 默认为true：表示拖动元素在前目标元素在后，
+    let elemOrder = false; // 默认为false：表示拖动元素在后，目标元素在前，
     if (isSameParentElem) {
       const curKeyLastChar = curEventKey.substr(curEventKey.length - 1, 1);
       const targetKeyLastChar = targetEventKey.substr(
         curEventKey.length - 1,
         1,
       );
-      if (curKeyLastChar > targetKeyLastChar) {
-        elemOrder = false;
+      if (curKeyLastChar < targetKeyLastChar) {
+        // curKeyLastChar：拖动元素的最后一个路径值
+        // 表示拖动的元素在前面，目标元素在后面
+        elemOrder = true;
       }
     }
-    /** 【待开发】 */
+    const {
+      getJSONDataByIndex,
+      insertJsonData,
+      deleteJsonByIndex,
+    } = this.props;
+    // 获取当前拖动的元素
+    const curJsonObj = getJSONDataByIndex(curEventKey);
+    /**
+     * node.dragOver: false（为true时表示在目标元素中间）
+     * node.dragOverGapBottom: false（为true时表示在目标元素后面）
+     * node.dragOverGapTop: false（为true时表示在目标元素前面）
+     * */
+    if (elemOrder) {
+      /**
+       * 当拖动的元素在前面，目标元素在后面，
+       * 先删除拖动元素时会导致targetEventKey发生偏移，需要向前移动一位进行矫正
+       */
+      targetEventKey = moveForward(targetEventKey);
+    }
+    if (node.dragOverGapTop) {
+      /** 拖拽到目标元素前面 */
+      // 先删除再插入，避免出现重复数据
+      deleteJsonByIndex(curEventKey);
+      insertJsonData(targetEventKey, curJsonKey, curJsonObj, 'before');
+    } else if (node.dragOver) {
+      /** 拖拽到目标元素当前位置，进行位置置换 */
+    } else if (node.dragOverGapBottom) {
+      /** 拖拽到目标元素后面 */
+      deleteJsonByIndex(curEventKey);
+      insertJsonData(targetEventKey, curJsonKey, curJsonObj);
+    }
   };
 
   /** 渲染当前字段的表单项（Tree的单项内容） */
@@ -115,14 +153,18 @@ class JSONSchema extends React.PureComponent {
       const currentSchemaData = properties[currentJsonKey];
       /** 4. 获取当前元素的id，用于做唯一标识 */
       const nodeKey = `${parentJsonKey || parentType}-${currentJsonKey}`;
+      /** 5. 判断是否是容器类型元素，如果是则禁止选中 */
+      const currentFormat = getCurrentFormat(currentSchemaData);
+      const isBoxElem = isBoxSchemaData(currentFormat);
 
       return (
         <TreeNode
-          className={`${getCurrentFormat(
-            currentSchemaData,
-          )}-schema schema-item-form`}
+          className={`${currentFormat}-schema schema-item-form`}
           id={nodeKey}
           key={nodeKey}
+          indexRoute={currentIndexRoute}
+          jsonKey={currentJsonKey}
+          disabled={isBoxElem}
           title={this.getTreeNodeTitleCont({
             indexRoute: currentIndexRoute,
             jsonKey: currentJsonKey,
@@ -137,7 +179,7 @@ class JSONSchema extends React.PureComponent {
               properties: currentSchemaData.properties,
               parentIndexRoute: currentIndexRoute,
               parentJsonKey: currentJsonKey,
-              parentType: currentSchemaData.format,
+              parentType: currentSchemaData.format || currentSchemaData.type,
             })}
         </TreeNode>
       );
@@ -154,6 +196,7 @@ class JSONSchema extends React.PureComponent {
           jsonSchema.propertyOrder.length > 0 && (
             <Tree
               draggable={true}
+              selectable={false}
               onDragStart={this.onDragStart}
               onDrop={this.onDrop}
               defaultExpandAll={false}
@@ -181,4 +224,6 @@ export default inject((stores) => ({
   jsonSchema: stores.jsonSchemaStore.jsonSchema,
   initJSONSchemaData: stores.jsonSchemaStore.initJSONSchemaData,
   getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
+  insertJsonData: stores.jsonSchemaStore.insertJsonData,
+  deleteJsonByIndex: stores.jsonSchemaStore.deleteJsonByIndex,
 }))(observer(JSONSchema));
