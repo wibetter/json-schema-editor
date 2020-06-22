@@ -76,6 +76,20 @@ export function isSameParentElem(curIndex, targetIndex) {
   }
 }
 
+/** 获取当前字段的类型（format）
+ *  如果当前字段没有format字段，则根据type字段赋予默认的类型 */
+export function getCurrentFormat(targetJsonData) {
+  let currentType = targetJsonData.format;
+  if (!currentType) {
+    if (targetJsonData.type === 'object' || targetJsonData.type === 'array') {
+      currentType = targetJsonData.type;
+    } else {
+      currentType = 'input';
+    }
+  }
+  return currentType;
+}
+
 /**
  * 获取父元素的路径值
  */

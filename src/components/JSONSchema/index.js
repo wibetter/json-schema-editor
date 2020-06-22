@@ -5,7 +5,7 @@ import { Tree } from 'antd';
 import BaseFormSchema from '$components/BaseFormSchema/index';
 const { TreeNode } = Tree;
 import { isEqual, isBoxSchemaElem, isSameParentElem } from '$utils/index';
-import { isBoxSchemaData } from '$utils/jsonSchema';
+import { isBoxSchemaData, getCurrentFormat } from '$utils/jsonSchema';
 import './index.scss';
 
 class JSONSchema extends React.PureComponent {
@@ -85,6 +85,7 @@ class JSONSchema extends React.PureComponent {
         jsonKey={params.jsonKey}
         targetJsonData={params.targetJsonData}
         parentType={params.parentType}
+        nodeKey={params.nodeKey}
       />
     );
   };
@@ -95,7 +96,13 @@ class JSONSchema extends React.PureComponent {
    *  parentIndexRoute用于拼接当前元素的完整索引路径。
    * */
   propertiesRender = (params) => {
-    const { propertyOrder, properties, parentIndexRoute, parentType } = params;
+    const {
+      propertyOrder,
+      properties,
+      parentIndexRoute,
+      parentJsonKey,
+      parentType,
+    } = params;
 
     return propertyOrder.map((key, index) => {
       /** 1. 获取当前元素的路径值 */
@@ -106,16 +113,22 @@ class JSONSchema extends React.PureComponent {
       const currentJsonKey = key;
       /** 3. 获取当前元素的json数据对象 */
       const currentSchemaData = properties[currentJsonKey];
+      /** 4. 获取当前元素的id，用于做唯一标识 */
+      const nodeKey = `${parentJsonKey || parentType}-${currentJsonKey}`;
 
       return (
         <TreeNode
-          className={`${currentSchemaData.format}-schema schema-item-form`}
-          key={currentIndexRoute}
+          className={`${getCurrentFormat(
+            currentSchemaData,
+          )}-schema schema-item-form`}
+          id={nodeKey}
+          key={nodeKey}
           title={this.getTreeNodeTitleCont({
             indexRoute: currentIndexRoute,
             jsonKey: currentJsonKey,
             targetJsonData: currentSchemaData,
             parentType,
+            nodeKey,
           })}
         >
           {isBoxSchemaData(currentSchemaData.format) &&
@@ -123,6 +136,7 @@ class JSONSchema extends React.PureComponent {
               propertyOrder: currentSchemaData.propertyOrder,
               properties: currentSchemaData.properties,
               parentIndexRoute: currentIndexRoute,
+              parentJsonKey: currentJsonKey,
               parentType: currentSchemaData.format,
             })}
         </TreeNode>
@@ -148,6 +162,7 @@ class JSONSchema extends React.PureComponent {
                 propertyOrder: jsonSchema.propertyOrder,
                 properties: jsonSchema.properties,
                 parentIndexRoute: '',
+                parentJsonKey: '',
                 parentType: jsonSchema.format || jsonSchema.type,
               })}
             </Tree>
