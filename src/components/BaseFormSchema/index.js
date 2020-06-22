@@ -3,8 +3,14 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Input, message, Select, Tooltip } from 'antd';
 const { Option } = Select;
-import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
-import { isBoxSchemaData, getCurrentFormat } from '$utils/jsonSchema';
+import { PlusOutlined, CloseOutlined, CopyOutlined } from '@ant-design/icons';
+import {
+  isBoxSchemaData,
+  isFirstSchemaData,
+  getCurrentFormat,
+  getParentIndexRoute,
+} from '$utils/jsonSchema';
+import { objClone } from '$utils/index';
 import { TypeList } from '$data/TypeList';
 import './index.scss';
 
@@ -21,6 +27,7 @@ class BaseFormSchema extends React.PureComponent {
     super(props);
     // 这边绑定是必要的，这样 `this` 才能在回调函数中使用
     this.onAddBtnEvent = this.onAddBtnEvent.bind(this);
+    this.onCopyBtnEvent = this.onCopyBtnEvent.bind(this);
     this.onDeleteBtnEvent = this.onDeleteBtnEvent.bind(this);
     this.handleJsonKeyChange = this.handleJsonKeyChange.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -82,6 +89,27 @@ class BaseFormSchema extends React.PureComponent {
     }
   };
 
+  /** 复制功能
+   *  备注：需要自动生成一个key值 */
+  onCopyBtnEvent = () => {
+    const {
+      indexRoute,
+      targetJsonData,
+      getJSONDataByIndex,
+      jsonKey,
+      insertJsonData,
+      getNewJsonKeyIndex,
+    } = this.props;
+    const newJsonData = objClone(targetJsonData);
+    // 1.获取父元素
+    const parentIndexRoute = getParentIndexRoute(indexRoute);
+    const parentJSONObj = getJSONDataByIndex(parentIndexRoute);
+    // 2.生成一个新的key值
+    const newJsonKey = getNewJsonKeyIndex(parentJSONObj, jsonKey);
+    // 3.插入复制的json数据
+    insertJsonData(indexRoute, newJsonKey, newJsonData);
+  };
+
   /** 删除字段项 */
   onDeleteBtnEvent = () => {
     const { jsonKey, indexRoute, deleteJsonByIndex_CurKey } = this.props;
@@ -92,6 +120,7 @@ class BaseFormSchema extends React.PureComponent {
     const { parentType, jsonKey, nodeKey, targetJsonData } = this.props;
     const readOnly = targetJsonData.readOnly || false; // 是否不可编辑状态，默认为可编辑状态
     const currentTypeList = this.getCurrentTypeList(parentType); // 根据父级元素类型获取可供使用的类型清单
+    const isFirstSchemaData_ = isFirstSchemaData(targetJsonData.format);
 
     return (
       <div className="base-schema-box" id={nodeKey}>
@@ -135,6 +164,12 @@ class BaseFormSchema extends React.PureComponent {
             />
           )}
           <PlusOutlined className="operate-btn" onClick={this.onAddBtnEvent} />
+          {!isFirstSchemaData_ && (
+            <CopyOutlined
+              className="operate-btn"
+              onClick={this.onCopyBtnEvent}
+            />
+          )}
         </div>
       </div>
     );
@@ -142,6 +177,7 @@ class BaseFormSchema extends React.PureComponent {
 }
 
 export default inject((stores) => ({
+  getNewJsonKeyIndex: stores.jsonSchemaStore.getNewJsonKeyIndex,
   deleteJsonByIndex_CurKey: stores.jsonSchemaStore.deleteJsonByIndex_CurKey,
   getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
   addChildJson: stores.jsonSchemaStore.addChildJson,
