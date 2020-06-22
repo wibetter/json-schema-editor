@@ -146,6 +146,18 @@ export function isBoxSchemaData(format) {
   return isBoxSchema;
 }
 
+/** 根据format判断是否是一级类型字段
+ *  一级类型字段：func、style、data
+ *  备注：一级类型字段不允许复制
+ * */
+export function isFirstSchemaData(format) {
+  let isFirst = false;
+  if (format === 'func' || format === 'style' || format === 'data') {
+    isFirst = true;
+  }
+  return isFirst;
+}
+
 /** 【旧版jsonSchema转新版jsonSchema】
  * 新版有propertyOrder属性，旧版的required需要根据properties重新生成一份
  * 新版的title需要从description中获取值（旧版的title值使用的是description字段的值）

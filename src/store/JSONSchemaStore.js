@@ -56,8 +56,10 @@ export default class JSONSchemaStore {
 
   /** 根据parentJSONObj自动生成jsonKey */
   @action.bound
-  getNewJsonKeyIndex(parentJSONObj) {
-    let newJsonKeyIndex = `field_${this.curJsonKeyIndex}`;
+  getNewJsonKeyIndex(parentJSONObj, prefix) {
+    let newJsonKeyIndex = `${prefix ? prefix : 'field'}_${
+      this.curJsonKeyIndex
+    }`;
     if (parentJSONObj.propertyOrder.indexOf(newJsonKeyIndex) >= 0) {
       // 表示存在相同的jsonKey
       this.curJsonKeyIndex += 1;
