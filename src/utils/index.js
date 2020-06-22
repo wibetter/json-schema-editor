@@ -16,18 +16,18 @@ export function isEqual(targetObj, nextTargetObj) {
 export function isBaseSchemaElem(elemClassName) {
   let isBaseSchema = false;
   if (
-    elemClassName.indexOf('input-schema') > 0 ||
-    elemClassName.indexOf('boolean-schema') > 0 ||
-    elemClassName.indexOf('date-schema') > 0 ||
-    elemClassName.indexOf('date-time-schema') > 0 ||
-    elemClassName.indexOf('time-schema') > 0 ||
-    elemClassName.indexOf('url-schema') > 0 ||
-    elemClassName.indexOf('textarea-schema') > 0 ||
-    elemClassName.indexOf('number-schema') > 0 ||
-    elemClassName.indexOf('radio-schema') > 0 ||
-    elemClassName.indexOf('select-schema') > 0 ||
-    elemClassName.indexOf('color-schema') > 0 ||
-    elemClassName.indexOf('quantity-schema') > 0
+    elemClassName.indexOf('input-schema') >= 0 ||
+    elemClassName.indexOf('boolean-schema') >= 0 ||
+    elemClassName.indexOf('date-schema') >= 0 ||
+    elemClassName.indexOf('date-time-schema') >= 0 ||
+    elemClassName.indexOf('time-schema') >= 0 ||
+    elemClassName.indexOf('url-schema') >= 0 ||
+    elemClassName.indexOf('textarea-schema') >= 0 ||
+    elemClassName.indexOf('number-schema') >= 0 ||
+    elemClassName.indexOf('radio-schema') >= 0 ||
+    elemClassName.indexOf('select-schema') >= 0 ||
+    elemClassName.indexOf('color-schema') >= 0 ||
+    elemClassName.indexOf('quantity-schema') >= 0
   ) {
     isBaseSchema = true;
   }
@@ -41,27 +41,10 @@ export function isBaseSchemaElem(elemClassName) {
 export function isBoxSchemaElem(elemClassName) {
   let isBoxSchema = false;
   if (
-    elemClassName.indexOf('func-schema') > 0 ||
-    elemClassName.indexOf('style-schema') > 0 ||
-    elemClassName.indexOf('data-schema') > 0 ||
-    elemClassName.indexOf('object-schema') > 0
-  ) {
-    isBoxSchema = true;
-  }
-  return isBoxSchema;
-}
-
-/** 根据format判断是否是容器类型字段
- *  容器类型字段：func、style、data、object
- *  备注：array类型字段没有properties属性
- * */
-export function isBoxSchemaData(format) {
-  let isBoxSchema = false;
-  if (
-    format === 'func' ||
-    format === 'style' ||
-    format === 'data' ||
-    format === 'object'
+    elemClassName.indexOf('func-schema') >= 0 ||
+    elemClassName.indexOf('style-schema') >= 0 ||
+    elemClassName.indexOf('data-schema') >= 0 ||
+    elemClassName.indexOf('object-schema') >= 0
   ) {
     isBoxSchema = true;
   }

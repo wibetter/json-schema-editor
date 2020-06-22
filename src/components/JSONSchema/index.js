@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { Tree } from 'antd';
 import BaseFormSchema from '$components/BaseFormSchema/index';
 const { TreeNode } = Tree;
-import { isEqual, isBoxSchemaData, isBoxSchemaElem } from '$utils/index';
+import { isEqual, isBoxSchemaElem, isSameParentElem } from '$utils/index';
+import { isBoxSchemaData, getCurrentFormat } from '$utils/jsonSchema';
 import './index.scss';
 
 class JSONSchema extends React.PureComponent {
@@ -37,6 +38,7 @@ class JSONSchema extends React.PureComponent {
       isBoxSchemaElem(info.node.props.className)
     ) {
       message.warning('该类型元素不支持拖拽哦');
+      /** 【待开发】 */
       info.event.preventDefault();
       info.event.stopPropagation();
     }
@@ -59,10 +61,7 @@ class JSONSchema extends React.PureComponent {
     const _props = this.props;
 
     // 判断是否是同一个父级容器
-    const isSameParentElem = _props.isSameParentElem(
-      curEventKey,
-      targetEventKey,
-    );
+    const isSameParentElem = isSameParentElem(curEventKey, targetEventKey);
     // 如果是同级父级容器，则判断先后顺序
     let elemOrder = true; // 默认为true：表示拖动元素在前目标元素在后，
     if (isSameParentElem) {
@@ -78,6 +77,7 @@ class JSONSchema extends React.PureComponent {
     /** 【待开发】 */
   };
 
+  /** 渲染当前字段的表单项（Tree的单项内容） */
   getTreeNodeTitleCont = (params) => {
     return (
       <BaseFormSchema
@@ -85,6 +85,7 @@ class JSONSchema extends React.PureComponent {
         jsonKey={params.jsonKey}
         targetJsonData={params.targetJsonData}
         parentType={params.parentType}
+        nodeKey={params.nodeKey}
       />
     );
   };
@@ -95,7 +96,13 @@ class JSONSchema extends React.PureComponent {
    *  parentIndexRoute用于拼接当前元素的完整索引路径。
    * */
   propertiesRender = (params) => {
-    const { propertyOrder, properties, parentIndexRoute, parentType } = params;
+    const {
+      propertyOrder,
+      properties,
+      parentIndexRoute,
+      parentJsonKey,
+      parentType,
+    } = params;
 
     return propertyOrder.map((key, index) => {
       /** 1. 获取当前元素的路径值 */
@@ -106,16 +113,22 @@ class JSONSchema extends React.PureComponent {
       const currentJsonKey = key;
       /** 3. 获取当前元素的json数据对象 */
       const currentSchemaData = properties[currentJsonKey];
+      /** 4. 获取当前元素的id，用于做唯一标识 */
+      const nodeKey = `${parentJsonKey || parentType}-${currentJsonKey}`;
 
       return (
         <TreeNode
-          className={`${currentSchemaData.format}-schema schema-item-form`}
-          key={currentIndexRoute}
+          className={`${getCurrentFormat(
+            currentSchemaData,
+          )}-schema schema-item-form`}
+          id={nodeKey}
+          key={nodeKey}
           title={this.getTreeNodeTitleCont({
             indexRoute: currentIndexRoute,
             jsonKey: currentJsonKey,
             targetJsonData: currentSchemaData,
             parentType,
+            nodeKey,
           })}
         >
           {isBoxSchemaData(currentSchemaData.format) &&
@@ -123,6 +136,7 @@ class JSONSchema extends React.PureComponent {
               propertyOrder: currentSchemaData.propertyOrder,
               properties: currentSchemaData.properties,
               parentIndexRoute: currentIndexRoute,
+              parentJsonKey: currentJsonKey,
               parentType: currentSchemaData.format,
             })}
         </TreeNode>
@@ -142,12 +156,13 @@ class JSONSchema extends React.PureComponent {
               draggable={true}
               onDragStart={this.onDragStart}
               onDrop={this.onDrop}
-              defaultExpandAll={true}
+              defaultExpandAll={false}
             >
               {this.propertiesRender({
                 propertyOrder: jsonSchema.propertyOrder,
                 properties: jsonSchema.properties,
                 parentIndexRoute: '',
+                parentJsonKey: '',
                 parentType: jsonSchema.format || jsonSchema.type,
               })}
             </Tree>
@@ -166,5 +181,4 @@ export default inject((stores) => ({
   jsonSchema: stores.jsonSchemaStore.jsonSchema,
   initJSONSchemaData: stores.jsonSchemaStore.initJSONSchemaData,
   getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
-  isSameParentElem: stores.jsonSchemaStore.isSameParentElem,
 }))(observer(JSONSchema));
