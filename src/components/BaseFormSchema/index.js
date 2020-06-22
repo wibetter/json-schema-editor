@@ -158,17 +158,26 @@ class BaseFormSchema extends React.PureComponent {
         </div>
         <div className="operate-item">
           {!readOnly && (
-            <CloseOutlined
-              className="operate-btn delete-operate"
-              onClick={this.onDeleteBtnEvent}
-            />
+            <Tooltip title="删除">
+              <CloseOutlined
+                className="operate-btn delete-operate"
+                onClick={this.onDeleteBtnEvent}
+              />
+            </Tooltip>
           )}
-          <PlusOutlined className="operate-btn" onClick={this.onAddBtnEvent} />
-          {!isFirstSchemaData_ && (
-            <CopyOutlined
+          <Tooltip title="新增">
+            <PlusOutlined
               className="operate-btn"
-              onClick={this.onCopyBtnEvent}
+              onClick={this.onAddBtnEvent}
             />
+          </Tooltip>
+          {!isFirstSchemaData_ && (
+            <Tooltip title="复制">
+              <CopyOutlined
+                className="operate-btn"
+                onClick={this.onCopyBtnEvent}
+              />
+            </Tooltip>
           )}
         </div>
       </div>
