@@ -54,19 +54,32 @@ export default class JSONSchemaStore {
     return getJSONDataByIndex(indexRoute, this.jsonSchema, true); // useObjClone: true 避免后续产生数据联动
   }
 
-  /** 根据索引路径值(indexRoute)插入新的子元素-json数据对象(childJson)
-   *  备注：关键字(childKey)自动生成，json数据对象(childJson)默认使用initInputData
-   * */
+  /** 根据parentJSONObj自动生成jsonKey */
   @action.bound
-  getNewJsonKeyIndex(curJSONObj) {
+  getNewJsonKeyIndex(parentJSONObj) {
     let newJsonKeyIndex = `field_${this.curJsonKeyIndex}`;
-    if (curJSONObj.propertyOrder.indexOf(newJsonKeyIndex) >= 0) {
+    if (parentJSONObj.propertyOrder.indexOf(newJsonKeyIndex) >= 0) {
       // 表示存在相同的jsonKey
       this.curJsonKeyIndex += 1;
-      newJsonKeyIndex = this.getNewJsonKeyIndex(curJSONObj);
+      newJsonKeyIndex = this.getNewJsonKeyIndex(parentJSONObj);
     }
     this.curJsonKeyIndex += 1;
     return newJsonKeyIndex;
+  }
+
+  /** 判断是否有重名key值 */
+  @action.bound
+  isExitJsonKey(indexRoute, jsonKey) {
+    const parentJsonKey = getParentIndexRoute(indexRoute);
+    const parentJSONObj = this.getJSONDataByIndex(parentJsonKey);
+    if (
+      parentJSONObj.propertyOrder &&
+      parentJSONObj.propertyOrder.indexOf(jsonKey) >= 0
+    ) {
+      // 表示存在相同的jsonKey
+      return true;
+    }
+    return false;
   }
 
   /** 根据索引路径值(indexRoute)插入新的子元素-json数据对象(childJson)

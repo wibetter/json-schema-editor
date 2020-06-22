@@ -2,6 +2,7 @@
  * JSONSchema数据对象的通用操作方法【非响应式数据操作方法集合】
  */
 import { objClone } from '$utils/index';
+import { action } from 'mobx';
 
 /** 【校验是否是合法的JsonSchema数据格式】
  *  主要判断当前JSON对象中是否有预先定义的属性：

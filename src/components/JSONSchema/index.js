@@ -37,12 +37,12 @@ class JSONSchema extends React.PureComponent {
    * 拖拽相关方法：开始拖动时触发的事件
    */
   onDragStart = (eventData) => {
-    const { event, node } = eventData;
+    const { node } = eventData;
     // 设置只有指定类型的元素可以拖拽
     if (node.className && isBoxSchemaElem(node.className)) {
       message.warning('该类型元素不支持拖拽哦');
-      // event.preventDefault();
-      // event.stopPropagation();
+      // eventData.event.preventDefault();
+      // eventData.event.stopPropagation();
     }
   };
 
@@ -56,10 +56,19 @@ class JSONSchema extends React.PureComponent {
      * 根据eventData中的dropPosition值判断插入位置会不准确
      * */
     const { dragNode, node } = eventData;
+    const {
+      getJSONDataByIndex,
+      insertJsonData,
+      deleteJsonByIndex,
+      isExitJsonKey,
+    } = this.props;
+
     if (dragNode.className && isBoxSchemaElem(dragNode.className)) return; // 容器类型元素不允许拖拽
     // 拖动的元素key
     const curEventKey = dragNode.indexRoute;
     const curJsonKey = dragNode.jsonKey;
+    // 获取当前拖动的元素
+    const curJsonObj = getJSONDataByIndex(curEventKey);
     console.log(curEventKey);
 
     // 放置的目标元素key
@@ -81,37 +90,47 @@ class JSONSchema extends React.PureComponent {
         // 表示拖动的元素在前面，目标元素在后面
         elemOrder = true;
       }
-    }
-    const {
-      getJSONDataByIndex,
-      insertJsonData,
-      deleteJsonByIndex,
-    } = this.props;
-    // 获取当前拖动的元素
-    const curJsonObj = getJSONDataByIndex(curEventKey);
-    /**
-     * node.dragOver: false（为true时表示在目标元素中间）
-     * node.dragOverGapBottom: false（为true时表示在目标元素后面）
-     * node.dragOverGapTop: false（为true时表示在目标元素前面）
-     * */
-    if (elemOrder) {
+      if (elemOrder) {
+        /**
+         * 当拖动的元素在前面，目标元素在后面，
+         * 先删除拖动元素时会导致targetEventKey发生偏移，需要向前移动一位进行矫正
+         */
+        targetEventKey = moveForward(targetEventKey);
+      }
       /**
-       * 当拖动的元素在前面，目标元素在后面，
-       * 先删除拖动元素时会导致targetEventKey发生偏移，需要向前移动一位进行矫正
-       */
-      targetEventKey = moveForward(targetEventKey);
-    }
-    if (node.dragOverGapTop) {
-      /** 拖拽到目标元素前面 */
-      // 先删除再插入，避免出现重复数据
-      deleteJsonByIndex(curEventKey);
-      insertJsonData(targetEventKey, curJsonKey, curJsonObj, 'before');
-    } else if (node.dragOver) {
-      /** 拖拽到目标元素当前位置，进行位置置换 */
-    } else if (node.dragOverGapBottom) {
-      /** 拖拽到目标元素后面 */
-      deleteJsonByIndex(curEventKey);
-      insertJsonData(targetEventKey, curJsonKey, curJsonObj);
+       * node.dragOver: false（为true时表示在目标元素中间）
+       * node.dragOverGapBottom: false（为true时表示在目标元素后面）
+       * node.dragOverGapTop: false（为true时表示在目标元素前面）
+       * */
+      // 同级元素拖拽先删除
+      if (node.dragOverGapTop) {
+        /** 拖拽到目标元素前面 */
+        // 先删除再插入，避免出现重复数据
+        deleteJsonByIndex(curEventKey);
+        insertJsonData(targetEventKey, curJsonKey, curJsonObj, 'before');
+      } else if (node.dragOver || node.dragOverGapBottom) {
+        /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
+        deleteJsonByIndex(curEventKey);
+        insertJsonData(targetEventKey, curJsonKey, curJsonObj);
+      }
+    } else {
+      /** 非同级元素的拖拽交互 */
+      // 判断是否有重名的jsonKey
+      const isExitJsonKey_ = isExitJsonKey(targetEventKey, curJsonKey);
+      if (isExitJsonKey_) {
+        message.warning('目标位置中有重名的元素');
+        return;
+      }
+      // 非同级元素拖拽后删除
+      if (node.dragOverGapTop) {
+        /** 拖拽到目标元素前面 */
+        insertJsonData(targetEventKey, curJsonKey, curJsonObj, 'before');
+        deleteJsonByIndex(curEventKey);
+      } else if (node.dragOver || node.dragOverGapBottom) {
+        /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
+        insertJsonData(targetEventKey, curJsonKey, curJsonObj);
+        deleteJsonByIndex(curEventKey);
+      }
     }
   };
 
@@ -226,4 +245,5 @@ export default inject((stores) => ({
   getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
   insertJsonData: stores.jsonSchemaStore.insertJsonData,
   deleteJsonByIndex: stores.jsonSchemaStore.deleteJsonByIndex,
+  isExitJsonKey: stores.jsonSchemaStore.isExitJsonKey,
 }))(observer(JSONSchema));
