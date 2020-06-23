@@ -17,27 +17,60 @@ export const initJSONSchemaData = {
       format: 'func',
       title: '功能设置',
       readOnly: true,
-      properties: {},
-      required: [],
-      propertyOrder: [],
+      properties: {
+        a: {
+          type: 'string',
+          title: '单文本框',
+          format: 'input',
+          isRequired: false,
+          default: '', // 默认值
+          description: '', // 字段项的说明和描述
+          placeholder: '', // 输入提示
+          readOnly: false,
+        },
+      },
+      required: ['a'],
+      propertyOrder: ['a'],
     },
     style: {
       type: 'object',
       format: 'style',
       title: '样式设置',
       readOnly: true,
-      properties: {},
-      required: [],
-      propertyOrder: [],
+      properties: {
+        b: {
+          type: 'string',
+          title: '单文本框',
+          format: 'input',
+          isRequired: false,
+          default: '', // 默认值
+          description: '', // 字段项的说明和描述
+          placeholder: '', // 输入提示
+          readOnly: false,
+        },
+      },
+      required: ['b'],
+      propertyOrder: ['b'],
     },
     data: {
       type: 'object',
       format: 'data',
       title: '数据设置',
       readOnly: true,
-      properties: {},
-      required: [],
-      propertyOrder: [],
+      properties: {
+        c: {
+          type: 'string',
+          title: '单文本框',
+          format: 'input',
+          isRequired: false,
+          default: '', // 默认值
+          description: '', // 字段项的说明和描述
+          placeholder: '', // 输入提示
+          readOnly: false,
+        },
+      },
+      required: ['c'],
+      propertyOrder: ['c'],
     },
   },
   required: ['func', 'style', 'data'],
