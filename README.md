@@ -13,10 +13,10 @@ npm install --save @jdwork/json-schema-editor
 ```jsx
 import React, { Component } from 'react';
 
-import SchemaEditor from '@jdwork/json-schema-editor';
+import JSONSchemaEditor from '@jdwork/json-schema-editor';
 import '@jdwork/json-schema-editor/dist/index.css';
 
-const SchemaEditorElem = schemaEditor(option);
+const SchemaEditorElem = JSONSchemaEditor(option);
 const option = {};
 
 class Example extends Component {

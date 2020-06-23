@@ -68,7 +68,6 @@ export const ALL_TYPE = [
   'datasource',
   'event',
   'array',
-  'object',
 ];
 
 // 类型清单
