@@ -10,7 +10,7 @@
  * */
 export const initDataSourceData = {
   type: 'object',
-  format: 'dataSource',
+  format: 'datasource',
   title: '数据源',
   readOnly: false,
   properties: {

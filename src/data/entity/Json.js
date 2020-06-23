@@ -9,7 +9,7 @@
  *  placeholder：输入提示
  *  readOnly：字段项可设置是否可编辑
  * */
-export const initInputData = {
+export const initJsonData = {
   type: 'string',
   title: 'json数据项',
   format: 'json',

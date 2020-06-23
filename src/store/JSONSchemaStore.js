@@ -127,6 +127,7 @@ export default class JSONSchemaStore {
       objClone(parentJSONObj.properties[jsonKey]),
       newJsonDataObj,
     );
+    console.log(this.JSONSchemaObj);
   }
 
   /** 根据索引路径值(indexRoute)编辑对应的jsonKey

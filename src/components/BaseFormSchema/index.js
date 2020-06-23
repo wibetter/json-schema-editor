@@ -12,6 +12,7 @@ import {
 } from '$utils/jsonSchema';
 import { objClone } from '$utils/index';
 import { TypeList } from '$data/TypeList';
+import { TypeDataList } from '$data/TypeDataList';
 import './index.scss';
 
 class BaseFormSchema extends React.PureComponent {
@@ -34,8 +35,13 @@ class BaseFormSchema extends React.PureComponent {
   }
 
   /** select类型变动事件处理器 */
-  selectHandleChange = (value) => {
-    console.log(`selected ${value}`);
+  selectHandleChange = (newFormat) => {
+    console.log(`selected ${newFormat}`);
+    const { indexRoute, jsonKey, editJsonData, targetJsonData } = this.props;
+    if (targetJsonData.format === newFormat) return; // format值未改变则直接跳出
+    // 根据当前新的类型获取初始化的对象数据
+    const newTypeData = TypeDataList[newFormat];
+    editJsonData(indexRoute, jsonKey, newTypeData);
   };
 
   /** jsonKey类型输入值变动事件处理器 */
