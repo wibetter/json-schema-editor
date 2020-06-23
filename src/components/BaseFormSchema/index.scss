@@ -23,18 +23,31 @@
   }
 
   .operate-item {
-    flex: 0 1 100px;
+    flex: 0 1 110px;
     padding-left: 10px;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
 
     .operate-btn {
+      flex: 0 0 auto;
       width: 15px;
       margin-right: 8px;
       color: #2395f1;
-      cursor: pointer;
+      cursor: pointer !important;
     }
 
     .delete-operate {
       color: #ff561b;
+    }
+
+    .drag-btn {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      color: #8a8a8a;
+      background-image: url("//storage.jd.local/cdnnpm/jdw-web/img/drag-default.svg");
+      background-size: contain;
     }
   }
 }

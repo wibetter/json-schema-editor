@@ -179,6 +179,11 @@ class BaseFormSchema extends React.PureComponent {
               />
             </Tooltip>
           )}
+          {!isFirstSchemaData_ && (
+            <Tooltip title="按住进行拖拽">
+              <div className="operate-btn drag-btn"></div>
+            </Tooltip>
+          )}
         </div>
       </div>
     );

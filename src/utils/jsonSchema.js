@@ -2,7 +2,6 @@
  * JSONSchema数据对象的通用操作方法【非响应式数据操作方法集合】
  */
 import { objClone } from '$utils/index';
-import { action } from 'mobx';
 
 /** 【校验是否是合法的JsonSchema数据格式】
  *  主要判断当前JSON对象中是否有预先定义的属性：
@@ -148,14 +147,14 @@ export function isBoxSchemaData(format) {
 
 /** 根据format判断是否是一级类型字段
  *  一级类型字段：func、style、data
- *  备注：一级类型字段不允许复制
+ *  备注：一级类型字段不允许拖拽和复制
  * */
 export function isFirstSchemaData(format) {
-  let isFirst = false;
+  let isFirstSchema = false;
   if (format === 'func' || format === 'style' || format === 'data') {
-    isFirst = true;
+    isFirstSchema = true;
   }
-  return isFirst;
+  return isFirstSchema;
 }
 
 /** 【旧版jsonSchema转新版jsonSchema】
