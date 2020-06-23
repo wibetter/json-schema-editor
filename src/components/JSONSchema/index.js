@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import { Tree, message } from 'antd';
 import BaseFormSchema from '$components/BaseFormSchema/index';
 const { TreeNode } = Tree;
-import { isEqual, isBoxSchemaElem } from '$utils/index';
+import { isEqual, isFirstSchema } from '$utils/index';
 import {
   isBoxSchemaData,
+  isFirstSchemaData,
   getCurrentFormat,
   isSameParent,
   moveForward,
@@ -39,8 +40,8 @@ class JSONSchema extends React.PureComponent {
   onDragStart = (eventData) => {
     const { node } = eventData;
     // 设置只有指定类型的元素可以拖拽
-    if (node.className && isBoxSchemaElem(node.className)) {
-      message.warning('该类型元素不支持拖拽哦');
+    if (node.className && isFirstSchema(node.className)) {
+      message.warning('一级固定类型元素不支持拖拽哦');
       // eventData.event.preventDefault();
       // eventData.event.stopPropagation();
     }
@@ -61,9 +62,10 @@ class JSONSchema extends React.PureComponent {
       insertJsonData,
       deleteJsonByIndex,
       isExitJsonKey,
+      isSupportCurType,
     } = this.props;
 
-    if (dragNode.className && isBoxSchemaElem(dragNode.className)) return; // 容器类型元素不允许拖拽
+    if (dragNode.className && isFirstSchema(dragNode.className)) return; // 一级固定类型元素不允许拖拽
     // 拖动的元素key
     const curEventKey = dragNode.indexRoute;
     const curJsonKey = dragNode.jsonKey;
@@ -115,10 +117,16 @@ class JSONSchema extends React.PureComponent {
       }
     } else {
       /** 非同级元素的拖拽交互 */
-      // 判断是否有重名的jsonKey
+      // 判断是否有重名的jsonKey（非同级元素拖拽中可能出现重名）
       const isExitJsonKey_ = isExitJsonKey(targetEventKey, curJsonKey);
       if (isExitJsonKey_) {
         message.warning('目标位置中有重名的元素');
+        return;
+      }
+      const curType = getCurrentFormat(curJsonObj);
+      const isSupportCurType_ = isSupportCurType(targetEventKey, curType);
+      if (!isSupportCurType_) {
+        message.warning(`目标位置不支持${curType}类型元素`);
         return;
       }
       // 非同级元素拖拽后删除
@@ -174,7 +182,7 @@ class JSONSchema extends React.PureComponent {
       const nodeKey = `${parentJsonKey || parentType}-${currentJsonKey}`;
       /** 5. 判断是否是容器类型元素，如果是则禁止选中 */
       const currentFormat = getCurrentFormat(currentSchemaData);
-      const isBoxElem = isBoxSchemaData(currentFormat);
+      const isFirstSchema = isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
 
       return (
         <TreeNode
@@ -183,7 +191,7 @@ class JSONSchema extends React.PureComponent {
           key={nodeKey}
           indexRoute={currentIndexRoute}
           jsonKey={currentJsonKey}
-          disabled={isBoxElem}
+          disabled={isFirstSchema}
           title={this.getTreeNodeTitleCont({
             indexRoute: currentIndexRoute,
             jsonKey: currentJsonKey,
@@ -246,4 +254,5 @@ export default inject((stores) => ({
   insertJsonData: stores.jsonSchemaStore.insertJsonData,
   deleteJsonByIndex: stores.jsonSchemaStore.deleteJsonByIndex,
   isExitJsonKey: stores.jsonSchemaStore.isExitJsonKey,
+  isSupportCurType: stores.jsonSchemaStore.isSupportCurType,
 }))(observer(JSONSchema));

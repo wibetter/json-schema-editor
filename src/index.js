@@ -80,6 +80,19 @@ class IndexDemo extends React.PureComponent {
                 uniqueItems: true,
                 title: '多选',
               },
+              field_131: {
+                type: 'object',
+                format: 'object',
+                properties: {
+                  a: {
+                    type: 'string',
+                    title: '单文本框',
+                    format: 'input',
+                  },
+                },
+                title: '普通对象',
+                required: ['b'],
+              },
               field_13: {
                 type: 'array',
                 format: 'array',

@@ -36,5 +36,13 @@
     .delete-operate {
       color: #ff561b;
     }
+
+    .drag-btn {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-image: url("//storage.360buyimg.com/cdnnpm/jdw-web/img/drag.svg");
+      background-size: contain;
+    }
   }
 }

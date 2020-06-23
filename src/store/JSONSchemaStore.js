@@ -7,6 +7,7 @@ import {
   oldJSONSchemaToNewJSONSchema,
 } from '$utils/jsonSchema';
 import { objClone } from '$utils/index';
+import { TypeList } from '$data/TypeList';
 import { isBoxSchemaData } from '$utils/jsonSchema';
 import { initJSONSchemaData, initInputData } from '$data/index';
 
@@ -72,13 +73,26 @@ export default class JSONSchemaStore {
   /** 判断是否有重名key值 */
   @action.bound
   isExitJsonKey(indexRoute, jsonKey) {
-    const parentJsonKey = getParentIndexRoute(indexRoute);
-    const parentJSONObj = this.getJSONDataByIndex(parentJsonKey);
+    const parentIndexRoute = getParentIndexRoute(indexRoute);
+    const parentJSONObj = this.getJSONDataByIndex(parentIndexRoute);
     if (
       parentJSONObj.propertyOrder &&
       parentJSONObj.propertyOrder.indexOf(jsonKey) >= 0
     ) {
       // 表示存在相同的jsonKey
+      return true;
+    }
+    return false;
+  }
+
+  /** 判断是否支持当前类型 */
+  @action.bound
+  isSupportCurType(indexRoute, curType) {
+    const parentIndexRoute = getParentIndexRoute(indexRoute);
+    const parentJSONObj = this.getJSONDataByIndex(parentIndexRoute);
+    const parantTypeList = TypeList[parentJSONObj.format];
+    if (parantTypeList && parantTypeList.indexOf(curType) >= 0) {
+      // 表示支持当前类型
       return true;
     }
     return false;
@@ -99,7 +113,6 @@ export default class JSONSchemaStore {
       // 注：非数组和对象类型字段不允许插入子元素
       message.warning('非对象类型字段不允许插入子元素');
     }
-    console.log(this.JSONSchemaObj);
   }
 
   /** 根据索引路径值(indexRoute)编辑对应的json数据对象
@@ -114,7 +127,6 @@ export default class JSONSchemaStore {
       objClone(parentJSONObj.properties[jsonKey]),
       newJsonDataObj,
     );
-    console.log(this.JSONSchemaObj);
   }
 
   /** 根据索引路径值(indexRoute)编辑对应的jsonKey
@@ -127,7 +139,6 @@ export default class JSONSchemaStore {
     this.insertJsonData(curIndexRoute, newJsonKey, curJSONObj);
     // 再删除原有的json数据对象
     this.deleteJsonByIndex(curIndexRoute);
-    console.log(this.JSONSchemaObj);
   }
 
   /** 根据索引路径值(indexRoute)插入新的兄弟节点元素-json数据对象
@@ -142,7 +153,6 @@ export default class JSONSchemaStore {
     /** 如果没有设置jsonKey，则自动生成一个新的jsonKey */
     const newJsonKey = this.getNewJsonKeyIndex(parentJSONObj);
     this.insertJsonData(curIndexRoute, newJsonKey, initInputData); // 默认新增input类型字段
-    console.log(this.JSONSchemaObj);
   }
 
   /** 根据索引路径值(indexRoute)插入指定的json数据对象（jsonKey、curJSONObj）
@@ -169,7 +179,6 @@ export default class JSONSchemaStore {
     const startArr = currentPropertyOrder.slice(0, positionIndex);
     const endArr = currentPropertyOrder.slice(positionIndex);
     parentJSONObj['propertyOrder'] = [...startArr, jsonKey, ...endArr];
-    console.log(this.JSONSchemaObj);
   }
 
   /** 根据索引路径值(indexRoute)和关键字(childKey)删除对应的json数据对象 */
@@ -186,7 +195,6 @@ export default class JSONSchemaStore {
     // 4.删除required中对应的curKey
     const deleteIndex2 = parentJsonObj.required.indexOf(curKey);
     parentJsonObj.required.splice(deleteIndex2, 1);
-    console.log(this.JSONSchemaObj);
   }
 
   /** 根据索引路径值(indexRoute)删除对应的json数据对象 */
@@ -206,6 +214,5 @@ export default class JSONSchemaStore {
     // 4.删除required中对应的curKey
     const deleteIndex2 = parentJsonObj.required.indexOf(curKey);
     parentJsonObj.required.splice(deleteIndex2, 1);
-    console.log(this.JSONSchemaObj);
   }
 }
