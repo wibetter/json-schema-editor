@@ -179,7 +179,9 @@ class JSONSchema extends React.PureComponent {
       /** 3. 获取当前元素的json数据对象 */
       const currentSchemaData = properties[currentJsonKey];
       /** 4. 获取当前元素的id，用于做唯一标识 */
-      const nodeKey = `${parentJsonKey || parentType}-${currentJsonKey}`;
+      const nodeKey = `${parentJsonKey || parentType}-${
+        currentSchemaData.format || 'input'
+      }-${currentJsonKey}`;
       /** 5. 判断是否是容器类型元素，如果是则禁止选中 */
       const currentFormat = getCurrentFormat(currentSchemaData);
       const isFirstSchema = isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
