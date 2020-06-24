@@ -9,11 +9,14 @@
  *  readOnly：字段项可设置是否可编辑
  * */
 export const initRadioData = {
-  type: 'array',
+  type: 'string',
   title: '单选',
   format: 'radio',
-  enum: ['a', 'b'],
-  enumextra: ['选项a', '选项b'],
+  items: {
+    type: 'string', // 不可编辑
+    enum: ['a', 'b', 'c'],
+    enumextra: ['选项a', '选项b', '选项c'],
+  },
   isRequired: false,
   description: '', // 字段项的说明和描述
   readOnly: false,
