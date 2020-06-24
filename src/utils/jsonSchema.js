@@ -167,13 +167,17 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
   if (!newJSONSchema.title && newJSONSchema.description) {
     newJSONSchema.title = newJSONSchema.description;
   }
+  // 2.当format为空时重新进行赋值
+  if (!newJSONSchema.format) {
+    newJSONSchema.format = getCurrentFormat(newJSONSchema);
+  }
   // 判断是否有propertyOrder属性
   if (!oldJSONSchema.propertyOrder && newJSONSchema.properties) {
-    // 2.重新生成required属性
+    // 3.重新生成required属性
     newJSONSchema.required = Object.keys(newJSONSchema.properties);
-    // 3.生成propertyOrder属性
+    // 4.生成propertyOrder属性
     newJSONSchema.propertyOrder = newJSONSchema.required;
-    // 4.继续遍历properties属性进行转换
+    // 5.继续遍历properties属性进行转换
     newJSONSchema.propertyOrder.map((jsonKey) => {
       newJSONSchema.properties[jsonKey] = oldJSONSchemaToNewJSONSchema(
         newJSONSchema.properties[jsonKey],

@@ -49,6 +49,8 @@ export const OBJECT_TYPE = [
   'number',
   'radio',
   'select',
+  'object',
+  'array',
 ];
 // 所有的字段类型
 export const ALL_TYPE = [

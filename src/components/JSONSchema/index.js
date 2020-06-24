@@ -165,7 +165,7 @@ class JSONSchema extends React.PureComponent {
       propertyOrder,
       properties,
       parentIndexRoute,
-      parentJsonKey,
+      parentNodeKey,
       parentType,
     } = params;
 
@@ -178,13 +178,13 @@ class JSONSchema extends React.PureComponent {
       const currentJsonKey = key;
       /** 3. 获取当前元素的json数据对象 */
       const currentSchemaData = properties[currentJsonKey];
-      /** 4. 获取当前元素的id，用于做唯一标识 */
-      const nodeKey = `${parentJsonKey || parentType}-${
-        currentSchemaData.format || 'input'
-      }-${currentJsonKey}`;
-      /** 5. 判断是否是容器类型元素，如果是则禁止选中 */
+      /** 4. 判断是否是容器类型元素，如果是则禁止选中 */
       const currentFormat = getCurrentFormat(currentSchemaData);
       const isFirstSchema = isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
+      /** 5. 获取当前元素的id，用于做唯一标识 */
+      const nodeKey = `${
+        parentNodeKey ? parentNodeKey + '-' : ''
+      }${currentFormat}-${currentJsonKey}`;
 
       return (
         <TreeNode
@@ -207,7 +207,7 @@ class JSONSchema extends React.PureComponent {
               propertyOrder: currentSchemaData.propertyOrder,
               properties: currentSchemaData.properties,
               parentIndexRoute: currentIndexRoute,
-              parentJsonKey: currentJsonKey,
+              parentNodeKey: nodeKey,
               parentType: currentSchemaData.format || currentSchemaData.type,
             })}
         </TreeNode>
@@ -234,7 +234,7 @@ class JSONSchema extends React.PureComponent {
                 propertyOrder: jsonSchema.propertyOrder,
                 properties: jsonSchema.properties,
                 parentIndexRoute: '',
-                parentJsonKey: '',
+                parentNodeKey: '',
                 parentType: jsonSchema.format || jsonSchema.type,
               })}
             </Tree>

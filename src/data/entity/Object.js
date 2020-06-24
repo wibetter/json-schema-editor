@@ -13,6 +13,8 @@ export const initObjectData = {
   format: 'object',
   title: '对象类型',
   readOnly: false,
+  isRequired: false,
+  description: '', // 字段项的说明和描述
   properties: {
     a: {
       type: 'string',

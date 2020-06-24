@@ -10,10 +10,18 @@
  * */
 export const initArrayData = {
   type: 'array',
-  title: '数组',
   format: 'array',
+  title: '数组',
+  readOnly: false,
+  isRequired: false,
+  description: '', // 字段项的说明和描述
   items: {
     type: 'object', // 不可编辑
+    format: 'object',
+    title: '数组项',
+    readOnly: false,
+    isRequired: false,
+    description: '', // 字段项的说明和描述
     properties: {
       name: {
         type: 'string',
@@ -26,9 +34,7 @@ export const initArrayData = {
         readOnly: false,
       },
     },
-    title: '数组项',
+    required: ['name'],
+    propertyOrder: ['name'],
   },
-  isRequired: false,
-  description: '', // 字段项的说明和描述
-  readOnly: false,
 };
