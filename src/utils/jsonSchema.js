@@ -171,6 +171,19 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
   if (!newJSONSchema.format) {
     newJSONSchema.format = getCurrentFormat(newJSONSchema);
   }
+  // 3.转换旧版的radio类型的数据结构
+  if (newJSONSchema.format === 'radio') {
+    newJSONSchema.type = 'string';
+    // 统一转换至items
+    newJSONSchema.items = {
+      type: 'string',
+      enum: objClone(newJSONSchema.enum),
+      enumextra: objClone(newJSONSchema.enumextra),
+    };
+    // 删除此前的enum、enumextra
+    delete newJSONSchema.enum;
+    delete newJSONSchema.enumextra;
+  }
   // 判断是否有propertyOrder属性
   if (!oldJSONSchema.propertyOrder && newJSONSchema.properties) {
     // 3.重新生成required属性
