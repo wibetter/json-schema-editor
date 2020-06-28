@@ -62,12 +62,14 @@ const itemsRender = (props) => {
       key={nodeKey}
       indexRoute={indexRoute}
       jsonKey={jsonKey}
+      disabled={true}
       title={getTreeNodeTitleCont({
         indexRoute,
         jsonKey,
         targetJsonData,
         parentType,
         nodeKey,
+        isFixed: true,
       })}
     >
       {propertiesRender({
