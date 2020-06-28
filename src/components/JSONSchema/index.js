@@ -144,7 +144,7 @@ class JSONSchema extends React.PureComponent {
     const { jsonSchema } = this.props;
     const isEmpty = isEmptySchema(jsonSchema);
     /**
-     * 备注：此处单独将object进行渲染，主要是为了将Tree根组件抽离出来（仅在此处进行拖拽事件的处理），
+     * 备注：此处单独将object进行渲染，主要是为了将Tree根组件抽离出来（以便在此处进行拖拽事件的处理），
      * JSONSchema的一级字段必须为object类型（规避非法的jsonSchema数据，以及结构单一的jsonSchema数据，后续再单独考虑如何兼容单一结构的jsonSchema数据）。
      * */
     return (

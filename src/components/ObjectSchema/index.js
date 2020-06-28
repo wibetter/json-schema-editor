@@ -67,6 +67,7 @@ const ObjectSchema = (props) => {
   const currentFormat = getCurrentFormat(targetJsonData);
   const isFirstSchema = isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
 
+  /** 先获取当前节点的properties内容 */
   const propertiesContElem = propertiesRender({
     propertyOrder: targetJsonData.propertyOrder,
     properties: targetJsonData.properties,
@@ -75,6 +76,7 @@ const ObjectSchema = (props) => {
     parentType: currentFormat,
   });
 
+  /** 节点内容 */
   const TreeNodeElem = (
     <TreeNode
       className={`${currentFormat}-schema schema-item-form`}
@@ -95,6 +97,9 @@ const ObjectSchema = (props) => {
     </TreeNode>
   );
 
+  /** isOnlyShowChild为true时只渲染节点的properties内容
+   * 备注：JSONSchema渲染组件中，已经显示了节点内容（Tree根接口）
+   * */
   return isOnlyShowChild ? propertiesContElem : TreeNodeElem;
 };
 

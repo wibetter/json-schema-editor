@@ -70,10 +70,19 @@ export function getJSONDataByIndex(
     for (let index = 0, size = indexRouteArr.length; index < size; index++) {
       // 获取指定路径的json数据对象，需要按以下步骤（备注：确保是符合规则的json格式数据，使用isJSONSchemaFormat进行校验）
       const curIndex = indexRouteArr[index];
-      // 1、先根据路径值获取key值
-      const curKeyTemp = curJsonSchemaObj['propertyOrder'][curIndex];
-      // 2、根据key值获取对应的json数据对象
-      curJsonSchemaObj = curJsonSchemaObj.properties[curKeyTemp];
+      if (
+        curIndex === '0' &&
+        curJsonSchemaObj.format === 'array' &&
+        curJsonSchemaObj.items
+      ) {
+        // 从items中获取数据
+        curJsonSchemaObj = curJsonSchemaObj.items;
+      } else {
+        // 1、先根据路径值获取key值
+        const curKeyTemp = curJsonSchemaObj['propertyOrder'][curIndex];
+        // 2、根据key值获取对应的json数据对象
+        curJsonSchemaObj = curJsonSchemaObj.properties[curKeyTemp];
+      }
     }
   }
   return curJsonSchemaObj;
@@ -215,6 +224,11 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
         newJSONSchema.properties[jsonKey],
       );
     });
+  }
+  // 判断是否有items属性
+  if (newJSONSchema.items) {
+    // 6. 转换items中的数据
+    newJSONSchema.items = oldJSONSchemaToNewJSONSchema(newJSONSchema.items);
   }
   return newJSONSchema;
 }
