@@ -36,6 +36,25 @@ export function isJSONSchemaFormat(targetJsonObj) {
   return isFormat;
 }
 
+/** 判断是否为空的jsonSchema
+ * 备注：一级字段必须为object，用于规避非法的jsonSchema数据，以及结构单一的jsonSchema数据，
+ * 后续再单独考虑如何兼容单一结构的jsonSchema数据。
+ * */
+export function isEmptySchema(targetJsonObj) {
+  let isEmpty = true;
+  if (targetJsonObj) {
+    const curType = getCurrentFormat(targetJsonObj);
+    if (
+      curType === 'object' &&
+      targetJsonObj['propertyOrder'] &&
+      targetJsonObj['propertyOrder'].length > 0
+    ) {
+      isEmpty = false;
+    }
+  }
+  return isEmpty;
+}
+
 /** 根据索引路径获取对应的json数据  */
 export function getJSONDataByIndex(
   indexRoute,
@@ -51,10 +70,19 @@ export function getJSONDataByIndex(
     for (let index = 0, size = indexRouteArr.length; index < size; index++) {
       // 获取指定路径的json数据对象，需要按以下步骤（备注：确保是符合规则的json格式数据，使用isJSONSchemaFormat进行校验）
       const curIndex = indexRouteArr[index];
-      // 1、先根据路径值获取key值
-      const curKeyTemp = curJsonSchemaObj['propertyOrder'][curIndex];
-      // 2、根据key值获取对应的json数据对象
-      curJsonSchemaObj = curJsonSchemaObj.properties[curKeyTemp];
+      if (
+        curIndex === '0' &&
+        curJsonSchemaObj.format === 'array' &&
+        curJsonSchemaObj.items
+      ) {
+        // 从items中获取数据
+        curJsonSchemaObj = curJsonSchemaObj.items;
+      } else {
+        // 1、先根据路径值获取key值
+        const curKeyTemp = curJsonSchemaObj['propertyOrder'][curIndex];
+        // 2、根据key值获取对应的json数据对象
+        curJsonSchemaObj = curJsonSchemaObj.properties[curKeyTemp];
+      }
     }
   }
   return curJsonSchemaObj;
@@ -167,18 +195,40 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
   if (!newJSONSchema.title && newJSONSchema.description) {
     newJSONSchema.title = newJSONSchema.description;
   }
+  // 2.当format为空时重新进行赋值
+  if (!newJSONSchema.format) {
+    newJSONSchema.format = getCurrentFormat(newJSONSchema);
+  }
+  // 3.转换旧版的radio类型的数据结构
+  if (newJSONSchema.format === 'radio') {
+    newJSONSchema.type = 'string';
+    // 统一转换至items
+    newJSONSchema.items = {
+      type: 'string',
+      enum: objClone(newJSONSchema.enum),
+      enumextra: objClone(newJSONSchema.enumextra),
+    };
+    // 删除此前的enum、enumextra
+    delete newJSONSchema.enum;
+    delete newJSONSchema.enumextra;
+  }
   // 判断是否有propertyOrder属性
   if (!oldJSONSchema.propertyOrder && newJSONSchema.properties) {
-    // 2.重新生成required属性
+    // 3.重新生成required属性
     newJSONSchema.required = Object.keys(newJSONSchema.properties);
-    // 3.生成propertyOrder属性
+    // 4.生成propertyOrder属性
     newJSONSchema.propertyOrder = newJSONSchema.required;
-    // 4.继续遍历properties属性进行转换
+    // 5.继续遍历properties属性进行转换
     newJSONSchema.propertyOrder.map((jsonKey) => {
       newJSONSchema.properties[jsonKey] = oldJSONSchemaToNewJSONSchema(
         newJSONSchema.properties[jsonKey],
       );
     });
+  }
+  // 判断是否有items属性
+  if (newJSONSchema.items) {
+    // 6. 转换items中的数据
+    newJSONSchema.items = oldJSONSchemaToNewJSONSchema(newJSONSchema.items);
   }
   return newJSONSchema;
 }

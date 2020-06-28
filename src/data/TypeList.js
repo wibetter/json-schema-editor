@@ -49,7 +49,26 @@ export const OBJECT_TYPE = [
   'number',
   'radio',
   'select',
+  'object',
+  'array',
 ];
+// 数组&对象类型可选项（仅用于Array的items子项）
+export const ARRAY_OBJECT_TYPE = [
+  'input',
+  'boolean',
+  'color',
+  'date',
+  'date-time',
+  'time',
+  'url',
+  'textarea',
+  'number',
+  'radio',
+  'select',
+  'array',
+];
+// 数组类型可选项
+export const ARRAY_TYPE = ['object'];
 // 所有的字段类型
 export const ALL_TYPE = [
   'input',
@@ -68,6 +87,7 @@ export const ALL_TYPE = [
   'datasource',
   'event',
   'array',
+  'object',
 ];
 
 // 类型清单
@@ -76,5 +96,7 @@ export const TypeList = {
   style: STYLESCHEME_TYPE,
   data: DATASCHEME_TYPE,
   object: OBJECT_TYPE,
+  array: ARRAY_TYPE,
+  'array-object': ARRAY_OBJECT_TYPE,
   all: ALL_TYPE,
 };

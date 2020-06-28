@@ -2,13 +2,11 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Tree, message } from 'antd';
-import BaseFormSchema from '$components/BaseFormSchema/index';
-const { TreeNode } = Tree;
-import { isEqual, isFirstSchema } from '$utils/index';
+import ObjectSchema from '$components/ObjectSchema/index';
+import { isEqual, isFirstSchemaElem } from '$utils/index';
 import {
-  isBoxSchemaData,
-  isFirstSchemaData,
   getCurrentFormat,
+  isEmptySchema,
   isSameParent,
   moveForward,
 } from '$utils/jsonSchema';
@@ -40,7 +38,7 @@ class JSONSchema extends React.PureComponent {
   onDragStart = (eventData) => {
     const { node } = eventData;
     // 设置只有指定类型的元素可以拖拽
-    if (node.className && isFirstSchema(node.className)) {
+    if (node.className && isFirstSchemaElem(node.className)) {
       message.warning('一级固定类型元素不支持拖拽哦');
       // eventData.event.preventDefault();
       // eventData.event.stopPropagation();
@@ -65,7 +63,7 @@ class JSONSchema extends React.PureComponent {
       isSupportCurType,
     } = this.props;
 
-    if (dragNode.className && isFirstSchema(dragNode.className)) return; // 一级固定类型元素不允许拖拽
+    if (dragNode.className && isFirstSchemaElem(dragNode.className)) return; // 一级固定类型元素不允许拖拽
     // 拖动的元素key
     const curEventKey = dragNode.indexRoute;
     const curJsonKey = dragNode.jsonKey;
@@ -142,106 +140,34 @@ class JSONSchema extends React.PureComponent {
     }
   };
 
-  /** 渲染当前字段的表单项（Tree的单项内容） */
-  getTreeNodeTitleCont = (params) => {
-    return (
-      <BaseFormSchema
-        indexRoute={params.indexRoute}
-        jsonKey={params.jsonKey}
-        targetJsonData={params.targetJsonData}
-        parentType={params.parentType}
-        nodeKey={params.nodeKey}
-      />
-    );
-  };
-
-  /** 渲染properties中的元素
-   *  通过遍历propertyOrder有序的获取key值，
-   *  再根据key值从properties中获取对应的json数据，
-   *  parentIndexRoute用于拼接当前元素的完整索引路径。
-   * */
-  propertiesRender = (params) => {
-    const {
-      propertyOrder,
-      properties,
-      parentIndexRoute,
-      parentJsonKey,
-      parentType,
-    } = params;
-
-    return propertyOrder.map((key, index) => {
-      /** 1. 获取当前元素的路径值 */
-      const currentIndexRoute = parentIndexRoute
-        ? parentIndexRoute + '-' + index
-        : index + '';
-      /** 2. 获取当前元素的key值 */
-      const currentJsonKey = key;
-      /** 3. 获取当前元素的json数据对象 */
-      const currentSchemaData = properties[currentJsonKey];
-      /** 4. 获取当前元素的id，用于做唯一标识 */
-      const nodeKey = `${parentJsonKey || parentType}-${
-        currentSchemaData.format || 'input'
-      }-${currentJsonKey}`;
-      /** 5. 判断是否是容器类型元素，如果是则禁止选中 */
-      const currentFormat = getCurrentFormat(currentSchemaData);
-      const isFirstSchema = isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
-
-      return (
-        <TreeNode
-          className={`${currentFormat}-schema schema-item-form`}
-          id={nodeKey}
-          key={nodeKey}
-          indexRoute={currentIndexRoute}
-          jsonKey={currentJsonKey}
-          disabled={isFirstSchema}
-          title={this.getTreeNodeTitleCont({
-            indexRoute: currentIndexRoute,
-            jsonKey: currentJsonKey,
-            targetJsonData: currentSchemaData,
-            parentType,
-            nodeKey,
-          })}
-        >
-          {isBoxSchemaData(currentSchemaData.format) &&
-            this.propertiesRender({
-              propertyOrder: currentSchemaData.propertyOrder,
-              properties: currentSchemaData.properties,
-              parentIndexRoute: currentIndexRoute,
-              parentJsonKey: currentJsonKey,
-              parentType: currentSchemaData.format || currentSchemaData.type,
-            })}
-        </TreeNode>
-      );
-    });
-  };
-
   render() {
     const { jsonSchema } = this.props;
-
+    const isEmpty = isEmptySchema(jsonSchema);
+    /**
+     * 备注：此处单独将object进行渲染，主要是为了将Tree根组件抽离出来（以便在此处进行拖拽事件的处理），
+     * JSONSchema的一级字段必须为object类型（规避非法的jsonSchema数据，以及结构单一的jsonSchema数据，后续再单独考虑如何兼容单一结构的jsonSchema数据）。
+     * */
     return (
       <div className="json-schema-container">
-        {jsonSchema &&
-          jsonSchema.propertyOrder &&
-          jsonSchema.propertyOrder.length > 0 && (
-            <Tree
-              draggable={true}
-              selectable={false}
-              onDragStart={this.onDragStart}
-              onDrop={this.onDrop}
-              defaultExpandAll={false}
-            >
-              {this.propertiesRender({
-                propertyOrder: jsonSchema.propertyOrder,
-                properties: jsonSchema.properties,
-                parentIndexRoute: '',
-                parentJsonKey: '',
-                parentType: jsonSchema.format || jsonSchema.type,
-              })}
-            </Tree>
-          )}
-        {(!jsonSchema ||
-          !jsonSchema.propertyOrder ||
-          jsonSchema.propertyOrder.length === 0) && (
+        {!isEmpty && (
+          <Tree
+            draggable={true}
+            selectable={false}
+            onDragStart={this.onDragStart}
+            onDrop={this.onDrop}
+            defaultExpandAll={false}
+          >
+            {ObjectSchema({
+              parentType: '',
+              jsonKey: '',
+              indexRoute: '',
+              nodeKey: '',
+              targetJsonData: jsonSchema,
+              isOnlyShowChild: true,
+            })}
+          </Tree>
+        )}
+        {isEmpty && (
           <p className="json-schema-empty">当前jsonSchema没有数据内容</p>
         )}
       </div>

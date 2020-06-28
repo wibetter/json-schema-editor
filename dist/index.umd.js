@@ -10755,6 +10755,8 @@ and limitations under the License.
             'number',
             'radio',
             'select',
+            'object',
+            'array',
           ],
           all: [
             'input',
@@ -10773,6 +10775,7 @@ and limitations under the License.
             'datasource',
             'event',
             'array',
+            'object',
           ],
         },
         Te = {
@@ -10892,6 +10895,7 @@ and limitations under the License.
                           !n.title &&
                             n.description &&
                             (n.title = n.description),
+                          n.format || (n.format = ue(n)),
                           !t.propertyOrder &&
                             n.properties &&
                             ((n.required = Object.keys(n.properties)),
@@ -11527,12 +11531,51 @@ and limitations under the License.
         Et = {
           jsonschema: Te,
           input: Me,
+          boolean: {
+            type: 'boolean',
+            title: '布尔值',
+            format: 'boolean',
+            isRequired: !1,
+            default: !0,
+            description: '',
+            readOnly: !1,
+          },
+          object: {
+            type: 'object',
+            format: 'object',
+            title: '对象类型',
+            readOnly: !1,
+            isRequired: !1,
+            description: '',
+            properties: {
+              a: {
+                type: 'string',
+                title: '单文本框',
+                format: 'input',
+                isRequired: !1,
+                default: '',
+                description: '',
+                placeholder: '',
+                readOnly: !1,
+              },
+            },
+            required: ['a'],
+            propertyOrder: ['a'],
+          },
           array: {
             type: 'array',
-            title: '数组',
             format: 'array',
+            title: '数组',
+            readOnly: !1,
+            isRequired: !1,
+            description: '',
             items: {
               type: 'object',
+              format: 'object',
+              title: '数组项',
+              readOnly: !1,
+              isRequired: !1,
+              description: '',
               properties: {
                 name: {
                   type: 'string',
@@ -11545,19 +11588,28 @@ and limitations under the License.
                   readOnly: !1,
                 },
               },
-              title: '数组项',
+              required: ['name'],
+              propertyOrder: ['name'],
             },
+          },
+          url: {
+            type: 'string',
+            title: 'URL',
+            format: 'url',
             isRequired: !1,
+            default: '',
             description: '',
+            placeholder: '',
             readOnly: !1,
           },
-          boolean: {
-            type: 'boolean',
-            title: '布尔值',
-            format: 'boolean',
+          textarea: {
+            type: 'string',
+            title: '多行文本框',
+            format: 'textarea',
             isRequired: !1,
-            default: !0,
+            default: '',
             description: '',
+            placeholder: '',
             readOnly: !1,
           },
           color: {
@@ -11569,35 +11621,25 @@ and limitations under the License.
             description: '',
             readOnly: !1,
           },
-          datasource: {
-            type: 'object',
-            format: 'datasource',
-            title: '数据源',
+          number: {
+            type: 'number',
+            title: '数值',
+            format: 'number',
+            isRequired: !1,
+            default: 50,
+            minimum: 0,
+            maximum: 100,
+            description: '',
             readOnly: !1,
-            properties: {
-              type: {
-                type: 'string',
-                default: 'local',
-                format: 'typeSelect',
-                enum: ['local', 'remote'],
-                enumextra: ['local', 'remote'],
-                title: '类型',
-              },
-              data: {
-                type: 'string',
-                format: 'typeSelectData',
-                default: 'local',
-                readOnlyInJson: !1,
-              },
-              filter: {
-                type: 'string',
-                format: 'textarea',
-                default: 'return data;',
-                title: '过滤器',
-              },
-            },
-            required: ['type', 'data', 'filter'],
-            propertyOrder: ['type', 'data', 'filter'],
+          },
+          json: {
+            type: 'string',
+            title: 'json数据项',
+            format: 'json',
+            isRequired: !1,
+            default: '{}',
+            description: '',
+            readOnly: !1,
           },
           date: {
             type: 'string',
@@ -11619,70 +11661,15 @@ and limitations under the License.
             placeholder: '',
             readOnly: !1,
           },
-          event: {
-            type: 'object',
-            format: 'event',
-            title: '事件',
-            readOnly: !1,
-            properties: {
-              type: {
-                type: 'string',
-                default: 'out',
-                format: 'typeSelect',
-                enum: ['in', 'out'],
-                enumextra: ['in', 'out'],
-                title: '类型',
-                readOnlyInJson: !1,
-              },
-              filter: {
-                type: 'string',
-                format: 'textarea',
-                default: 'return data;',
-                title: '过滤器',
-              },
-            },
-            required: ['type', 'data', 'filter'],
-            propertyOrder: ['type', 'data', 'filter'],
-          },
-          json: {
+          time: {
             type: 'string',
-            title: 'json数据项',
-            format: 'json',
+            title: '时间',
+            format: 'time',
             isRequired: !1,
-            default: '{}',
+            default: '',
             description: '',
+            placeholder: '',
             readOnly: !1,
-          },
-          number: {
-            type: 'number',
-            title: '数值',
-            format: 'number',
-            isRequired: !1,
-            default: 50,
-            minimum: 0,
-            maximum: 100,
-            description: '',
-            readOnly: !1,
-          },
-          object: {
-            type: 'object',
-            format: 'object',
-            title: '对象类型',
-            readOnly: !1,
-            properties: {
-              a: {
-                type: 'string',
-                title: '单文本框',
-                format: 'input',
-                isRequired: !1,
-                default: '',
-                description: '',
-                placeholder: '',
-                readOnly: !1,
-              },
-            },
-            required: ['a'],
-            propertyOrder: ['a'],
           },
           quantity: {
             type: 'object',
@@ -11726,35 +11713,60 @@ and limitations under the License.
             description: '',
             readOnly: !1,
           },
-          textarea: {
-            type: 'string',
-            title: '多行文本框',
-            format: 'textarea',
-            isRequired: !1,
-            default: '',
-            description: '',
-            placeholder: '',
+          datasource: {
+            type: 'object',
+            format: 'datasource',
+            title: '数据源',
             readOnly: !1,
+            properties: {
+              type: {
+                type: 'string',
+                default: 'local',
+                format: 'typeSelect',
+                enum: ['local', 'remote'],
+                enumextra: ['local', 'remote'],
+                title: '类型',
+              },
+              data: {
+                type: 'string',
+                format: 'typeSelectData',
+                default: 'local',
+                readOnlyInJson: !1,
+              },
+              filter: {
+                type: 'string',
+                format: 'textarea',
+                default: 'return data;',
+                title: '过滤器',
+              },
+            },
+            required: ['type', 'data', 'filter'],
+            propertyOrder: ['type', 'data', 'filter'],
           },
-          time: {
-            type: 'string',
-            title: '时间',
-            format: 'time',
-            isRequired: !1,
-            default: '',
-            description: '',
-            placeholder: '',
+          event: {
+            type: 'object',
+            format: 'event',
+            title: '事件',
             readOnly: !1,
-          },
-          url: {
-            type: 'string',
-            title: 'URL',
-            format: 'url',
-            isRequired: !1,
-            default: '',
-            description: '',
-            placeholder: '',
-            readOnly: !1,
+            properties: {
+              type: {
+                type: 'string',
+                default: 'out',
+                format: 'typeSelect',
+                enum: ['in', 'out'],
+                enumextra: ['in', 'out'],
+                title: '类型',
+                readOnlyInJson: !1,
+              },
+              filter: {
+                type: 'string',
+                format: 'textarea',
+                default: 'return data;',
+                title: '过滤器',
+              },
+            },
+            required: ['type', 'data', 'filter'],
+            propertyOrder: ['type', 'data', 'filter'],
           },
         };
       n(226);
@@ -12083,33 +12095,33 @@ and limitations under the License.
                 var t = e.propertyOrder,
                   n = e.properties,
                   o = e.parentIndexRoute,
-                  i = e.parentJsonKey,
+                  i = e.parentNodeKey,
                   a = e.parentType;
                 return t.map(function (e, t) {
                   var c = o ? o + '-' + t : t + '',
                     u = e,
                     s = n[u],
-                    l = ''
-                      .concat(i || a, '-')
-                      .concat(s.format || 'input', '-')
-                      .concat(u),
-                    f = ue(s),
-                    p = pe(f);
+                    l = ue(s),
+                    f = pe(l),
+                    p = ''
+                      .concat(i ? i + '-' : '')
+                      .concat(l, '-')
+                      .concat(u);
                   return d.createElement(
                     kt,
                     {
-                      className: ''.concat(f, '-schema schema-item-form'),
-                      id: l,
-                      key: l,
+                      className: ''.concat(l, '-schema schema-item-form'),
+                      id: p,
+                      key: p,
                       indexRoute: c,
                       jsonKey: u,
-                      disabled: p,
+                      disabled: f,
                       title: r.getTreeNodeTitleCont({
                         indexRoute: c,
                         jsonKey: u,
                         targetJsonData: s,
                         parentType: a,
-                        nodeKey: l,
+                        nodeKey: p,
                       }),
                     },
                     fe(s.format) &&
@@ -12117,7 +12129,7 @@ and limitations under the License.
                         propertyOrder: s.propertyOrder,
                         properties: s.properties,
                         parentIndexRoute: c,
-                        parentJsonKey: u,
+                        parentNodeKey: p,
                         parentType: s.format || s.type,
                       }),
                   );
@@ -12162,7 +12174,7 @@ and limitations under the License.
                           propertyOrder: e.propertyOrder,
                           properties: e.properties,
                           parentIndexRoute: '',
-                          parentJsonKey: '',
+                          parentNodeKey: '',
                           parentType: e.format || e.type,
                         }),
                       ),

@@ -22,6 +22,7 @@ class BaseFormSchema extends React.PureComponent {
     indexRoute: PropTypes.string,
     nodeKey: PropTypes.string,
     targetJsonData: PropTypes.any,
+    isFixed: PropTypes.any,
   };
 
   constructor(props) {
@@ -86,7 +87,9 @@ class BaseFormSchema extends React.PureComponent {
       addChildJson,
       addNextJsonData,
     } = this.props;
-    if (isBoxSchemaData(targetJsonData.format)) {
+    const currentFormat = getCurrentFormat(targetJsonData);
+
+    if (isBoxSchemaData(currentFormat)) {
       // 表示当前是容器类型字段
       addChildJson(indexRoute);
     } else {
@@ -124,9 +127,11 @@ class BaseFormSchema extends React.PureComponent {
 
   render() {
     const { parentType, jsonKey, nodeKey, targetJsonData } = this.props;
-    const readOnly = targetJsonData.readOnly || false; // 是否不可编辑状态，默认为可编辑状态
+    const isFixed = this.props.isFixed || false; // 是否为固有的属性（不可编辑、不可删除）
+    const readOnly = targetJsonData.readOnly || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
     const currentTypeList = this.getCurrentTypeList(parentType); // 根据父级元素类型获取可供使用的类型清单
-    const isFirstSchemaData_ = isFirstSchemaData(targetJsonData.format);
+    const currentFormat = getCurrentFormat(targetJsonData);
+    // const isFirstSchemaData_ = isFirstSchemaData(currentFormat);
 
     return (
       <div className="base-schema-box" id={nodeKey}>
@@ -171,13 +176,17 @@ class BaseFormSchema extends React.PureComponent {
               />
             </Tooltip>
           )}
-          <Tooltip title="新增">
+          <Tooltip
+            title={
+              isBoxSchemaData(currentFormat) ? '新增子节点' : '新增兄弟节点'
+            }
+          >
             <PlusOutlined
               className="operate-btn"
               onClick={this.onAddBtnEvent}
             />
           </Tooltip>
-          {!isFirstSchemaData_ && (
+          {!readOnly && (
             <Tooltip title="复制">
               <CopyOutlined
                 className="operate-btn"
@@ -185,7 +194,7 @@ class BaseFormSchema extends React.PureComponent {
               />
             </Tooltip>
           )}
-          {!isFirstSchemaData_ && (
+          {!readOnly && (
             <Tooltip title="按住进行拖拽">
               <div className="operate-btn drag-btn"></div>
             </Tooltip>
