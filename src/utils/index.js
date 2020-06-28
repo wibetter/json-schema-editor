@@ -54,7 +54,7 @@ export function isBoxSchemaElem(elemClassName) {
 /** 根据className判断是否是一级固定类型元素
  *  容器类型元素：func、style、data
  * */
-export function isFirstSchema(elemClassName) {
+export function isFirstSchemaElem(elemClassName) {
   let isFirstSchema = false;
   if (
     elemClassName.indexOf('func-schema') >= 0 ||

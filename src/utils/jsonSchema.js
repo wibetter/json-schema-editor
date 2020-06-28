@@ -36,6 +36,25 @@ export function isJSONSchemaFormat(targetJsonObj) {
   return isFormat;
 }
 
+/** 判断是否为空的jsonSchema
+ * 备注：一级字段必须为object，用于规避非法的jsonSchema数据，以及结构单一的jsonSchema数据，
+ * 后续再单独考虑如何兼容单一结构的jsonSchema数据。
+ * */
+export function isEmptySchema(targetJsonObj) {
+  let isEmpty = true;
+  if (targetJsonObj) {
+    const curType = getCurrentFormat(targetJsonObj);
+    if (
+      curType === 'object' &&
+      targetJsonObj['propertyOrder'] &&
+      targetJsonObj['propertyOrder'].length > 0
+    ) {
+      isEmpty = false;
+    }
+  }
+  return isEmpty;
+}
+
 /** 根据索引路径获取对应的json数据  */
 export function getJSONDataByIndex(
   indexRoute,
