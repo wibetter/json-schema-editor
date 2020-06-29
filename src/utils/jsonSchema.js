@@ -72,7 +72,9 @@ export function getJSONDataByIndex(
       const curIndex = indexRouteArr[index];
       if (
         curIndex === '0' &&
-        curJsonSchemaObj.format === 'array' &&
+        (curJsonSchemaObj.format === 'array' ||
+          curJsonSchemaObj.format === 'radio' ||
+          curJsonSchemaObj.format === 'select') &&
         curJsonSchemaObj.items
       ) {
         // 从items中获取数据

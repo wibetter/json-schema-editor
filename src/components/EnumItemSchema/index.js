@@ -1,20 +1,15 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { Input, message, Select, Tooltip, Tree } from 'antd';
-const { TreeNode } = Tree;
+import { Input, Select, Tooltip } from 'antd';
 const { Option } = Select;
 import { PlusOutlined, CloseOutlined, CopyOutlined } from '@ant-design/icons';
-import { getCurrentFormat, getParentIndexRoute } from '$utils/jsonSchema';
-import { objClone } from '$utils/index';
-import { TypeList } from '$data/TypeList';
-import { TypeDataList } from '$data/TypeDataList';
 import './index.scss';
 
 class EnumItemSchema extends React.PureComponent {
   static propTypes = {
     indexRoute: PropTypes.string,
-    enumIndex: PropTypes.string,
+    enumIndex: PropTypes.any,
     enumKey: PropTypes.string,
     enumText: PropTypes.string,
     enumNodeKey: PropTypes.string,
@@ -33,24 +28,19 @@ class EnumItemSchema extends React.PureComponent {
   /** jsonKey类型输入值变动事件处理器 */
   handleEnumKeyChange = (event) => {
     const { value } = event.target;
-    /** 开发中 */
+    const { indexRoute, enumIndex, enumKey, updateEnumKey } = this.props;
+    if (value !== enumKey) {
+      updateEnumKey(indexRoute, enumIndex, value); // 更新枚举值
+    }
   };
 
   /** enumText类型输入值变动事件处理器 */
   handleEnumTextChange = (event) => {
     const { value } = event.target;
-    /** 开发中 */
-  };
-
-  /** 获取当前字段的类型清单
-   *  根据父元素的类型决定当前字段的类型可选择范围，如果父类型为空则默认使用全新的可选择类型 */
-  getCurrentTypeList = (parentType) => {
-    const myParentType = parentType || 'all';
-    let typeList = TypeList[myParentType];
-    if (!typeList || typeList.length === 0) {
-      typeList = TypeList['all']; // 如果当前类型清单为空，则默认展示所有的字段类型
+    const { indexRoute, enumIndex, enumText, updateEnumText } = this.props;
+    if (value !== enumText) {
+      updateEnumText(indexRoute, enumIndex, value); // 更新枚举值
     }
-    return typeList;
   };
 
   /** 新增选择项 */
@@ -78,7 +68,6 @@ class EnumItemSchema extends React.PureComponent {
 
   render() {
     const { enumKey, enumText, enumNodeKey } = this.props;
-    const currentTypeList = this.getCurrentTypeList('radio'); // 根据父级元素类型获取可供使用的类型清单
 
     return (
       <div className="enum-schema-box" id={enumNodeKey}>
@@ -91,13 +80,9 @@ class EnumItemSchema extends React.PureComponent {
         </div>
         <div className="type-select-item">
           <Select defaultValue="string" style={{ width: 120 }}>
-            {currentTypeList.map((item) => {
-              return (
-                <Option key={item} value={item}>
-                  {item}
-                </Option>
-              );
-            })}
+            <Option key="string" value="string">
+              string
+            </Option>
           </Select>
         </div>
         <div className="title-input-item">
@@ -133,6 +118,6 @@ class EnumItemSchema extends React.PureComponent {
 }
 
 export default inject((stores) => ({
-  getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
-  isExitJsonKey: stores.jsonSchemaStore.isExitJsonKey,
+  updateEnumKey: stores.jsonSchemaStore.updateEnumKey,
+  updateEnumText: stores.jsonSchemaStore.updateEnumText,
 }))(observer(EnumItemSchema));

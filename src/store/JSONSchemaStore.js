@@ -216,4 +216,32 @@ export default class JSONSchemaStore {
     const deleteIndex2 = parentJsonObj.required.indexOf(curKey);
     parentJsonObj.required.splice(deleteIndex2, 1);
   }
+
+  /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)更新对应的enum枚举元素
+   * */
+  @action.bound
+  updateEnumItem(indexRoute, enumIndex, newEnumKey, newEnumText) {
+    // 1.获取当前元素的父元素
+    const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
+    itemJSONObj.enum[enumIndex] = newEnumKey;
+    itemJSONObj.enumextra[enumIndex] = newEnumText;
+  }
+
+  /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)更新对应的enum枚举元素的key值
+   * */
+  @action.bound
+  updateEnumKey(indexRoute, enumIndex, newEnumKey) {
+    // 1.获取当前元素的父元素
+    const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
+    itemJSONObj.enum[enumIndex] = newEnumKey;
+  }
+
+  /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)更新对应的enum枚举元素的text值
+   * */
+  @action.bound
+  updateEnumText(indexRoute, enumIndex, newEnumText) {
+    // 1.获取当前元素的父元素
+    const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
+    itemJSONObj.enumextra[enumIndex] = newEnumText;
+  }
 }
