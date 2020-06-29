@@ -1,0 +1,138 @@
+import * as React from 'react';
+import { inject, observer } from 'mobx-react';
+import PropTypes from 'prop-types';
+import { Input, message, Select, Tooltip, Tree } from 'antd';
+const { TreeNode } = Tree;
+const { Option } = Select;
+import { PlusOutlined, CloseOutlined, CopyOutlined } from '@ant-design/icons';
+import { getCurrentFormat, getParentIndexRoute } from '$utils/jsonSchema';
+import { objClone } from '$utils/index';
+import { TypeList } from '$data/TypeList';
+import { TypeDataList } from '$data/TypeDataList';
+import './index.scss';
+
+class EnumItemSchema extends React.PureComponent {
+  static propTypes = {
+    indexRoute: PropTypes.string,
+    enumIndex: PropTypes.string,
+    enumKey: PropTypes.string,
+    enumText: PropTypes.string,
+    enumNodeKey: PropTypes.string,
+  };
+
+  constructor(props) {
+    super(props);
+    // 这边绑定是必要的，这样 `this` 才能在回调函数中使用
+    this.onAddBtnEvent = this.onAddBtnEvent.bind(this);
+    this.onCopyBtnEvent = this.onCopyBtnEvent.bind(this);
+    this.onDeleteBtnEvent = this.onDeleteBtnEvent.bind(this);
+    this.handleEnumKeyChange = this.handleEnumKeyChange.bind(this);
+    this.handleEnumTextChange = this.handleEnumTextChange.bind(this);
+  }
+
+  /** jsonKey类型输入值变动事件处理器 */
+  handleEnumKeyChange = (event) => {
+    const { value } = event.target;
+    /** 开发中 */
+  };
+
+  /** enumText类型输入值变动事件处理器 */
+  handleEnumTextChange = (event) => {
+    const { value } = event.target;
+    /** 开发中 */
+  };
+
+  /** 获取当前字段的类型清单
+   *  根据父元素的类型决定当前字段的类型可选择范围，如果父类型为空则默认使用全新的可选择类型 */
+  getCurrentTypeList = (parentType) => {
+    const myParentType = parentType || 'all';
+    let typeList = TypeList[myParentType];
+    if (!typeList || typeList.length === 0) {
+      typeList = TypeList['all']; // 如果当前类型清单为空，则默认展示所有的字段类型
+    }
+    return typeList;
+  };
+
+  /** 新增选择项 */
+  onAddBtnEvent = () => {
+    /** 开发中 */
+  };
+
+  /** 复制功能
+   *  备注：需要自动生成一个enumkey值 */
+  onCopyBtnEvent = () => {
+    /** 开发中 */
+  };
+
+  /** 删除字段项 */
+  onDeleteBtnEvent = () => {
+    const {
+      indexRoute,
+      enumIndex,
+      enumKey,
+      enumText,
+      enumNodeKey,
+    } = this.props;
+    /** 开发中 */
+  };
+
+  render() {
+    const { enumKey, enumText, enumNodeKey } = this.props;
+    const currentTypeList = this.getCurrentTypeList('radio'); // 根据父级元素类型获取可供使用的类型清单
+
+    return (
+      <div className="enum-schema-box" id={enumNodeKey}>
+        <div className="key-input-item">
+          <Input
+            defaultValue={enumKey}
+            onPressEnter={this.handleEnumKeyChange}
+            onBlur={this.handleEnumKeyChange}
+          />
+        </div>
+        <div className="type-select-item">
+          <Select defaultValue="string" style={{ width: 120 }}>
+            {currentTypeList.map((item) => {
+              return (
+                <Option key={item} value={item}>
+                  {item}
+                </Option>
+              );
+            })}
+          </Select>
+        </div>
+        <div className="title-input-item">
+          <Input
+            defaultValue={enumText}
+            onPressEnter={this.handleEnumTextChange}
+            onBlur={this.handleEnumTextChange}
+          />
+        </div>
+        <div className="operate-item">
+          <Tooltip title="删除">
+            <CloseOutlined
+              className="operate-btn delete-operate"
+              onClick={this.onDeleteBtnEvent}
+            />
+          </Tooltip>
+          <Tooltip title="新增兄弟节点">
+            <PlusOutlined
+              className="operate-btn"
+              onClick={this.onAddBtnEvent}
+            />
+          </Tooltip>
+          <Tooltip title="复制">
+            <CopyOutlined
+              className="operate-btn"
+              onClick={this.onCopyBtnEvent}
+            />
+          </Tooltip>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default inject((stores) => ({
+  getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
+  isExitJsonKey: stores.jsonSchemaStore.isExitJsonKey,
+}))(observer(EnumItemSchema));

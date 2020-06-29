@@ -90,6 +90,10 @@ export const ALL_TYPE = [
   'object',
 ];
 
+// radio单选类型可选项
+export const RADIO_TYPE = ['string'];
+// select多选类型可选项
+export const SELECT_TYPE = ['string'];
 // 类型清单
 export const TypeList = {
   func: FUNCSCHEME_TYPE,
@@ -98,5 +102,7 @@ export const TypeList = {
   object: OBJECT_TYPE,
   array: ARRAY_TYPE,
   'array-object': ARRAY_OBJECT_TYPE,
+  radio: RADIO_TYPE,
+  select: SELECT_TYPE,
   all: ALL_TYPE,
 };
