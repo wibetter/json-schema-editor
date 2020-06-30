@@ -10,6 +10,7 @@ export const FUNCSCHEME_TYPE = [
   'number',
   'radio',
   'select',
+  'codearea',
   'array',
   'object',
 ];
@@ -31,6 +32,7 @@ export const DATASCHEME_TYPE = [
   'input',
   'number',
   'json',
+  'codearea',
   'datasource',
   'event',
   'object',
@@ -83,6 +85,7 @@ export const ALL_TYPE = [
   'date-time',
   'time',
   'json',
+  'codearea',
   'quantity',
   'datasource',
   'event',
