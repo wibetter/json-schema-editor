@@ -65,24 +65,24 @@ class JSONSchema extends React.PureComponent {
 
     if (dragNode.className && isFirstSchemaElem(dragNode.className)) return; // 一级固定类型元素不允许拖拽
     // 拖动的元素key
-    const curEventKey = dragNode.indexRoute;
+    const curIndexRoute = dragNode.indexRoute;
     const curJsonKey = dragNode.jsonKey;
     // 获取当前拖动的元素
-    const curJsonObj = getJSONDataByIndex(curEventKey);
-    console.log(curEventKey);
+    const curJsonObj = getJSONDataByIndex(curIndexRoute);
+    console.log(curIndexRoute);
 
     // 放置的目标元素key
-    let targetEventKey = node.indexRoute;
-    console.log(targetEventKey);
+    let targetIndexRoute = node.indexRoute;
+    console.log(targetIndexRoute);
 
     // 判断是否是同一个父级容器
-    const isSameParentElem = isSameParent(curEventKey, targetEventKey);
+    const isSameParentElem = isSameParent(curIndexRoute, targetIndexRoute);
     // 如果是同级父级容器，则判断先后顺序
     let elemOrder = false; // 默认为false：表示拖动元素在后，目标元素在前，
     if (isSameParentElem) {
-      const curKeyLastChar = curEventKey.substr(curEventKey.length - 1, 1);
-      const targetKeyLastChar = targetEventKey.substr(
-        curEventKey.length - 1,
+      const curKeyLastChar = curIndexRoute.substr(curIndexRoute.length - 1, 1);
+      const targetKeyLastChar = targetIndexRoute.substr(
+        curIndexRoute.length - 1,
         1,
       );
       if (curKeyLastChar < targetKeyLastChar) {
@@ -93,9 +93,9 @@ class JSONSchema extends React.PureComponent {
       if (elemOrder) {
         /**
          * 当拖动的元素在前面，目标元素在后面，
-         * 先删除拖动元素时会导致targetEventKey发生偏移，需要向前移动一位进行矫正
+         * 先删除拖动元素时会导致targetIndexRoute发生偏移，需要向前移动一位进行矫正
          */
-        targetEventKey = moveForward(targetEventKey);
+        targetIndexRoute = moveForward(targetIndexRoute);
       }
       /**
        * node.dragOver: false（为true时表示在目标元素中间）
@@ -106,23 +106,23 @@ class JSONSchema extends React.PureComponent {
       if (node.dragOverGapTop) {
         /** 拖拽到目标元素前面 */
         // 先删除再插入，避免出现重复数据
-        deleteJsonByIndex(curEventKey);
-        insertJsonData(targetEventKey, curJsonKey, curJsonObj, 'before');
+        deleteJsonByIndex(curIndexRoute);
+        insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
       } else if (node.dragOver || node.dragOverGapBottom) {
         /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
-        deleteJsonByIndex(curEventKey);
-        insertJsonData(targetEventKey, curJsonKey, curJsonObj);
+        deleteJsonByIndex(curIndexRoute);
+        insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
       }
     } else {
       /** 非同级元素的拖拽交互 */
       // 判断是否有重名的jsonKey（非同级元素拖拽中可能出现重名）
-      const isExitJsonKey_ = isExitJsonKey(targetEventKey, curJsonKey);
+      const isExitJsonKey_ = isExitJsonKey(targetIndexRoute, curJsonKey);
       if (isExitJsonKey_) {
         message.warning('目标位置中有重名的元素');
         return;
       }
       const curType = getCurrentFormat(curJsonObj);
-      const isSupportCurType_ = isSupportCurType(targetEventKey, curType);
+      const isSupportCurType_ = isSupportCurType(targetIndexRoute, curType);
       if (!isSupportCurType_) {
         message.warning(`目标位置不支持${curType}类型元素`);
         return;
@@ -130,12 +130,12 @@ class JSONSchema extends React.PureComponent {
       // 非同级元素拖拽后删除
       if (node.dragOverGapTop) {
         /** 拖拽到目标元素前面 */
-        insertJsonData(targetEventKey, curJsonKey, curJsonObj, 'before');
-        deleteJsonByIndex(curEventKey);
+        insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
+        deleteJsonByIndex(curIndexRoute);
       } else if (node.dragOver || node.dragOverGapBottom) {
         /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
-        insertJsonData(targetEventKey, curJsonKey, curJsonObj);
-        deleteJsonByIndex(curEventKey);
+        insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
+        deleteJsonByIndex(curIndexRoute);
       }
     }
   };

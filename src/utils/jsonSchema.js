@@ -72,7 +72,9 @@ export function getJSONDataByIndex(
       const curIndex = indexRouteArr[index];
       if (
         curIndex === '0' &&
-        curJsonSchemaObj.format === 'array' &&
+        (curJsonSchemaObj.format === 'array' ||
+          curJsonSchemaObj.format === 'radio' ||
+          curJsonSchemaObj.format === 'select') &&
         curJsonSchemaObj.items
       ) {
         // 从items中获取数据
@@ -109,7 +111,11 @@ export function isSameParent(curIndex, targetIndex) {
 export function getCurrentFormat(targetJsonData) {
   let currentType = targetJsonData.format;
   if (!currentType) {
-    if (targetJsonData.type === 'object' || targetJsonData.type === 'array') {
+    if (
+      targetJsonData.type === 'object' ||
+      targetJsonData.type === 'array' ||
+      targetJsonData.type === 'string'
+    ) {
       currentType = targetJsonData.type;
     } else {
       currentType = 'input';
@@ -158,7 +164,8 @@ export function moveBackward(curIndexRoute) {
 
 /** 根据format判断是否是容器类型字段
  *  容器类型字段：func、style、data、object
- *  备注：array类型字段没有properties属性
+ *  主要用于判断当前元素点击新增时是添加子元素还是添加兄弟节点，容器类型点击新增时则添加子节点。
+ *  备注：array类型字段只有固定的一个items属性，不能新增其他子元素。
  * */
 export function isBoxSchemaData(format) {
   let isBoxSchema = false;

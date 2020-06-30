@@ -36,7 +36,8 @@ export function isBaseSchemaElem(elemClassName) {
 
 /** 根据className判断是否是容器类型元素
  *  容器类型元素：func、style、data、object
- *  备注：array类型字段没有properties属性
+ *  主要用于判断当前元素点击新增时是添加子元素还是添加兄弟节点，容器类型点击新增时则添加子节点。
+ *  备注：array类型字段只有固定的一个items属性，不能新增其他子元素。
  * */
 export function isBoxSchemaElem(elemClassName) {
   let isBoxSchema = false;
