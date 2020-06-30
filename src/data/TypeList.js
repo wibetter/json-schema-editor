@@ -89,7 +89,6 @@ export const ALL_TYPE = [
   'array',
   'object',
 ];
-
 // radio单选类型可选项
 export const RADIO_TYPE = ['string'];
 // select多选类型可选项

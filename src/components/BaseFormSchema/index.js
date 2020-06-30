@@ -6,7 +6,6 @@ const { Option } = Select;
 import { PlusOutlined, CloseOutlined, CopyOutlined } from '@ant-design/icons';
 import {
   isBoxSchemaData,
-  isFirstSchemaData,
   getCurrentFormat,
   getParentIndexRoute,
 } from '$utils/jsonSchema';
@@ -23,6 +22,9 @@ class BaseFormSchema extends React.PureComponent {
     nodeKey: PropTypes.string,
     targetJsonData: PropTypes.any,
     isFixed: PropTypes.any,
+    keyIsFixed: PropTypes.any,
+    typeIsFixed: PropTypes.any,
+    titleIsFixed: PropTypes.any,
   };
 
   constructor(props) {
@@ -33,6 +35,7 @@ class BaseFormSchema extends React.PureComponent {
     this.onDeleteBtnEvent = this.onDeleteBtnEvent.bind(this);
     this.handleJsonKeyChange = this.handleJsonKeyChange.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.selectHandleChange = this.selectHandleChange.bind(this);
   }
 
   /** select类型变动事件处理器 */
@@ -128,27 +131,29 @@ class BaseFormSchema extends React.PureComponent {
   render() {
     const { parentType, jsonKey, nodeKey, targetJsonData } = this.props;
     const isFixed = this.props.isFixed || false; // 是否为固有的属性（不可编辑、不可删除）
+    const keyIsFixed = this.props.keyIsFixed || false; // key是否为不可编辑的属性
+    const typeIsFixed = this.props.typeIsFixed || false; // type是否为不可编辑的属性
+    const titleIsFixed = this.props.titleIsFixed || false; // title是否为不可编辑的属性
     const readOnly = targetJsonData.readOnly || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
     const currentTypeList = this.getCurrentTypeList(parentType); // 根据父级元素类型获取可供使用的类型清单
     const currentFormat = getCurrentFormat(targetJsonData);
-    // const isFirstSchemaData_ = isFirstSchemaData(currentFormat);
 
     return (
       <div className="base-schema-box" id={nodeKey}>
         <div className="key-input-item">
           <Input
             defaultValue={jsonKey}
-            disabled={readOnly}
+            disabled={readOnly || keyIsFixed}
             onPressEnter={this.handleJsonKeyChange}
             onBlur={this.handleJsonKeyChange}
           />
         </div>
         <div className="type-select-item">
           <Select
-            defaultValue={getCurrentFormat(targetJsonData)}
+            defaultValue={currentFormat}
             style={{ width: 120 }}
             onChange={this.selectHandleChange}
-            disabled={readOnly}
+            disabled={readOnly || typeIsFixed}
           >
             {currentTypeList.map((item) => {
               return (
@@ -162,7 +167,7 @@ class BaseFormSchema extends React.PureComponent {
         <div className="title-input-item">
           <Input
             defaultValue={targetJsonData.title}
-            disabled={readOnly}
+            disabled={readOnly || titleIsFixed}
             onPressEnter={this.handleTitleChange}
             onBlur={this.handleTitleChange}
           />
