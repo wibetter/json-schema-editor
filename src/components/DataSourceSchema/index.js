@@ -4,6 +4,7 @@ const { TreeNode } = Tree;
 import BaseFormSchema from '$components/BaseFormSchema/index';
 import TypeSelectFormSchema from '$components/TypeSelectFormSchema/index';
 import { getCurrentFormat } from '$utils/jsonSchema';
+import PropTypes from 'prop-types';
 
 /** 渲染当前字段的表单项（Tree的单项内容） */
 const getTreeNodeTitleCont = (params) => {
@@ -65,6 +66,8 @@ const DataSourceSchema = (props) => {
           parentType: currentFormat,
           nodeKey: `${nodeKey}-data-${dataJsonObj.format}`,
           isFixed: false,
+          keyIsFixed: true,
+          typeIsFixed: true,
         })}
       ></TreeNode>
       <TreeNode
@@ -81,6 +84,8 @@ const DataSourceSchema = (props) => {
           parentType: currentFormat,
           nodeKey: `${nodeKey}-filter`,
           isFixed: false,
+          keyIsFixed: true,
+          typeIsFixed: true,
         })}
       ></TreeNode>
     </TreeNode>
