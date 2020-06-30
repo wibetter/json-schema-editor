@@ -67,8 +67,18 @@ class EnumItemSchema extends React.PureComponent {
 
   /** 删除字段项 */
   onDeleteBtnEvent = () => {
-    const { indexRoute, enumIndex, deleteEnumItem } = this.props;
-    deleteEnumItem(indexRoute, enumIndex); // 删除指定位置的枚举值
+    const {
+      indexRoute,
+      enumIndex,
+      getJSONDataByIndex,
+      deleteEnumItem,
+    } = this.props;
+    const itemJSONObj = getJSONDataByIndex(indexRoute);
+    if (itemJSONObj.enum && itemJSONObj.enum.length > 1) {
+      deleteEnumItem(indexRoute, enumIndex); // 删除指定位置的枚举值
+    } else {
+      message.warning('删除失败，请至少保留一个可选项。');
+    }
   };
 
   render() {
@@ -123,6 +133,7 @@ class EnumItemSchema extends React.PureComponent {
 }
 
 export default inject((stores) => ({
+  getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
   updateEnumKey: stores.jsonSchemaStore.updateEnumKey,
   updateEnumText: stores.jsonSchemaStore.updateEnumText,
   isExitEnumKey: stores.jsonSchemaStore.isExitEnumKey,
