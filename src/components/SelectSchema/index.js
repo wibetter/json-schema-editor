@@ -23,6 +23,7 @@ const SelectSchema = (props) => {
   // 获取枚举值
   const enumKeys = targetJsonData.items.enum;
   const enumTexts = targetJsonData.items.enumextra;
+  const curIndexRoute = `${indexRoute}-0`;
 
   return (
     <TreeNode
@@ -52,10 +53,10 @@ const SelectSchema = (props) => {
               className="enum-item-schema schema-item-form"
               id={enumNodeKey}
               key={enumNodeKey}
-              indexRoute={indexRoute}
+              indexRoute={curIndexRoute}
               disabled={true}
               title={enumItemRender({
-                indexRoute,
+                indexRoute: curIndexRoute,
                 enumIndex,
                 enumKey,
                 enumText,

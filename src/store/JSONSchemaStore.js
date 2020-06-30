@@ -274,4 +274,15 @@ export default class JSONSchemaStore {
       itemJSONObj.enumextra[enumIndex] = newEnumText;
     }
   }
+
+  /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)删除对应的enum枚举元素
+   * */
+  @action.bound
+  deleteEnumItem(indexRoute, enumIndex) {
+    const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
+    if (itemJSONObj.enum && itemJSONObj.enumextra) {
+      itemJSONObj.enum.splice(enumIndex, 1);
+      itemJSONObj.enumextra.splice(enumIndex, 1);
+    }
+  }
 }
