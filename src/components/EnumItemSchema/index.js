@@ -59,10 +59,10 @@ class EnumItemSchema extends React.PureComponent {
     addEnumItem(indexRoute, enumIndex); // 新增枚举值
   };
 
-  /** 复制功能
-   *  备注：需要自动生成一个enumkey值 */
+  /** 复制功能 */
   onCopyBtnEvent = () => {
-    /** 开发中 */
+    const { indexRoute, enumIndex, copyEnumItem } = this.props;
+    copyEnumItem(indexRoute, enumIndex); // copy枚举值
   };
 
   /** 删除字段项 */
@@ -128,4 +128,5 @@ export default inject((stores) => ({
   isExitEnumKey: stores.jsonSchemaStore.isExitEnumKey,
   deleteEnumItem: stores.jsonSchemaStore.deleteEnumItem,
   addEnumItem: stores.jsonSchemaStore.addEnumItem,
+  copyEnumItem: stores.jsonSchemaStore.copyEnumItem,
 }))(observer(EnumItemSchema));

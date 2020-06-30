@@ -330,4 +330,18 @@ export default class JSONSchemaStore {
       this.insertEnumItem(indexRoute, enumIndex, newEnumKey, newEnumText); // 插入新的元素
     }
   }
+
+  /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)复制对应的enum枚举值
+   * */
+  @action.bound
+  copyEnumItem(indexRoute, enumIndex) {
+    const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
+    if (itemJSONObj.enum) {
+      const curEnumKey = itemJSONObj.enum[enumIndex];
+      const curEnumText = itemJSONObj.enumextra[enumIndex];
+      const newEnumKey = this.getNewEnumIndex(itemJSONObj.enum, curEnumKey);
+      const newEnumText = `${curEnumText}_${this.curJsonKeyIndex - 1}`;
+      this.insertEnumItem(indexRoute, enumIndex, newEnumKey, newEnumText); // 插入copy的枚举元素
+    }
+  }
 }
