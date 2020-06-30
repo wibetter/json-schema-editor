@@ -15,7 +15,6 @@ const dataSelect = {
     default: '{}', // 默认值
     isRequired: true,
     description: '用于设置本地的静态json数据',
-    readOnly: true,
   },
   remote: {
     type: 'string',
@@ -24,7 +23,6 @@ const dataSelect = {
     default: 'http://xxx', // 默认值
     isRequired: true,
     description: '用于设置获取元素数据的请求地址',
-    readOnly: true,
   },
 };
 
