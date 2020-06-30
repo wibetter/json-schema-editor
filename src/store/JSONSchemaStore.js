@@ -223,8 +223,32 @@ export default class JSONSchemaStore {
   updateEnumItem(indexRoute, enumIndex, newEnumKey, newEnumText) {
     // 1.获取当前元素的父元素
     const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
-    itemJSONObj.enum[enumIndex] = newEnumKey;
-    itemJSONObj.enumextra[enumIndex] = newEnumText;
+    if (itemJSONObj.enum && itemJSONObj.enumextra) {
+      itemJSONObj.enum[enumIndex] = newEnumKey;
+      itemJSONObj.enumextra[enumIndex] = newEnumText;
+    }
+  }
+
+  /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)判断是否存在对应的key值
+   * */
+  @action.bound
+  isExitEnumKey(indexRoute, enumIndex, newEnumKey) {
+    let isExit = false;
+    // 1.获取当前元素的父元素
+    const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
+    if (itemJSONObj.enum) {
+      // 2.获取对应的key清单
+      const enumKeys = objClone(itemJSONObj.enum);
+      if (enumIndex >= 0) {
+        // 3.剔除原有位置的key值
+        enumKeys.splice(enumIndex, 1);
+      }
+      // 4.判断其他位置是否有重复的key值
+      if (enumKeys.indexOf(newEnumKey) >= 0) {
+        isExit = true;
+      }
+    }
+    return isExit;
   }
 
   /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)更新对应的enum枚举元素的key值
@@ -233,7 +257,10 @@ export default class JSONSchemaStore {
   updateEnumKey(indexRoute, enumIndex, newEnumKey) {
     // 1.获取当前元素的父元素
     const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
-    itemJSONObj.enum[enumIndex] = newEnumKey;
+    if (itemJSONObj.enum) {
+      // 2.更新对应的key
+      itemJSONObj.enum[enumIndex] = newEnumKey;
+    }
   }
 
   /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)更新对应的enum枚举元素的text值
@@ -242,6 +269,9 @@ export default class JSONSchemaStore {
   updateEnumText(indexRoute, enumIndex, newEnumText) {
     // 1.获取当前元素的父元素
     const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
-    itemJSONObj.enumextra[enumIndex] = newEnumText;
+    if (itemJSONObj.enumextra) {
+      // 2.更新对应的text
+      itemJSONObj.enumextra[enumIndex] = newEnumText;
+    }
   }
 }

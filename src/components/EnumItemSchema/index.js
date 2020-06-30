@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { Input, Select, Tooltip } from 'antd';
+import { Input, message, Select, Tooltip } from 'antd';
 const { Option } = Select;
 import { PlusOutlined, CloseOutlined, CopyOutlined } from '@ant-design/icons';
 import './index.scss';
@@ -28,9 +28,19 @@ class EnumItemSchema extends React.PureComponent {
   /** jsonKey类型输入值变动事件处理器 */
   handleEnumKeyChange = (event) => {
     const { value } = event.target;
-    const { indexRoute, enumIndex, enumKey, updateEnumKey } = this.props;
+    const {
+      indexRoute,
+      enumIndex,
+      enumKey,
+      isExitEnumKey,
+      updateEnumKey,
+    } = this.props;
     if (value !== enumKey) {
-      updateEnumKey(indexRoute, enumIndex, value); // 更新枚举值
+      if (isExitEnumKey(indexRoute, enumIndex, value)) {
+        message.warning('对不起，存在相同的key值，请重新编辑。');
+      } else {
+        updateEnumKey(indexRoute, enumIndex, value); // 更新枚举值
+      }
     }
   };
 
@@ -120,4 +130,5 @@ class EnumItemSchema extends React.PureComponent {
 export default inject((stores) => ({
   updateEnumKey: stores.jsonSchemaStore.updateEnumKey,
   updateEnumText: stores.jsonSchemaStore.updateEnumText,
+  isExitEnumKey: stores.jsonSchemaStore.isExitEnumKey,
 }))(observer(EnumItemSchema));
