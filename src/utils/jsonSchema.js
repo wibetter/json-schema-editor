@@ -134,6 +134,17 @@ export function getParentIndexRoute(curIndexRoute) {
 }
 
 /**
+ * 获取下一个兄弟元素的路径值
+ */
+export function getNextIndexRoute(curIndexRoute) {
+  const curIndexArr = curIndexRoute.split('-');
+  const lastIndex = curIndexArr.pop();
+  const endIndex = Number(lastIndex) + 1;
+  curIndexArr.push(endIndex + '');
+  return curIndexArr.join('-');
+}
+
+/**
  * 获取父元素的路径值和当前index
  */
 export function getParentIndexRoute_CurIndex(curIndexRoute) {
@@ -206,21 +217,37 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
   if (!newJSONSchema.format) {
     newJSONSchema.format = getCurrentFormat(newJSONSchema);
   }
-  // 3.转换旧版的radio类型的数据结构
+  // 转换旧版的radio类型的数据结构
   if (newJSONSchema.format === 'radio') {
     newJSONSchema.type = 'string';
-    // 统一转换至items
-    newJSONSchema.items = {
-      type: 'string',
-      enum: objClone(newJSONSchema.enum),
-      enumextra: objClone(newJSONSchema.enumextra),
-    };
-    // 删除此前的enum、enumextra
-    delete newJSONSchema.enum;
-    delete newJSONSchema.enumextra;
+    if (newJSONSchema.enum && newJSONSchema.enumextra) {
+      // 统一转换至items
+      newJSONSchema.items = {
+        type: 'string',
+        enum: objClone(newJSONSchema.enum),
+        enumextra: objClone(newJSONSchema.enumextra),
+      };
+      // 删除此前的enum、enumextra
+      delete newJSONSchema.enum;
+      delete newJSONSchema.enumextra;
+    }
+  }
+  // 转换旧版的datasource类型的数据结构
+  if (newJSONSchema.format === 'datasource') {
+    const curProperties = newJSONSchema.properties;
+    curProperties.type.title = '数据源类型';
+    curProperties.filter.title = '过滤器';
+    curProperties.filter.format = 'codearea';
+    if (curProperties.type.default === 'remote') {
+      curProperties.data.title = '用于设置获取元素数据的请求地址';
+      curProperties.data.format = 'url';
+    } else {
+      curProperties.data.title = '本地静态json数据';
+      curProperties.data.format = 'json';
+    }
   }
   // 判断是否有propertyOrder属性
-  if (!oldJSONSchema.propertyOrder && newJSONSchema.properties) {
+  if (newJSONSchema.properties) {
     // 3.重新生成required属性
     newJSONSchema.required = Object.keys(newJSONSchema.properties);
     // 4.生成propertyOrder属性
