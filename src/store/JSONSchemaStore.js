@@ -285,4 +285,49 @@ export default class JSONSchemaStore {
       itemJSONObj.enumextra.splice(enumIndex, 1);
     }
   }
+
+  /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)插入对应的enum枚举元素
+   * position: 设置插入指定位置的前面还是后面，默认插入指定位置的后面
+   * */
+  @action.bound
+  insertEnumItem(indexRoute, enumIndex, newEnumKey, newEnumText, position) {
+    const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
+    if (itemJSONObj.enum && itemJSONObj.enumextra) {
+      const positionIndex =
+        position === 'before' ? Number(enumIndex) : Number(enumIndex) + 1;
+      // 在enum中的指定位置插入新的key值（newEnumKey）
+      const startKeys = itemJSONObj.enum.slice(0, positionIndex);
+      const endKeys = itemJSONObj.enum.slice(positionIndex);
+      itemJSONObj.enum = [...startKeys, newEnumKey, ...endKeys];
+      // 在enum中的指定位置插入newEnumText
+      const startTexts = itemJSONObj.enumextra.slice(0, positionIndex);
+      const endTexts = itemJSONObj.enumextra.slice(positionIndex);
+      itemJSONObj.enumextra = [...startTexts, newEnumText, ...endTexts];
+    }
+  }
+
+  /** 根据parentJSONObj自动生成jsonKey */
+  @action.bound
+  getNewEnumIndex(enumKeys, prefix) {
+    let newEnumKey = `${prefix ? prefix : 'enum'}_${this.curJsonKeyIndex}`;
+    if (enumKeys.indexOf(newEnumKey) >= 0) {
+      // 表示存在相同的jsonKey
+      this.curJsonKeyIndex += 1;
+      newEnumKey = this.getNewEnumIndex(enumKeys, prefix);
+    }
+    this.curJsonKeyIndex += 1;
+    return newEnumKey;
+  }
+
+  /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)新增enum枚举值
+   * */
+  @action.bound
+  addEnumItem(indexRoute, enumIndex) {
+    const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
+    if (itemJSONObj.enum) {
+      const newEnumKey = this.getNewEnumIndex(itemJSONObj.enum);
+      const newEnumText = `选项${this.curJsonKeyIndex - 1}`;
+      this.insertEnumItem(indexRoute, enumIndex, newEnumKey, newEnumText); // 插入新的元素
+    }
+  }
 }

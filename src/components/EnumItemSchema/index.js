@@ -55,7 +55,8 @@ class EnumItemSchema extends React.PureComponent {
 
   /** 新增选择项 */
   onAddBtnEvent = () => {
-    /** 开发中 */
+    const { indexRoute, enumIndex, addEnumItem } = this.props;
+    addEnumItem(indexRoute, enumIndex); // 新增枚举值
   };
 
   /** 复制功能
@@ -126,4 +127,5 @@ export default inject((stores) => ({
   updateEnumText: stores.jsonSchemaStore.updateEnumText,
   isExitEnumKey: stores.jsonSchemaStore.isExitEnumKey,
   deleteEnumItem: stores.jsonSchemaStore.deleteEnumItem,
+  addEnumItem: stores.jsonSchemaStore.addEnumItem,
 }))(observer(EnumItemSchema));
