@@ -246,6 +246,13 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
       curProperties.data.format = 'json';
     }
   }
+  // 转换旧版的quantity类型的数据结构
+  if (newJSONSchema.format === 'quantity') {
+    const curProperties = newJSONSchema.properties;
+    curProperties.quantity.title = '单位类型';
+    curProperties.quantity.format = 'typeSelect';
+    curProperties.unit.format = 'number';
+  }
   // 判断是否有propertyOrder属性
   if (newJSONSchema.properties) {
     // 3.重新生成required属性

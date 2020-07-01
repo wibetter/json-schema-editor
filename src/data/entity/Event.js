@@ -20,7 +20,7 @@ export const initEventData = {
       format: 'typeSelect',
       enum: ['in', 'out'],
       enumextra: ['in', 'out'],
-      title: '类型',
+      title: '事件类型',
       readOnlyInJson: false,
     },
     filter: {

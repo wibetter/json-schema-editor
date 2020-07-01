@@ -6,26 +6,6 @@ const { Option } = Select;
 import { getCurrentFormat, getNextIndexRoute } from '$utils/jsonSchema';
 import './index.scss';
 
-// 选择不同的数据源类型，则展示不同的data内容(均为不可编辑状态)
-const dataSelect = {
-  local: {
-    type: 'string',
-    title: '本地静态json数据',
-    format: 'json',
-    default: '{}', // 默认值
-    isRequired: true,
-    description: '用于设置本地的静态json数据',
-  },
-  remote: {
-    type: 'string',
-    title: '远程json数据源',
-    format: 'url',
-    default: 'http://xxx', // 默认值
-    isRequired: true,
-    description: '用于设置获取元素数据的请求地址',
-  },
-};
-
 /** 主要用于渲染typeSelect类型的元素
  * 备注：TypeSelectFormSchema组件中只有default是可编辑的（提供选择列表） */
 class TypeSelectFormSchema extends React.PureComponent {
@@ -35,8 +15,8 @@ class TypeSelectFormSchema extends React.PureComponent {
     indexRoute: PropTypes.string,
     nodeKey: PropTypes.string,
     targetJsonData: PropTypes.any,
+    typeSelectData: PropTypes.any,
     isFixed: PropTypes.any,
-    typeChange: PropTypes.func,
   };
 
   constructor(props) {
@@ -52,25 +32,32 @@ class TypeSelectFormSchema extends React.PureComponent {
       indexRoute,
       jsonKey,
       targetJsonData,
+      typeSelectData,
       editJsonData,
-      typeChange,
     } = this.props;
     if (targetJsonData.default === newType) return; // default值未改变则直接跳出
     editJsonData(indexRoute, jsonKey, {
       default: newType,
     });
-    const newDataJSONObj = dataSelect[newType];
-    if (newDataJSONObj) {
-      // 根据indexRoute获取下一个子元素的路径值
-      const nextIndexRoute = getNextIndexRoute(indexRoute);
-      // 类型改变时更新targetJsonData.properties.data中的数据
-      editJsonData(nextIndexRoute, 'data', newDataJSONObj);
+
+    // 判断是否在type改变时进行特殊处理（比如dataSource类型中需要调整data的数据内容）
+    if (typeSelectData) {
+      const newDataJSONObj = typeSelectData[newType];
+      if (newDataJSONObj && targetJsonData.title === '数据源类型') {
+        // 根据indexRoute获取下一个子元素的路径值
+        const nextIndexRoute = getNextIndexRoute(indexRoute);
+        // 类型改变时更新targetJsonData.properties.data中的数据
+        editJsonData(nextIndexRoute, 'data', newDataJSONObj);
+      }
     }
   };
 
   render() {
     const { nodeKey, targetJsonData } = this.props;
     const currentFormat = getCurrentFormat(targetJsonData);
+
+    const curEnums = targetJsonData.enum || [];
+    const curEnumextras = targetJsonData.enumextra || [];
 
     return (
       <div className="typeSelect-schema-box" id={nodeKey}>
@@ -79,12 +66,13 @@ class TypeSelectFormSchema extends React.PureComponent {
             defaultValue={targetJsonData.default || 'local'}
             onChange={this.typeHandleChange}
           >
-            <Option key={'local'} value={'local'}>
-              {'local'}
-            </Option>
-            <Option key={'remote'} value={'remote'}>
-              {'remote'}
-            </Option>
+            {curEnums.map((item, enumIndex) => {
+              return (
+                <Option key={item} value={item}>
+                  {curEnumextras[enumIndex]}
+                </Option>
+              );
+            })}
           </Select>
         </div>
         <div className="type-select-item">
