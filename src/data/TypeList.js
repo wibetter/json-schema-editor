@@ -24,6 +24,7 @@ export const STYLESCHEME_TYPE = [
   'radio',
   'select',
   'quantity',
+  'htmlarea',
   'array',
   'object',
 ];
@@ -33,6 +34,7 @@ export const DATASCHEME_TYPE = [
   'number',
   'json',
   'codearea',
+  'htmlarea',
   'datasource',
   'event',
   'object',
@@ -86,6 +88,7 @@ export const ALL_TYPE = [
   'time',
   'json',
   'codearea',
+  'htmlarea',
   'quantity',
   'datasource',
   'event',
