@@ -130,6 +130,16 @@ export default class JSONSchemaStore {
     console.log(this.JSONSchemaObj);
   }
 
+  /** 根据索引路径值(indexRoute)编辑对应的json数据对象
+   *  备注：用于覆盖整个json对象
+   * */
+  @action.bound
+  updateJsonData(curIndexRoute, newJsonDataObj) {
+    const curJSONObj = getJSONDataByIndex(curIndexRoute, this.jsonSchema);
+    Object.assign(curJSONObj, objClone(newJsonDataObj));
+    console.log(this.JSONSchemaObj);
+  }
+
   /** 根据索引路径值(indexRoute)编辑对应的jsonKey
    *  备注：仅用于修改jsonKey值
    * */

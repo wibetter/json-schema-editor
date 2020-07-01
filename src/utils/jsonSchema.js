@@ -1,3 +1,4 @@
+import { EventTypeDataList } from '$data/TypeDataList';
 /**
  * JSONSchema数据对象的通用操作方法【非响应式数据操作方法集合】
  */
@@ -252,6 +253,24 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
     curProperties.quantity.title = '单位类型';
     curProperties.quantity.format = 'typeSelect';
     curProperties.unit.format = 'number';
+  }
+  // 转换旧版的event类型的数据结构
+  if (newJSONSchema.format === 'event') {
+    const curProperties = newJSONSchema.properties;
+    // 先获取旧版的关键数据
+    const eventType = curProperties.type.default;
+    const eventFunc = curProperties.filter.default;
+    // 重构Event的数据结构
+    if (eventType === 'on') {
+      // 注册类事件
+      newJSONSchema = Object.assign(newJSONSchema, EventTypeDataList.on);
+      newJSONSchema.properties.callback.default = eventFunc;
+    } else {
+      // 其他，则默认为触发事件
+      // 注册类事件
+      newJSONSchema = Object.assign(newJSONSchema, EventTypeDataList.emit);
+      newJSONSchema.properties.trigger.default = eventFunc;
+    }
   }
   // 判断是否有propertyOrder属性
   if (newJSONSchema.properties) {

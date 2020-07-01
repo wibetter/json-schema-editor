@@ -8,6 +8,7 @@ import {
   initDateData,
   initDateTimeData,
   initEventData,
+  initEventDataTypeON,
   initJsonData,
   initCodeAreaData,
   initNumberData,
@@ -41,4 +42,10 @@ export const TypeDataList = {
   select: initSelectData,
   datasource: initDataSourceData,
   event: initEventData,
+};
+
+// 事件类型数据
+export const EventTypeDataList = {
+  on: initEventDataTypeON,
+  emit: initEventData,
 };

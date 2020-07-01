@@ -8,7 +8,8 @@
  *  required：存放所有子字段的key值，用于验证子字段项是否存在，同时required可充当排序功能
  *  propertyOrder：按序存放所有子字段的key值（排序功能）
  * */
-export const initEventData = {
+// 旧版Event数据
+export const initEventDataV1 = {
   type: 'object',
   format: 'event',
   title: '事件',
@@ -32,4 +33,80 @@ export const initEventData = {
   },
   required: ['type', 'data', 'filter'],
   propertyOrder: ['type', 'data', 'filter'],
+};
+
+/** 新版EventData
+ * type: emit 的默认数据 */
+export const initEventData = {
+  type: 'object',
+  format: 'event',
+  title: '事件',
+  isRequired: false,
+  readOnly: false,
+  properties: {
+    type: {
+      type: 'string',
+      default: 'emit',
+      format: 'typeSelect',
+      enum: ['on', 'emit'],
+      enumextra: ['on', 'emit'],
+      title: '事件类型',
+      isRequired: false,
+      readOnly: false,
+    },
+    trigger: {
+      type: 'string',
+      format: 'input',
+      default: 'event name',
+      title: '触发事件的名称',
+      description: '用于输入触发事件的名称',
+      placeholder: '请输入触发事件的名称',
+      isRequired: false,
+      readOnly: false,
+    },
+    eventData: {
+      type: 'string',
+      title: '事件数据',
+      format: 'json',
+      default: '{}', // 默认值
+      description: '传递给触发事件的数据对象', // 字段项的说明和描述
+      isRequired: false,
+      readOnly: false,
+    },
+  },
+  required: ['type', 'trigger', 'eventData'],
+  propertyOrder: ['type', 'trigger', 'eventData'],
+};
+
+/** 新版EventData
+ * type: on 的默认数据 */
+export const initEventDataTypeON = {
+  type: 'object',
+  format: 'event',
+  title: '事件',
+  isRequired: false,
+  readOnly: false,
+  properties: {
+    type: {
+      type: 'string',
+      default: 'on',
+      format: 'typeSelect',
+      enum: ['on', 'emit'],
+      enumextra: ['on', 'emit'],
+      title: '事件类型',
+      isRequired: false,
+      readOnly: false,
+    },
+    callback: {
+      type: 'string',
+      title: '回调函数',
+      format: 'codearea',
+      default: '() => {}', // 默认值
+      description: '', // 字段项的说明和描述
+      isRequired: false,
+      readOnly: false,
+    },
+  },
+  required: ['type', 'callback'],
+  propertyOrder: ['type', 'callback'],
 };

@@ -17,7 +17,7 @@ export const initRadioData = {
     enum: ['a', 'b', 'c'],
     enumextra: ['选项a', '选项b', '选项c'],
   },
-  isRequired: false,
   description: '', // 字段项的说明和描述
+  isRequired: false,
   readOnly: false,
 };

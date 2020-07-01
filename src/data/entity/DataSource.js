@@ -27,8 +27,8 @@ export const initDataSourceData = {
       title: '本地静态json数据',
       format: 'json',
       default: '{}', // 默认值
-      isRequired: true,
       description: '用于设置本地的静态json数据',
+      isRequired: true,
       readOnly: true,
     },
     filter: {
@@ -36,8 +36,8 @@ export const initDataSourceData = {
       title: '过滤器',
       format: 'codearea',
       default: '() => {}',
-      isRequired: true,
       description: '用于定义过滤当前数据的函数',
+      isRequired: true,
       readOnly: true,
     },
   },

@@ -13,9 +13,8 @@ export const initCodeAreaData = {
   type: 'string',
   title: '函数类型',
   format: 'codearea',
-  isRequired: false,
   default: '() => {}', // 默认值
-  description: '', // 字段项的说明和描述
-  placeholder: '可用于定义函数', // 输入提示
+  description: '用于定义函数方法体', // 字段项的说明和描述
+  isRequired: false,
   readOnly: false,
 };

@@ -12,25 +12,25 @@ export const initArrayData = {
   type: 'array',
   format: 'array',
   title: '数组',
-  readOnly: false,
-  isRequired: false,
   description: '', // 字段项的说明和描述
+  isRequired: false,
+  readOnly: false,
   items: {
     type: 'object', // 不可编辑
     format: 'object',
     title: '数组项',
-    readOnly: false,
-    isRequired: false,
     description: '', // 字段项的说明和描述
+    isRequired: false,
+    readOnly: false,
     properties: {
       name: {
         type: 'string',
         format: 'input',
         title: '名字',
-        isRequired: false,
         default: '', // 默认值
         description: '', // 字段项的说明和描述
         placeholder: '', // 输入提示
+        isRequired: false,
         readOnly: false,
       },
     },
