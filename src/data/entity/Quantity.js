@@ -17,14 +17,21 @@ export const initQuantityData = {
     unit: {
       type: 'number',
       title: '数值',
+      format: 'number',
+      isRequired: false,
+      default: 50, // 默认值
+      minimum: 0, // 在高级设置中配置
+      maximum: 1000, // 在高级设置中配置
+      description: '', // 字段项的说明和描述
+      readOnly: false,
     },
     quantity: {
       type: 'string',
+      format: 'typeSelect', // 选择列表
       default: 'px',
-      format: 'quantitySelect', // 选择列表
       enum: ['px', 'rem', 'em', '%'],
       enumextra: ['px', 'rem', 'em', '%'],
-      title: '单位',
+      title: '单位类型',
     },
   },
   required: ['unit', 'quantity'],

@@ -10,6 +10,26 @@ const getTreeNodeTitleCont = (params) => {
   return <BaseFormSchema {...params} />;
 };
 
+// 选择不同的数据源类型，则展示不同的data内容(均为不可编辑状态)
+const typeSelectData = {
+  local: {
+    type: 'string',
+    title: '本地静态json数据',
+    format: 'json',
+    default: '{}', // 默认值
+    isRequired: true,
+    description: '用于设置本地的静态json数据',
+  },
+  remote: {
+    type: 'string',
+    title: '远程json数据源',
+    format: 'url',
+    default: 'http://xxx', // 默认值
+    isRequired: true,
+    description: '用于设置获取元素数据的请求地址',
+  },
+};
+
 /** 渲染dataSelect在的内容 */
 const getTypeSelectCont = (params) => {
   return <TypeSelectFormSchema {...params} />;
@@ -49,6 +69,7 @@ const DataSourceSchema = (props) => {
           targetJsonData: targetJsonData.properties.type,
           parentType: currentFormat,
           nodeKey: `${nodeKey}-type`,
+          typeSelectData,
         })}
       ></TreeNode>
       <TreeNode

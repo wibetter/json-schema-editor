@@ -2,11 +2,17 @@ import React from 'react';
 import { Tree } from 'antd';
 const { TreeNode } = Tree;
 import BaseFormSchema from '$components/BaseFormSchema/index';
+import TypeSelectFormSchema from '$components/TypeSelectFormSchema/index';
 import { getCurrentFormat } from '$utils/jsonSchema';
 
 /** 渲染当前字段的表单项（Tree的单项内容） */
 const getTreeNodeTitleCont = (params) => {
   return <BaseFormSchema {...params} />;
+};
+
+/** 渲染dataSelect在的内容 */
+const getTypeSelectCont = (params) => {
+  return <TypeSelectFormSchema {...params} />;
 };
 
 /** Quantity类型渲染组件 */
@@ -28,7 +34,41 @@ const QuantitySchema = (props) => {
         parentType,
         nodeKey,
       })}
-    ></TreeNode>
+    >
+      <TreeNode
+        className={'quantity-unit-item-schema schema-item-form'}
+        id={`${nodeKey}-unit`}
+        key={`${nodeKey}-unit`}
+        indexRoute={`${indexRoute}-0`}
+        jsonKey={'unit'}
+        disabled={true}
+        title={getTreeNodeTitleCont({
+          indexRoute: `${indexRoute}-0`,
+          jsonKey: 'unit',
+          targetJsonData: targetJsonData.properties.unit,
+          parentType: currentFormat,
+          nodeKey: `${nodeKey}-unit`,
+          isFixed: false,
+          keyIsFixed: true,
+          typeIsFixed: true,
+        })}
+      ></TreeNode>
+      <TreeNode
+        className={'quantity-typeSelect-item-schema schema-item-form'}
+        id={`${nodeKey}-quantity`}
+        key={`${nodeKey}-quantity`}
+        indexRoute={`${indexRoute}-1`}
+        jsonKey={'quantity'}
+        disabled={true}
+        title={getTypeSelectCont({
+          indexRoute: `${indexRoute}-1`,
+          jsonKey: 'quantity',
+          targetJsonData: targetJsonData.properties.quantity,
+          parentType: currentFormat,
+          nodeKey: `${nodeKey}-quantity`,
+        })}
+      ></TreeNode>
+    </TreeNode>
   );
 };
 
