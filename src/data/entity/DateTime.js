@@ -13,9 +13,9 @@ export const initDateTimeData = {
   type: 'string',
   title: '日期',
   format: 'date-time',
-  isRequired: false,
   default: '', // 默认值
   description: '', // 字段项的说明和描述
   placeholder: '', // 输入提示
+  isRequired: false,
   readOnly: false,
 };

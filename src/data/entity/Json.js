@@ -13,8 +13,8 @@ export const initJsonData = {
   type: 'string',
   title: 'json数据项',
   format: 'json',
-  isRequired: false,
   default: '{}', // 默认值
   description: '', // 字段项的说明和描述
+  isRequired: false,
   readOnly: false,
 };

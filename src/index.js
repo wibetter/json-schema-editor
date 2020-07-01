@@ -492,9 +492,6 @@ class IndexDemo extends React.PureComponent {
                 title: '事件',
                 format: 'event',
                 isRequired: false,
-                default: '',
-                description: '',
-                placeholder: '',
                 readOnly: false,
                 properties: {
                   type: {

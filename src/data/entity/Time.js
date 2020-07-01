@@ -13,9 +13,9 @@ export const initTimeData = {
   type: 'string',
   title: '时间',
   format: 'time',
-  isRequired: false,
   default: '', // 默认值
   description: '', // 字段项的说明和描述
   placeholder: '', // 输入提示
+  isRequired: false,
   readOnly: false,
 };
