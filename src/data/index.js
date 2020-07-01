@@ -27,3 +27,4 @@ export * from './entity/Event';
 export * from './entity/DataSource';
 export * from './entity/Json';
 export * from './entity/CodeArea';
+export * from './entity/HtmlArea';
