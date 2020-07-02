@@ -11738,7 +11738,9 @@ and limitations under the License.
                   key: 'editJsonKey',
                   value: function (e, t) {
                     var n = de(e, this.jsonSchema, !0);
-                    this.insertJsonData(e, t, n), this.deleteJsonByIndex(e);
+                    this.insertJsonData(e, t, n),
+                      this.deleteJsonByIndex(e),
+                      console.log(this.JSONSchemaObj);
                   },
                 },
                 {
@@ -12935,7 +12937,7 @@ and limitations under the License.
           },
           remote: {
             type: 'string',
-            title: '远程json数据源',
+            title: '远程json数据源地址',
             format: 'url',
             default: 'http://xxx',
             isRequired: !0,
@@ -13145,7 +13147,9 @@ and limitations under the License.
             o = e.indexRoute,
             i = e.nodeKey,
             a = e.targetJsonData,
-            c = pe(a);
+            c = pe(a),
+            u = a.propertyOrder[0],
+            s = a.properties[u];
           return y.a.createElement(
             en,
             {
@@ -13164,19 +13168,18 @@ and limitations under the License.
             },
             y.a.createElement(en, {
               className: 'quantity-unit-item-schema schema-item-form',
-              id: ''.concat(i, '-unit'),
-              key: ''.concat(i, '-unit'),
+              id: ''.concat(i, '-').concat(u),
+              key: ''.concat(i, '-').concat(u),
               indexRoute: ''.concat(o, '-0'),
-              jsonKey: 'unit',
+              jsonKey: u,
               disabled: !0,
               title: tn({
                 indexRoute: ''.concat(o, '-0'),
-                jsonKey: 'unit',
-                targetJsonData: a.properties.unit,
+                jsonKey: u,
+                targetJsonData: s,
                 parentType: c,
-                nodeKey: ''.concat(i, '-unit'),
+                nodeKey: ''.concat(i, '-').concat(u),
                 isFixed: !1,
-                keyIsFixed: !0,
                 typeIsFixed: !0,
               }),
             }),
@@ -13666,44 +13669,47 @@ and limitations under the License.
                   f = t.jsonKey,
                   d = i(l);
                 console.log(l);
-                var p = n.indexRoute;
-                console.log(p);
-                var y,
+                var p,
+                  y,
                   h,
-                  v,
-                  m = !1;
+                  v = n.indexRoute;
                 if (
-                  ((y = p),
-                  (h = l.split('-')),
-                  (v = y.split('-')),
+                  (console.log(v),
+                  !((p = v),
+                  (y = l.split('-')),
+                  (h = p.split('-')),
+                  y.pop(),
                   h.pop(),
-                  v.pop(),
-                  h.join('-') === v.join('-'))
+                  y.join('-') === h.join('-')))
                 ) {
-                  l.substr(l.length - 1, 1) < p.substr(l.length - 1, 1) &&
-                    (m = !0),
-                    m &&
-                      (p = (function (e) {
-                        var t = e.split('-'),
-                          n = t.pop();
-                        return t.push(Number(n) - 1), t.join('-');
-                      })(p)),
-                    n.dragOverGapTop
-                      ? (c(l), a(p, f, d, 'before'))
-                      : (n.dragOver || n.dragOverGapBottom) &&
-                        (c(l), a(p, f, d));
-                } else {
-                  if (u(p, f))
+                  if (u(v, f))
                     return void ee.a.warning('目标位置中有重名的元素');
-                  var b = pe(d);
-                  if (!s(p, b))
+                  var m = pe(d);
+                  if (!s(v, m))
                     return void ee.a.warning(
-                      '目标位置不支持'.concat(b, '类型元素'),
+                      '目标位置不支持'.concat(m, '类型元素'),
                     );
-                  n.dragOverGapTop
-                    ? (a(p, f, d, 'before'), c(l))
-                    : (n.dragOver || n.dragOverGapBottom) && (a(p, f, d), c(l));
                 }
+                var b = (function (e, t) {
+                  for (
+                    var n = e.split('-'),
+                      r = t.split('-'),
+                      o = 'before',
+                      i = 0,
+                      a = (n.length > r.length ? r : n).length;
+                    i < a;
+                    i += 1
+                  ) {
+                    n[i] < r[i] && (o = 'after');
+                  }
+                  return o;
+                })(l, v);
+                n.dragOverGapTop
+                  ? 'after' === b
+                    ? (c(l), a(v, f, d, 'before'))
+                    : (a(v, f, d, 'before'), c(l))
+                  : (n.dragOver || n.dragOverGapBottom) &&
+                    ('after' === b ? (c(l), a(v, f, d)) : (a(v, f, d), c(l)));
               }
             }),
             e.data && r.props.initJSONSchemaData(e.data),

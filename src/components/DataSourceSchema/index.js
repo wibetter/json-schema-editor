@@ -22,7 +22,7 @@ const typeSelectData = {
   },
   remote: {
     type: 'string',
-    title: '远程json数据源',
+    title: '远程json数据源地址',
     format: 'url',
     default: 'http://xxx', // 默认值
     isRequired: true,
