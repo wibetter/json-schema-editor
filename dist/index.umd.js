@@ -11325,7 +11325,6 @@ and limitations under the License.
                 default: '{}',
                 description: '用于设置本地的静态json数据',
                 isRequired: !0,
-                readOnly: !0,
               },
               filter: {
                 type: 'string',
@@ -11334,7 +11333,6 @@ and limitations under the License.
                 default: '() => {}',
                 description: '用于定义过滤当前数据的函数',
                 isRequired: !0,
-                readOnly: !0,
               },
             },
             required: ['type', 'data', 'filter'],
