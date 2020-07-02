@@ -9,6 +9,7 @@ import {
   isEmptySchema,
   isSameParent,
   getCurPosition,
+  moveForward,
 } from '$utils/jsonSchema';
 import './index.scss';
 
@@ -77,7 +78,32 @@ class JSONSchema extends React.PureComponent {
 
     // 判断是否是同一个父级容器
     const isSameParentElem = isSameParent(curIndexRoute, targetIndexRoute);
-    if (!isSameParentElem) {
+    // 判断先后位置
+    const curPosition = getCurPosition(curIndexRoute, targetIndexRoute);
+
+    if (isSameParentElem) {
+      /** 同级元素的拖拽交互
+       * 备注：1、同级元素之间的拖拽不用考虑是否有重名key；
+       * 2、先删除再进行插入，避免插入时报同名错误；
+       * */
+      // 先删除当前拖动的元素
+      deleteJsonByIndex(curIndexRoute);
+      // 如果curPosition === 'before'，删除后需要进行移位操作
+      if (curPosition === 'before') {
+        /**
+         * 当拖动的元素在前面，目标元素在后面，
+         * 先删除拖动元素时会导致targetIndexRoute发生偏移，需要向前移动一位进行矫正（以便继续访问到此前的目标元素）
+         */
+        targetIndexRoute = moveForward(targetIndexRoute);
+      }
+      if (node.dragOverGapTop) {
+        /** 拖拽到目标元素前面 */
+        insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
+      } else if (node.dragOver || node.dragOverGapBottom) {
+        /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
+        insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
+      }
+    } else {
       /** 非同级元素的拖拽交互 */
       // 判断是否有重名的jsonKey（非同级元素拖拽中可能出现重名）
       const isExitJsonKey_ = isExitJsonKey(targetIndexRoute, curJsonKey);
@@ -91,28 +117,27 @@ class JSONSchema extends React.PureComponent {
         message.warning(`目标位置不支持${curType}类型元素`);
         return;
       }
-    }
-    const curPosition = getCurPosition(curIndexRoute, targetIndexRoute);
-    // 非同级元素拖拽后删除
-    if (node.dragOverGapTop) {
-      /** 拖拽到目标元素前面 */
-      if (curPosition === 'after') {
-        deleteJsonByIndex(curIndexRoute);
-        insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
-      } else {
-        // curPosition === 'before'
-        insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
-        deleteJsonByIndex(curIndexRoute);
-      }
-    } else if (node.dragOver || node.dragOverGapBottom) {
-      /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
-      if (curPosition === 'after') {
-        deleteJsonByIndex(curIndexRoute);
-        insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
-      } else {
-        // curPosition === 'before'
-        insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
-        deleteJsonByIndex(curIndexRoute);
+      // 非同级元素拖拽后删除
+      if (node.dragOverGapTop) {
+        /** 拖拽到目标元素前面 */
+        if (curPosition === 'after') {
+          deleteJsonByIndex(curIndexRoute);
+          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
+        } else {
+          // curPosition === 'before'
+          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
+          deleteJsonByIndex(curIndexRoute);
+        }
+      } else if (node.dragOver || node.dragOverGapBottom) {
+        /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
+        if (curPosition === 'after') {
+          deleteJsonByIndex(curIndexRoute);
+          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
+        } else {
+          // curPosition === 'before'
+          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
+          deleteJsonByIndex(curIndexRoute);
+        }
       }
     }
   };
