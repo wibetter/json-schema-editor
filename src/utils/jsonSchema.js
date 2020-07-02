@@ -120,7 +120,7 @@ export function getCurPosition(curIndex, targetIndex) {
   for (let index = 0, size = forEachArr.length; index < size; index += 1) {
     const curIndexItem = curIndexArr[index];
     const targetIndexItem = targetIndexArr[index];
-    if (curIndexItem < targetIndexItem) {
+    if (curIndexItem > targetIndexItem) {
       curPosition = 'after'; // 表示当前元素在目标元素的后面
     }
   }

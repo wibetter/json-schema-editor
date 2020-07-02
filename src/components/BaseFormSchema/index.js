@@ -22,6 +22,7 @@ class BaseFormSchema extends React.PureComponent {
     nodeKey: PropTypes.string,
     targetJsonData: PropTypes.any,
     isFixed: PropTypes.any,
+    hideOperaBtn: PropTypes.any,
     keyIsFixed: PropTypes.any,
     typeIsFixed: PropTypes.any,
     titleIsFixed: PropTypes.any,
@@ -134,6 +135,7 @@ class BaseFormSchema extends React.PureComponent {
     const keyIsFixed = this.props.keyIsFixed || false; // key是否为不可编辑的属性
     const typeIsFixed = this.props.typeIsFixed || false; // type是否为不可编辑的属性
     const titleIsFixed = this.props.titleIsFixed || false; // title是否为不可编辑的属性
+    const hideOperaBtn = this.props.hideOperaBtn || false; // 是否隐藏操作类按钮
     const readOnly = targetJsonData.readOnly || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
     const currentTypeList = this.getCurrentTypeList(parentType); // 根据父级元素类型获取可供使用的类型清单
     const currentFormat = getCurrentFormat(targetJsonData);
@@ -172,39 +174,42 @@ class BaseFormSchema extends React.PureComponent {
             onBlur={this.handleTitleChange}
           />
         </div>
-        <div className="operate-item">
-          {!readOnly && (
-            <Tooltip title="删除">
-              <CloseOutlined
-                className="operate-btn delete-operate"
-                onClick={this.onDeleteBtnEvent}
-              />
-            </Tooltip>
-          )}
-          <Tooltip
-            title={
-              isBoxSchemaData(currentFormat) ? '新增子节点' : '新增兄弟节点'
-            }
-          >
-            <PlusOutlined
-              className="operate-btn"
-              onClick={this.onAddBtnEvent}
-            />
-          </Tooltip>
-          {!readOnly && (
-            <Tooltip title="复制">
-              <CopyOutlined
+        {!hideOperaBtn && (
+          <div className="operate-item">
+            {!readOnly && (
+              <Tooltip title="删除">
+                <CloseOutlined
+                  className="operate-btn delete-operate"
+                  onClick={this.onDeleteBtnEvent}
+                />
+              </Tooltip>
+            )}
+            <Tooltip
+              title={
+                isBoxSchemaData(currentFormat) ? '新增子节点' : '新增兄弟节点'
+              }
+            >
+              <PlusOutlined
                 className="operate-btn"
-                onClick={this.onCopyBtnEvent}
+                onClick={this.onAddBtnEvent}
               />
             </Tooltip>
-          )}
-          {!readOnly && (
-            <Tooltip title="按住进行拖拽">
-              <div className="operate-btn drag-btn"></div>
-            </Tooltip>
-          )}
-        </div>
+            {!readOnly && (
+              <Tooltip title="复制">
+                <CopyOutlined
+                  className="operate-btn"
+                  onClick={this.onCopyBtnEvent}
+                />
+              </Tooltip>
+            )}
+            {!readOnly && (
+              <Tooltip title="按住进行拖拽">
+                <div className="operate-btn drag-btn"></div>
+              </Tooltip>
+            )}
+          </div>
+        )}
+        {hideOperaBtn && <div className="operate-item">&nbsp;</div>}
       </div>
     );
   }

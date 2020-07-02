@@ -52,8 +52,8 @@ const QuantitySchema = (props) => {
           targetJsonData: unitJsonData,
           parentType: currentFormat,
           nodeKey: `${nodeKey}-${unitJsonKey}`,
-          isFixed: false,
           typeIsFixed: true,
+          hideOperaBtn: true,
         })}
       ></TreeNode>
       <TreeNode
