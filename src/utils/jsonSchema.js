@@ -107,6 +107,26 @@ export function isSameParent(curIndex, targetIndex) {
   }
 }
 
+/**
+ * 判断当前元素在目标元素的位置 前 or 后（根据当前元素的位置和目标元素的位置）
+ */
+export function getCurPosition(curIndex, targetIndex) {
+  const curIndexArr = curIndex.split('-');
+  const targetIndexArr = targetIndex.split('-');
+  let curPosition = 'before'; // 默认在目标元素的前面
+  // 使用短的路径进行遍历（避免空指针）
+  const forEachArr =
+    curIndexArr.length > targetIndexArr.length ? targetIndexArr : curIndexArr;
+  for (let index = 0, size = forEachArr.length; index < size; index += 1) {
+    const curIndexItem = curIndexArr[index];
+    const targetIndexItem = targetIndexArr[index];
+    if (curIndexItem < targetIndexItem) {
+      curPosition = 'after'; // 表示当前元素在目标元素的后面
+    }
+  }
+  return curPosition;
+}
+
 /** 获取当前字段的类型（format）
  *  如果当前字段没有format字段，则根据type字段赋予默认的类型 */
 export function getCurrentFormat(targetJsonData) {

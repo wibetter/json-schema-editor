@@ -9,6 +9,7 @@ import {
   isEmptySchema,
   isSameParent,
   moveForward,
+  getCurPosition,
 } from '$utils/jsonSchema';
 import './index.scss';
 
@@ -127,15 +128,28 @@ class JSONSchema extends React.PureComponent {
         message.warning(`目标位置不支持${curType}类型元素`);
         return;
       }
+      const curPosition = getCurPosition(curIndexRoute, targetIndexRoute);
       // 非同级元素拖拽后删除
       if (node.dragOverGapTop) {
         /** 拖拽到目标元素前面 */
-        insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
-        deleteJsonByIndex(curIndexRoute);
+        if (curPosition === 'after') {
+          deleteJsonByIndex(curIndexRoute);
+          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
+        } else {
+          // curPosition === 'before'
+          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
+          deleteJsonByIndex(curIndexRoute);
+        }
       } else if (node.dragOver || node.dragOverGapBottom) {
         /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
-        insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
-        deleteJsonByIndex(curIndexRoute);
+        if (curPosition === 'after') {
+          deleteJsonByIndex(curIndexRoute);
+          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
+        } else {
+          // curPosition === 'before'
+          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
+          deleteJsonByIndex(curIndexRoute);
+        }
       }
     }
   };
