@@ -29,7 +29,6 @@ export const initDataSourceData = {
       default: '{}', // 默认值
       description: '用于设置本地的静态json数据',
       isRequired: true,
-      readOnly: true,
     },
     filter: {
       type: 'string',
@@ -38,7 +37,6 @@ export const initDataSourceData = {
       default: '() => {}',
       description: '用于定义过滤当前数据的函数',
       isRequired: true,
-      readOnly: true,
     },
   },
   required: ['type', 'data', 'filter'],
