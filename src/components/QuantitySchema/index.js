@@ -20,6 +20,10 @@ const QuantitySchema = (props) => {
   const { parentType, jsonKey, indexRoute, nodeKey, targetJsonData } = props;
   const currentFormat = getCurrentFormat(targetJsonData);
 
+  /** 获取quantity中的数值对象（默认第一个就是数值对象）*/
+  const unitJsonKey = targetJsonData.propertyOrder[0];
+  const unitJsonData = targetJsonData.properties[unitJsonKey];
+
   return (
     <TreeNode
       className={`${currentFormat}-schema schema-item-form`}
@@ -37,20 +41,19 @@ const QuantitySchema = (props) => {
     >
       <TreeNode
         className={'quantity-unit-item-schema schema-item-form'}
-        id={`${nodeKey}-unit`}
-        key={`${nodeKey}-unit`}
+        id={`${nodeKey}-${unitJsonKey}`}
+        key={`${nodeKey}-${unitJsonKey}`}
         indexRoute={`${indexRoute}-0`}
-        jsonKey={'unit'}
+        jsonKey={unitJsonKey}
         disabled={true}
         title={getTreeNodeTitleCont({
           indexRoute: `${indexRoute}-0`,
-          jsonKey: 'unit',
-          targetJsonData: targetJsonData.properties.unit,
+          jsonKey: unitJsonKey,
+          targetJsonData: unitJsonData,
           parentType: currentFormat,
-          nodeKey: `${nodeKey}-unit`,
-          isFixed: false,
-          keyIsFixed: true,
+          nodeKey: `${nodeKey}-${unitJsonKey}`,
           typeIsFixed: true,
+          hideOperaBtn: true,
         })}
       ></TreeNode>
       <TreeNode

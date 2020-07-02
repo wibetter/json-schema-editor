@@ -8,6 +8,7 @@ import {
   getCurrentFormat,
   isEmptySchema,
   isSameParent,
+  getCurPosition,
   moveForward,
 } from '$utils/jsonSchema';
 import './index.scss';
@@ -77,40 +78,29 @@ class JSONSchema extends React.PureComponent {
 
     // 判断是否是同一个父级容器
     const isSameParentElem = isSameParent(curIndexRoute, targetIndexRoute);
-    // 如果是同级父级容器，则判断先后顺序
-    let elemOrder = false; // 默认为false：表示拖动元素在后，目标元素在前，
+    // 判断先后位置
+    const curPosition = getCurPosition(curIndexRoute, targetIndexRoute);
+
     if (isSameParentElem) {
-      const curKeyLastChar = curIndexRoute.substr(curIndexRoute.length - 1, 1);
-      const targetKeyLastChar = targetIndexRoute.substr(
-        curIndexRoute.length - 1,
-        1,
-      );
-      if (curKeyLastChar < targetKeyLastChar) {
-        // curKeyLastChar：拖动元素的最后一个路径值
-        // 表示拖动的元素在前面，目标元素在后面
-        elemOrder = true;
-      }
-      if (elemOrder) {
+      /** 同级元素的拖拽交互
+       * 备注：1、同级元素之间的拖拽不用考虑是否有重名key；
+       * 2、先删除再进行插入，避免插入时报同名错误；
+       * */
+      // 先删除当前拖动的元素
+      deleteJsonByIndex(curIndexRoute);
+      // 如果curPosition === 'before'，删除后需要进行移位操作
+      if (curPosition === 'before') {
         /**
          * 当拖动的元素在前面，目标元素在后面，
-         * 先删除拖动元素时会导致targetIndexRoute发生偏移，需要向前移动一位进行矫正
+         * 先删除拖动元素时会导致targetIndexRoute发生偏移，需要向前移动一位进行矫正（以便继续访问到此前的目标元素）
          */
         targetIndexRoute = moveForward(targetIndexRoute);
       }
-      /**
-       * node.dragOver: false（为true时表示在目标元素中间）
-       * node.dragOverGapBottom: false（为true时表示在目标元素后面）
-       * node.dragOverGapTop: false（为true时表示在目标元素前面）
-       * */
-      // 同级元素拖拽先删除
       if (node.dragOverGapTop) {
         /** 拖拽到目标元素前面 */
-        // 先删除再插入，避免出现重复数据
-        deleteJsonByIndex(curIndexRoute);
         insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
       } else if (node.dragOver || node.dragOverGapBottom) {
         /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
-        deleteJsonByIndex(curIndexRoute);
         insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
       }
     } else {
@@ -130,12 +120,24 @@ class JSONSchema extends React.PureComponent {
       // 非同级元素拖拽后删除
       if (node.dragOverGapTop) {
         /** 拖拽到目标元素前面 */
-        insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
-        deleteJsonByIndex(curIndexRoute);
+        if (curPosition === 'after') {
+          deleteJsonByIndex(curIndexRoute);
+          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
+        } else {
+          // curPosition === 'before'
+          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
+          deleteJsonByIndex(curIndexRoute);
+        }
       } else if (node.dragOver || node.dragOverGapBottom) {
         /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
-        insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
-        deleteJsonByIndex(curIndexRoute);
+        if (curPosition === 'after') {
+          deleteJsonByIndex(curIndexRoute);
+          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
+        } else {
+          // curPosition === 'before'
+          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
+          deleteJsonByIndex(curIndexRoute);
+        }
       }
     }
   };

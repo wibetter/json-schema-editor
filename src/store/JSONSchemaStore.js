@@ -150,6 +150,7 @@ export default class JSONSchemaStore {
     this.insertJsonData(curIndexRoute, newJsonKey, curJSONObj);
     // 再删除原有的json数据对象
     this.deleteJsonByIndex(curIndexRoute);
+    console.log(this.JSONSchemaObj);
   }
 
   /** 根据索引路径值(indexRoute)插入新的兄弟节点元素-json数据对象

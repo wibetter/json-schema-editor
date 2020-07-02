@@ -22,7 +22,7 @@ const typeSelectData = {
   },
   remote: {
     type: 'string',
-    title: '远程json数据源',
+    title: '远程json数据源地址',
     format: 'url',
     default: 'http://xxx', // 默认值
     isRequired: true,
@@ -85,7 +85,7 @@ const DataSourceSchema = (props) => {
           targetJsonData: dataJsonObj,
           parentType: currentFormat,
           nodeKey: `${nodeKey}-data-${dataJsonObj.format}`,
-          isFixed: false,
+          hideOperaBtn: true,
           keyIsFixed: true,
           typeIsFixed: true,
         })}
@@ -103,7 +103,7 @@ const DataSourceSchema = (props) => {
           targetJsonData: targetJsonData.properties.filter,
           parentType: currentFormat,
           nodeKey: `${nodeKey}-filter`,
-          isFixed: false,
+          hideOperaBtn: true,
           keyIsFixed: true,
           typeIsFixed: true,
         })}

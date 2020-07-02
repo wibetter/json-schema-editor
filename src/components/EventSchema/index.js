@@ -68,7 +68,7 @@ const EventSchema = (props) => {
             targetJsonData: callbackJsonObj,
             parentType: currentFormat,
             nodeKey: `${nodeKey}-callback-${typeJsonObj.default}`,
-            isFixed: false,
+            hideOperaBtn: true,
             keyIsFixed: true,
             typeIsFixed: true,
           })}
@@ -88,7 +88,7 @@ const EventSchema = (props) => {
             targetJsonData: triggerJsonObj,
             parentType: currentFormat,
             nodeKey: `${nodeKey}-trigger-${typeJsonObj.default}`,
-            isFixed: false,
+            hideOperaBtn: true,
             keyIsFixed: true,
             typeIsFixed: true,
           })}
@@ -108,7 +108,7 @@ const EventSchema = (props) => {
             targetJsonData: eventDataJsonObj,
             parentType: currentFormat,
             nodeKey: `${nodeKey}-eventData-${typeJsonObj.default}`,
-            isFixed: false,
+            hideOperaBtn: true,
             keyIsFixed: true,
             typeIsFixed: true,
           })}
