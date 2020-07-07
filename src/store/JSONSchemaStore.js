@@ -1,4 +1,4 @@
-import { observable, computed, action, set, remove, get, toJS } from 'mobx';
+import { observable, computed, action, toJS } from 'mobx';
 import { message } from 'antd';
 import {
   getParentIndexRoute,
@@ -8,6 +8,7 @@ import {
 } from '$utils/jsonSchema';
 import { objClone } from '$utils/index';
 import { TypeList } from '$data/TypeList';
+import { KeyWordList } from '$data/KeyWordList';
 import { isBoxSchemaData } from '$utils/jsonSchema';
 import { initJSONSchemaData, initInputData } from '$data/index';
 
@@ -81,6 +82,11 @@ export default class JSONSchemaStore {
     ) {
       // 表示存在相同的jsonKey
       return true;
+    } else if (KeyWordList && KeyWordList.indexOf(jsonKey) >= 0) {
+      // 表示当前jsonKey是JSONSchema的关键字
+      message.warning(
+        `${jsonKey}是JSONSchema的关键字，建议您换一个，避免后续出现数据异常。`,
+      );
     }
     return false;
   }
@@ -258,6 +264,12 @@ export default class JSONSchemaStore {
       if (enumKeys.indexOf(newEnumKey) >= 0) {
         isExit = true;
       }
+    }
+    if (KeyWordList && KeyWordList.indexOf(newEnumKey) >= 0) {
+      // 表示当前jsonKey是JSONSchema的关键字
+      message.warning(
+        `${newEnumKey}是JSONSchema的关键字，建议您换一个，避免后续出现数据异常。`,
+      );
     }
     return isExit;
   }

@@ -4,8 +4,8 @@
     : 'function' == typeof define && define.amd
     ? define(['react', 'react-dom'], t)
     : 'object' == typeof exports
-    ? (exports.JSONSchemaEditor = t(require('react'), require('react-dom')))
-    : (e.JSONSchemaEditor = t(e.React, e.ReactDOM));
+    ? (exports.JSONEditor = t(require('react'), require('react-dom')))
+    : (e.JSONEditor = t(e.React, e.ReactDOM));
 })(this, function (e, t) {
   return (function (e) {
     var t = {};
@@ -11173,7 +11173,7 @@ and limitations under the License.
             type: 'string',
             title: '颜色值',
             format: 'color',
-            default: '#fff',
+            default: '#ffffff',
             description: '',
             isRequired: !1,
             readOnly: !1,
@@ -11255,7 +11255,7 @@ and limitations under the License.
             properties: {
               unit: {
                 type: 'number',
-                title: '数值',
+                title: '单位数值',
                 format: 'number',
                 default: 50,
                 minimum: 0,
@@ -11407,14 +11407,7 @@ and limitations under the License.
       }
       function pe(e) {
         var t = e.format;
-        return (
-          t ||
-            (t =
-              'object' === e.type || 'array' === e.type || 'string' === e.type
-                ? e.type
-                : 'input'),
-          t
-        );
+        return t || (t = e.type ? e.type : 'input'), t;
       }
       function ye(e) {
         var t = e.split('-');
