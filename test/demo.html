@@ -359,14 +359,14 @@
 
       render() {
         const { jsonSchema } = this.state;
-        return (
+        return '(
           <JSONSchemaEditor
             data={jsonSchema}
             onChange={(e) => {
               console.log('changeValue', e);
             }}
           />
-        );
+        )';
       }
     }
 

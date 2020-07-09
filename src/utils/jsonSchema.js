@@ -277,7 +277,8 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
     const eventType = curProperties.type.default;
     const eventFunc = curProperties.filter.default;
     // 重构Event的数据结构
-    if (eventType === 'on') {
+    /** 旧版的事件模型数据，in：注册事件，out：触发事件 */
+    if (eventType === 'in') {
       // 注册类事件
       newJSONSchema = Object.assign(newJSONSchema, EventTypeDataList.on);
       newJSONSchema.properties.actionFunc.default = eventFunc;
@@ -285,7 +286,7 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
       // 其他，则默认为触发事件
       // 注册类事件
       newJSONSchema = Object.assign(newJSONSchema, EventTypeDataList.emit);
-      newJSONSchema.properties.trigger.default = eventFunc;
+      // newJSONSchema.properties.eventData.default = eventFunc;
     }
   }
   // 判断是否有propertyOrder属性
