@@ -14,7 +14,7 @@ const getTreeNodeTitleCont = (params) => {
 const typeSelectData = {
   local: {
     type: 'string',
-    title: '本地静态json数据',
+    title: '本地json数据',
     format: 'json',
     default: '{}', // 默认值
     isRequired: true,
@@ -22,7 +22,7 @@ const typeSelectData = {
   },
   remote: {
     type: 'string',
-    title: '远程json数据源地址',
+    title: '远程json数据',
     format: 'url',
     default: 'http://xxx', // 默认值
     isRequired: true,

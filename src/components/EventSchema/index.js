@@ -21,8 +21,9 @@ const EventSchema = (props) => {
   const currentFormat = getCurrentFormat(targetJsonData);
   const typeJsonObj = targetJsonData.properties.type;
   const triggerJsonObj = targetJsonData.properties.trigger;
+  const registerJsonObj = targetJsonData.properties.register;
   const eventDataJsonObj = targetJsonData.properties.eventData;
-  const callbackJsonObj = targetJsonData.properties.callback;
+  const actionFuncJsonObj = targetJsonData.properties.actionFunc;
 
   return (
     <TreeNode
@@ -54,20 +55,40 @@ const EventSchema = (props) => {
           nodeKey: `${nodeKey}-type`,
         })}
       ></TreeNode>
-      {typeJsonObj.default === 'on' && callbackJsonObj && (
+      {typeJsonObj.default === 'on' && registerJsonObj && (
         <TreeNode
-          className={'event-callback-item-schema schema-item-form'}
-          id={`${nodeKey}-callback-${typeJsonObj.default}`}
-          key={`${nodeKey}-callback-${typeJsonObj.default}`}
+          className={'event-register-item-schema schema-item-form'}
+          id={`${nodeKey}-register-${typeJsonObj.default}`}
+          key={`${nodeKey}-register-${typeJsonObj.default}`}
           indexRoute={`${indexRoute}-1`}
-          jsonKey={'callback'}
+          jsonKey={'register'}
           disabled={true}
           title={getTreeNodeTitleCont({
             indexRoute: `${indexRoute}-1`,
-            jsonKey: 'callback',
-            targetJsonData: callbackJsonObj,
+            jsonKey: 'register',
+            targetJsonData: registerJsonObj,
             parentType: currentFormat,
-            nodeKey: `${nodeKey}-callback-${typeJsonObj.default}`,
+            nodeKey: `${nodeKey}-register-${typeJsonObj.default}`,
+            hideOperaBtn: true,
+            keyIsFixed: true,
+            typeIsFixed: true,
+          })}
+        ></TreeNode>
+      )}
+      {typeJsonObj.default === 'on' && actionFuncJsonObj && (
+        <TreeNode
+          className={'event-actionFunc-item-schema schema-item-form'}
+          id={`${nodeKey}-actionFunc-${typeJsonObj.default}`}
+          key={`${nodeKey}-actionFunc-${typeJsonObj.default}`}
+          indexRoute={`${indexRoute}-2`}
+          jsonKey={'actionFunc'}
+          disabled={true}
+          title={getTreeNodeTitleCont({
+            indexRoute: `${indexRoute}-2`,
+            jsonKey: 'actionFunc',
+            targetJsonData: actionFuncJsonObj,
+            parentType: currentFormat,
+            nodeKey: `${nodeKey}-actionFunc-${typeJsonObj.default}`,
             hideOperaBtn: true,
             keyIsFixed: true,
             typeIsFixed: true,

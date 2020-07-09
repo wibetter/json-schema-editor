@@ -280,7 +280,7 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
     if (eventType === 'on') {
       // 注册类事件
       newJSONSchema = Object.assign(newJSONSchema, EventTypeDataList.on);
-      newJSONSchema.properties.callback.default = eventFunc;
+      newJSONSchema.properties.actionFunc.default = eventFunc;
     } else {
       // 其他，则默认为触发事件
       // 注册类事件
