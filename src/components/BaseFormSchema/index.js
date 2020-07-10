@@ -3,7 +3,12 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Input, message, Select, Tooltip } from 'antd';
 const { Option } = Select;
-import { PlusOutlined, CloseOutlined, CopyOutlined } from '@ant-design/icons';
+import {
+  PlusOutlined,
+  CloseOutlined,
+  CopyOutlined,
+  DragOutlined,
+} from '@ant-design/icons';
 import {
   isBoxSchemaData,
   getCurrentFormat,
@@ -203,7 +208,7 @@ class BaseFormSchema extends React.PureComponent {
             )}
             {!readOnly && (
               <Tooltip title="按住进行拖拽">
-                <div className="operate-btn drag-btn"></div>
+                <DragOutlined className="operate-btn drag-btn" />
               </Tooltip>
             )}
           </div>
