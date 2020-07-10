@@ -48,7 +48,6 @@ export default class JSONSchemaStore {
       const newJSONSchema = oldJSONSchemaToNewJSONSchema(jsonSchemaData);
       this.jsonSchema = newJSONSchema;
     }
-    this.curJsonKeyIndex = 1; // 每次初始化，都需要重置curJsonKeyIndex值
   }
 
   @computed get JSONSchemaObj() {

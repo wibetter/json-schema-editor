@@ -309,3 +309,72 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
   }
   return newJSONSchema;
 }
+
+/**
+ * 根据jsonSchema生成一份对应的jsonData
+ * */
+export function schema2JsonData(jsonSchema) {
+  const curJsonData = {};
+  if (isObject(jsonSchema)) {
+    // 判断是否有propertyOrder属性
+    if (jsonSchema.properties) {
+      jsonSchema.propertyOrder.map((jsonKey) => {
+        const jsonItem = jsonSchema.properties[jsonKey];
+        switch (jsonItem.type) {
+          case 'string':
+            curJsonData[jsonKey] = jsonItem.default || '';
+            break;
+          case 'boolean':
+            curJsonData[jsonKey] = jsonItem.default || true;
+            break;
+          case 'number':
+            curJsonData[jsonKey] = jsonItem.default || 1;
+            break;
+          case 'array':
+            if (jsonItem.format === 'array') {
+              curJsonData[jsonKey] = [].push(schema2JsonData(jsonItem.items));
+            } else {
+              curJsonData[jsonKey] = jsonItem.default || [];
+            }
+            break;
+          case 'object':
+            if (jsonItem.format === 'datasource') {
+              // 数据源类型
+              curJsonData[jsonKey] = {
+                data: '',
+                filter: '() => {}',
+              };
+            } else if (jsonItem.format === 'event') {
+              // 事件类型
+              if (
+                jsonItem.properties &&
+                jsonItem.properties.type &&
+                jsonItem.properties.type.default &&
+                jsonItem.properties.type.default === 'emit'
+              ) {
+                // 触发事件类型
+                curJsonData[jsonKey] = {
+                  trigger: '',
+                  eventData: '{}',
+                };
+              } else {
+                // 注册事件类型
+                // 触发事件类型
+                curJsonData[jsonKey] = {
+                  register: '',
+                  actionFunc: '() => {}',
+                };
+              }
+            } else {
+              // 普通对象类型
+              curJsonData[jsonKey] = schema2JsonData(jsonItem);
+            }
+            break;
+          default:
+            curJsonData[jsonKey] = jsonItem.default || '';
+        }
+      });
+    }
+  }
+  return curJsonData;
+}
