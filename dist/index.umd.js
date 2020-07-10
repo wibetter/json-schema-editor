@@ -4,8 +4,8 @@
     : 'function' == typeof define && define.amd
     ? define(['react', 'react-dom'], t)
     : 'object' == typeof exports
-    ? (exports.JSONEditor = t(require('react'), require('react-dom')))
-    : (e.JSONEditor = t(e.React, e.ReactDOM));
+    ? (exports.JSONSchemaEditor = t(require('react'), require('react-dom')))
+    : (e.JSONSchemaEditor = t(e.React, e.ReactDOM));
 })(this, function (e, t) {
   return (function (e) {
     var t = {};
@@ -24042,7 +24042,7 @@ and limitations under the License.
                         if ('event' === n.format) {
                           var a = n.properties,
                             i = a.type.default,
-                            c = a.filter.default;
+                            c = (a.filter && a.filter.default) || '() => {}';
                           'in' === i
                             ? ((n = Object.assign(
                                 n,
@@ -24053,7 +24053,7 @@ and limitations under the License.
                         return (
                           n.properties &&
                             ((n.required = Object.keys(n.properties)),
-                            (n.propertyOrder = n.required),
+                            n.propertyOrder || (n.propertyOrder = n.required),
                             n.propertyOrder.map(function (t) {
                               n.properties[t] = e(n.properties[t]);
                             })),
