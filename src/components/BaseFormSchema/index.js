@@ -41,7 +41,6 @@ class BaseFormSchema extends React.PureComponent {
 
   /** select类型变动事件处理器 */
   selectHandleChange = (newFormat) => {
-    console.log(`selected ${newFormat}`);
     const { indexRoute, jsonKey, editJsonData, targetJsonData } = this.props;
     if (targetJsonData.format === newFormat) return; // format值未改变则直接跳出
     // 根据当前新的类型获取初始化的对象数据
