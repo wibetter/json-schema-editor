@@ -25,11 +25,19 @@ class JSONSchema extends React.PureComponent {
     if (props.data) {
       this.props.initJSONSchemaData(props.data);
     }
+    // 记录onChange事件
+    if (props.onChange) {
+      this.props.initOnChange(props.onChange);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (!isEqual(nextProps.data, this.props.data)) {
       this.props.initJSONSchemaData(nextProps.data);
+    }
+    // 记录onChange事件
+    if (!isEqual(nextProps.onChange, this.props.onChange)) {
+      this.props.initOnChange(nextProps.onChange);
     }
   }
 
@@ -87,7 +95,7 @@ class JSONSchema extends React.PureComponent {
        * 2、先删除再进行插入，避免插入时报同名错误；
        * */
       // 先删除当前拖动的元素
-      deleteJsonByIndex(curIndexRoute);
+      deleteJsonByIndex(curIndexRoute, true); // 设置为true表示跳过onChange
       // 如果curPosition === 'before'，删除后需要进行移位操作
       if (curPosition === 'before') {
         /**
@@ -121,21 +129,27 @@ class JSONSchema extends React.PureComponent {
       if (node.dragOverGapTop) {
         /** 拖拽到目标元素前面 */
         if (curPosition === 'after') {
-          deleteJsonByIndex(curIndexRoute);
+          deleteJsonByIndex(curIndexRoute, true); // 设置为true表示跳过onChange
           insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
         } else {
           // curPosition === 'before'
-          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, 'before');
+          insertJsonData(
+            targetIndexRoute,
+            curJsonKey,
+            curJsonObj,
+            'before',
+            true,
+          ); // 设置为true表示跳过onChange
           deleteJsonByIndex(curIndexRoute);
         }
       } else if (node.dragOver || node.dragOverGapBottom) {
         /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
         if (curPosition === 'after') {
-          deleteJsonByIndex(curIndexRoute);
+          deleteJsonByIndex(curIndexRoute, true); // 设置为true表示跳过onChange
           insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
         } else {
           // curPosition === 'before'
-          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj);
+          insertJsonData(targetIndexRoute, curJsonKey, curJsonObj, '', true); // 设置为true表示跳过onChange
           deleteJsonByIndex(curIndexRoute);
         }
       }
@@ -180,6 +194,7 @@ class JSONSchema extends React.PureComponent {
 export default inject((stores) => ({
   jsonSchema: stores.jsonSchemaStore.jsonSchema,
   initJSONSchemaData: stores.jsonSchemaStore.initJSONSchemaData,
+  initOnChange: stores.jsonSchemaStore.initOnChange,
   getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
   insertJsonData: stores.jsonSchemaStore.insertJsonData,
   deleteJsonByIndex: stores.jsonSchemaStore.deleteJsonByIndex,

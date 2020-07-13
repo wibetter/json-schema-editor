@@ -1,4 +1,4 @@
-import { observable, computed, action, set, remove, get, toJS } from 'mobx';
+import { observable, computed, action, toJS } from 'mobx';
 import { message } from 'antd';
 import {
   getParentIndexRoute,
@@ -6,8 +6,9 @@ import {
   getJSONDataByIndex,
   oldJSONSchemaToNewJSONSchema,
 } from '$utils/jsonSchema';
-import { objClone } from '$utils/index';
+import { objClone, isFunction } from '$utils/index';
 import { TypeList } from '$data/TypeList';
+import { KeyWordList } from '$data/KeyWordList';
 import { isBoxSchemaData } from '$utils/jsonSchema';
 import { initJSONSchemaData, initInputData } from '$data/index';
 
@@ -24,6 +25,11 @@ export default class JSONSchemaStore {
   @observable jsonSchema = {};
 
   /**
+   * onChange: jsonSchema数据变动触发的onChange
+   */
+  @observable onChange = () => {}; // 函数类型
+
+  /**
    * triggerChangeAction: 用于主动触发更新事件
    */
   @action.bound
@@ -38,15 +44,38 @@ export default class JSONSchemaStore {
       // 使用默认的jsonschema数据进行初始化
       this.jsonSchema = objClone(initJSONSchemaData);
     } else {
-      // 进行一次转换，以便兼容旧版数据
-      const newJSONSchema = oldJSONSchemaToNewJSONSchema(jsonSchemaData);
-      this.jsonSchema = newJSONSchema;
+      if (jsonSchemaData && jsonSchemaData.lastUpdateTime) {
+        // 如果有lastUpdateTime则说明是新版jsonSchema数据，无需转换直接进行赋值
+        this.jsonSchema = jsonSchemaData;
+      } else {
+        // 进行一次转换，以便兼容旧版数据
+        const newJSONSchema = oldJSONSchemaToNewJSONSchema(jsonSchemaData);
+        this.jsonSchema = newJSONSchema;
+      }
     }
-    this.curJsonKeyIndex = 1; // 每次初始化，都需要重置curJsonKeyIndex值
   }
 
   @computed get JSONSchemaObj() {
     return toJS(this.jsonSchema);
+  }
+
+  /** 初始化jsonData  */
+  @action.bound
+  initOnChange(newOnChangeFunc) {
+    if (newOnChangeFunc || isFunction(newOnChangeFunc)) {
+      this.onChange = newOnChangeFunc;
+    }
+  }
+
+  /** 触发onChange  */
+  @action.bound
+  jsonSchemaChange(ignore) {
+    // 更新jsonSchema数据的更新时间
+    this.jsonSchema.lastUpdateTime = new Date();
+    // 如果ignore为true则跳过，避免重复触发onChange
+    if (!ignore) {
+      this.onChange(this.JSONSchemaObj);
+    }
   }
 
   /** 根据索引路径获取对应的json数据[非联动式数据获取]  */
@@ -81,6 +110,11 @@ export default class JSONSchemaStore {
     ) {
       // 表示存在相同的jsonKey
       return true;
+    } else if (KeyWordList && KeyWordList.indexOf(jsonKey) >= 0) {
+      // 表示当前jsonKey是JSONSchema的关键字
+      message.warning(
+        `${jsonKey}是JSONSchema的关键字，建议您换一个，避免后续出现数据异常。`,
+      );
     }
     return false;
   }
@@ -102,13 +136,15 @@ export default class JSONSchemaStore {
    *  备注：关键字(childKey)自动生成，json数据对象(childJson)默认使用initInputData
    * */
   @action.bound
-  addChildJson(curIndexRoute) {
+  addChildJson(curIndexRoute, ignoreOnChange) {
     const curJSONObj = getJSONDataByIndex(curIndexRoute, this.jsonSchema);
     if (isBoxSchemaData(curJSONObj.format)) {
       const childKey = this.getNewJsonKeyIndex(curJSONObj);
       curJSONObj.required.push(childKey);
       curJSONObj['propertyOrder'].push(childKey);
       curJSONObj.properties[childKey] = initInputData;
+      // 触发onChange事件
+      this.jsonSchemaChange(ignoreOnChange);
     } else {
       // 注：非数组和对象类型字段不允许插入子元素
       message.warning('非对象类型字段不允许插入子元素');
@@ -119,7 +155,7 @@ export default class JSONSchemaStore {
    *  备注：用于编辑对应的属性值（type、title、description、placeholder、isRequired、default、readOnly）
    * */
   @action.bound
-  editJsonData(curIndexRoute, jsonKey, newJsonDataObj) {
+  editJsonData(curIndexRoute, jsonKey, newJsonDataObj, ignoreOnChange) {
     const parentIndexRoute = getParentIndexRoute(curIndexRoute);
     const parentJSONObj = getJSONDataByIndex(parentIndexRoute, this.jsonSchema);
     parentJSONObj.properties[jsonKey] = Object.assign(
@@ -127,30 +163,33 @@ export default class JSONSchemaStore {
       objClone(parentJSONObj.properties[jsonKey]),
       newJsonDataObj,
     );
-    console.log(this.JSONSchemaObj);
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
   }
 
   /** 根据索引路径值(indexRoute)编辑对应的json数据对象
    *  备注：用于覆盖整个json对象
    * */
   @action.bound
-  updateJsonData(curIndexRoute, newJsonDataObj) {
+  updateJsonData(curIndexRoute, newJsonDataObj, ignoreOnChange) {
     const curJSONObj = getJSONDataByIndex(curIndexRoute, this.jsonSchema);
     Object.assign(curJSONObj, objClone(newJsonDataObj));
-    console.log(this.JSONSchemaObj);
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
   }
 
   /** 根据索引路径值(indexRoute)编辑对应的jsonKey
    *  备注：仅用于修改jsonKey值
    * */
   @action.bound
-  editJsonKey(curIndexRoute, newJsonKey) {
+  editJsonKey(curIndexRoute, newJsonKey, ignoreOnChange) {
     const curJSONObj = getJSONDataByIndex(curIndexRoute, this.jsonSchema, true); // 最后参数true用于避免数据关联
     // 先插入对象值
-    this.insertJsonData(curIndexRoute, newJsonKey, curJSONObj);
+    this.insertJsonData(curIndexRoute, newJsonKey, curJSONObj, '', true);
     // 再删除原有的json数据对象
-    this.deleteJsonByIndex(curIndexRoute);
-    console.log(this.JSONSchemaObj);
+    this.deleteJsonByIndex(curIndexRoute, true);
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
   }
 
   /** 根据索引路径值(indexRoute)插入新的兄弟节点元素-json数据对象
@@ -171,7 +210,7 @@ export default class JSONSchemaStore {
    * position（非必填）: after（表示插入到指定位置后面，默认值）、before（表示插入到指定位置前面）
    * */
   @action.bound
-  insertJsonData(curIndexRoute, jsonKey, curJSONObj, position) {
+  insertJsonData(curIndexRoute, jsonKey, curJSONObj, position, ignoreOnChange) {
     // 1.获取当前元素的父元素路径值和最后一个路径值，以便定位插入的位置
     const parentIndexRoute_CurIndex = getParentIndexRoute_CurIndex(
       curIndexRoute,
@@ -191,11 +230,13 @@ export default class JSONSchemaStore {
     const startArr = currentPropertyOrder.slice(0, positionIndex);
     const endArr = currentPropertyOrder.slice(positionIndex);
     parentJSONObj['propertyOrder'] = [...startArr, jsonKey, ...endArr];
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
   }
 
   /** 根据索引路径值(indexRoute)和关键字(childKey)删除对应的json数据对象 */
   @action.bound
-  deleteJsonByIndex_CurKey(indexRoute, curKey) {
+  deleteJsonByIndex_CurKey(indexRoute, curKey, ignoreOnChange) {
     // 1.获取当前元素的父元素路径值
     const parentIndexRoute = getParentIndexRoute(indexRoute);
     const parentJsonObj = getJSONDataByIndex(parentIndexRoute, this.jsonSchema);
@@ -207,11 +248,13 @@ export default class JSONSchemaStore {
     // 4.删除required中对应的curKey
     const deleteIndex2 = parentJsonObj.required.indexOf(curKey);
     parentJsonObj.required.splice(deleteIndex2, 1);
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
   }
 
   /** 根据索引路径值(indexRoute)删除对应的json数据对象 */
   @action.bound
-  deleteJsonByIndex(indexRoute) {
+  deleteJsonByIndex(indexRoute, ignoreOnChange) {
     // 1.获取当前元素的父元素路径值和最后一个路径值，以便定位插入的位置
     const parentIndexRoute_CurIndex = getParentIndexRoute_CurIndex(indexRoute);
     const parentIndexRoute = parentIndexRoute_CurIndex[0];
@@ -226,18 +269,28 @@ export default class JSONSchemaStore {
     // 4.删除required中对应的curKey
     const deleteIndex2 = parentJsonObj.required.indexOf(curKey);
     parentJsonObj.required.splice(deleteIndex2, 1);
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
   }
 
   /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)更新对应的enum枚举元素
    * */
   @action.bound
-  updateEnumItem(indexRoute, enumIndex, newEnumKey, newEnumText) {
+  updateEnumItem(
+    indexRoute,
+    enumIndex,
+    newEnumKey,
+    newEnumText,
+    ignoreOnChange,
+  ) {
     // 1.获取当前元素的父元素
     const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
     if (itemJSONObj.enum && itemJSONObj.enumextra) {
       itemJSONObj.enum[enumIndex] = newEnumKey;
       itemJSONObj.enumextra[enumIndex] = newEnumText;
     }
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
   }
 
   /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)判断是否存在对应的key值
@@ -259,49 +312,68 @@ export default class JSONSchemaStore {
         isExit = true;
       }
     }
+    if (KeyWordList && KeyWordList.indexOf(newEnumKey) >= 0) {
+      // 表示当前jsonKey是JSONSchema的关键字
+      message.warning(
+        `${newEnumKey}是JSONSchema的关键字，建议您换一个，避免后续出现数据异常。`,
+      );
+    }
     return isExit;
   }
 
   /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)更新对应的enum枚举元素的key值
    * */
   @action.bound
-  updateEnumKey(indexRoute, enumIndex, newEnumKey) {
+  updateEnumKey(indexRoute, enumIndex, newEnumKey, ignoreOnChange) {
     // 1.获取当前元素的父元素
     const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
     if (itemJSONObj.enum) {
       // 2.更新对应的key
       itemJSONObj.enum[enumIndex] = newEnumKey;
     }
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
   }
 
   /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)更新对应的enum枚举元素的text值
    * */
   @action.bound
-  updateEnumText(indexRoute, enumIndex, newEnumText) {
+  updateEnumText(indexRoute, enumIndex, newEnumText, ignoreOnChange) {
     // 1.获取当前元素的父元素
     const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
     if (itemJSONObj.enumextra) {
       // 2.更新对应的text
       itemJSONObj.enumextra[enumIndex] = newEnumText;
     }
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
   }
 
   /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)删除对应的enum枚举元素
    * */
   @action.bound
-  deleteEnumItem(indexRoute, enumIndex) {
+  deleteEnumItem(indexRoute, enumIndex, ignoreOnChange) {
     const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
     if (itemJSONObj.enum && itemJSONObj.enumextra) {
       itemJSONObj.enum.splice(enumIndex, 1);
       itemJSONObj.enumextra.splice(enumIndex, 1);
     }
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
   }
 
   /** 根据索引路径值(indexRoute)和枚举值所在位置(enumIndex)插入对应的enum枚举元素
    * position: 设置插入指定位置的前面还是后面，默认插入指定位置的后面
    * */
   @action.bound
-  insertEnumItem(indexRoute, enumIndex, newEnumKey, newEnumText, position) {
+  insertEnumItem(
+    indexRoute,
+    enumIndex,
+    newEnumKey,
+    newEnumText,
+    position,
+    ignoreOnChange,
+  ) {
     const itemJSONObj = getJSONDataByIndex(indexRoute, this.jsonSchema);
     if (itemJSONObj.enum && itemJSONObj.enumextra) {
       const positionIndex =
@@ -315,6 +387,8 @@ export default class JSONSchemaStore {
       const endTexts = itemJSONObj.enumextra.slice(positionIndex);
       itemJSONObj.enumextra = [...startTexts, newEnumText, ...endTexts];
     }
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
   }
 
   /** 根据parentJSONObj自动生成jsonKey */

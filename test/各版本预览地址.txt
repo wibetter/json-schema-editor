@@ -1,1 +1,2 @@
-V2.0（新版JSONSchemaa第一版） 测试地址：http://qcsatw77d.bkt.clouddn.com/demoV2.0.1.html
+V2.0（新版JSONSchemaa第一版） 预览地址：http://qcsatw77d.bkt.clouddn.com/demoV2.0.1.html 2020/7/1
+v2.0.2 预览地址：http://qcsatw77d.bkt.clouddn.com/demoV2.0.2.html  2020/7/2

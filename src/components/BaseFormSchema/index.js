@@ -3,7 +3,12 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Input, message, Select, Tooltip } from 'antd';
 const { Option } = Select;
-import { PlusOutlined, CloseOutlined, CopyOutlined } from '@ant-design/icons';
+import {
+  PlusOutlined,
+  CloseOutlined,
+  CopyOutlined,
+  DragOutlined,
+} from '@ant-design/icons';
 import {
   isBoxSchemaData,
   getCurrentFormat,
@@ -41,7 +46,6 @@ class BaseFormSchema extends React.PureComponent {
 
   /** select类型变动事件处理器 */
   selectHandleChange = (newFormat) => {
-    console.log(`selected ${newFormat}`);
     const { indexRoute, jsonKey, editJsonData, targetJsonData } = this.props;
     if (targetJsonData.format === newFormat) return; // format值未改变则直接跳出
     // 根据当前新的类型获取初始化的对象数据
@@ -204,7 +208,7 @@ class BaseFormSchema extends React.PureComponent {
             )}
             {!readOnly && (
               <Tooltip title="按住进行拖拽">
-                <div className="operate-btn drag-btn"></div>
+                <DragOutlined className="operate-btn drag-btn" />
               </Tooltip>
             )}
           </div>
