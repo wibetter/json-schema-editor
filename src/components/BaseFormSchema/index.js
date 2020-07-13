@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { Input, message, Select, Tooltip } from 'antd';
+import { Input, message, Select, Modal, Button, Tooltip } from 'antd';
 const { Option } = Select;
 import {
   PlusOutlined,
   CloseOutlined,
   CopyOutlined,
   DragOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
+import AdvanceConfig from '$components/AdvanceConfig/index'; // 高级配置内容
 import {
   isBoxSchemaData,
   isFirstSchemaData,
@@ -36,6 +38,9 @@ class BaseFormSchema extends React.PureComponent {
 
   constructor(props) {
     super(props);
+    this.state = {
+      isShowAdvance: false,
+    };
     // 这边绑定是必要的，这样 `this` 才能在回调函数中使用
     this.onAddBtnEvent = this.onAddBtnEvent.bind(this);
     this.onCopyBtnEvent = this.onCopyBtnEvent.bind(this);
@@ -135,7 +140,14 @@ class BaseFormSchema extends React.PureComponent {
   };
 
   render() {
-    const { parentType, jsonKey, nodeKey, targetJsonData } = this.props;
+    const {
+      parentType,
+      indexRoute,
+      jsonKey,
+      nodeKey,
+      targetJsonData,
+    } = this.props;
+    const { isShowAdvance } = this.state;
     const isFixed = this.props.isFixed || false; // 是否为固有的属性（不可编辑、不可删除）
     const keyIsFixed = this.props.keyIsFixed || false; // key是否为不可编辑的属性
     const typeIsFixed = this.props.typeIsFixed || false; // type是否为不可编辑的属性
@@ -209,6 +221,19 @@ class BaseFormSchema extends React.PureComponent {
               </Tooltip>
             )}
             {!readOnly && (
+              <Tooltip title="高级设置">
+                <SettingOutlined
+                  className="operate-btn"
+                  onClick={() => {
+                    // 显示高级设置模态框
+                    this.setState({
+                      isShowAdvance: true,
+                    });
+                  }}
+                />
+              </Tooltip>
+            )}
+            {!readOnly && (
               <Tooltip title="按住进行拖拽">
                 <DragOutlined className="operate-btn drag-btn" />
               </Tooltip>
@@ -216,6 +241,36 @@ class BaseFormSchema extends React.PureComponent {
           </div>
         )}
         {hideOperaBtn && <div className="operate-item">&nbsp;</div>}
+        <Modal
+          visible={isShowAdvance}
+          title={`高级设置 / 当前字段：${targetJsonData.title}(${jsonKey})`}
+          onCancel={() => {
+            this.setState({
+              isShowAdvance: false,
+            });
+          }}
+          footer={[
+            <Button
+              key="submit"
+              type="primary"
+              onClick={() => {
+                this.setState({
+                  isShowAdvance: false,
+                });
+              }}
+            >
+              保存并关闭
+            </Button>,
+          ]}
+        >
+          <AdvanceConfig
+            {...{
+              indexRoute,
+              jsonKey,
+              targetJsonData,
+            }}
+          />
+        </Modal>
       </div>
     );
   }

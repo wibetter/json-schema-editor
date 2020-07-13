@@ -1,7 +1,17 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { Input, message, Tooltip } from 'antd';
+import { Input, Switch, InputNumber, message, Tooltip } from 'antd';
+import {
+  isNeedDescriptionOption,
+  isNeedDefaultOption,
+  isNeedPlaceholderOption,
+  isNeedReadOnlyOption,
+  isNeedIsRequiredOption,
+  isNeedMinMaxOption,
+  isNeedMinMaxChildOption,
+} from '$utils/advanced.config';
+import { getCurrentFormat } from '$utils/jsonSchema';
 import './index.scss';
 
 class AdvanceConfig extends React.PureComponent {
@@ -15,23 +25,21 @@ class AdvanceConfig extends React.PureComponent {
   constructor(props) {
     super(props);
     // 这边绑定是必要的，这样 `this` 才能在回调函数中使用
-    this.handleJsonKeyChange = this.handleJsonKeyChange.bind(this);
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.selectHandleChange = this.selectHandleChange.bind(this);
+    this.handleValueChange = this.handleValueChange.bind(this);
   }
 
-  /** description变动事件处理器 */
-  handleDescriptionChange = (event) => {
-    const { value } = event.target;
+  /** 数值变动事件处理器 */
+  handleValueChange = (curKey, newVal) => {
     const { indexRoute, jsonKey, targetJsonData, editJsonData } = this.props;
-    if (targetJsonData.description === value) return; // title值未改变则直接跳出
-    editJsonData(indexRoute, jsonKey, {
-      description: value,
-    });
+    if (targetJsonData[curKey] === newVal) return; // title值未改变则直接跳出
+    const newJsonData = {};
+    newJsonData[curKey] = newVal;
+    editJsonData(indexRoute, jsonKey, newJsonData);
   };
 
   render() {
     const { nodeKey, targetJsonData, pageScreen } = this.props;
+    const currentFormat = getCurrentFormat(targetJsonData);
 
     const pageScreenClassName =
       pageScreen === 'wideScreen'
@@ -39,36 +47,286 @@ class AdvanceConfig extends React.PureComponent {
         : 'mobile-screen-element-warp';
     const curPlacement = pageScreen === 'wideScreen' ? 'topRight' : 'topLeft';
 
+    /** 默认值需要进行细分
+     *  输入形式的基础类型组件（input、boolean、 date、date-time、 time、 url、number），以input表单形式让用户填充；
+     *  textarea和3种特殊类型组件（Json、CodeArea、htmlArea），以textarea表单形式让用户填充；
+     *  color选择类型，以type=color的颜色取值控件让用户选择；
+     *  radio、 select选择类型，以其自身在JSONEditor中的展示让用户选择默认值；
+     * */
+
     return (
       <div className="advance-config-model">
-        <div className={pageScreenClassName}>
-          <div className="element-title">
-            <Tooltip
-              title={'字段描述内容将作为Title的补充信息提供给用户'}
-              placement={curPlacement}
-            >
-              <span className="title-text">字段描述</span>
-            </Tooltip>
-          </div>
-          <div className="content-item">
-            <div className="form-item-box">
-              <Input
-                style={{ display: 'inline-block' }}
-                placeholder={`请输入${targetJsonData.title}的描述信息`}
-                defaultValue={targetJsonData.description}
-                onPressEnter={this.handleDescriptionChange}
-                onBlur={this.handleDescriptionChange}
-              />
+        {isNeedReadOnlyOption(currentFormat) && (
+          <div
+            className={pageScreenClassName}
+            key={`${nodeKey}-readOnly-${targetJsonData.readOnly}`}
+          >
+            <div className="element-title">
+              <Tooltip
+                title={'当前属性设置为只读后，用户不能对其进行任何编辑操作'}
+                placement={curPlacement}
+              >
+                <span className="title-text">只读</span>
+              </Tooltip>
+            </div>
+            <div className="content-item">
+              <div className="form-item-box">
+                <Switch
+                  style={{ display: 'inline-block' }}
+                  defaultChecked={targetJsonData.readOnly}
+                  checkedChildren="true"
+                  unCheckedChildren="false"
+                  onChange={(checked) => {
+                    this.handleValueChange('readOnly', checked);
+                  }}
+                />
+              </div>
             </div>
           </div>
-        </div>
+        )}
+        {isNeedIsRequiredOption(currentFormat) && (
+          <div
+            className={pageScreenClassName}
+            key={`${nodeKey}-isRequired-${targetJsonData.isRequired}`}
+          >
+            <div className="element-title">
+              <Tooltip
+                title={
+                  '当前属性设置为必填项后，如果用户没有给其设置数值，则会进行标红提示。'
+                }
+                placement={curPlacement}
+              >
+                <span className="title-text">必填项</span>
+              </Tooltip>
+            </div>
+            <div className="content-item">
+              <div className="form-item-box">
+                <Switch
+                  style={{ display: 'inline-block' }}
+                  defaultChecked={targetJsonData.isRequired}
+                  checkedChildren="true"
+                  unCheckedChildren="false"
+                  onChange={(checked) => {
+                    this.handleValueChange('isRequired', checked);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+        {isNeedDefaultOption(currentFormat) && (
+          <div className={pageScreenClassName} key={`${nodeKey}-default`}>
+            <div className="element-title">
+              <Tooltip title={''} placement={curPlacement}>
+                <span className="title-text">默认值</span>
+              </Tooltip>
+            </div>
+            <div className="content-item">
+              <div className="form-item-box">
+                <Input
+                  style={{ display: 'inline-block' }}
+                  placeholder={`请输入${targetJsonData.title}的默认值`}
+                  defaultValue={targetJsonData.default}
+                  onPressEnter={(event) => {
+                    const { value } = event.target;
+                    this.handleValueChange('default', value);
+                  }}
+                  onBlur={(event) => {
+                    const { value } = event.target;
+                    this.handleValueChange('default', value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+        {isNeedDescriptionOption(currentFormat) && (
+          <div className={pageScreenClassName} key={`${nodeKey}-description`}>
+            <div className="element-title">
+              <Tooltip
+                title={'字段描述内容将作为Title的补充信息提供给用户'}
+                placement={curPlacement}
+              >
+                <span className="title-text">字段描述</span>
+              </Tooltip>
+            </div>
+            <div className="content-item">
+              <div className="form-item-box">
+                <Input
+                  style={{ display: 'inline-block' }}
+                  placeholder={`请输入${targetJsonData.title}的字段描述`}
+                  defaultValue={targetJsonData.description}
+                  onPressEnter={(event) => {
+                    const { value } = event.target;
+                    this.handleValueChange('description', value);
+                  }}
+                  onBlur={(event) => {
+                    const { value } = event.target;
+                    this.handleValueChange('description', value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+        {isNeedPlaceholderOption(currentFormat) && (
+          <div className={pageScreenClassName} key={`${nodeKey}-placeholder`}>
+            <div className="element-title">
+              <Tooltip
+                title={'输入提示内容将作为输入区域的提示信息展示给用户'}
+                placement={curPlacement}
+              >
+                <span className="title-text">输入提示</span>
+              </Tooltip>
+            </div>
+            <div className="content-item">
+              <div className="form-item-box">
+                <Input
+                  style={{ display: 'inline-block' }}
+                  placeholder={`请输入${targetJsonData.title}的输入提示`}
+                  defaultValue={targetJsonData.placeholder}
+                  onPressEnter={(event) => {
+                    const { value } = event.target;
+                    this.handleValueChange('placeholder', value);
+                  }}
+                  onBlur={(event) => {
+                    const { value } = event.target;
+                    this.handleValueChange('placeholder', value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+        {isNeedMinMaxOption(currentFormat) && (
+          <div
+            className={pageScreenClassName}
+            key={`${nodeKey}-minimum-${targetJsonData.minimum}`}
+          >
+            <div className="element-title">
+              <Tooltip
+                title={'设置最小值后，用户输入的数值必须大于当前最小值'}
+                placement={curPlacement}
+              >
+                <span className="title-text">最小值</span>
+              </Tooltip>
+            </div>
+            <div className="content-item">
+              <div className="form-item-box">
+                <Input
+                  style={{ display: 'inline-block' }}
+                  placeholder={`请输入${targetJsonData.title}的最小值`}
+                  defaultValue={targetJsonData.minimum}
+                  onPressEnter={(event) => {
+                    const { value } = event.target;
+                    this.handleValueChange('minimum', value);
+                  }}
+                  onBlur={(event) => {
+                    const { value } = event.target;
+                    this.handleValueChange('minimum', value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+        {isNeedMinMaxOption(currentFormat) && (
+          <div
+            className={pageScreenClassName}
+            key={`${nodeKey}-maximum-${targetJsonData.maximum}`}
+          >
+            <div className="element-title">
+              <Tooltip
+                title={'设置最大值后，用户输入的数值必须大于当前最大值'}
+                placement={curPlacement}
+              >
+                <span className="title-text">最大值</span>
+              </Tooltip>
+            </div>
+            <div className="content-item">
+              <div className="form-item-box">
+                <Input
+                  style={{ display: 'inline-block' }}
+                  placeholder={`请输入${targetJsonData.title}的最大值`}
+                  defaultValue={targetJsonData.maximum}
+                  onPressEnter={(event) => {
+                    const { value } = event.target;
+                    this.handleValueChange('maximum', value);
+                  }}
+                  onBlur={(event) => {
+                    const { value } = event.target;
+                    this.handleValueChange('maximum', value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+        {isNeedMinMaxChildOption(currentFormat) && (
+          <div
+            className={pageScreenClassName}
+            key={`${nodeKey}-minimum-child-${targetJsonData['minimum-child']}`}
+          >
+            <div className="element-title">
+              <Tooltip
+                title={
+                  '设置最少子项个数后，当前字段的子字段数量必须大于最少子项数'
+                }
+                placement={curPlacement}
+              >
+                <span className="title-text">最少子项数</span>
+              </Tooltip>
+            </div>
+            <div className="content-item">
+              <div className="form-item-box">
+                <InputNumber
+                  style={{ display: 'inline-block' }}
+                  placeholder={`请输入${targetJsonData.title}的最少子项数`}
+                  defaultValue={targetJsonData['minimum-child']}
+                  onChange={(newVal) => {
+                    this.handleValueChange('maximum-child', newVal);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+        {isNeedMinMaxChildOption(currentFormat) && (
+          <div
+            className={pageScreenClassName}
+            key={`${nodeKey}-maximum-child-${targetJsonData['maximum-child']}`}
+          >
+            <div className="element-title">
+              <Tooltip
+                title={
+                  '设置最多子项个数后，当前字段的子字段数量必须少于最多子项数'
+                }
+                placement={curPlacement}
+              >
+                <span className="title-text">最多子项数</span>
+              </Tooltip>
+            </div>
+            <div className="content-item">
+              <div className="form-item-box">
+                <InputNumber
+                  style={{ display: 'inline-block' }}
+                  placeholder={`请输入${targetJsonData.title}的最多子项数`}
+                  defaultValue={targetJsonData['maximum-child']}
+                  onChange={(newVal) => {
+                    this.handleValueChange('maximum-child', newVal);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
 }
 
 export default inject((stores) => ({
-  pageScreen: stores.JSONSchemaStore.pageScreen,
+  pageScreen: stores.jsonSchemaStore.pageScreen,
   getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
   editJsonData: stores.jsonSchemaStore.editJsonData,
 }))(observer(AdvanceConfig));

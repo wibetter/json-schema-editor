@@ -27,7 +27,7 @@ export default class JSONSchemaStore {
   /**
    * 宽屏（wideScreen） or 小屏（mobileScreen）
    */
-  @observable pageScreen = 'mobileScreen'; // 默认小屏，宽屏: wideScreen，小屏：mobileScreen
+  @observable pageScreen = 'wideScreen'; // 默认小屏，宽屏: wideScreen，小屏：mobileScreen
 
   /**
    * onChange: jsonSchema数据变动触发的onChange

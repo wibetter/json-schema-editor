@@ -36,3 +36,9 @@
   justify-content: center;
   align-items: center;
 }
+// 让模态框的右上角删除按钮居中
+.ant-modal-close-x {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
