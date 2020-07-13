@@ -19,7 +19,7 @@ class IndexDemo extends React.PureComponent {
             type: 'object',
             format: 'func',
             title: '功能设置',
-            readOnly: true,
+            readOnly: false,
             properties: {
               field_1: {
                 type: 'string',
@@ -223,7 +223,7 @@ class IndexDemo extends React.PureComponent {
             type: 'object',
             format: 'style',
             title: '样式设置',
-            readOnly: true,
+            readOnly: false,
             properties: {
               field_16: {
                 type: 'string',
@@ -419,7 +419,7 @@ class IndexDemo extends React.PureComponent {
             type: 'object',
             format: 'data',
             title: '数据设置',
-            readOnly: true,
+            readOnly: false,
             properties: {
               field_26: {
                 type: 'string',

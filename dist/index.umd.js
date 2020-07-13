@@ -24001,68 +24001,71 @@ and limitations under the License.
                 {
                   key: 'initJSONSchemaData',
                   value: function (e) {
-                    if (e && '{}' !== JSON.stringify(e)) {
-                      var t = (function e(t) {
-                        var n = le(t);
-                        if (
-                          (!n.title &&
-                            n.description &&
-                            (n.title = n.description),
-                          n.format || (n.format = he(n)),
-                          'radio' === n.format &&
-                            ((n.type = 'string'),
-                            n.enum &&
-                              n.enumextra &&
-                              ((n.items = {
-                                type: 'string',
-                                enum: le(n.enum),
-                                enumextra: le(n.enumextra),
-                              }),
-                              delete n.enum,
-                              delete n.enumextra)),
-                          'datasource' === n.format)
-                        ) {
-                          var r = n.properties;
-                          (r.type.title = '数据源类型'),
-                            (r.filter.title = '过滤器'),
-                            (r.filter.format = 'codearea'),
-                            'remote' === r.type.default
-                              ? ((r.data.title =
-                                  '用于设置获取元素数据的请求地址'),
-                                (r.data.format = 'url'))
-                              : ((r.data.title = '本地静态json数据'),
-                                (r.data.format = 'json'));
-                        }
-                        if ('quantity' === n.format) {
-                          var o = n.properties;
-                          (o.quantity.title = '单位类型'),
-                            (o.quantity.format = 'typeSelect'),
-                            (o.unit.format = 'number');
-                        }
-                        if ('event' === n.format) {
-                          var a = n.properties,
-                            i = a.type.default,
-                            c = (a.filter && a.filter.default) || '() => {}';
-                          'in' === i
-                            ? ((n = Object.assign(
-                                n,
-                                se.on,
-                              )).properties.actionFunc.default = c)
-                            : (n = Object.assign(n, se.emit));
-                        }
-                        return (
-                          n.properties &&
-                            ((n.required = Object.keys(n.properties)),
-                            n.propertyOrder || (n.propertyOrder = n.required),
-                            n.propertyOrder.map(function (t) {
-                              n.properties[t] = e(n.properties[t]);
-                            })),
-                          n.items && (n.items = e(n.items)),
-                          n
-                        );
-                      })(e);
-                      this.jsonSchema = t;
-                    } else this.jsonSchema = le(ae);
+                    if (e && '{}' !== JSON.stringify(e))
+                      if (e && e.lastUpdateTime) this.jsonSchema = e;
+                      else {
+                        var t = (function e(t) {
+                          var n = le(t);
+                          if (
+                            (!n.title &&
+                              n.description &&
+                              (n.title = n.description),
+                            n.format || (n.format = he(n)),
+                            'radio' === n.format &&
+                              ((n.type = 'string'),
+                              n.enum &&
+                                n.enumextra &&
+                                ((n.items = {
+                                  type: 'string',
+                                  enum: le(n.enum),
+                                  enumextra: le(n.enumextra),
+                                }),
+                                delete n.enum,
+                                delete n.enumextra)),
+                            'datasource' === n.format)
+                          ) {
+                            var r = n.properties;
+                            (r.type.title = '数据源类型'),
+                              (r.filter.title = '过滤器'),
+                              (r.filter.format = 'codearea'),
+                              'remote' === r.type.default
+                                ? ((r.data.title =
+                                    '用于设置获取元素数据的请求地址'),
+                                  (r.data.format = 'url'))
+                                : ((r.data.title = '本地静态json数据'),
+                                  (r.data.format = 'json'));
+                          }
+                          if ('quantity' === n.format) {
+                            var o = n.properties;
+                            (o.quantity.title = '单位类型'),
+                              (o.quantity.format = 'typeSelect'),
+                              (o.unit.format = 'number');
+                          }
+                          if ('event' === n.format) {
+                            var a = n.properties,
+                              i = a.type.default,
+                              c = (a.filter && a.filter.default) || '() => {}';
+                            'in' === i
+                              ? ((n = Object.assign(
+                                  n,
+                                  se.on,
+                                )).properties.actionFunc.default = c)
+                              : (n = Object.assign(n, se.emit));
+                          }
+                          return (
+                            n.properties &&
+                              ((n.required = Object.keys(n.properties)),
+                              n.propertyOrder || (n.propertyOrder = n.required),
+                              n.propertyOrder.map(function (t) {
+                                n.properties[t] = e(n.properties[t]);
+                              })),
+                            n.items && (n.items = e(n.items)),
+                            n
+                          );
+                        })(e);
+                        this.jsonSchema = t;
+                      }
+                    else this.jsonSchema = le(ae);
                   },
                 },
                 {
@@ -24084,7 +24087,8 @@ and limitations under the License.
                 {
                   key: 'jsonSchemaChange',
                   value: function (e) {
-                    e || this.onChange(this.JSONSchemaObj);
+                    (this.jsonSchema.lastUpdateTime = new Date()),
+                      e || this.onChange(this.JSONSchemaObj);
                   },
                 },
                 {

@@ -11,6 +11,7 @@ import {
 } from '@ant-design/icons';
 import {
   isBoxSchemaData,
+  isFirstSchemaData,
   getCurrentFormat,
   getParentIndexRoute,
 } from '$utils/jsonSchema';
@@ -140,9 +141,10 @@ class BaseFormSchema extends React.PureComponent {
     const typeIsFixed = this.props.typeIsFixed || false; // type是否为不可编辑的属性
     const titleIsFixed = this.props.titleIsFixed || false; // title是否为不可编辑的属性
     const hideOperaBtn = this.props.hideOperaBtn || false; // 是否隐藏操作类按钮
-    const readOnly = targetJsonData.readOnly || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
     const currentTypeList = this.getCurrentTypeList(parentType); // 根据父级元素类型获取可供使用的类型清单
     const currentFormat = getCurrentFormat(targetJsonData);
+    const isFirstSchema = isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
+    const readOnly = isFirstSchema || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
 
     return (
       <div className="base-schema-box" id={nodeKey}>
