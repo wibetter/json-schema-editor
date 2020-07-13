@@ -44,9 +44,14 @@ export default class JSONSchemaStore {
       // 使用默认的jsonschema数据进行初始化
       this.jsonSchema = objClone(initJSONSchemaData);
     } else {
-      // 进行一次转换，以便兼容旧版数据
-      const newJSONSchema = oldJSONSchemaToNewJSONSchema(jsonSchemaData);
-      this.jsonSchema = newJSONSchema;
+      if (jsonSchemaData && jsonSchemaData.lastUpdateTime) {
+        // 如果有lastUpdateTime则说明是新版jsonSchema数据，无需转换直接进行赋值
+        this.jsonSchema = jsonSchemaData;
+      } else {
+        // 进行一次转换，以便兼容旧版数据
+        const newJSONSchema = oldJSONSchemaToNewJSONSchema(jsonSchemaData);
+        this.jsonSchema = newJSONSchema;
+      }
     }
   }
 
@@ -65,6 +70,8 @@ export default class JSONSchemaStore {
   /** 触发onChange  */
   @action.bound
   jsonSchemaChange(ignore) {
+    // 更新jsonSchema数据的更新时间
+    this.jsonSchema.lastUpdateTime = new Date();
     // 如果ignore为true则跳过，避免重复触发onChange
     if (!ignore) {
       this.onChange(this.JSONSchemaObj);
