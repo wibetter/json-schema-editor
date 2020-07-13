@@ -13,17 +13,18 @@ import JSONSchema from '$components/JSONSchema/index';
  */
 export default class JSONSchemaEditor extends React.PureComponent {
   static propTypes = {
+    wideScreen: PropTypes.any,
     onChange: PropTypes.func,
     data: PropTypes.any,
     element: PropTypes.any,
   };
 
   render() {
-    const { data, onChange, element } = this.props;
+    const { data, onChange, element, wideScreen } = this.props;
 
     const renderContent = (
       <Provider jsonSchemaStore={JSONStore.jsonSchemaStore}>
-        <JSONSchema data={data} onChange={onChange} />
+        <JSONSchema data={data} onChange={onChange} wideScreen={wideScreen} />
       </Provider>
     );
 

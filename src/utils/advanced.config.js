@@ -30,9 +30,24 @@ const ALL_TYPE = [...BASE_TYPE, ...HIGH_TYPE];
 /** 字段描述配置项（description）
  *  根据format判断是否显示字段描述配置项
  *  11种基础类型组件（input、boolean、 date、date-time、 time、 url、 textarea、number、color、radio、 select）
- *  8个特殊类型组件（Object、Array、Json、datasource、Event、CodeArea、htmlArea、quantity）
+ *  8种特殊类型组件（Object、Array、Json、datasource、Event、CodeArea、htmlArea、quantity）
  * */
 export function isNeedDescriptionOption(curFormat) {
+  let isSupported = false;
+  const supportedTypeList = ALL_TYPE;
+  const supportedTypeListChar = `#${supportedTypeList.join('#')}#`;
+  if (supportedTypeListChar.indexOf(`#${curFormat}#`) >= 0) {
+    isSupported = true;
+  }
+  return isSupported;
+}
+
+/** 默认值（default）
+ *  根据format判断是否显示字段描述配置项
+ *  11种基础类型组件（input、boolean、 date、date-time、 time、 url、 textarea、number、color、radio、 select）
+ *  3种特殊类型组件（Json、CodeArea、htmlArea）
+ * */
+export function isNeedDefaultOption(curFormat) {
   let isSupported = false;
   const supportedTypeList = ALL_TYPE;
   const supportedTypeListChar = `#${supportedTypeList.join('#')}#`;

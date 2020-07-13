@@ -47,11 +47,11 @@ class BaseFormSchema extends React.PureComponent {
 
   /** select类型变动事件处理器 */
   selectHandleChange = (newFormat) => {
-    const { indexRoute, jsonKey, editJsonData, targetJsonData } = this.props;
+    const { indexRoute, jsonKey, changeType, targetJsonData } = this.props;
     if (targetJsonData.format === newFormat) return; // format值未改变则直接跳出
     // 根据当前新的类型获取初始化的对象数据
     const newTypeData = TypeDataList[newFormat];
-    editJsonData(indexRoute, jsonKey, newTypeData);
+    changeType(indexRoute, jsonKey, newTypeData);
   };
 
   /** jsonKey类型输入值变动事件处理器 */
@@ -230,5 +230,6 @@ export default inject((stores) => ({
   insertJsonData: stores.jsonSchemaStore.insertJsonData,
   editJsonData: stores.jsonSchemaStore.editJsonData,
   editJsonKey: stores.jsonSchemaStore.editJsonKey,
+  changeType: stores.jsonSchemaStore.changeType,
   isExitJsonKey: stores.jsonSchemaStore.isExitJsonKey,
 }))(observer(BaseFormSchema));
