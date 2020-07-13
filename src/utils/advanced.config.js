@@ -27,7 +27,7 @@ const HIGH_TYPE = [
 /** 所有类型，包含11种基础类型和8种高级类型（特殊类型） */
 const ALL_TYPE = [...BASE_TYPE, ...HIGH_TYPE];
 
-/** 字段描述配置项：description
+/** 字段描述配置项（description）
  *  根据format判断是否显示字段描述配置项
  *  11种基础类型组件（input、boolean、 date、date-time、 time、 url、 textarea、number、color、radio、 select）
  *  8个特殊类型组件（Object、Array、Json、datasource、Event、CodeArea、htmlArea、quantity）
@@ -35,6 +35,106 @@ const ALL_TYPE = [...BASE_TYPE, ...HIGH_TYPE];
 export function isNeedDescriptionOption(curFormat) {
   let isSupported = false;
   const supportedTypeList = ALL_TYPE;
+  const supportedTypeListChar = `#${supportedTypeList.join('#')}#`;
+  if (supportedTypeListChar.indexOf(`#${curFormat}#`) >= 0) {
+    isSupported = true;
+  }
+  return isSupported;
+}
+
+/** 输入提示（placeholder）
+ *  根据format判断是否显示输入提示配置项
+ *  input、 date、date-time、 time、 url、 textarea、Json、CodeArea、htmlArea合计9种类型组件支持
+ * */
+export function isNeedPlaceholderOption(curFormat) {
+  let isSupported = false;
+  const supportedTypeList = [
+    'input',
+    'url',
+    'textarea',
+    'date',
+    'date-time',
+    'time',
+    'json',
+    'codearea',
+    'htmlarea',
+  ];
+  const supportedTypeListChar = `#${supportedTypeList.join('#')}#`;
+  if (supportedTypeListChar.indexOf(`#${curFormat}#`) >= 0) {
+    isSupported = true;
+  }
+  return isSupported;
+}
+
+/** 是否只读（readOnly）
+ *  根据format判断是否显示是否只读配置项
+ *  input、 date、date-time、 time、 url、 textarea、Json、CodeArea、htmlArea合计9种类型组件支持
+ * */
+export function isNeedReadOnlyOption(curFormat) {
+  let isSupported = false;
+  const supportedTypeList = [
+    'input',
+    'url',
+    'textarea',
+    'date',
+    'date-time',
+    'time',
+    'json',
+    'codearea',
+    'htmlarea',
+  ];
+  const supportedTypeListChar = `#${supportedTypeList.join('#')}#`;
+  if (supportedTypeListChar.indexOf(`#${curFormat}#`) >= 0) {
+    isSupported = true;
+  }
+  return isSupported;
+}
+
+/** 是否必填（isRequired）
+ *  根据format判断是否显示是否只读配置项
+ *  input、 date、date-time、 time、 url、 textarea、Json、CodeArea、htmlArea合计9种类型组件支持
+ * */
+export function isNeedIsRequiredOption(curFormat) {
+  let isSupported = false;
+  const supportedTypeList = [
+    'input',
+    'url',
+    'textarea',
+    'date',
+    'date-time',
+    'time',
+    'json',
+    'codearea',
+    'htmlarea',
+  ];
+  const supportedTypeListChar = `#${supportedTypeList.join('#')}#`;
+  if (supportedTypeListChar.indexOf(`#${curFormat}#`) >= 0) {
+    isSupported = true;
+  }
+  return isSupported;
+}
+
+/** 设置最小值和最大值（minimum、maximum）
+ *  根据format判断是否显示是否只读配置项
+ *  目前仅Number种类型组件支持
+ * */
+export function isNeedMinMaxOption(curFormat) {
+  let isSupported = false;
+  const supportedTypeList = ['number'];
+  const supportedTypeListChar = `#${supportedTypeList.join('#')}#`;
+  if (supportedTypeListChar.indexOf(`#${curFormat}#`) >= 0) {
+    isSupported = true;
+  }
+  return isSupported;
+}
+
+/** 设置最多可添加子项，最少应添加子项的数量（minimum-child、maximum-child）
+ *  根据format判断是否显示是否只读配置项
+ *  目前仅Array种类型组件支持
+ * */
+export function isNeedMinMaxChildOption(curFormat) {
+  let isSupported = false;
+  const supportedTypeList = ['array'];
   const supportedTypeListChar = `#${supportedTypeList.join('#')}#`;
   if (supportedTypeListChar.indexOf(`#${curFormat}#`) >= 0) {
     isSupported = true;
