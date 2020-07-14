@@ -49,7 +49,19 @@ export function isNeedDescriptionOption(curFormat) {
  * */
 export function isNeedDefaultOption(curFormat) {
   let isSupported = false;
-  const supportedTypeList = ALL_TYPE;
+  const supportedTypeList = [
+    'input',
+    'boolean',
+    'number',
+    'color',
+    'url',
+    'textarea',
+    'radio',
+    'select',
+    'json',
+    'codearea',
+    'htmlarea',
+  ];
   const supportedTypeListChar = `#${supportedTypeList.join('#')}#`;
   if (supportedTypeListChar.indexOf(`#${curFormat}#`) >= 0) {
     isSupported = true;

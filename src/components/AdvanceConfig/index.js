@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { Input, Switch, InputNumber, message, Tooltip } from 'antd';
+import { Input, Switch, InputNumber, Checkbox, Radio, Tooltip } from 'antd';
+const { TextArea } = Input;
 import {
   isNeedDescriptionOption,
   isNeedDefaultOption,
@@ -37,6 +38,141 @@ class AdvanceConfig extends React.PureComponent {
     editJsonData(indexRoute, jsonKey, newJsonData);
   };
 
+  /** 根据当前类型显示对应的输入组件 */
+  renderDefaultContent = (currentFormat, targetJsonData, nodeKey) => {
+    if (currentFormat === 'boolean') {
+      return (
+        <Switch
+          style={{ display: 'inline-block' }}
+          defaultChecked={targetJsonData.default}
+          checkedChildren="true"
+          unCheckedChildren="false"
+          onChange={(checked) => {
+            this.handleValueChange('default', checked);
+          }}
+        />
+      );
+    } else if (currentFormat === 'radio') {
+      // 如果是选择类型的组件，需要提取选择项
+      const enumKeys = targetJsonData.items.enum;
+      const enumTexts = targetJsonData.items.enumextra;
+      return (
+        <Radio.Group
+          style={{ display: 'inline-block' }}
+          defaultValue={targetJsonData.default}
+          onChange={(event) => {
+            const { value } = event.target;
+            this.handleValueChange('default', value);
+          }}
+        >
+          {enumKeys &&
+            enumKeys.length > 0 &&
+            enumKeys.map((enumKey, enumIndex) => {
+              /** 1. 获取当前enum的title */
+              const enumText = enumTexts[enumIndex];
+              /** 2. 获取当前元素的id，用于做唯一标识 */
+              const enumNodeKey = `${nodeKey}-radio-${enumKey}`;
+              return (
+                <Radio value={enumKey} key={enumNodeKey}>
+                  {enumText}
+                </Radio>
+              );
+            })}
+        </Radio.Group>
+      );
+    } else if (currentFormat === 'select') {
+      // 如果是选择类型的组件，需要提取选择项
+      const enumKeys = targetJsonData.items.enum;
+      const enumTexts = targetJsonData.items.enumextra;
+      return (
+        <Checkbox.Group
+          style={{ display: 'inline-block' }}
+          onChange={(checkedValue) => {
+            this.handleValueChange('default', checkedValue);
+          }}
+          defaultValue={targetJsonData.default}
+        >
+          {enumKeys &&
+            enumKeys.length > 0 &&
+            enumKeys.map((enumKey, enumIndex) => {
+              /** 1. 获取当前enum的title */
+              const enumText = enumTexts[enumIndex];
+              /** 2. 获取当前元素的id，用于做唯一标识 */
+              const enumNodeKey = `${nodeKey}-radio-${enumKey}`;
+              return (
+                <Checkbox value={enumKey} key={enumNodeKey}>
+                  {enumText}
+                </Checkbox>
+              );
+            })}
+        </Checkbox.Group>
+      );
+    } else if (currentFormat === 'color') {
+      return (
+        <Input
+          style={{ display: 'inline-block' }}
+          className="color-item-form"
+          type="color"
+          defaultValue={targetJsonData.default}
+          onChange={(event) => {
+            const { value } = event.target;
+            this.handleValueChange('default', value);
+          }}
+        />
+      );
+    } else if (
+      currentFormat === 'textarea' ||
+      currentFormat === 'codearea' ||
+      currentFormat === 'htmlarea' ||
+      currentFormat === 'json'
+    ) {
+      return (
+        <TextArea
+          style={{ display: 'inline-block' }}
+          rows={4}
+          placeholder={`请输入${targetJsonData.title}的默认值`}
+          defaultValue={targetJsonData.default}
+          onPressEnter={(event) => {
+            const { value } = event.target;
+            this.handleValueChange('default', value);
+          }}
+          onBlur={(event) => {
+            const { value } = event.target;
+            this.handleValueChange('default', value);
+          }}
+        />
+      );
+    } else if (currentFormat === 'number') {
+      return (
+        <InputNumber
+          style={{ display: 'inline-block' }}
+          placeholder={`请输入${targetJsonData.title}的默认值`}
+          defaultValue={targetJsonData.default}
+          onChange={(newVal) => {
+            this.handleValueChange('default', newVal);
+          }}
+        />
+      );
+    } else {
+      // 其他都默认以input控件进行录入
+      return (
+        <Input
+          style={{ display: 'inline-block' }}
+          placeholder={`请输入${targetJsonData.title}的默认值`}
+          defaultValue={targetJsonData.default}
+          onPressEnter={(event) => {
+            const { value } = event.target;
+            this.handleValueChange('default', value);
+          }}
+          onBlur={(event) => {
+            const { value } = event.target;
+            this.handleValueChange('default', value);
+          }}
+        />
+      );
+    }
+  };
+
   render() {
     const { nodeKey, targetJsonData, pageScreen } = this.props;
     const currentFormat = getCurrentFormat(targetJsonData);
@@ -66,7 +202,7 @@ class AdvanceConfig extends React.PureComponent {
                 title={'当前属性设置为只读后，用户不能对其进行任何编辑操作'}
                 placement={curPlacement}
               >
-                <span className="title-text">只读</span>
+                <span className="title-text">是否只读</span>
               </Tooltip>
             </div>
             <div className="content-item">
@@ -96,7 +232,7 @@ class AdvanceConfig extends React.PureComponent {
                 }
                 placement={curPlacement}
               >
-                <span className="title-text">必填项</span>
+                <span className="title-text">是否必填项</span>
               </Tooltip>
             </div>
             <div className="content-item">
@@ -123,19 +259,11 @@ class AdvanceConfig extends React.PureComponent {
             </div>
             <div className="content-item">
               <div className="form-item-box">
-                <Input
-                  style={{ display: 'inline-block' }}
-                  placeholder={`请输入${targetJsonData.title}的默认值`}
-                  defaultValue={targetJsonData.default}
-                  onPressEnter={(event) => {
-                    const { value } = event.target;
-                    this.handleValueChange('default', value);
-                  }}
-                  onBlur={(event) => {
-                    const { value } = event.target;
-                    this.handleValueChange('default', value);
-                  }}
-                />
+                {this.renderDefaultContent(
+                  currentFormat,
+                  targetJsonData,
+                  nodeKey,
+                )}
               </div>
             </div>
           </div>
@@ -213,9 +341,8 @@ class AdvanceConfig extends React.PureComponent {
             </div>
             <div className="content-item">
               <div className="form-item-box">
-                <Input
+                <InputNumber
                   style={{ display: 'inline-block' }}
-                  placeholder={`请输入${targetJsonData.title}的最小值`}
                   defaultValue={targetJsonData.minimum}
                   onPressEnter={(event) => {
                     const { value } = event.target;
@@ -245,9 +372,8 @@ class AdvanceConfig extends React.PureComponent {
             </div>
             <div className="content-item">
               <div className="form-item-box">
-                <Input
+                <InputNumber
                   style={{ display: 'inline-block' }}
-                  placeholder={`请输入${targetJsonData.title}的最大值`}
                   defaultValue={targetJsonData.maximum}
                   onPressEnter={(event) => {
                     const { value } = event.target;
@@ -281,10 +407,9 @@ class AdvanceConfig extends React.PureComponent {
               <div className="form-item-box">
                 <InputNumber
                   style={{ display: 'inline-block' }}
-                  placeholder={`请输入${targetJsonData.title}的最少子项数`}
                   defaultValue={targetJsonData['minimum-child']}
                   onChange={(newVal) => {
-                    this.handleValueChange('maximum-child', newVal);
+                    this.handleValueChange('minimum-child', newVal);
                   }}
                 />
               </div>
@@ -310,7 +435,6 @@ class AdvanceConfig extends React.PureComponent {
               <div className="form-item-box">
                 <InputNumber
                   style={{ display: 'inline-block' }}
-                  placeholder={`请输入${targetJsonData.title}的最多子项数`}
                   defaultValue={targetJsonData['maximum-child']}
                   onChange={(newVal) => {
                     this.handleValueChange('maximum-child', newVal);
