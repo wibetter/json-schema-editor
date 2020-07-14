@@ -25,9 +25,26 @@ export default class JSONSchemaStore {
   @observable jsonSchema = {};
 
   /**
+   * 宽屏（wideScreen） or 小屏（mobileScreen）
+   */
+  @observable pageScreen = 'wideScreen'; // 默认小屏，宽屏: wideScreen，小屏：mobileScreen
+
+  /**
    * onChange: jsonSchema数据变动触发的onChange
    */
   @observable onChange = () => {}; // 函数类型
+
+  /**
+   * 设置当前屏幕模式：大屏 or 小屏
+   */
+  @action.bound
+  setPageScreen(pageScreen) {
+    if (pageScreen === 'wideScreen' || pageScreen) {
+      this.pageScreen = 'wideScreen';
+    } else {
+      this.pageScreen = 'mobileScreen'; // 默认宽屏
+    }
+  }
 
   /**
    * triggerChangeAction: 用于主动触发更新事件
@@ -163,6 +180,18 @@ export default class JSONSchemaStore {
       objClone(parentJSONObj.properties[jsonKey]),
       newJsonDataObj,
     );
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
+  }
+
+  /** 根据索引路径值(indexRoute)更新对应的json数据对象
+   *  备注：主要用于变更对应的type属性值=
+   * */
+  @action.bound
+  changeType(curIndexRoute, jsonKey, newJsonDataObj, ignoreOnChange) {
+    const parentIndexRoute = getParentIndexRoute(curIndexRoute);
+    const parentJSONObj = getJSONDataByIndex(parentIndexRoute, this.jsonSchema);
+    parentJSONObj.properties[jsonKey] = objClone(newJsonDataObj);
     // 触发onChange事件
     this.jsonSchemaChange(ignoreOnChange);
   }

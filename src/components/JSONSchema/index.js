@@ -15,6 +15,7 @@ import './index.scss';
 
 class JSONSchema extends React.PureComponent {
   static propTypes = {
+    wideScreen: PropTypes.any,
     onChange: PropTypes.func,
     data: PropTypes.object,
   };
@@ -29,6 +30,10 @@ class JSONSchema extends React.PureComponent {
     if (props.onChange) {
       this.props.initOnChange(props.onChange);
     }
+    // 读取宽屏和小屏的配置
+    if (props.wideScreen) {
+      this.props.setPageScreen(props.wideScreen);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,6 +43,9 @@ class JSONSchema extends React.PureComponent {
     // 记录onChange事件
     if (!isEqual(nextProps.onChange, this.props.onChange)) {
       this.props.initOnChange(nextProps.onChange);
+    }
+    if (!isEqual(nextProps.wideScreen, this.props.wideScreen)) {
+      this.props.setPageScreen(nextProps.wideScreen);
     }
   }
 
@@ -195,6 +203,7 @@ export default inject((stores) => ({
   jsonSchema: stores.jsonSchemaStore.jsonSchema,
   initJSONSchemaData: stores.jsonSchemaStore.initJSONSchemaData,
   initOnChange: stores.jsonSchemaStore.initOnChange,
+  setPageScreen: stores.jsonSchemaStore.setPageScreen,
   getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
   insertJsonData: stores.jsonSchemaStore.insertJsonData,
   deleteJsonByIndex: stores.jsonSchemaStore.deleteJsonByIndex,

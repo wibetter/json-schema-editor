@@ -1,16 +1,19 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { Input, message, Select, Tooltip } from 'antd';
+import { Input, message, Select, Modal, Button, Tooltip } from 'antd';
 const { Option } = Select;
 import {
   PlusOutlined,
   CloseOutlined,
   CopyOutlined,
   DragOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
+import AdvanceConfig from '$components/AdvanceConfig/index'; // 高级配置内容
 import {
   isBoxSchemaData,
+  isFirstSchemaData,
   getCurrentFormat,
   getParentIndexRoute,
 } from '$utils/jsonSchema';
@@ -35,6 +38,9 @@ class BaseFormSchema extends React.PureComponent {
 
   constructor(props) {
     super(props);
+    this.state = {
+      isShowAdvance: false,
+    };
     // 这边绑定是必要的，这样 `this` 才能在回调函数中使用
     this.onAddBtnEvent = this.onAddBtnEvent.bind(this);
     this.onCopyBtnEvent = this.onCopyBtnEvent.bind(this);
@@ -46,11 +52,11 @@ class BaseFormSchema extends React.PureComponent {
 
   /** select类型变动事件处理器 */
   selectHandleChange = (newFormat) => {
-    const { indexRoute, jsonKey, editJsonData, targetJsonData } = this.props;
+    const { indexRoute, jsonKey, changeType, targetJsonData } = this.props;
     if (targetJsonData.format === newFormat) return; // format值未改变则直接跳出
     // 根据当前新的类型获取初始化的对象数据
     const newTypeData = TypeDataList[newFormat];
-    editJsonData(indexRoute, jsonKey, newTypeData);
+    changeType(indexRoute, jsonKey, newTypeData);
   };
 
   /** jsonKey类型输入值变动事件处理器 */
@@ -134,15 +140,23 @@ class BaseFormSchema extends React.PureComponent {
   };
 
   render() {
-    const { parentType, jsonKey, nodeKey, targetJsonData } = this.props;
+    const {
+      parentType,
+      indexRoute,
+      jsonKey,
+      nodeKey,
+      targetJsonData,
+    } = this.props;
+    const { isShowAdvance } = this.state;
     const isFixed = this.props.isFixed || false; // 是否为固有的属性（不可编辑、不可删除）
     const keyIsFixed = this.props.keyIsFixed || false; // key是否为不可编辑的属性
     const typeIsFixed = this.props.typeIsFixed || false; // type是否为不可编辑的属性
     const titleIsFixed = this.props.titleIsFixed || false; // title是否为不可编辑的属性
     const hideOperaBtn = this.props.hideOperaBtn || false; // 是否隐藏操作类按钮
-    const readOnly = targetJsonData.readOnly || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
     const currentTypeList = this.getCurrentTypeList(parentType); // 根据父级元素类型获取可供使用的类型清单
     const currentFormat = getCurrentFormat(targetJsonData);
+    const isFirstSchema = isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
+    const readOnly = isFirstSchema || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
 
     return (
       <div className="base-schema-box" id={nodeKey}>
@@ -207,6 +221,19 @@ class BaseFormSchema extends React.PureComponent {
               </Tooltip>
             )}
             {!readOnly && (
+              <Tooltip title="高级设置">
+                <SettingOutlined
+                  className="operate-btn"
+                  onClick={() => {
+                    // 显示高级设置模态框
+                    this.setState({
+                      isShowAdvance: true,
+                    });
+                  }}
+                />
+              </Tooltip>
+            )}
+            {!readOnly && (
               <Tooltip title="按住进行拖拽">
                 <DragOutlined className="operate-btn drag-btn" />
               </Tooltip>
@@ -214,6 +241,36 @@ class BaseFormSchema extends React.PureComponent {
           </div>
         )}
         {hideOperaBtn && <div className="operate-item">&nbsp;</div>}
+        <Modal
+          visible={isShowAdvance}
+          title={`高级设置 / 当前字段：${targetJsonData.title}(${jsonKey})`}
+          onCancel={() => {
+            this.setState({
+              isShowAdvance: false,
+            });
+          }}
+          footer={[
+            <Button
+              key="submit"
+              type="primary"
+              onClick={() => {
+                this.setState({
+                  isShowAdvance: false,
+                });
+              }}
+            >
+              保存并关闭
+            </Button>,
+          ]}
+        >
+          <AdvanceConfig
+            {...{
+              indexRoute,
+              jsonKey,
+              targetJsonData,
+            }}
+          />
+        </Modal>
       </div>
     );
   }
@@ -228,5 +285,6 @@ export default inject((stores) => ({
   insertJsonData: stores.jsonSchemaStore.insertJsonData,
   editJsonData: stores.jsonSchemaStore.editJsonData,
   editJsonKey: stores.jsonSchemaStore.editJsonKey,
+  changeType: stores.jsonSchemaStore.changeType,
   isExitJsonKey: stores.jsonSchemaStore.isExitJsonKey,
 }))(observer(BaseFormSchema));
