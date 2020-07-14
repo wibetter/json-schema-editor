@@ -30328,6 +30328,7 @@ and limitations under the License.
                       .concat(
                         [
                           'input',
+                          'number',
                           'url',
                           'textarea',
                           'date',
@@ -30386,20 +30387,7 @@ and limitations under the License.
                       var t = !1;
                       return (
                         '#'
-                          .concat(
-                            [
-                              'input',
-                              'url',
-                              'textarea',
-                              'date',
-                              'date-time',
-                              'time',
-                              'json',
-                              'codearea',
-                              'htmlarea',
-                            ].join('#'),
-                            '#',
-                          )
+                          .concat([].join('#'), '#')
                           .indexOf('#'.concat(e, '#')) >= 0 && (t = !0),
                         t
                       );
