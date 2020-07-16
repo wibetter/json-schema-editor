@@ -31999,6 +31999,9 @@ and limitations under the License.
                   n = e.indexRoute;
                 (0, e.deleteJsonByIndex_CurKey)(n, t);
               }),
+              (r.ignoreDragEvent = function (e) {
+                e.preventDefault(), e.stopPropagation();
+              }),
               (r.state = { isShowAdvance: !1 }),
               (r.onAddBtnEvent = r.onAddBtnEvent.bind(dt()(r))),
               (r.onCopyBtnEvent = r.onCopyBtnEvent.bind(dt()(r))),
@@ -32035,7 +32038,11 @@ and limitations under the License.
                     { className: 'base-schema-box', id: a },
                     d.createElement(
                       'div',
-                      { className: 'key-input-item' },
+                      {
+                        className: 'key-input-item',
+                        draggable: 'true',
+                        onDragStart: this.ignoreDragEvent,
+                      },
                       d.createElement(ft.a, {
                         defaultValue: o,
                         disabled: v || s,
@@ -32045,7 +32052,11 @@ and limitations under the License.
                     ),
                     d.createElement(
                       'div',
-                      { className: 'type-select-item' },
+                      {
+                        className: 'type-select-item',
+                        draggable: 'true',
+                        onDragStart: this.ignoreDragEvent,
+                      },
                       d.createElement(
                         ht.a,
                         {
@@ -32061,7 +32072,11 @@ and limitations under the License.
                     ),
                     d.createElement(
                       'div',
-                      { className: 'title-input-item' },
+                      {
+                        className: 'title-input-item',
+                        draggable: 'true',
+                        onDragStart: this.ignoreDragEvent,
+                      },
                       d.createElement(ft.a, {
                         defaultValue: i.title,
                         disabled: v || f,
@@ -33293,7 +33308,11 @@ and limitations under the License.
                         selectable: !1,
                         onDragStart: this.onDragStart,
                         onDrop: this.onDrop,
-                        defaultExpandAll: !1,
+                        defaultExpandedKeys: [
+                          'func-func',
+                          'style-style',
+                          'data-data',
+                        ],
                       },
                       er({
                         parentType: '',
