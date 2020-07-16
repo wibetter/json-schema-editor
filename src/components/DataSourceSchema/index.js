@@ -17,6 +17,7 @@ const typeSelectData = {
     title: '本地json数据',
     format: 'json',
     default: '{}', // 默认值
+    placeholder: '请输入静态json数据', // 输入提示
     isRequired: true,
     description: '用于设置本地的静态json数据',
   },
@@ -25,6 +26,7 @@ const typeSelectData = {
     title: '远程json数据',
     format: 'url',
     default: 'http://xxx', // 默认值
+    placeholder: '请输入远程json数据源地址', // 输入提示
     isRequired: true,
     description: '用于设置获取元素数据的请求地址',
   },

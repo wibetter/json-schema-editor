@@ -57,8 +57,6 @@ class JSONSchema extends React.PureComponent {
     // 设置只有指定类型的元素可以拖拽
     if (node.className && isFirstSchemaElem(node.className)) {
       message.warning('一级固定类型元素不支持拖拽哦');
-      // eventData.event.preventDefault();
-      // eventData.event.stopPropagation();
     }
   };
 
@@ -179,7 +177,7 @@ class JSONSchema extends React.PureComponent {
             selectable={false}
             onDragStart={this.onDragStart}
             onDrop={this.onDrop}
-            defaultExpandAll={false}
+            defaultExpandedKeys={['func-func', 'style-style', 'data-data']}
           >
             {ObjectSchema({
               parentType: '',

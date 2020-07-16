@@ -95,12 +95,13 @@ export function isNeedPlaceholderOption(curFormat) {
 
 /** 是否只读（readOnly）
  *  根据format判断是否显示是否只读配置项
- *  input、 date、date-time、 time、 url、 textarea、Json、CodeArea、htmlArea合计9种类型组件支持
+ *  input、number、 date、date-time、 time、 url、 textarea、Json、CodeArea、htmlArea合计9种类型组件支持
  * */
 export function isNeedReadOnlyOption(curFormat) {
   let isSupported = false;
   const supportedTypeList = [
     'input',
+    'number',
     'url',
     'textarea',
     'date',
@@ -123,7 +124,7 @@ export function isNeedReadOnlyOption(curFormat) {
  * */
 export function isNeedIsRequiredOption(curFormat) {
   let isSupported = false;
-  const supportedTypeList = [
+  /*const supportedTypeList = [
     'input',
     'url',
     'textarea',
@@ -133,7 +134,8 @@ export function isNeedIsRequiredOption(curFormat) {
     'json',
     'codearea',
     'htmlarea',
-  ];
+  ];*/
+  const supportedTypeList = [];
   const supportedTypeListChar = `#${supportedTypeList.join('#')}#`;
   if (supportedTypeListChar.indexOf(`#${curFormat}#`) >= 0) {
     isSupported = true;

@@ -139,6 +139,12 @@ class BaseFormSchema extends React.PureComponent {
     deleteJsonByIndex_CurKey(indexRoute, jsonKey); // 删除对应的json数据对象
   };
 
+  /** 拦截拖拽事件 */
+  ignoreDragEvent = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
   render() {
     const {
       parentType,
@@ -160,7 +166,11 @@ class BaseFormSchema extends React.PureComponent {
 
     return (
       <div className="base-schema-box" id={nodeKey}>
-        <div className="key-input-item">
+        <div
+          className="key-input-item"
+          draggable="true"
+          onDragStart={this.ignoreDragEvent}
+        >
           <Input
             defaultValue={jsonKey}
             disabled={readOnly || keyIsFixed}
@@ -168,7 +178,11 @@ class BaseFormSchema extends React.PureComponent {
             onBlur={this.handleJsonKeyChange}
           />
         </div>
-        <div className="type-select-item">
+        <div
+          className="type-select-item"
+          draggable="true"
+          onDragStart={this.ignoreDragEvent}
+        >
           <Select
             defaultValue={currentFormat}
             style={{ width: 120 }}
@@ -184,7 +198,11 @@ class BaseFormSchema extends React.PureComponent {
             })}
           </Select>
         </div>
-        <div className="title-input-item">
+        <div
+          className="title-input-item"
+          draggable="true"
+          onDragStart={this.ignoreDragEvent}
+        >
           <Input
             defaultValue={targetJsonData.title}
             disabled={readOnly || titleIsFixed}
