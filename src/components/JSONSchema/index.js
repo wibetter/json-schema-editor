@@ -179,7 +179,7 @@ class JSONSchema extends React.PureComponent {
             selectable={false}
             onDragStart={this.onDragStart}
             onDrop={this.onDrop}
-            defaultExpandAll={false}
+            defaultExpandedKeys={['func-func', 'style-style', 'data-data']}
           >
             {ObjectSchema({
               parentType: '',
