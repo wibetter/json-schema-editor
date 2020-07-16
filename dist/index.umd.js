@@ -29917,8 +29917,8 @@ and limitations under the License.
                 readOnly: !1,
               },
             },
-            required: ['type', 'callback'],
-            propertyOrder: ['type', 'callback'],
+            required: ['type', 'register', 'actionFunc'],
+            propertyOrder: ['type', 'register', 'actionFunc'],
           },
           emit: ue,
         },
@@ -30235,11 +30235,12 @@ and limitations under the License.
                               i = a.type.default,
                               u = (a.filter && a.filter.default) || '() => {}';
                             'in' === i
-                              ? ((n = Object.assign(
-                                  n,
+                              ? ((n = pe(
                                   se.on,
-                                )).properties.actionFunc.default = u)
-                              : (n = Object.assign(n, se.emit));
+                                )).properties.actionFunc.default = pe(u))
+                              : ((n = pe(
+                                  se.emit,
+                                )).properties.eventData.default = u);
                           }
                           return (
                             n.properties &&
