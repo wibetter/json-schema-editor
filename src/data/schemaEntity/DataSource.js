@@ -25,6 +25,7 @@ export const initDataSourceData = {
     data: {
       type: 'string',
       title: '本地json数据',
+      placeholder: '请输入静态json数据', // 输入提示
       format: 'json',
       default: '{}', // 默认值
       description: '用于设置本地的静态json数据',
@@ -60,7 +61,8 @@ export const initDataSourceDataV2 = {
     },
     data: {
       type: 'string',
-      title: '远程json数据源地址',
+      title: '远程json数据',
+      placeholder: '请输入远程json数据源地址', // 输入提示
       format: 'url',
       default: 'http://xxx', // 默认值
       isRequired: true,
