@@ -339,7 +339,8 @@ export function schema2JsonData(jsonSchema, jsonData) {
     if (jsonSchema.properties) {
       jsonSchema.propertyOrder.map((jsonKey) => {
         const jsonItem = jsonSchema.properties[jsonKey];
-        let oldValue = jsonData && jsonData[jsonKey];
+        let oldValue =
+          jsonData && jsonData[jsonKey] ? jsonData[jsonKey] : undefined;
         if (
           oldValue &&
           jsonItem.default &&
@@ -352,7 +353,18 @@ export function schema2JsonData(jsonSchema, jsonData) {
         const curValue = oldValue !== undefined ? oldValue : jsonItem.default;
         switch (jsonItem.type) {
           case 'string':
-            curJsonData[jsonKey] = curValue !== undefined ? curValue : '';
+            if (
+              jsonItem.format === 'codearea' ||
+              jsonItem.format === 'json' ||
+              jsonItem.format === 'htmlarea' ||
+              jsonItem.format === 'color'
+            ) {
+              // 特殊类型尽可能避免出现空字符串
+              curJsonData[jsonKey] = oldValue || jsonItem.default || '';
+            } else {
+              // 其他类型
+              curJsonData[jsonKey] = curValue !== undefined ? curValue : '';
+            }
             break;
           case 'boolean':
             curJsonData[jsonKey] = curValue !== undefined ? curValue : false;
@@ -362,9 +374,17 @@ export function schema2JsonData(jsonSchema, jsonData) {
             break;
           case 'array':
             if (jsonItem.format === 'array') {
-              curJsonData[jsonKey] = [
-                schema2JsonData(jsonItem.items, oldValue),
-              ];
+              if (isArray(oldValue)) {
+                curJsonData[jsonKey] = [];
+                oldValue.map((arrItem) => {
+                  curJsonData[jsonKey].push(
+                    schema2JsonData(jsonItem.items, arrItem),
+                  );
+                });
+              } else {
+                const childItems = schema2JsonData(jsonItem.items, oldValue);
+                curJsonData[jsonKey] = [childItems];
+              }
             } else {
               curJsonData[jsonKey] = curValue !== undefined ? curValue : [];
             }
@@ -383,12 +403,20 @@ export function schema2JsonData(jsonSchema, jsonData) {
                   data: '{}',
                   filter: '() => {}',
                 };
+                // 纠正data中的默认数据
+                if (curJsonData[jsonKey].data === 'http://xxx') {
+                  curJsonData[jsonKey].data = '{}';
+                }
               } else {
                 // 远程数据类型
                 curJsonData[jsonKey] = oldValue || {
                   data: 'http://xxx',
                   filter: '() => {}',
                 };
+                // 纠正data中的默认数据
+                if (curJsonData[jsonKey].data === '{}') {
+                  curJsonData[jsonKey].data = 'http://xxx';
+                }
               }
             } else if (jsonItem.format === 'event') {
               // 事件类型
@@ -399,16 +427,24 @@ export function schema2JsonData(jsonSchema, jsonData) {
                 jsonItem.properties.type.default === 'emit'
               ) {
                 // 触发事件类型
-                curJsonData[jsonKey] = oldValue || {
-                  trigger: '',
-                  eventData: '{}',
-                };
+                if (oldValue && oldValue.type === 'emit') {
+                  curJsonData[jsonKey] = oldValue;
+                } else {
+                  curJsonData[jsonKey] = {
+                    trigger: (oldValue && oldValue.filter) || '', // 兼容旧版数据
+                    eventData: '{}',
+                  };
+                }
               } else {
                 // 注册事件类型-触发事件类型
-                curJsonData[jsonKey] = oldValue || {
-                  register: '',
-                  actionFunc: '() => {}',
-                };
+                if (oldValue && oldValue.type === 'on') {
+                  curJsonData[jsonKey] = oldValue;
+                } else {
+                  curJsonData[jsonKey] = {
+                    register: '',
+                    actionFunc: (oldValue && oldValue.filter) || '() => {}', // 兼容旧版数据
+                  };
+                }
               }
             } else {
               // 普通对象类型
