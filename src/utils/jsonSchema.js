@@ -251,7 +251,16 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
   }
   // 转换旧版的datasource类型的数据结构
   if (newJSONSchema.format === 'datasource') {
-    const curProperties = newJSONSchema.properties;
+    let curProperties = newJSONSchema.properties;
+    curProperties = Object.assign(
+      curProperties,
+      {
+        type: {},
+        filter: {},
+        data: {},
+      },
+      curProperties,
+    );
     curProperties.type.title = '数据源类型';
     curProperties.filter.title = '过滤器';
     curProperties.filter.format = 'codearea';
@@ -265,30 +274,56 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
   }
   // 转换旧版的quantity类型的数据结构
   if (newJSONSchema.format === 'quantity') {
-    const curProperties = newJSONSchema.properties;
+    let curProperties = newJSONSchema.properties;
+    curProperties = Object.assign(
+      curProperties,
+      {
+        unit: {},
+        quantity: {},
+      },
+      curProperties,
+    );
     curProperties.quantity.title = '单位类型';
     curProperties.quantity.format = 'typeSelect';
     curProperties.unit.format = 'number';
   }
   // 转换旧版的event类型的数据结构
   if (newJSONSchema.format === 'event') {
-    const curProperties = newJSONSchema.properties;
+    let curProperties = newJSONSchema.properties;
     // 先获取旧版的关键数据
-    const eventType = curProperties.type.default;
+    const eventType = curProperties.type && curProperties.type.default;
     const eventFunc =
       (curProperties.filter && curProperties.filter.default) || '() => {}';
     // 重构Event的数据结构
     if (eventType === 'in') {
+      curProperties = Object.assign(
+        curProperties,
+        {
+          type: {},
+          register: {},
+          actionFunc: {},
+        },
+        curProperties,
+      );
       // 注册类事件
       // newJSONSchema = Object.assign(newJSONSchema, EventTypeDataList.on);
       newJSONSchema = objClone(EventTypeDataList.on);
-      newJSONSchema.properties.actionFunc.default = objClone(eventFunc);
+      curProperties.actionFunc.default = objClone(eventFunc);
     } else {
+      curProperties = Object.assign(
+        curProperties,
+        {
+          type: {},
+          trigger: {},
+          eventData: {},
+        },
+        curProperties,
+      );
       // 其他，则默认为触发事件
       // 注册类事件
       // newJSONSchema = Object.assign(newJSONSchema, EventTypeDataList.emit);
       newJSONSchema = objClone(EventTypeDataList.emit);
-      newJSONSchema.properties.eventData.default = eventFunc;
+      curProperties.eventData.default = eventFunc;
     }
   }
   // 判断是否有propertyOrder属性
