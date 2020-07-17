@@ -2,7 +2,7 @@ import { EventTypeDataList } from '$data/TypeDataList';
 /**
  * JSONSchema数据对象的通用操作方法【非响应式数据操作方法集合】
  */
-import { objClone } from '$utils/index';
+import { objClone, isObject } from '$utils/index';
 
 /** 【校验是否是合法的JsonSchema数据格式】
  *  主要判断当前JSON对象中是否有预先定义的属性：
@@ -252,40 +252,33 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
   // 转换旧版的datasource类型的数据结构
   if (newJSONSchema.format === 'datasource') {
     let curProperties = newJSONSchema.properties;
-    curProperties = Object.assign(
-      curProperties,
-      {
-        type: {},
-        filter: {},
-        data: {},
-      },
-      curProperties,
-    );
-    curProperties.type.title = '数据源类型';
-    curProperties.filter.title = '过滤器';
-    curProperties.filter.format = 'codearea';
-    if (curProperties.type.default === 'remote') {
-      curProperties.data.title = '用于设置获取元素数据的请求地址';
-      curProperties.data.format = 'url';
-    } else {
-      curProperties.data.title = '本地静态json数据';
-      curProperties.data.format = 'json';
+    if (curProperties.type && isObject(curProperties.type)) {
+      curProperties.type.title = '数据源类型';
+    }
+    if (curProperties.filter && isObject(curProperties.filter)) {
+      curProperties.filter.title = '过滤器';
+      curProperties.filter.format = 'codearea';
+    }
+    if (curProperties.data && isObject(curProperties.data)) {
+      if (curProperties.type.default === 'remote') {
+        curProperties.data.title = '用于设置获取元素数据的请求地址';
+        curProperties.data.format = 'url';
+      } else {
+        curProperties.data.title = '本地静态json数据';
+        curProperties.data.format = 'json';
+      }
     }
   }
   // 转换旧版的quantity类型的数据结构
   if (newJSONSchema.format === 'quantity') {
     let curProperties = newJSONSchema.properties;
-    curProperties = Object.assign(
-      curProperties,
-      {
-        unit: {},
-        quantity: {},
-      },
-      curProperties,
-    );
-    curProperties.quantity.title = '单位类型';
-    curProperties.quantity.format = 'typeSelect';
-    curProperties.unit.format = 'number';
+    if (curProperties.quantity && isObject(curProperties.quantity)) {
+      curProperties.quantity.title = '单位类型';
+      curProperties.quantity.format = 'typeSelect';
+    }
+    if (curProperties.unit && isObject(curProperties.unit)) {
+      curProperties.unit.format = 'number';
+    }
   }
   // 转换旧版的event类型的数据结构
   if (newJSONSchema.format === 'event') {
@@ -296,34 +289,20 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
       (curProperties.filter && curProperties.filter.default) || '() => {}';
     // 重构Event的数据结构
     if (eventType === 'in') {
-      curProperties = Object.assign(
-        curProperties,
-        {
-          type: {},
-          register: {},
-          actionFunc: {},
-        },
-        curProperties,
-      );
       // 注册类事件
       // newJSONSchema = Object.assign(newJSONSchema, EventTypeDataList.on);
       newJSONSchema = objClone(EventTypeDataList.on);
-      curProperties.actionFunc.default = objClone(eventFunc);
+      if (curProperties.actionFunc && isObject(curProperties.actionFunc)) {
+        curProperties.actionFunc.default = objClone(eventFunc);
+      }
     } else {
-      curProperties = Object.assign(
-        curProperties,
-        {
-          type: {},
-          trigger: {},
-          eventData: {},
-        },
-        curProperties,
-      );
       // 其他，则默认为触发事件
       // 注册类事件
       // newJSONSchema = Object.assign(newJSONSchema, EventTypeDataList.emit);
       newJSONSchema = objClone(EventTypeDataList.emit);
-      curProperties.eventData.default = eventFunc;
+      if (curProperties.eventData && isObject(curProperties.eventData)) {
+        curProperties.eventData.default = eventFunc;
+      }
     }
   }
   // 判断是否有propertyOrder属性
