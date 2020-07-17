@@ -30214,7 +30214,11 @@ and limitations under the License.
                             'datasource' === n.format)
                           ) {
                             var r = n.properties;
-                            (r.type.title = '数据源类型'),
+                            ((r = Object.assign(
+                              r,
+                              { type: {}, filter: {}, data: {} },
+                              r,
+                            )).type.title = '数据源类型'),
                               (r.filter.title = '过滤器'),
                               (r.filter.format = 'codearea'),
                               'remote' === r.type.default
@@ -30226,21 +30230,33 @@ and limitations under the License.
                           }
                           if ('quantity' === n.format) {
                             var o = n.properties;
-                            (o.quantity.title = '单位类型'),
+                            ((o = Object.assign(
+                              o,
+                              { unit: {}, quantity: {} },
+                              o,
+                            )).quantity.title = '单位类型'),
                               (o.quantity.format = 'typeSelect'),
                               (o.unit.format = 'number');
                           }
                           if ('event' === n.format) {
                             var a = n.properties,
-                              i = a.type.default,
+                              i = a.type && a.type.default,
                               u = (a.filter && a.filter.default) || '() => {}';
                             'in' === i
-                              ? ((n = pe(
-                                  se.on,
-                                )).properties.actionFunc.default = pe(u))
-                              : ((n = pe(
-                                  se.emit,
-                                )).properties.eventData.default = u);
+                              ? ((a = Object.assign(
+                                  a,
+                                  { type: {}, register: {}, actionFunc: {} },
+                                  a,
+                                )),
+                                (n = pe(se.on)),
+                                (a.actionFunc.default = pe(u)))
+                              : ((a = Object.assign(
+                                  a,
+                                  { type: {}, trigger: {}, eventData: {} },
+                                  a,
+                                )),
+                                (n = pe(se.emit)),
+                                (a.eventData.default = u));
                           }
                           return (
                             n.properties &&
