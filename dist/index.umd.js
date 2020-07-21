@@ -31390,7 +31390,7 @@ and limitations under the License.
             a = e.nodeKey,
             i = e.targetJsonData,
             c = he(i),
-            u = i.properties.data;
+            u = i.properties.data || {};
           return y.a.createElement(
             _n,
             {
@@ -31475,11 +31475,11 @@ and limitations under the License.
             a = e.nodeKey,
             i = e.targetJsonData,
             c = he(i),
-            u = i.properties.type,
-            s = i.properties.register,
-            l = i.properties.actionFunc,
-            f = i.properties.trigger,
-            p = i.properties.eventData;
+            u = i.properties.type || {},
+            s = i.properties.register || {},
+            l = i.properties.actionFunc || {},
+            f = i.properties.trigger || {},
+            p = i.properties.eventData || {};
           return y.a.createElement(
             Dn,
             {
