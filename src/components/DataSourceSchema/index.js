@@ -41,7 +41,7 @@ const getTypeSelectCont = (params) => {
 const DataSourceSchema = (props) => {
   const { parentType, jsonKey, indexRoute, nodeKey, targetJsonData } = props;
   const currentFormat = getCurrentFormat(targetJsonData);
-  const dataJsonObj = targetJsonData.properties.data;
+  const dataJsonObj = targetJsonData.properties.data || {};
 
   return (
     <TreeNode

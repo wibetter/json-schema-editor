@@ -6,7 +6,7 @@ import {
   getJSONDataByIndex,
   oldJSONSchemaToNewJSONSchema,
 } from '$utils/jsonSchema';
-import { objClone, isFunction } from '$utils/index';
+import { isEqual, objClone, isFunction } from '$utils/index';
 import { TypeList } from '$data/TypeList';
 import { KeyWordList } from '$data/KeyWordList';
 import { isBoxSchemaData } from '$utils/jsonSchema';
@@ -60,7 +60,7 @@ export default class JSONSchemaStore {
     if (!jsonSchemaData || JSON.stringify(jsonSchemaData) === '{}') {
       // 使用默认的jsonschema数据进行初始化
       this.jsonSchema = objClone(initJSONSchemaData);
-    } else {
+    } else if (!isEqual(jsonSchemaData, this.JSONSchemaObj)) {
       if (jsonSchemaData && jsonSchemaData.lastUpdateTime) {
         // 如果有lastUpdateTime则说明是新版jsonSchema数据，无需转换直接进行赋值
         this.jsonSchema = jsonSchemaData;

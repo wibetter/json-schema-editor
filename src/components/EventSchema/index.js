@@ -19,13 +19,13 @@ const getTypeSelectCont = (params) => {
 const EventSchema = (props) => {
   const { parentType, jsonKey, indexRoute, nodeKey, targetJsonData } = props;
   const currentFormat = getCurrentFormat(targetJsonData);
-  const typeJsonObj = targetJsonData.properties.type;
+  const typeJsonObj = targetJsonData.properties.type || {};
   // 注册类型事件的数据对象
-  const registerJsonObj = targetJsonData.properties.register;
-  const actionFuncJsonObj = targetJsonData.properties.actionFunc;
+  const registerJsonObj = targetJsonData.properties.register || {};
+  const actionFuncJsonObj = targetJsonData.properties.actionFunc || {};
   // 触发事件类型的数据对象
-  const triggerJsonObj = targetJsonData.properties.trigger;
-  const eventDataJsonObj = targetJsonData.properties.eventData;
+  const triggerJsonObj = targetJsonData.properties.trigger || {};
+  const eventDataJsonObj = targetJsonData.properties.eventData || {};
 
   return (
     <TreeNode
