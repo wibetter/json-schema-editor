@@ -174,14 +174,8 @@ class AdvanceConfig extends React.PureComponent {
   };
 
   render() {
-    const { nodeKey, targetJsonData, pageScreen } = this.props;
+    const { nodeKey, targetJsonData } = this.props;
     const currentFormat = getCurrentFormat(targetJsonData);
-
-    const pageScreenClassName =
-      pageScreen === 'wideScreen'
-        ? 'wide-screen-element-warp'
-        : 'mobile-screen-element-warp';
-    const curPlacement = pageScreen === 'wideScreen' ? 'topRight' : 'topLeft';
 
     /** 默认值需要进行细分
      *  输入形式的基础类型组件（input、boolean、 date、date-time、 time、 url、number），以input表单形式让用户填充；
@@ -194,13 +188,13 @@ class AdvanceConfig extends React.PureComponent {
       <div className="advance-config-model">
         {isNeedReadOnlyOption(currentFormat) && (
           <div
-            className={pageScreenClassName}
+            className="wide-screen-element-warp"
             key={`${nodeKey}-readOnly-${targetJsonData.readOnly}`}
           >
             <div className="element-title">
               <Tooltip
                 title={'当前属性设置为只读后，用户不能对其进行任何编辑操作'}
-                placement={curPlacement}
+                placement="top"
               >
                 <span className="title-text">是否只读</span>
               </Tooltip>
@@ -222,7 +216,7 @@ class AdvanceConfig extends React.PureComponent {
         )}
         {isNeedIsRequiredOption(currentFormat) && (
           <div
-            className={pageScreenClassName}
+            className="wide-screen-element-warp"
             key={`${nodeKey}-isRequired-${targetJsonData.isRequired}`}
           >
             <div className="element-title">
@@ -230,7 +224,7 @@ class AdvanceConfig extends React.PureComponent {
                 title={
                   '当前属性设置为必填项后，如果用户没有给其设置数值，则会进行标红提示。'
                 }
-                placement={curPlacement}
+                placement="top"
               >
                 <span className="title-text">是否必填项</span>
               </Tooltip>
@@ -251,9 +245,9 @@ class AdvanceConfig extends React.PureComponent {
           </div>
         )}
         {isNeedDefaultOption(currentFormat) && (
-          <div className={pageScreenClassName} key={`${nodeKey}-default`}>
+          <div className="wide-screen-element-warp" key={`${nodeKey}-default`}>
             <div className="element-title">
-              <Tooltip title={''} placement={curPlacement}>
+              <Tooltip placement="top">
                 <span className="title-text">默认值</span>
               </Tooltip>
             </div>
@@ -269,11 +263,14 @@ class AdvanceConfig extends React.PureComponent {
           </div>
         )}
         {isNeedDescriptionOption(currentFormat) && (
-          <div className={pageScreenClassName} key={`${nodeKey}-description`}>
+          <div
+            className="wide-screen-element-warp"
+            key={`${nodeKey}-description`}
+          >
             <div className="element-title">
               <Tooltip
                 title={'字段描述内容将作为Title的补充信息提供给用户'}
-                placement={curPlacement}
+                placement="top"
               >
                 <span className="title-text">字段描述</span>
               </Tooltip>
@@ -298,11 +295,14 @@ class AdvanceConfig extends React.PureComponent {
           </div>
         )}
         {isNeedPlaceholderOption(currentFormat) && (
-          <div className={pageScreenClassName} key={`${nodeKey}-placeholder`}>
+          <div
+            className="wide-screen-element-warp"
+            key={`${nodeKey}-placeholder`}
+          >
             <div className="element-title">
               <Tooltip
                 title={'输入提示内容将作为输入区域的提示信息展示给用户'}
-                placement={curPlacement}
+                placement="top"
               >
                 <span className="title-text">输入提示</span>
               </Tooltip>
@@ -328,13 +328,13 @@ class AdvanceConfig extends React.PureComponent {
         )}
         {isNeedMinMaxOption(currentFormat) && (
           <div
-            className={pageScreenClassName}
+            className="wide-screen-element-warp"
             key={`${nodeKey}-minimum-${targetJsonData.minimum}`}
           >
             <div className="element-title">
               <Tooltip
                 title={'设置最小值后，用户输入的数值必须大于当前最小值'}
-                placement={curPlacement}
+                placement="top"
               >
                 <span className="title-text">最小值</span>
               </Tooltip>
@@ -359,13 +359,13 @@ class AdvanceConfig extends React.PureComponent {
         )}
         {isNeedMinMaxOption(currentFormat) && (
           <div
-            className={pageScreenClassName}
+            className="wide-screen-element-warp"
             key={`${nodeKey}-maximum-${targetJsonData.maximum}`}
           >
             <div className="element-title">
               <Tooltip
                 title={'设置最大值后，用户输入的数值必须大于当前最大值'}
-                placement={curPlacement}
+                placement="top"
               >
                 <span className="title-text">最大值</span>
               </Tooltip>
@@ -390,7 +390,7 @@ class AdvanceConfig extends React.PureComponent {
         )}
         {isNeedMinMaxChildOption(currentFormat) && (
           <div
-            className={pageScreenClassName}
+            className="wide-screen-element-warp"
             key={`${nodeKey}-minimum-child-${targetJsonData['minimum-child']}`}
           >
             <div className="element-title">
@@ -398,7 +398,7 @@ class AdvanceConfig extends React.PureComponent {
                 title={
                   '设置最少子项个数后，当前字段的子字段数量必须大于最少子项数'
                 }
-                placement={curPlacement}
+                placement="top"
               >
                 <span className="title-text">最少子项数</span>
               </Tooltip>
@@ -418,7 +418,7 @@ class AdvanceConfig extends React.PureComponent {
         )}
         {isNeedMinMaxChildOption(currentFormat) && (
           <div
-            className={pageScreenClassName}
+            className="wide-screen-element-warp"
             key={`${nodeKey}-maximum-child-${targetJsonData['maximum-child']}`}
           >
             <div className="element-title">
@@ -426,7 +426,7 @@ class AdvanceConfig extends React.PureComponent {
                 title={
                   '设置最多子项个数后，当前字段的子字段数量必须少于最多子项数'
                 }
-                placement={curPlacement}
+                placement="top"
               >
                 <span className="title-text">最多子项数</span>
               </Tooltip>
@@ -450,7 +450,6 @@ class AdvanceConfig extends React.PureComponent {
 }
 
 export default inject((stores) => ({
-  pageScreen: stores.jsonSchemaStore.pageScreen,
   getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
   editJsonData: stores.jsonSchemaStore.editJsonData,
 }))(observer(AdvanceConfig));

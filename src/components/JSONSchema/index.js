@@ -15,7 +15,6 @@ import './index.scss';
 
 class JSONSchema extends React.PureComponent {
   static propTypes = {
-    wideScreen: PropTypes.any,
     onChange: PropTypes.func,
     data: PropTypes.object,
   };
@@ -30,10 +29,6 @@ class JSONSchema extends React.PureComponent {
     if (props.onChange) {
       this.props.initOnChange(props.onChange);
     }
-    // 读取宽屏和小屏的配置
-    if (props.wideScreen) {
-      this.props.setPageScreen(props.wideScreen);
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,9 +38,6 @@ class JSONSchema extends React.PureComponent {
     // 记录onChange事件
     if (!isEqual(nextProps.onChange, this.props.onChange)) {
       this.props.initOnChange(nextProps.onChange);
-    }
-    if (!isEqual(nextProps.wideScreen, this.props.wideScreen)) {
-      this.props.setPageScreen(nextProps.wideScreen);
     }
   }
 
@@ -131,6 +123,13 @@ class JSONSchema extends React.PureComponent {
         message.warning(`目标位置不支持${curType}类型元素`);
         return;
       }
+
+      // 跨级拖拽排序的时候，记录原始位置元素所在的位置，以便保留其数值
+      if (!curJsonObj['dragSourceIndex']) {
+        // 只保留第一次跨级拖拽时的数值
+        curJsonObj['dragSourceIndex'] = curIndexRoute;
+      }
+
       // 非同级元素拖拽后删除
       if (node.dragOverGapTop) {
         /** 拖拽到目标元素前面 */
