@@ -501,7 +501,7 @@ and limitations under the License.
                   ? r.initializer.call(e)
                   : r.value
                 : void 0;
-              zt(e).addObservableProp(n, i, t);
+              Wt(e).addObservableProp(n, i, t);
             }),
             r = (void 0 !== e && e.env, n);
           return (r.enhancer = t), r;
@@ -515,8 +515,8 @@ and limitations under the License.
             : e;
         }
         Object.freeze(H);
-        var z = V(F),
-          W = V(function (e, t, n) {
+        var W = V(F),
+          z = V(function (e, t, n) {
             return null == e || $t(e) || At(e) || Ft(e) || Ht(e)
               ? e
               : Array.isArray(e)
@@ -571,8 +571,8 @@ and limitations under the License.
               return it(i, e, t, o), i;
             },
             ref: U,
-            shallow: W,
-            deep: z,
+            shallow: z,
+            deep: W,
             struct: q,
           },
           G = function (e, t, n) {
@@ -580,7 +580,7 @@ and limitations under the License.
               'string' == typeof arguments[1] ||
               'symbol' == typeof arguments[1]
             )
-              return z.apply(null, arguments);
+              return W.apply(null, arguments);
             if (ft(e)) return e;
             var r = m(e)
               ? G.object(e, t, n)
@@ -612,7 +612,7 @@ and limitations under the License.
             var i = n.get,
               c = n.set,
               u = o[0] || {};
-            zt(e).addComputedProp(e, t, a({ get: i, set: c, context: e }, u));
+            Wt(e).addComputedProp(e, t, a({ get: i, set: c, context: e }, u));
           }),
           ee = Z({ equals: _.structural }),
           te = function (e, t, n) {
@@ -1352,8 +1352,8 @@ and limitations under the License.
           }
           Me.isRunningReactions = !1;
         }
-        var ze = g('Reaction', Ke);
-        function We(e) {
+        var We = g('Reaction', Ke);
+        function ze(e) {
           var t = Ve;
           Ve = function (n) {
             return e(function () {
@@ -1568,14 +1568,14 @@ and limitations under the License.
                   'WARNING: Debug feature only. MobX will NOT recover from errors when `disableErrorBoundaries` is enabled.',
                 ),
               (Me.disableErrorBoundaries = !!o)),
-            a && We(a);
+            a && ze(a);
         }
         function ot(e, t, n, r) {
           var o = at((r = B(r)));
-          return R(e), zt(e, r.name, o.enhancer), t && it(e, t, n, o), e;
+          return R(e), Wt(e, r.name, o.enhancer), t && it(e, t, n, o), e;
         }
         function at(e) {
-          return e.defaultDecorator || (!1 === e.deep ? U : z);
+          return e.defaultDecorator || (!1 === e.deep ? U : W);
         }
         function it(e, t, n, r) {
           var o, a;
@@ -1630,7 +1630,7 @@ and limitations under the License.
             null != e &&
             (void 0 !== t
               ? !!$t(e) && e[S].values.has(t)
-              : $t(e) || !!e[S] || C(e) || ze(e) || Se(e))
+              : $t(e) || !!e[S] || C(e) || We(e) || Se(e))
           );
         }
         function ft(e) {
@@ -2800,8 +2800,8 @@ and limitations under the License.
                     e,
                     (function (e) {
                       return (
-                        Wt[e] ||
-                        (Wt[e] = {
+                        zt[e] ||
+                        (zt[e] = {
                           configurable: !0,
                           enumerable: !0,
                           get: function () {
@@ -2948,7 +2948,7 @@ and limitations under the License.
               e
             );
           })();
-        function zt(e, t, n) {
+        function Wt(e, t, n) {
           if (
             (void 0 === t && (t = ''),
             void 0 === n && (n = F),
@@ -2960,7 +2960,7 @@ and limitations under the License.
           var r = new Bt(e, new Map(), E(t), n);
           return b(e, S, r), r;
         }
-        var Wt = Object.create(null),
+        var zt = Object.create(null),
           Ut = Object.create(null);
         function qt(e) {
           var t = e[S];
@@ -2983,8 +2983,8 @@ and limitations under the License.
             var r;
             if ((R(e), t && !e[S] && e[t], $t(e)))
               return t ? ((r = e[S].values.get(t)) || p(!1), r) : p(!1);
-            if (C(e) || Se(e) || ze(e)) return e;
-          } else if ('function' == typeof e && ze(e[S])) return e[S];
+            if (C(e) || Se(e) || We(e)) return e;
+          } else if ('function' == typeof e && We(e[S])) return e[S];
           return p(!1);
         }
         function Yt(e, t) {
@@ -2992,7 +2992,7 @@ and limitations under the License.
             e || p('Expecting some object'),
             void 0 !== t
               ? Yt(Gt(e, t))
-              : C(e) || Se(e) || ze(e) || Ft(e) || Ht(e)
+              : C(e) || Se(e) || We(e) || Ft(e) || Ht(e)
               ? e
               : (R(e), e[S] ? e[S] : void p(!1))
           );
@@ -3114,7 +3114,7 @@ and limitations under the License.
         return i;
       });
       var r = n(75);
-      var o = n(88),
+      var o = n(87),
         a = n(61);
       function i(e) {
         return (
@@ -3158,9 +3158,9 @@ and limitations under the License.
       n.d(t, 'a', function () {
         return i;
       });
-      var r = n(89);
+      var r = n(88);
       var o = n(61),
-        a = n(90);
+        a = n(89);
       function i(e, t) {
         return (
           Object(r.a)(e) ||
@@ -3405,6 +3405,11 @@ and limitations under the License.
       e.exports = n(174)();
     },
     function (e, t) {
+      e.exports = function (e) {
+        return e && e.__esModule ? e : { default: e };
+      };
+    },
+    function (e, t) {
       e.exports = function (e, t, n, r, o) {
         var a = {};
         return (
@@ -3430,16 +3435,11 @@ and limitations under the License.
         );
       };
     },
-    function (e, t) {
-      e.exports = function (e) {
-        return e && e.__esModule ? e : { default: e };
-      };
-    },
     function (e, n) {
       e.exports = t;
     },
     function (e, t, n) {
-      var r = n(78);
+      var r = n(77);
       function o() {
         if ('function' != typeof WeakMap) return null;
         var e = new WeakMap();
@@ -3515,7 +3515,7 @@ and limitations under the License.
       var o = y(n(0)),
         a = n(386),
         i = y(n(230)),
-        c = p(n(87)),
+        c = p(n(86)),
         u = n(235),
         s = n(45),
         l = p(n(33)),
@@ -3662,7 +3662,7 @@ and limitations under the License.
     function (e, t, n) {
       'use strict';
       var r = n(13),
-        o = n(11);
+        o = n(10);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
       var a = o(n(98)),
@@ -4567,7 +4567,7 @@ and limitations under the License.
       };
     },
     function (e, t, n) {
-      var r = n(78),
+      var r = n(77),
         o = n(22);
       e.exports = function (e, t) {
         return !t || ('object' !== r(t) && 'function' != typeof t) ? o(e) : t;
@@ -5453,7 +5453,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       var r = n(56),
-        o = n(82);
+        o = n(81);
       e.exports = n(50)
         ? function (e, t, n) {
             return r.f(e, t, o(1, n));
@@ -5533,7 +5533,7 @@ and limitations under the License.
           }
         (n.default = e), t && t.set(e, n);
         return n;
-      })(n(80));
+      })(n(79));
       function a() {
         if ('function' != typeof WeakMap) return null;
         var e = new WeakMap();
@@ -5550,7 +5550,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       var r = n(108)('wks'),
-        o = n(85),
+        o = n(84),
         a = n(44).Symbol,
         i = 'function' == typeof a;
       (e.exports = function (e) {
@@ -7438,17 +7438,6 @@ and limitations under the License.
       t.a = a(F);
     },
     function (e, t) {
-      e.exports = function (e, t, n, r) {
-        n &&
-          Object.defineProperty(e, t, {
-            enumerable: n.enumerable,
-            configurable: n.configurable,
-            writable: n.writable,
-            value: n.initializer ? n.initializer.call(r) : void 0,
-          });
-      };
-    },
-    function (e, t) {
       function n(t) {
         return (
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
@@ -8496,7 +8485,7 @@ and limitations under the License.
           }
         );
       }
-      var b = n(92),
+      var b = n(91),
         g = n(2),
         O = n.n(g);
       function w(e, t) {
@@ -8612,16 +8601,16 @@ and limitations under the License.
         var t = e.style.display;
         (e.style.display = 'none'), e.offsetHeight, (e.style.display = t);
       }
-      function z(e, t, n) {
+      function W(e, t, n) {
         var r = n;
         if ('object' !== N(t))
           return void 0 !== r
             ? ('number' == typeof r && (r = ''.concat(r, 'px')),
               void (e.style[t] = r))
             : K(e, t);
-        for (var o in t) t.hasOwnProperty(o) && z(e, o, t[o]);
+        for (var o in t) t.hasOwnProperty(o) && W(e, o, t[o]);
       }
-      function W(e, t) {
+      function z(e, t) {
         var n = e['page'.concat(t ? 'Y' : 'X', 'Offset')],
           r = 'scroll'.concat(t ? 'Top' : 'Left');
         if ('number' != typeof n) {
@@ -8631,10 +8620,10 @@ and limitations under the License.
         return n;
       }
       function U(e) {
-        return W(e);
+        return z(e);
       }
       function q(e) {
-        return W(e, !0);
+        return z(e, !0);
       }
       function J(e) {
         var t = (function (e) {
@@ -8693,7 +8682,7 @@ and limitations under the License.
           : void 0;
       }
       function te(e, t, n) {
-        'static' === z(e, 'position') && (e.style.position = 'relative');
+        'static' === W(e, 'position') && (e.style.position = 'relative');
         var r = -999,
           o = -999,
           a = Z('left', n),
@@ -8719,7 +8708,7 @@ and limitations under the License.
               m = f[y] - p[y];
             d[h] = h === y ? v + m : v - m;
           }
-        z(e, d), B(e), ('left' in t || 'top' in t) && L(e, l);
+        W(e, d), B(e), ('left' in t || 'top' in t) && L(e, l);
         var b = {};
         for (var g in t)
           if (t.hasOwnProperty(g)) {
@@ -8727,7 +8716,7 @@ and limitations under the License.
               w = t[g] - f[g];
             b[O] = g === O ? d[O] + w : d[O] - w;
           }
-        z(e, b);
+        W(e, b);
       }
       function ne(e, t) {
         var n = J(e),
@@ -8917,7 +8906,7 @@ and limitations under the License.
           if (void 0 === o) return t && fe(t, e, -1);
           if (t) {
             K(t);
-            return oe(t) && (o += ce(t, ['padding', 'border'], n)), z(t, e, o);
+            return oe(t) && (o += ce(t, ['padding', 'border'], n)), W(t, e, o);
           }
         };
       });
@@ -8948,7 +8937,7 @@ and limitations under the License.
         },
         isWindow: $,
         each: re,
-        css: z,
+        css: W,
         clone: function (e) {
           var t,
             n = {};
@@ -9272,7 +9261,7 @@ and limitations under the License.
         );
       }
       (ke.__getOffsetParent = he), (ke.__getVisibleRectForElement = me);
-      var Ne = n(93);
+      var Ne = n(92);
       function Me(e, t) {
         var n = null,
           r = null;
@@ -9539,8 +9528,8 @@ and limitations under the License.
           return Object(u.a)(this, n);
         };
       }
-      var ze = Ie.a;
-      function We(e) {
+      var We = Ie.a;
+      function ze(e) {
         return e && e.motionName;
       }
       var Ue = (function (e) {
@@ -9655,7 +9644,7 @@ and limitations under the License.
                   y && !_
                     ? null
                     : f.a.createElement(
-                        ze,
+                        We,
                         Object.assign({ visible: C }, P, {
                           removeOnLeave: !1,
                           onEnterEnd: e.onMotionEnd,
@@ -9719,7 +9708,7 @@ and limitations under the License.
                       }),
                     )),
                   f.a.createElement(
-                    ze,
+                    We,
                     Object.assign({}, u, { visible: c, removeOnLeave: !0 }),
                     function (t) {
                       var n = t.className;
@@ -9762,7 +9751,7 @@ and limitations under the License.
                           break;
                         case 'afterAlign':
                           this.setStateOnNextFrame({
-                            status: We(this.getMotion())
+                            status: ze(this.getMotion())
                               ? 'beforeMotion'
                               : 'stable',
                           });
@@ -9833,7 +9822,7 @@ and limitations under the License.
                         ? (i.status = 'stable')
                         : n !== o &&
                           (n ||
-                          (We(c) &&
+                          (ze(c) &&
                             ['motion', 'AfterMotion', 'stable'].includes(a))
                             ? (i.status = null)
                             : (i.status = 'stable'),
@@ -11286,7 +11275,7 @@ and limitations under the License.
                                 }));
                           var B = l - 1;
                           B < 0 && (B = 0);
-                          var z = g({
+                          var W = g({
                             locatedItemRelativeTop: R,
                             locatedItemIndex: I,
                             compareItemIndex: B,
@@ -11299,11 +11288,11 @@ and limitations under the License.
                           });
                           'SWITCH_TO_RAW' === j
                             ? this.setState({
-                                cacheScroll: { itemIndex: B, relativeTop: z },
+                                cacheScroll: { itemIndex: B, relativeTop: W },
                               })
                             : this.internalScrollTo({
                                 itemIndex: B,
-                                relativeTop: z,
+                                relativeTop: W,
                               });
                         } else
                           'SWITCH_TO_RAW' === j &&
@@ -11504,6 +11493,17 @@ and limitations under the License.
           })(r.Component)).defaultProps = { itemHeight: 15, data: [] }),
           T);
       t.a = A;
+    },
+    function (e, t) {
+      e.exports = function (e, t, n, r) {
+        n &&
+          Object.defineProperty(e, t, {
+            enumerable: n.enumerable,
+            configurable: n.configurable,
+            writable: n.writable,
+            value: n.initializer ? n.initializer.call(r) : void 0,
+          });
+      };
     },
     function (e, t, n) {
       'use strict';
@@ -11779,7 +11779,7 @@ and limitations under the License.
     function (e, t, n) {
       'use strict';
       var r = n(13),
-        o = n(11);
+        o = n(10);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.warning = function (e, t) {
           (0, s.default)(e, '[@ant-design/icons] '.concat(t));
@@ -11819,10 +11819,10 @@ and limitations under the License.
         }),
         (t.useInsertStyles = t.iconStyles = t.svgBaseProps = void 0);
       var a = o(n(48)),
-        i = o(n(78)),
+        i = o(n(77)),
         c = n(126),
         u = r(n(0)),
-        s = o(n(80)),
+        s = o(n(79)),
         l = n(127);
       function f(e, t) {
         var n = Object.keys(e);
@@ -11938,7 +11938,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       var r = n(108)('keys'),
-        o = n(85);
+        o = n(84);
       e.exports = function (e) {
         return r[e] || (r[e] = o(e));
       };
@@ -11951,7 +11951,7 @@ and limitations under the License.
         return a[e] || (a[e] = void 0 !== t ? t : {});
       })('versions', []).push({
         version: r.version,
-        mode: n(84) ? 'pure' : 'global',
+        mode: n(83) ? 'pure' : 'global',
         copyright: '© 2019 Denis Pushkarev (zloirock.ru)',
       });
     },
@@ -12368,8 +12368,8 @@ and limitations under the License.
             V = F.autoInsertSpaceInButton,
             H = F.direction,
             B = t || r.createRef(),
-            z = r.useRef(),
-            W = function () {
+            W = r.useRef(),
+            z = function () {
               return (
                 1 === r.Children.count(P) && !C && 'link' !== y && 'text' !== y
               );
@@ -12377,9 +12377,9 @@ and limitations under the License.
           (i = 'object' === O(s) && s.delay ? s.delay || !0 : !!s),
             r.useEffect(
               function () {
-                clearTimeout(z.current),
+                clearTimeout(W.current),
                   'number' == typeof i
-                    ? (z.current = window.setTimeout(function () {
+                    ? (W.current = window.setTimeout(function () {
                         A(i);
                       }, i))
                     : A(i);
@@ -12391,7 +12391,7 @@ and limitations under the License.
                 !(function () {
                   if (B && B.current && !1 !== V) {
                     var e = B.current.textContent;
-                    W() && E(e) ? I || L(!0) : I && L(!1);
+                    z() && E(e) ? I || L(!0) : I && L(!1);
                   }
                 })();
               },
@@ -12443,7 +12443,7 @@ and limitations under the License.
                     prefixCls: q,
                     loading: !!D,
                   }),
-            Q = P || 0 === P ? x(P, W() && J) : null,
+            Q = P || 0 === P ? x(P, z() && J) : null,
             Z = (0, a.default)(N, ['htmlType', 'loading']);
           if (void 0 !== Z.href)
             return r.createElement(
@@ -12684,7 +12684,7 @@ and limitations under the License.
     function (e, t, n) {
       var r = n(44),
         o = n(49),
-        a = n(84),
+        a = n(83),
         i = n(121),
         c = n(56).f;
       e.exports = function (e) {
@@ -12789,7 +12789,7 @@ and limitations under the License.
         l = n(112),
         f = h(n(74)),
         p = n(116),
-        d = h(n(87)),
+        d = h(n(86)),
         y = n(15);
       function h(e) {
         return e && e.__esModule ? e : { default: e };
@@ -12961,7 +12961,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11);
+      var r = n(10);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.arrDel = function (e, t) {
           var n = e.slice(),
@@ -13079,10 +13079,10 @@ and limitations under the License.
           );
         });
       var o = r(n(40)),
-        a = r(n(78)),
+        a = r(n(77)),
         i = r(n(68)),
         c = r(n(0)),
-        u = r(n(80)),
+        u = r(n(79)),
         s = r(n(354));
       var l = function (e) {
         return e;
@@ -13263,7 +13263,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11);
+      var r = n(10);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
       var o = r(n(68)),
@@ -14432,7 +14432,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(84),
+      var r = n(83),
         o = n(69),
         a = n(155),
         i = n(55),
@@ -14514,8 +14514,8 @@ and limitations under the License.
         };
     },
     function (e, t, n) {
-      var r = n(86),
-        o = n(82),
+      var r = n(85),
+        o = n(81),
         a = n(58),
         i = n(104),
         c = n(51),
@@ -15739,7 +15739,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11);
+      var r = n(10);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.getKey = p),
         (t.warningWithoutKey = function () {
@@ -15943,7 +15943,7 @@ and limitations under the License.
         a = r(n(48)),
         i = r(n(68)),
         c = r(n(357)),
-        u = r(n(80)),
+        u = r(n(79)),
         s = n(125);
       function l(e, t) {
         var n = Object.keys(e);
@@ -17408,7 +17408,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -17587,16 +17587,16 @@ and limitations under the License.
                 if (N[e]) (e = N[e]), (n = !0);
                 else if ('transparent' == e)
                   return { r: 0, g: 0, b: 0, a: 0, format: 'name' };
-                if ((t = z.rgb.exec(e))) return { r: t[1], g: t[2], b: t[3] };
-                if ((t = z.rgba.exec(e)))
+                if ((t = W.rgb.exec(e))) return { r: t[1], g: t[2], b: t[3] };
+                if ((t = W.rgba.exec(e)))
                   return { r: t[1], g: t[2], b: t[3], a: t[4] };
-                if ((t = z.hsl.exec(e))) return { h: t[1], s: t[2], l: t[3] };
-                if ((t = z.hsla.exec(e)))
+                if ((t = W.hsl.exec(e))) return { h: t[1], s: t[2], l: t[3] };
+                if ((t = W.hsla.exec(e)))
                   return { h: t[1], s: t[2], l: t[3], a: t[4] };
-                if ((t = z.hsv.exec(e))) return { h: t[1], s: t[2], v: t[3] };
-                if ((t = z.hsva.exec(e)))
+                if ((t = W.hsv.exec(e))) return { h: t[1], s: t[2], v: t[3] };
+                if ((t = W.hsva.exec(e)))
                   return { h: t[1], s: t[2], v: t[3], a: t[4] };
-                if ((t = z.hex8.exec(e)))
+                if ((t = W.hex8.exec(e)))
                   return {
                     r: R(t[1]),
                     g: R(t[2]),
@@ -17604,14 +17604,14 @@ and limitations under the License.
                     a: K(t[4]),
                     format: n ? 'name' : 'hex8',
                   };
-                if ((t = z.hex6.exec(e)))
+                if ((t = W.hex6.exec(e)))
                   return {
                     r: R(t[1]),
                     g: R(t[2]),
                     b: R(t[3]),
                     format: n ? 'name' : 'hex',
                   };
-                if ((t = z.hex4.exec(e)))
+                if ((t = W.hex4.exec(e)))
                   return {
                     r: R(t[1] + '' + t[1]),
                     g: R(t[2] + '' + t[2]),
@@ -17619,7 +17619,7 @@ and limitations under the License.
                     a: K(t[4] + '' + t[4]),
                     format: n ? 'name' : 'hex8',
                   };
-                if ((t = z.hex3.exec(e)))
+                if ((t = W.hex3.exec(e)))
                   return {
                     r: R(t[1] + '' + t[1]),
                     g: R(t[2] + '' + t[2]),
@@ -17629,7 +17629,7 @@ and limitations under the License.
                 return !1;
               })(e));
             'object' == typeof e &&
-              (W(e.r) && W(e.g) && W(e.b)
+              (z(e.r) && z(e.g) && z(e.b)
                 ? ((d = e.r),
                   (y = e.g),
                   (h = e.b),
@@ -17640,7 +17640,7 @@ and limitations under the License.
                   }),
                   (f = !0),
                   (p = '%' === String(e.r).substr(-1) ? 'prgb' : 'rgb'))
-                : W(e.h) && W(e.s) && W(e.v)
+                : z(e.h) && z(e.s) && z(e.v)
                 ? ((r = L(e.s)),
                   (c = L(e.v)),
                   (t = (function (e, t, n) {
@@ -17659,9 +17659,9 @@ and limitations under the License.
                   })(e.h, r, c)),
                   (f = !0),
                   (p = 'hsv'))
-                : W(e.h) &&
-                  W(e.s) &&
-                  W(e.l) &&
+                : z(e.h) &&
+                  z(e.s) &&
+                  z(e.l) &&
                   ((r = L(e.s)),
                   (u = L(e.l)),
                   (t = (function (e, t, n) {
@@ -18422,7 +18422,7 @@ and limitations under the License.
         var V,
           H,
           B,
-          z =
+          W =
             ((H =
               '[\\s|\\(]+(' +
               (V = '(?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?)') +
@@ -18454,8 +18454,8 @@ and limitations under the License.
               hex4: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
               hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,
             });
-        function W(e) {
-          return !!z.CSS_UNIT.exec(e);
+        function z(e) {
+          return !!W.CSS_UNIT.exec(e);
         }
         e.exports
           ? (e.exports = p)
@@ -18467,7 +18467,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11);
+      var r = n(10);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.setTwoToneColor = function (e) {
           var t = (0, i.normalizeTwoToneColors)(e),
@@ -18498,7 +18498,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -18538,7 +18538,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -18586,7 +18586,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -18634,7 +18634,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -18769,9 +18769,9 @@ and limitations under the License.
     function (e, t, n) {
       'use strict';
       var r = n(50),
-        o = n(83),
+        o = n(82),
         a = n(110),
-        i = n(86),
+        i = n(85),
         c = n(111),
         u = n(138),
         s = Object.assign;
@@ -19861,7 +19861,7 @@ and limitations under the License.
         })(n(0)),
         a = l(n(2)),
         i = n(15),
-        c = l(n(87)),
+        c = l(n(86)),
         u = l(n(238)),
         s = l(n(239));
       function l(e) {
@@ -20478,7 +20478,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -20518,7 +20518,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -20565,7 +20565,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -20612,7 +20612,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -20659,7 +20659,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -20870,7 +20870,7 @@ and limitations under the License.
     function (e, t, n) {
       'use strict';
       var r = n(13),
-        o = n(11);
+        o = n(10);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = function (e) {
           var t = c.useRef({}),
@@ -20905,7 +20905,7 @@ and limitations under the License.
     function (e, t, n) {
       'use strict';
       var r = n(13),
-        o = n(11);
+        o = n(10);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
       var a = o(n(48)),
@@ -21155,7 +21155,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -21203,7 +21203,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -21243,7 +21243,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -22997,7 +22997,7 @@ and limitations under the License.
         f = n(39),
         p = n(5),
         d = n(37),
-        y = n(93);
+        y = n(92);
       function h(e, t) {
         var n = Object.keys(e);
         if (Object.getOwnPropertySymbols) {
@@ -23591,7 +23591,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -23639,7 +23639,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -23703,7 +23703,7 @@ and limitations under the License.
         i = n(0),
         c = n(2),
         u = n.n(c),
-        s = n(91),
+        s = n(90),
         l = n(8),
         f = i.forwardRef(function (e, t) {
           var n,
@@ -23834,7 +23834,7 @@ and limitations under the License.
     function (e, t, n) {
       'use strict';
       var r = n(119),
-        o = n(82),
+        o = n(81),
         a = n(120),
         i = {};
       n(55)(i, n(60)('iterator'), function () {
@@ -23847,7 +23847,7 @@ and limitations under the License.
     function (e, t, n) {
       var r = n(56),
         o = n(70),
-        a = n(83);
+        a = n(82);
       e.exports = n(50)
         ? Object.defineProperties
         : function (e, t) {
@@ -23953,7 +23953,7 @@ and limitations under the License.
         s = n(71),
         l = n(108),
         f = n(120),
-        p = n(85),
+        p = n(84),
         d = n(60),
         y = n(121),
         h = n(122),
@@ -23964,13 +23964,13 @@ and limitations under the License.
         O = n(111),
         w = n(58),
         j = n(104),
-        E = n(82),
+        E = n(81),
         x = n(119),
         S = n(315),
         P = n(157),
         C = n(110),
         k = n(56),
-        _ = n(83),
+        _ = n(82),
         N = P.f,
         M = k.f,
         T = S.f,
@@ -23984,9 +23984,9 @@ and limitations under the License.
         V = l('symbols'),
         H = l('op-symbols'),
         B = Object.prototype,
-        z = 'function' == typeof D && !!C.f,
-        W = r.QObject,
-        U = !W || !W.prototype || !W.prototype.findChild,
+        W = 'function' == typeof D && !!C.f,
+        z = r.QObject,
+        U = !z || !z.prototype || !z.prototype.findChild,
         q =
           a &&
           s(function () {
@@ -24011,7 +24011,7 @@ and limitations under the License.
           return (t._k = e), t;
         },
         $ =
-          z && 'symbol' == typeof D.iterator
+          W && 'symbol' == typeof D.iterator
             ? function (e) {
                 return 'symbol' == typeof e;
               }
@@ -24068,7 +24068,7 @@ and limitations under the License.
             !o(V, (t = r[i++])) || (n && !o(B, t)) || a.push(V[t]);
           return a;
         };
-      z ||
+      W ||
         (c(
           (D = function () {
             if (this instanceof D)
@@ -24089,13 +24089,13 @@ and limitations under the License.
         (P.f = Q),
         (k.f = G),
         (n(156).f = S.f = Z),
-        (n(86).f = X),
+        (n(85).f = X),
         (C.f = ee),
-        a && !n(84) && c(B, 'propertyIsEnumerable', X, !0),
+        a && !n(83) && c(B, 'propertyIsEnumerable', X, !0),
         (y.f = function (e) {
           return J(d(e));
         })),
-        i(i.G + i.W + i.F * !z, { Symbol: D });
+        i(i.G + i.W + i.F * !W, { Symbol: D });
       for (
         var te = 'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'.split(
             ',',
@@ -24106,7 +24106,7 @@ and limitations under the License.
       )
         d(te[ne++]);
       for (var re = _(d.store), oe = 0; re.length > oe; ) h(re[oe++]);
-      i(i.S + i.F * !z, 'Symbol', {
+      i(i.S + i.F * !W, 'Symbol', {
         for: function (e) {
           return o(K, (e += '')) ? K[e] : (K[e] = D(e));
         },
@@ -24121,7 +24121,7 @@ and limitations under the License.
           U = !1;
         },
       }),
-        i(i.S + i.F * !z, 'Object', {
+        i(i.S + i.F * !W, 'Object', {
           create: function (e, t) {
             return void 0 === t ? x(e) : Y(x(e), t);
           },
@@ -24143,7 +24143,7 @@ and limitations under the License.
           i(
             i.S +
               i.F *
-                (!z ||
+                (!W ||
                   s(function () {
                     var e = D();
                     return (
@@ -24179,7 +24179,7 @@ and limitations under the License.
         f(r.JSON, 'JSON', !0);
     },
     function (e, t, n) {
-      var r = n(85)('meta'),
+      var r = n(84)('meta'),
         o = n(57),
         a = n(51),
         i = n(56).f,
@@ -24224,9 +24224,9 @@ and limitations under the License.
         });
     },
     function (e, t, n) {
-      var r = n(83),
+      var r = n(82),
         o = n(110),
-        a = n(86);
+        a = n(85);
       e.exports = function (e) {
         var t = r(e),
           n = o.f;
@@ -25238,8 +25238,8 @@ and limitations under the License.
                       (H[e] = I[e]);
                   });
                   var B = !a && !r,
-                    z = this.getInputDisplayValue(),
-                    W =
+                    W = this.getInputDisplayValue(),
+                    z =
                       ((F || 0 === F) && (isNaN(F) || Number(F) >= v)) ||
                       r ||
                       a,
@@ -25250,7 +25250,7 @@ and limitations under the License.
                     q = i()(
                       n + '-handler',
                       n + '-handler-up',
-                      l({}, n + '-handler-up-disabled', W),
+                      l({}, n + '-handler-up-disabled', z),
                     ),
                     J = i()(
                       n + '-handler',
@@ -25258,9 +25258,9 @@ and limitations under the License.
                       l({}, n + '-handler-down-disabled', U),
                     ),
                     $ = c
-                      ? { onTouchStart: W ? f : this.up, onTouchEnd: this.stop }
+                      ? { onTouchStart: z ? f : this.up, onTouchEnd: this.stop }
                       : {
-                          onMouseDown: W ? f : this.up,
+                          onMouseDown: z ? f : this.up,
                           onMouseUp: this.stop,
                           onMouseLeave: this.stop,
                         },
@@ -25299,7 +25299,7 @@ and limitations under the License.
                         u({ unselectable: 'unselectable' }, $, {
                           role: 'button',
                           'aria-label': 'Increase Value',
-                          'aria-disabled': W,
+                          'aria-disabled': z,
                           className: q,
                         }),
                         d ||
@@ -25360,7 +25360,7 @@ and limitations under the License.
                             id: _,
                             onChange: this.onChange,
                             ref: this.saveInput,
-                            value: this.getFullNum(z),
+                            value: this.getFullNum(W),
                             pattern: M,
                             inputMode: N,
                           },
@@ -25525,7 +25525,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -26108,7 +26108,7 @@ and limitations under the License.
         })(n(0)),
         a = s(n(160)),
         i = s(n(113)),
-        c = s(n(87)),
+        c = s(n(86)),
         u = n(15);
       function s(e) {
         return e && e.__esModule ? e : { default: e };
@@ -26880,7 +26880,7 @@ and limitations under the License.
     function (e, t, n) {
       'use strict';
       var r = n(13),
-        o = n(11);
+        o = n(10);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = t.InternalTreeNode = void 0);
       var a = o(n(68)),
@@ -27398,7 +27398,7 @@ and limitations under the License.
     function (e, t, n) {
       'use strict';
       var r = n(13),
-        o = n(11);
+        o = n(10);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
       var a = o(n(48)),
@@ -27460,7 +27460,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -27508,7 +27508,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -27556,7 +27556,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -27802,7 +27802,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -27857,7 +27857,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -27912,7 +27912,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(10),
         o = n(13);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
@@ -27984,7 +27984,7 @@ and limitations under the License.
       'use strict';
       n.r(t),
         n.d(t, 'default', function () {
-          return or;
+          return nr;
         });
       var r = n(29),
         o = n.n(r),
@@ -28282,8 +28282,8 @@ and limitations under the License.
           ? R(e)
           : Object(b.c)(e);
       }
-      function z() {
-        return (z =
+      function W() {
+        return (W =
           Object.assign ||
           function (e) {
             for (var t = 1; t < arguments.length; t++) {
@@ -28294,7 +28294,7 @@ and limitations under the License.
             return e;
           }).apply(this, arguments);
       }
-      var W = y.a.createContext({});
+      var z = y.a.createContext({});
       function U(e) {
         var t = e.children,
           n = (function (e, t) {
@@ -28307,17 +28307,17 @@ and limitations under the License.
               (n = a[r]), t.indexOf(n) >= 0 || (o[n] = e[n]);
             return o;
           })(e, ['children']),
-          r = y.a.useContext(W),
-          o = y.a.useRef(z({}, r, {}, n)).current;
-        return y.a.createElement(W.Provider, { value: o }, t);
+          r = y.a.useContext(z),
+          o = y.a.useRef(W({}, r, {}, n)).current;
+        return y.a.createElement(z.Provider, { value: o }, t);
       }
       function q(e, t, n, r) {
         var o,
           a,
           i,
           c = y.a.forwardRef(function (n, r) {
-            var o = z({}, n),
-              a = y.a.useContext(W);
+            var o = W({}, n),
+              a = y.a.useContext(z);
             return (
               Object.assign(o, e(a || {}, o) || {}),
               r && (o.ref = r),
@@ -28392,11 +28392,11 @@ and limitations under the License.
         Y = n.n(G),
         X = n(40),
         Q = n.n(X),
-        Z = (n(79), n(33)),
+        Z = (n(78), n(33)),
         ee = n.n(Z),
-        te = n(77),
+        te = n(95),
         ne = n.n(te),
-        re = n(10),
+        re = n(11),
         oe = n.n(re),
         ae =
           (n(182),
@@ -28910,16 +28910,14 @@ and limitations under the License.
         Ve,
         He,
         Be,
-        ze,
         We,
+        ze,
         Ue,
         qe,
         Je,
         $e,
         Ge,
-        Ye,
-        Xe,
-        Qe = {
+        Ye = {
           func: [
             'input',
             'boolean',
@@ -29013,7 +29011,7 @@ and limitations under the License.
             'object',
           ],
         },
-        Ze = [
+        Xe = [
           'key',
           'enum',
           'enumextra',
@@ -29038,7 +29036,7 @@ and limitations under the License.
           'array',
           'object',
         ],
-        et = {
+        Qe = {
           jsonSchemaStore: new ((Oe = m.f.bound),
           (we = m.f.bound),
           (je = m.f.bound),
@@ -29062,28 +29060,19 @@ and limitations under the License.
           (Ve = m.f.bound),
           (He = m.f.bound),
           (Be = m.f.bound),
-          (ze = m.f.bound),
           (We = m.f.bound),
+          (ze = m.f.bound),
           (Ue = m.f.bound),
-          (qe = m.f.bound),
-          (Je = (function () {
+          (qe = (function () {
             function e() {
               o()(this, e),
                 (this.curJsonKeyIndex = 1),
-                ne()(this, 'triggerChange', $e, this),
-                ne()(this, 'jsonSchema', Ge, this),
-                ne()(this, 'pageScreen', Ye, this),
-                ne()(this, 'onChange', Xe, this);
+                ne()(this, 'triggerChange', Je, this),
+                ne()(this, 'jsonSchema', $e, this),
+                ne()(this, 'onChange', Ge, this);
             }
             return (
               i()(e, [
-                {
-                  key: 'setPageScreen',
-                  value: function (e) {
-                    this.pageScreen =
-                      'wideScreen' === e || e ? 'wideScreen' : 'mobileScreen';
-                  },
-                },
                 {
                   key: 'triggerChangeAction',
                   value: function () {
@@ -29227,8 +29216,8 @@ and limitations under the License.
                       r = this.getJSONDataByIndex(n);
                     return (
                       !!(r.propertyOrder && r.propertyOrder.indexOf(t) >= 0) ||
-                      (Ze &&
-                        Ze.indexOf(t) >= 0 &&
+                      (Xe &&
+                        Xe.indexOf(t) >= 0 &&
                         ee.a.warning(
                           ''.concat(
                             t,
@@ -29244,7 +29233,7 @@ and limitations under the License.
                   value: function (e, t) {
                     var n = ve(e),
                       r = this.getJSONDataByIndex(n),
-                      o = Qe[r.format];
+                      o = Ye[r.format];
                     return !!(o && o.indexOf(t) >= 0);
                   },
                 },
@@ -29366,8 +29355,8 @@ and limitations under the License.
                       t >= 0 && a.splice(t, 1), a.indexOf(n) >= 0 && (r = !0);
                     }
                     return (
-                      Ze &&
-                        Ze.indexOf(n) >= 0 &&
+                      Xe &&
+                        Xe.indexOf(n) >= 0 &&
                         ee.a.warning(
                           ''.concat(
                             n,
@@ -29468,7 +29457,7 @@ and limitations under the License.
               e
             );
           })()),
-          ($e = oe()(Je.prototype, 'triggerChange', [m.n], {
+          (Je = oe()(qe.prototype, 'triggerChange', [m.n], {
             configurable: !0,
             enumerable: !0,
             writable: !0,
@@ -29476,7 +29465,7 @@ and limitations under the License.
               return !1;
             },
           })),
-          (Ge = oe()(Je.prototype, 'jsonSchema', [m.n], {
+          ($e = oe()(qe.prototype, 'jsonSchema', [m.n], {
             configurable: !0,
             enumerable: !0,
             writable: !0,
@@ -29484,15 +29473,7 @@ and limitations under the License.
               return {};
             },
           })),
-          (Ye = oe()(Je.prototype, 'pageScreen', [m.n], {
-            configurable: !0,
-            enumerable: !0,
-            writable: !0,
-            initializer: function () {
-              return 'wideScreen';
-            },
-          })),
-          (Xe = oe()(Je.prototype, 'onChange', [m.n], {
+          (Ge = oe()(qe.prototype, 'onChange', [m.n], {
             configurable: !0,
             enumerable: !0,
             writable: !0,
@@ -29501,224 +29482,217 @@ and limitations under the License.
             },
           })),
           oe()(
-            Je.prototype,
-            'setPageScreen',
-            [Oe],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'setPageScreen'),
-            Je.prototype,
-          ),
-          oe()(
-            Je.prototype,
+            qe.prototype,
             'triggerChangeAction',
-            [we],
+            [Oe],
             Object.getOwnPropertyDescriptor(
-              Je.prototype,
+              qe.prototype,
               'triggerChangeAction',
             ),
-            Je.prototype,
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'initJSONSchemaData',
-            [je],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'initJSONSchemaData'),
-            Je.prototype,
+            [we],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'initJSONSchemaData'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'JSONSchemaObj',
             [m.g],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'JSONSchemaObj'),
-            Je.prototype,
+            Object.getOwnPropertyDescriptor(qe.prototype, 'JSONSchemaObj'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'initOnChange',
-            [Ee],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'initOnChange'),
-            Je.prototype,
+            [je],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'initOnChange'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'jsonSchemaChange',
-            [xe],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'jsonSchemaChange'),
-            Je.prototype,
+            [Ee],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'jsonSchemaChange'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'getJSONDataByIndex',
-            [Se],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'getJSONDataByIndex'),
-            Je.prototype,
+            [xe],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'getJSONDataByIndex'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'getNewJsonKeyIndex',
-            [Pe],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'getNewJsonKeyIndex'),
-            Je.prototype,
+            [Se],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'getNewJsonKeyIndex'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'isExitJsonKey',
-            [Ce],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'isExitJsonKey'),
-            Je.prototype,
+            [Pe],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'isExitJsonKey'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'isSupportCurType',
-            [ke],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'isSupportCurType'),
-            Je.prototype,
+            [Ce],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'isSupportCurType'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'addChildJson',
-            [_e],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'addChildJson'),
-            Je.prototype,
+            [ke],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'addChildJson'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'editJsonData',
-            [Ne],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'editJsonData'),
-            Je.prototype,
+            [_e],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'editJsonData'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'changeType',
-            [Me],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'changeType'),
-            Je.prototype,
+            [Ne],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'changeType'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'updateJsonData',
-            [Te],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'updateJsonData'),
-            Je.prototype,
+            [Me],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'updateJsonData'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'editJsonKey',
-            [De],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'editJsonKey'),
-            Je.prototype,
+            [Te],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'editJsonKey'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'addNextJsonData',
-            [Ae],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'addNextJsonData'),
-            Je.prototype,
+            [De],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'addNextJsonData'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'insertJsonData',
-            [Re],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'insertJsonData'),
-            Je.prototype,
+            [Ae],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'insertJsonData'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'deleteJsonByIndex_CurKey',
-            [Ie],
+            [Re],
             Object.getOwnPropertyDescriptor(
-              Je.prototype,
+              qe.prototype,
               'deleteJsonByIndex_CurKey',
             ),
-            Je.prototype,
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'deleteJsonByIndex',
-            [Le],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'deleteJsonByIndex'),
-            Je.prototype,
+            [Ie],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'deleteJsonByIndex'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'updateEnumItem',
-            [Fe],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'updateEnumItem'),
-            Je.prototype,
+            [Le],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'updateEnumItem'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'isExitEnumKey',
-            [Ke],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'isExitEnumKey'),
-            Je.prototype,
+            [Fe],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'isExitEnumKey'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'updateEnumKey',
-            [Ve],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'updateEnumKey'),
-            Je.prototype,
+            [Ke],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'updateEnumKey'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'updateEnumText',
-            [He],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'updateEnumText'),
-            Je.prototype,
+            [Ve],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'updateEnumText'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'deleteEnumItem',
-            [Be],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'deleteEnumItem'),
-            Je.prototype,
+            [He],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'deleteEnumItem'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'insertEnumItem',
-            [ze],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'insertEnumItem'),
-            Je.prototype,
+            [Be],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'insertEnumItem'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'getNewEnumIndex',
             [We],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'getNewEnumIndex'),
-            Je.prototype,
+            Object.getOwnPropertyDescriptor(qe.prototype, 'getNewEnumIndex'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'addEnumItem',
-            [Ue],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'addEnumItem'),
-            Je.prototype,
+            [ze],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'addEnumItem'),
+            qe.prototype,
           ),
           oe()(
-            Je.prototype,
+            qe.prototype,
             'copyEnumItem',
-            [qe],
-            Object.getOwnPropertyDescriptor(Je.prototype, 'copyEnumItem'),
-            Je.prototype,
+            [Ue],
+            Object.getOwnPropertyDescriptor(qe.prototype, 'copyEnumItem'),
+            qe.prototype,
           ),
-          Je)(),
+          qe)(),
         },
-        tt = (n(43), n(25)),
+        Ze = (n(43), n(25)),
+        et = n.n(Ze),
+        tt = (n(205), n(171)),
         nt = n.n(tt),
-        rt = (n(205), n(171)),
+        rt = (n(101), n(74)),
         ot = n.n(rt),
-        at = (n(101), n(74)),
+        at = (n(102), n(21)),
         it = n.n(at),
-        ct = (n(102), n(21)),
+        ct = (n(80), n(34)),
         ut = n.n(ct),
-        st = (n(81), n(34)),
+        st = n(22),
         lt = n.n(st),
-        ft = n(22),
+        ft = (n(103), n(41)),
         pt = n.n(ft),
-        dt = (n(103), n(41)),
-        yt = n.n(dt),
-        ht = {
+        dt = {
           icon: {
             tag: 'svg',
             attrs: { viewBox: '64 64 896 896', focusable: 'false' },
@@ -29735,16 +29709,16 @@ and limitations under the License.
           name: 'close',
           theme: 'outlined',
         },
-        vt = n(6),
-        mt = n(1),
-        bt = n(7),
-        gt = n(2),
-        Ot = n.n(gt),
-        wt = n(20),
-        jt = n(126),
-        Et = n(5),
-        xt = n(127);
-      function St(e, t) {
+        yt = n(6),
+        ht = n(1),
+        vt = n(7),
+        mt = n(2),
+        bt = n.n(mt),
+        gt = n(20),
+        Ot = n(126),
+        wt = n(5),
+        jt = n(127);
+      function Et(e, t) {
         var n = Object.keys(e);
         if (Object.getOwnPropertySymbols) {
           var r = Object.getOwnPropertySymbols(e);
@@ -29756,16 +29730,16 @@ and limitations under the License.
         }
         return n;
       }
-      function Pt(e) {
+      function xt(e) {
         for (var t = 1; t < arguments.length; t++) {
           var n = null != arguments[t] ? arguments[t] : {};
           t % 2
-            ? St(Object(n), !0).forEach(function (t) {
-                Object(mt.a)(e, t, n[t]);
+            ? Et(Object(n), !0).forEach(function (t) {
+                Object(ht.a)(e, t, n[t]);
               })
             : Object.getOwnPropertyDescriptors
             ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n))
-            : St(Object(n)).forEach(function (t) {
+            : Et(Object(n)).forEach(function (t) {
                 Object.defineProperty(
                   e,
                   t,
@@ -29775,15 +29749,15 @@ and limitations under the License.
         }
         return e;
       }
-      function Ct(e) {
+      function St(e) {
         return (
-          'object' === Object(wt.a)(e) &&
+          'object' === Object(gt.a)(e) &&
           'string' == typeof e.name &&
           'string' == typeof e.theme &&
-          ('object' === Object(wt.a)(e.icon) || 'function' == typeof e.icon)
+          ('object' === Object(gt.a)(e.icon) || 'function' == typeof e.icon)
         );
       }
-      function kt() {
+      function Pt() {
         var e =
           arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
         return Object.keys(e).reduce(function (t, n) {
@@ -29798,16 +29772,16 @@ and limitations under the License.
           return t;
         }, {});
       }
-      function _t(e) {
-        return Object(jt.generate)(e)[0];
+      function Ct(e) {
+        return Object(Ot.generate)(e)[0];
       }
-      function Nt(e) {
+      function kt(e) {
         return e ? (Array.isArray(e) ? e : [e]) : [];
       }
-      var Mt =
+      var _t =
           '\n.anticon {\n  display: inline-block;\n  color: inherit;\n  font-style: normal;\n  line-height: 0;\n  text-align: center;\n  text-transform: none;\n  vertical-align: -0.125em;\n  text-rendering: optimizeLegibility;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n.anticon > * {\n  line-height: 1;\n}\n\n.anticon svg {\n  display: inline-block;\n}\n\n.anticon::before {\n  display: none;\n}\n\n.anticon .anticon-icon {\n  display: block;\n}\n\n.anticon[tabindex] {\n  cursor: pointer;\n}\n\n.anticon-spin::before,\n.anticon-spin {\n  display: inline-block;\n  -webkit-animation: loadingCircle 1s infinite linear;\n  animation: loadingCircle 1s infinite linear;\n}\n\n@-webkit-keyframes loadingCircle {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n\n@keyframes loadingCircle {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n',
-        Tt = !1;
-      function Dt(e, t) {
+        Nt = !1;
+      function Mt(e, t) {
         var n = Object.keys(e);
         if (Object.getOwnPropertySymbols) {
           var r = Object.getOwnPropertySymbols(e);
@@ -29819,16 +29793,16 @@ and limitations under the License.
         }
         return n;
       }
-      function At(e) {
+      function Tt(e) {
         for (var t = 1; t < arguments.length; t++) {
           var n = null != arguments[t] ? arguments[t] : {};
           t % 2
-            ? Dt(Object(n), !0).forEach(function (t) {
-                Object(mt.a)(e, t, n[t]);
+            ? Mt(Object(n), !0).forEach(function (t) {
+                Object(ht.a)(e, t, n[t]);
               })
             : Object.getOwnPropertyDescriptors
             ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n))
-            : Dt(Object(n)).forEach(function (t) {
+            : Mt(Object(n)).forEach(function (t) {
                 Object.defineProperty(
                   e,
                   t,
@@ -29838,12 +29812,12 @@ and limitations under the License.
         }
         return e;
       }
-      var Rt = {
+      var Dt = {
         primaryColor: '#333',
         secondaryColor: '#E6E6E6',
         calculated: !1,
       };
-      var It = function (e) {
+      var At = function (e) {
         var t,
           n,
           r = e.icon,
@@ -29852,7 +29826,7 @@ and limitations under the License.
           i = e.style,
           c = e.primaryColor,
           u = e.secondaryColor,
-          s = Object(bt.a)(e, [
+          s = Object(vt.a)(e, [
             'icon',
             'className',
             'onClick',
@@ -29860,30 +29834,30 @@ and limitations under the License.
             'primaryColor',
             'secondaryColor',
           ]),
-          l = Rt;
+          l = Dt;
         if (
-          (c && (l = { primaryColor: c, secondaryColor: u || _t(c) }),
+          (c && (l = { primaryColor: c, secondaryColor: u || Ct(c) }),
           (function () {
             var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
-                : Mt;
+                : _t;
             Object(d.useEffect)(function () {
-              Tt || (Object(xt.insertCss)(e, { prepend: !0 }), (Tt = !0));
+              Nt || (Object(jt.insertCss)(e, { prepend: !0 }), (Nt = !0));
             }, []);
           })(),
-          (t = Ct(r)),
+          (t = St(r)),
           (n = 'icon should be icon definiton, but got '.concat(r)),
-          Object(Et.a)(t, '[@ant-design/icons] '.concat(n)),
-          !Ct(r))
+          Object(wt.a)(t, '[@ant-design/icons] '.concat(n)),
+          !St(r))
         )
           return null;
         var f = r;
         return (
           f &&
             'function' == typeof f.icon &&
-            (f = At(
-              At({}, f),
+            (f = Tt(
+              Tt({}, f),
               {},
               { icon: f.icon(l.primaryColor, l.secondaryColor) },
             )),
@@ -29891,14 +29865,14 @@ and limitations under the License.
             return r
               ? y.a.createElement(
                   t.tag,
-                  Pt(Pt({ key: n }, kt(t.attrs)), r),
+                  xt(xt({ key: n }, Pt(t.attrs)), r),
                   (t.children || []).map(function (r, o) {
                     return e(r, ''.concat(n, '-').concat(t.tag, '-').concat(o));
                   }),
                 )
               : y.a.createElement(
                   t.tag,
-                  Pt({ key: n }, kt(t.attrs)),
+                  xt({ key: n }, Pt(t.attrs)),
                   (t.children || []).map(function (r, o) {
                     return e(r, ''.concat(n, '-').concat(t.tag, '-').concat(o));
                   }),
@@ -29906,7 +29880,7 @@ and limitations under the License.
           })(
             f.icon,
             'svg-'.concat(f.name),
-            At(
+            Tt(
               {
                 className: o,
                 onClick: a,
@@ -29922,27 +29896,27 @@ and limitations under the License.
           )
         );
       };
-      (It.displayName = 'IconReact'),
-        (It.getTwoToneColors = function () {
-          return At({}, Rt);
+      (At.displayName = 'IconReact'),
+        (At.getTwoToneColors = function () {
+          return Tt({}, Dt);
         }),
-        (It.setTwoToneColors = function (e) {
+        (At.setTwoToneColors = function (e) {
           var t = e.primaryColor,
             n = e.secondaryColor;
-          (Rt.primaryColor = t),
-            (Rt.secondaryColor = n || _t(t)),
-            (Rt.calculated = !!n);
+          (Dt.primaryColor = t),
+            (Dt.secondaryColor = n || Ct(t)),
+            (Dt.calculated = !!n);
         });
-      var Lt = It;
-      function Ft(e) {
-        var t = Nt(e),
-          n = Object(vt.a)(t, 2),
+      var Rt = At;
+      function It(e) {
+        var t = kt(e),
+          n = Object(yt.a)(t, 2),
           r = n[0],
           o = n[1];
-        return Lt.setTwoToneColors({ primaryColor: r, secondaryColor: o });
+        return Rt.setTwoToneColors({ primaryColor: r, secondaryColor: o });
       }
-      Ft('#1890ff');
-      var Kt = d.forwardRef(function (e, t) {
+      It('#1890ff');
+      var Lt = d.forwardRef(function (e, t) {
         var n = e.className,
           r = e.icon,
           o = e.spin,
@@ -29950,7 +29924,7 @@ and limitations under the License.
           i = e.tabIndex,
           c = e.onClick,
           u = e.twoToneColor,
-          s = Object(bt.a)(e, [
+          s = Object(vt.a)(e, [
             'className',
             'icon',
             'spin',
@@ -29959,12 +29933,12 @@ and limitations under the License.
             'onClick',
             'twoToneColor',
           ]),
-          l = Ot()(
+          l = bt()(
             'anticon',
-            Object(mt.a)({}, 'anticon-'.concat(r.name), Boolean(r.name)),
+            Object(ht.a)({}, 'anticon-'.concat(r.name), Boolean(r.name)),
             n,
           ),
-          f = Ot()({ 'anticon-spin': !!o || 'loading' === r.name }),
+          f = bt()({ 'anticon-spin': !!o || 'loading' === r.name }),
           p = i;
         void 0 === p && c && (p = -1);
         var y = a
@@ -29973,8 +29947,8 @@ and limitations under the License.
                 transform: 'rotate('.concat(a, 'deg)'),
               }
             : void 0,
-          h = Nt(u),
-          v = Object(vt.a)(h, 2),
+          h = kt(u),
+          v = Object(yt.a)(h, 2),
           m = v[0],
           b = v[1];
         return d.createElement(
@@ -29985,7 +29959,7 @@ and limitations under the License.
             onClick: c,
             className: l,
           }),
-          d.createElement(Lt, {
+          d.createElement(Rt, {
             className: f,
             icon: r,
             primaryColor: m,
@@ -29994,24 +29968,24 @@ and limitations under the License.
           }),
         );
       });
-      (Kt.displayName = 'AntdIcon'),
-        (Kt.getTwoToneColor = function () {
-          var e = Lt.getTwoToneColors();
+      (Lt.displayName = 'AntdIcon'),
+        (Lt.getTwoToneColor = function () {
+          var e = Rt.getTwoToneColors();
           return e.calculated
             ? [e.primaryColor, e.secondaryColor]
             : e.primaryColor;
         }),
-        (Kt.setTwoToneColor = Ft);
-      var Vt = Kt,
-        Ht = function (e, t) {
+        (Lt.setTwoToneColor = It);
+      var Ft = Lt,
+        Kt = function (e, t) {
           return d.createElement(
-            Vt,
-            Object.assign({}, e, { ref: t, icon: ht }),
+            Ft,
+            Object.assign({}, e, { ref: t, icon: dt }),
           );
         };
-      Ht.displayName = 'CloseOutlined';
-      var Bt = d.forwardRef(Ht),
-        zt = {
+      Kt.displayName = 'CloseOutlined';
+      var Vt = d.forwardRef(Kt),
+        Ht = {
           icon: {
             tag: 'svg',
             attrs: { viewBox: '64 64 896 896', focusable: 'false' },
@@ -30040,15 +30014,15 @@ and limitations under the License.
           name: 'plus',
           theme: 'outlined',
         },
-        Wt = function (e, t) {
+        Bt = function (e, t) {
           return d.createElement(
-            Vt,
-            Object.assign({}, e, { ref: t, icon: zt }),
+            Ft,
+            Object.assign({}, e, { ref: t, icon: Ht }),
           );
         };
-      Wt.displayName = 'PlusOutlined';
-      var Ut = d.forwardRef(Wt),
-        qt = {
+      Bt.displayName = 'PlusOutlined';
+      var Wt = d.forwardRef(Bt),
+        zt = {
           icon: {
             tag: 'svg',
             attrs: { viewBox: '64 64 896 896', focusable: 'false' },
@@ -30065,15 +30039,15 @@ and limitations under the License.
           name: 'copy',
           theme: 'outlined',
         },
-        Jt = function (e, t) {
+        Ut = function (e, t) {
           return d.createElement(
-            Vt,
-            Object.assign({}, e, { ref: t, icon: qt }),
+            Ft,
+            Object.assign({}, e, { ref: t, icon: zt }),
           );
         };
-      Jt.displayName = 'CopyOutlined';
-      var $t = d.forwardRef(Jt),
-        Gt = {
+      Ut.displayName = 'CopyOutlined';
+      var qt = d.forwardRef(Ut),
+        Jt = {
           icon: {
             tag: 'svg',
             attrs: { viewBox: '64 64 896 896', focusable: 'false' },
@@ -30090,15 +30064,15 @@ and limitations under the License.
           name: 'setting',
           theme: 'outlined',
         },
-        Yt = function (e, t) {
+        $t = function (e, t) {
           return d.createElement(
-            Vt,
-            Object.assign({}, e, { ref: t, icon: Gt }),
+            Ft,
+            Object.assign({}, e, { ref: t, icon: Jt }),
           );
         };
-      Yt.displayName = 'SettingOutlined';
-      var Xt = d.forwardRef(Yt),
-        Qt = {
+      $t.displayName = 'SettingOutlined';
+      var Gt = d.forwardRef($t),
+        Yt = {
           icon: {
             tag: 'svg',
             attrs: { viewBox: '64 64 896 896', focusable: 'false' },
@@ -30115,23 +30089,23 @@ and limitations under the License.
           name: 'drag',
           theme: 'outlined',
         },
-        Zt = function (e, t) {
+        Xt = function (e, t) {
           return d.createElement(
-            Vt,
-            Object.assign({}, e, { ref: t, icon: Qt }),
+            Ft,
+            Object.assign({}, e, { ref: t, icon: Yt }),
           );
         };
-      Zt.displayName = 'DragOutlined';
-      var en = d.forwardRef(Zt),
-        tn = (n(262), n(66)),
+      Xt.displayName = 'DragOutlined';
+      var Qt = d.forwardRef(Xt),
+        Zt = (n(262), n(66)),
+        en = n.n(Zt),
+        tn = (n(265), n(130)),
         nn = n.n(tn),
-        rn = (n(265), n(130)),
+        rn = (n(268), n(129)),
         on = n.n(rn),
-        an = (n(268), n(129)),
+        an = (n(271), n(96)),
         cn = n.n(an),
-        un = (n(271), n(96)),
-        sn = n.n(un),
-        ln = [].concat(
+        un = [].concat(
           [
             'input',
             'boolean',
@@ -30156,7 +30130,7 @@ and limitations under the License.
             'object',
           ],
         );
-      function fn(e) {
+      function sn(e) {
         var t = !1;
         return (
           '#'.concat(['number'].join('#'), '#').indexOf('#'.concat(e, '#')) >=
@@ -30164,7 +30138,7 @@ and limitations under the License.
           t
         );
       }
-      function pn(e) {
+      function ln(e) {
         var t = !1;
         return (
           '#'.concat(['array'].join('#'), '#').indexOf('#'.concat(e, '#')) >=
@@ -30173,7 +30147,7 @@ and limitations under the License.
         );
       }
       n(294);
-      function dn(e) {
+      function fn(e) {
         var t = (function () {
           if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
           if (Reflect.construct.sham) return !1;
@@ -30199,10 +30173,10 @@ and limitations under the License.
           return l()(this, n);
         };
       }
-      var yn = lt.a.TextArea,
-        hn = (function (e) {
+      var pn = ut.a.TextArea,
+        dn = (function (e) {
           u()(n, e);
-          var t = dn(n);
+          var t = fn(n);
           function n(e) {
             var r;
             return (
@@ -30220,7 +30194,7 @@ and limitations under the License.
               }),
               (r.renderDefaultContent = function (e, t, n) {
                 if ('boolean' === e)
-                  return d.createElement(sn.a, {
+                  return d.createElement(cn.a, {
                     style: { display: 'inline-block' },
                     defaultChecked: t.default,
                     checkedChildren: 'true',
@@ -30233,7 +30207,7 @@ and limitations under the License.
                   var o = t.items.enum,
                     a = t.items.enumextra;
                   return d.createElement(
-                    cn.a.Group,
+                    on.a.Group,
                     {
                       style: { display: 'inline-block' },
                       defaultValue: t.default,
@@ -30247,7 +30221,7 @@ and limitations under the License.
                       o.map(function (e, t) {
                         var r = a[t],
                           o = ''.concat(n, '-radio-').concat(e);
-                        return d.createElement(cn.a, { value: e, key: o }, r);
+                        return d.createElement(on.a, { value: e, key: o }, r);
                       }),
                   );
                 }
@@ -30255,7 +30229,7 @@ and limitations under the License.
                   var i = t.items.enum,
                     c = t.items.enumextra;
                   return d.createElement(
-                    on.a.Group,
+                    nn.a.Group,
                     {
                       style: { display: 'inline-block' },
                       onChange: function (e) {
@@ -30268,12 +30242,12 @@ and limitations under the License.
                       i.map(function (e, t) {
                         var r = c[t],
                           o = ''.concat(n, '-radio-').concat(e);
-                        return d.createElement(on.a, { value: e, key: o }, r);
+                        return d.createElement(nn.a, { value: e, key: o }, r);
                       }),
                   );
                 }
                 return 'color' === e
-                  ? d.createElement(lt.a, {
+                  ? d.createElement(ut.a, {
                       style: { display: 'inline-block' },
                       className: 'color-item-form',
                       type: 'color',
@@ -30287,7 +30261,7 @@ and limitations under the License.
                     'codearea' === e ||
                     'htmlarea' === e ||
                     'json' === e
-                  ? d.createElement(yn, {
+                  ? d.createElement(pn, {
                       style: { display: 'inline-block' },
                       rows: 4,
                       placeholder: '请输入'.concat(t.title, '的默认值'),
@@ -30302,7 +30276,7 @@ and limitations under the License.
                       },
                     })
                   : 'number' === e
-                  ? d.createElement(nn.a, {
+                  ? d.createElement(en.a, {
                       style: { display: 'inline-block' },
                       placeholder: '请输入'.concat(t.title, '的默认值'),
                       defaultValue: t.default,
@@ -30310,7 +30284,7 @@ and limitations under the License.
                         r.handleValueChange('default', e);
                       },
                     })
-                  : d.createElement(lt.a, {
+                  : d.createElement(ut.a, {
                       style: { display: 'inline-block' },
                       placeholder: '请输入'.concat(t.title, '的默认值'),
                       defaultValue: t.default,
@@ -30324,7 +30298,7 @@ and limitations under the License.
                       },
                     });
               }),
-              (r.handleValueChange = r.handleValueChange.bind(pt()(r))),
+              (r.handleValueChange = r.handleValueChange.bind(lt()(r))),
               r
             );
           }
@@ -30339,17 +30313,11 @@ and limitations under the License.
                     r = this.props,
                     o = r.nodeKey,
                     a = r.targetJsonData,
-                    i = r.pageScreen,
-                    c = he(a),
-                    u =
-                      'wideScreen' === i
-                        ? 'wide-screen-element-warp'
-                        : 'mobile-screen-element-warp',
-                    s = 'wideScreen' === i ? 'topRight' : 'topLeft';
+                    i = he(a);
                   return d.createElement(
                     'div',
                     { className: 'advance-config-model' },
-                    ((e = c),
+                    ((e = i),
                     (t = !1),
                     '#'
                       .concat(
@@ -30372,18 +30340,18 @@ and limitations under the License.
                       d.createElement(
                         'div',
                         {
-                          className: u,
+                          className: 'wide-screen-element-warp',
                           key: ''.concat(o, '-readOnly-').concat(a.readOnly),
                         },
                         d.createElement(
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            it.a,
                             {
                               title:
                                 '当前属性设置为只读后，用户不能对其进行任何编辑操作',
-                              placement: s,
+                              placement: 'top',
                             },
                             d.createElement(
                               'span',
@@ -30398,7 +30366,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(sn.a, {
+                            d.createElement(cn.a, {
                               style: { display: 'inline-block' },
                               defaultChecked: a.readOnly,
                               checkedChildren: 'true',
@@ -30418,11 +30386,11 @@ and limitations under the License.
                           .indexOf('#'.concat(e, '#')) >= 0 && (t = !0),
                         t
                       );
-                    })(c) &&
+                    })(i) &&
                       d.createElement(
                         'div',
                         {
-                          className: u,
+                          className: 'wide-screen-element-warp',
                           key: ''
                             .concat(o, '-isRequired-')
                             .concat(a.isRequired),
@@ -30431,11 +30399,11 @@ and limitations under the License.
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            it.a,
                             {
                               title:
                                 '当前属性设置为必填项后，如果用户没有给其设置数值，则会进行标红提示。',
-                              placement: s,
+                              placement: 'top',
                             },
                             d.createElement(
                               'span',
@@ -30450,7 +30418,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(sn.a, {
+                            d.createElement(cn.a, {
                               style: { display: 'inline-block' },
                               defaultChecked: a.isRequired,
                               checkedChildren: 'true',
@@ -30485,16 +30453,19 @@ and limitations under the License.
                           .indexOf('#'.concat(e, '#')) >= 0 && (t = !0),
                         t
                       );
-                    })(c) &&
+                    })(i) &&
                       d.createElement(
                         'div',
-                        { className: u, key: ''.concat(o, '-default') },
+                        {
+                          className: 'wide-screen-element-warp',
+                          key: ''.concat(o, '-default'),
+                        },
                         d.createElement(
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
-                            { title: '', placement: s },
+                            it.a,
+                            { placement: 'top' },
                             d.createElement(
                               'span',
                               { className: 'title-text' },
@@ -30508,7 +30479,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            this.renderDefaultContent(c, a, o),
+                            this.renderDefaultContent(i, a, o),
                           ),
                         ),
                       ),
@@ -30516,23 +30487,26 @@ and limitations under the License.
                       var t = !1;
                       return (
                         '#'
-                          .concat(ln.join('#'), '#')
+                          .concat(un.join('#'), '#')
                           .indexOf('#'.concat(e, '#')) >= 0 && (t = !0),
                         t
                       );
-                    })(c) &&
+                    })(i) &&
                       d.createElement(
                         'div',
-                        { className: u, key: ''.concat(o, '-description') },
+                        {
+                          className: 'wide-screen-element-warp',
+                          key: ''.concat(o, '-description'),
+                        },
                         d.createElement(
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            it.a,
                             {
                               title:
                                 '字段描述内容将作为Title的补充信息提供给用户',
-                              placement: s,
+                              placement: 'top',
                             },
                             d.createElement(
                               'span',
@@ -30547,7 +30521,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(lt.a, {
+                            d.createElement(ut.a, {
                               style: { display: 'inline-block' },
                               placeholder: '请输入'.concat(
                                 a.title,
@@ -30587,19 +30561,22 @@ and limitations under the License.
                           .indexOf('#'.concat(e, '#')) >= 0 && (t = !0),
                         t
                       );
-                    })(c) &&
+                    })(i) &&
                       d.createElement(
                         'div',
-                        { className: u, key: ''.concat(o, '-placeholder') },
+                        {
+                          className: 'wide-screen-element-warp',
+                          key: ''.concat(o, '-placeholder'),
+                        },
                         d.createElement(
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            it.a,
                             {
                               title:
                                 '输入提示内容将作为输入区域的提示信息展示给用户',
-                              placement: s,
+                              placement: 'top',
                             },
                             d.createElement(
                               'span',
@@ -30614,7 +30591,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(lt.a, {
+                            d.createElement(ut.a, {
                               style: { display: 'inline-block' },
                               placeholder: '请输入'.concat(
                                 a.title,
@@ -30633,22 +30610,22 @@ and limitations under the License.
                           ),
                         ),
                       ),
-                    fn(c) &&
+                    sn(i) &&
                       d.createElement(
                         'div',
                         {
-                          className: u,
+                          className: 'wide-screen-element-warp',
                           key: ''.concat(o, '-minimum-').concat(a.minimum),
                         },
                         d.createElement(
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            it.a,
                             {
                               title:
                                 '设置最小值后，用户输入的数值必须大于当前最小值',
-                              placement: s,
+                              placement: 'top',
                             },
                             d.createElement(
                               'span',
@@ -30663,7 +30640,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(nn.a, {
+                            d.createElement(en.a, {
                               style: { display: 'inline-block' },
                               defaultValue: a.minimum,
                               onPressEnter: function (e) {
@@ -30678,22 +30655,22 @@ and limitations under the License.
                           ),
                         ),
                       ),
-                    fn(c) &&
+                    sn(i) &&
                       d.createElement(
                         'div',
                         {
-                          className: u,
+                          className: 'wide-screen-element-warp',
                           key: ''.concat(o, '-maximum-').concat(a.maximum),
                         },
                         d.createElement(
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            it.a,
                             {
                               title:
                                 '设置最大值后，用户输入的数值必须大于当前最大值',
-                              placement: s,
+                              placement: 'top',
                             },
                             d.createElement(
                               'span',
@@ -30708,7 +30685,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(nn.a, {
+                            d.createElement(en.a, {
                               style: { display: 'inline-block' },
                               defaultValue: a.maximum,
                               onPressEnter: function (e) {
@@ -30723,11 +30700,11 @@ and limitations under the License.
                           ),
                         ),
                       ),
-                    pn(c) &&
+                    ln(i) &&
                       d.createElement(
                         'div',
                         {
-                          className: u,
+                          className: 'wide-screen-element-warp',
                           key: ''
                             .concat(o, '-minimum-child-')
                             .concat(a['minimum-child']),
@@ -30736,11 +30713,11 @@ and limitations under the License.
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            it.a,
                             {
                               title:
                                 '设置最少子项个数后，当前字段的子字段数量必须大于最少子项数',
-                              placement: s,
+                              placement: 'top',
                             },
                             d.createElement(
                               'span',
@@ -30755,7 +30732,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(nn.a, {
+                            d.createElement(en.a, {
                               style: { display: 'inline-block' },
                               defaultValue: a['minimum-child'],
                               onChange: function (e) {
@@ -30765,11 +30742,11 @@ and limitations under the License.
                           ),
                         ),
                       ),
-                    pn(c) &&
+                    ln(i) &&
                       d.createElement(
                         'div',
                         {
-                          className: u,
+                          className: 'wide-screen-element-warp',
                           key: ''
                             .concat(o, '-maximum-child-')
                             .concat(a['maximum-child']),
@@ -30778,11 +30755,11 @@ and limitations under the License.
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            it.a,
                             {
                               title:
                                 '设置最多子项个数后，当前字段的子字段数量必须少于最多子项数',
-                              placement: s,
+                              placement: 'top',
                             },
                             d.createElement(
                               'span',
@@ -30797,7 +30774,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(nn.a, {
+                            d.createElement(en.a, {
                               style: { display: 'inline-block' },
                               defaultValue: a['maximum-child'],
                               onChange: function (e) {
@@ -30814,21 +30791,20 @@ and limitations under the License.
             n
           );
         })(d.PureComponent);
-      hn.propTypes = {
+      dn.propTypes = {
         jsonKey: Y.a.string,
         indexRoute: Y.a.string,
         nodeKey: Y.a.string,
         targetJsonData: Y.a.any,
       };
-      var vn = $(function (e) {
+      var yn = $(function (e) {
         return {
-          pageScreen: e.jsonSchemaStore.pageScreen,
           getJSONDataByIndex: e.jsonSchemaStore.getJSONDataByIndex,
           editJsonData: e.jsonSchemaStore.editJsonData,
         };
-      })(B(hn));
+      })(B(dn));
       n(337);
-      function mn(e) {
+      function hn(e) {
         var t = (function () {
           if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
           if (Reflect.construct.sham) return !1;
@@ -30854,10 +30830,10 @@ and limitations under the License.
           return l()(this, n);
         };
       }
-      var bn = yt.a.Option,
-        gn = (function (e) {
+      var vn = pt.a.Option,
+        mn = (function (e) {
           u()(n, e);
-          var t = mn(n);
+          var t = hn(n);
           function n(e) {
             var r;
             return (
@@ -30890,8 +30866,8 @@ and limitations under the License.
                 n.targetJsonData.title !== t && i(o, a, { title: t });
               }),
               (r.getCurrentTypeList = function (e) {
-                var t = Qe[e || 'all'];
-                return (t && 0 !== t.length) || (t = Qe.all), t;
+                var t = Ye[e || 'all'];
+                return (t && 0 !== t.length) || (t = Ye.all), t;
               }),
               (r.onAddBtnEvent = function () {
                 var e = r.props,
@@ -30909,8 +30885,9 @@ and limitations under the License.
                   a = e.jsonKey,
                   i = e.insertJsonData,
                   c = e.getNewJsonKeyIndex,
-                  u = le(n);
-                i(t, c(o(ve(t)), a), u);
+                  u = le(n),
+                  s = c(o(ve(t)), a);
+                (u.copySourceIndex = t), i(t, s, u);
               }),
               (r.onDeleteBtnEvent = function () {
                 var e = r.props,
@@ -30922,12 +30899,12 @@ and limitations under the License.
                 e.preventDefault(), e.stopPropagation();
               }),
               (r.state = { isShowAdvance: !1 }),
-              (r.onAddBtnEvent = r.onAddBtnEvent.bind(pt()(r))),
-              (r.onCopyBtnEvent = r.onCopyBtnEvent.bind(pt()(r))),
-              (r.onDeleteBtnEvent = r.onDeleteBtnEvent.bind(pt()(r))),
-              (r.handleJsonKeyChange = r.handleJsonKeyChange.bind(pt()(r))),
-              (r.handleTitleChange = r.handleTitleChange.bind(pt()(r))),
-              (r.selectHandleChange = r.selectHandleChange.bind(pt()(r))),
+              (r.onAddBtnEvent = r.onAddBtnEvent.bind(lt()(r))),
+              (r.onCopyBtnEvent = r.onCopyBtnEvent.bind(lt()(r))),
+              (r.onDeleteBtnEvent = r.onDeleteBtnEvent.bind(lt()(r))),
+              (r.handleJsonKeyChange = r.handleJsonKeyChange.bind(lt()(r))),
+              (r.handleTitleChange = r.handleTitleChange.bind(lt()(r))),
+              (r.selectHandleChange = r.selectHandleChange.bind(lt()(r))),
               r
             );
           }
@@ -30962,7 +30939,7 @@ and limitations under the License.
                         draggable: 'true',
                         onDragStart: this.ignoreDragEvent,
                       },
-                      d.createElement(lt.a, {
+                      d.createElement(ut.a, {
                         defaultValue: o,
                         disabled: v || s,
                         onPressEnter: this.handleJsonKeyChange,
@@ -30977,7 +30954,7 @@ and limitations under the License.
                         onDragStart: this.ignoreDragEvent,
                       },
                       d.createElement(
-                        yt.a,
+                        pt.a,
                         {
                           defaultValue: h,
                           style: { width: 120 },
@@ -30985,7 +30962,7 @@ and limitations under the License.
                           disabled: v || l,
                         },
                         y.map(function (e) {
-                          return d.createElement(bn, { key: e, value: e }, e);
+                          return d.createElement(vn, { key: e, value: e }, e);
                         }),
                       ),
                     ),
@@ -30996,7 +30973,7 @@ and limitations under the License.
                         draggable: 'true',
                         onDragStart: this.ignoreDragEvent,
                       },
-                      d.createElement(lt.a, {
+                      d.createElement(ut.a, {
                         defaultValue: i.title,
                         disabled: v || f,
                         onPressEnter: this.handleTitleChange,
@@ -31009,35 +30986,35 @@ and limitations under the License.
                         { className: 'operate-item' },
                         !v &&
                           d.createElement(
-                            ut.a,
+                            it.a,
                             { title: '删除' },
-                            d.createElement(Bt, {
+                            d.createElement(Vt, {
                               className: 'operate-btn delete-operate',
                               onClick: this.onDeleteBtnEvent,
                             }),
                           ),
                         d.createElement(
-                          ut.a,
+                          it.a,
                           { title: be(h) ? '新增子节点' : '新增兄弟节点' },
-                          d.createElement(Ut, {
+                          d.createElement(Wt, {
                             className: 'operate-btn',
                             onClick: this.onAddBtnEvent,
                           }),
                         ),
                         !v &&
                           d.createElement(
-                            ut.a,
+                            it.a,
                             { title: '复制' },
-                            d.createElement($t, {
+                            d.createElement(qt, {
                               className: 'operate-btn',
                               onClick: this.onCopyBtnEvent,
                             }),
                           ),
                         !v &&
                           d.createElement(
-                            ut.a,
+                            it.a,
                             { title: '高级设置' },
-                            d.createElement(Xt, {
+                            d.createElement(Gt, {
                               className: 'operate-btn',
                               onClick: function () {
                                 e.setState({ isShowAdvance: !0 });
@@ -31046,9 +31023,9 @@ and limitations under the License.
                           ),
                         !v &&
                           d.createElement(
-                            ut.a,
+                            it.a,
                             { title: '按住进行拖拽' },
-                            d.createElement(en, {
+                            d.createElement(Qt, {
                               className: 'operate-btn drag-btn',
                             }),
                           ),
@@ -31060,7 +31037,7 @@ and limitations under the License.
                         ' ',
                       ),
                     d.createElement(
-                      ot.a,
+                      nt.a,
                       {
                         visible: c,
                         title: '高级设置 / 当前字段：'
@@ -31071,7 +31048,7 @@ and limitations under the License.
                         },
                         footer: [
                           d.createElement(
-                            it.a,
+                            ot.a,
                             {
                               key: 'submit',
                               type: 'primary',
@@ -31083,7 +31060,7 @@ and limitations under the License.
                           ),
                         ],
                       },
-                      d.createElement(vn, {
+                      d.createElement(yn, {
                         indexRoute: r,
                         jsonKey: o,
                         targetJsonData: i,
@@ -31096,7 +31073,7 @@ and limitations under the License.
             n
           );
         })(d.PureComponent);
-      gn.propTypes = {
+      mn.propTypes = {
         parentType: Y.a.string,
         jsonKey: Y.a.string,
         indexRoute: Y.a.string,
@@ -31108,7 +31085,7 @@ and limitations under the License.
         typeIsFixed: Y.a.any,
         titleIsFixed: Y.a.any,
       };
-      var On = $(function (e) {
+      var bn = $(function (e) {
           return {
             getNewJsonKeyIndex: e.jsonSchemaStore.getNewJsonKeyIndex,
             deleteJsonByIndex_CurKey:
@@ -31122,19 +31099,19 @@ and limitations under the License.
             changeType: e.jsonSchemaStore.changeType,
             isExitJsonKey: e.jsonSchemaStore.isExitJsonKey,
           };
-        })(B(gn)),
-        wn = nt.a.TreeNode,
-        jn = function (e) {
-          return y.a.createElement(On, e);
+        })(B(mn)),
+        gn = et.a.TreeNode,
+        On = function (e) {
+          return y.a.createElement(bn, e);
         },
-        En = function (e) {
+        wn = function (e) {
           var t = e.parentType,
             n = e.jsonKey,
             r = e.indexRoute,
             o = e.nodeKey,
             a = e.targetJsonData;
           return y.a.createElement(
-            wn,
+            gn,
             {
               className: 'array-item-schema schema-item-form',
               id: o,
@@ -31142,7 +31119,7 @@ and limitations under the License.
               indexRoute: r,
               jsonKey: n,
               disabled: !0,
-              title: jn({
+              title: On({
                 indexRoute: r,
                 jsonKey: n,
                 targetJsonData: a,
@@ -31166,7 +31143,7 @@ and limitations under the License.
                     .concat(o ? o + '-' : '')
                     .concat(s, '-')
                     .concat(c);
-                return Xn({
+                return Gn({
                   parentType: a,
                   jsonKey: c,
                   indexRoute: i,
@@ -31184,7 +31161,7 @@ and limitations under the License.
             }),
           );
         },
-        xn = function (e) {
+        jn = function (e) {
           var t = e.parentType,
             n = e.jsonKey,
             r = e.indexRoute,
@@ -31192,14 +31169,14 @@ and limitations under the License.
             a = e.targetJsonData,
             i = he(a);
           return y.a.createElement(
-            wn,
+            gn,
             {
               className: ''.concat(i, '-schema schema-item-form'),
               id: o,
               key: o,
               indexRoute: r,
               jsonKey: n,
-              title: jn({
+              title: On({
                 indexRoute: r,
                 jsonKey: n,
                 targetJsonData: a,
@@ -31207,7 +31184,7 @@ and limitations under the License.
                 nodeKey: o,
               }),
             },
-            En({
+            wn({
               parentType: i,
               jsonKey: 'items',
               indexRoute: ''.concat(r, '-0'),
@@ -31217,7 +31194,7 @@ and limitations under the License.
           );
         };
       n(378);
-      function Sn(e) {
+      function En(e) {
         var t = (function () {
           if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
           if (Reflect.construct.sham) return !1;
@@ -31243,10 +31220,10 @@ and limitations under the License.
           return l()(this, n);
         };
       }
-      var Pn = yt.a.Option,
-        Cn = (function (e) {
+      var xn = pt.a.Option,
+        Sn = (function (e) {
           u()(n, e);
-          var t = Sn(n);
+          var t = En(n);
           function n(e) {
             var r;
             return (
@@ -31281,7 +31258,7 @@ and limitations under the License.
                   }
                 }
               }),
-              (r.typeHandleChange = r.typeHandleChange.bind(pt()(r))),
+              (r.typeHandleChange = r.typeHandleChange.bind(lt()(r))),
               r
             );
           }
@@ -31303,14 +31280,14 @@ and limitations under the License.
                       'div',
                       { className: 'key-input-item' },
                       d.createElement(
-                        yt.a,
+                        pt.a,
                         {
                           defaultValue: n.default || 'local',
                           onChange: this.typeHandleChange,
                         },
                         o.map(function (e, t) {
                           return d.createElement(
-                            Pn,
+                            xn,
                             { key: e, value: e },
                             a[t],
                           );
@@ -31321,19 +31298,19 @@ and limitations under the License.
                       'div',
                       { className: 'type-select-item' },
                       d.createElement(
-                        yt.a,
+                        pt.a,
                         {
                           defaultValue: r,
                           style: { width: 120 },
                           disabled: !0,
                         },
-                        d.createElement(Pn, { key: r, value: r }, r),
+                        d.createElement(xn, { key: r, value: r }, r),
                       ),
                     ),
                     d.createElement(
                       'div',
                       { className: 'title-input-item' },
-                      d.createElement(lt.a, {
+                      d.createElement(ut.a, {
                         defaultValue: n.title,
                         disabled: !0,
                       }),
@@ -31346,7 +31323,7 @@ and limitations under the License.
             n
           );
         })(d.PureComponent);
-      Cn.propTypes = {
+      Sn.propTypes = {
         parentType: Y.a.string,
         jsonKey: Y.a.string,
         indexRoute: Y.a.string,
@@ -31355,17 +31332,17 @@ and limitations under the License.
         typeSelectData: Y.a.any,
         isFixed: Y.a.any,
       };
-      var kn = $(function (e) {
+      var Pn = $(function (e) {
           return {
             editJsonData: e.jsonSchemaStore.editJsonData,
             updateJsonData: e.jsonSchemaStore.updateJsonData,
           };
-        })(B(Cn)),
-        _n = nt.a.TreeNode,
-        Nn = function (e) {
-          return y.a.createElement(On, e);
+        })(B(Sn)),
+        Cn = et.a.TreeNode,
+        kn = function (e) {
+          return y.a.createElement(bn, e);
         },
-        Mn = {
+        _n = {
           local: {
             type: 'string',
             title: '本地json数据',
@@ -31385,7 +31362,7 @@ and limitations under the License.
             description: '用于设置获取元素数据的请求地址',
           },
         },
-        Tn = function (e) {
+        Nn = function (e) {
           var t,
             n = e.parentType,
             r = e.jsonKey,
@@ -31395,14 +31372,14 @@ and limitations under the License.
             c = he(i),
             u = i.properties.data || {};
           return y.a.createElement(
-            _n,
+            Cn,
             {
               className: ''.concat(c, '-schema schema-item-form'),
               id: a,
               key: a,
               indexRoute: o,
               jsonKey: r,
-              title: Nn({
+              title: kn({
                 indexRoute: o,
                 jsonKey: r,
                 targetJsonData: i,
@@ -31410,7 +31387,7 @@ and limitations under the License.
                 nodeKey: a,
               }),
             },
-            y.a.createElement(_n, {
+            y.a.createElement(Cn, {
               className: 'dataSource-type-item-schema schema-item-form',
               id: ''.concat(a, '-type'),
               key: ''.concat(a, '-type'),
@@ -31424,18 +31401,18 @@ and limitations under the License.
                   targetJsonData: i.properties.type,
                   parentType: c,
                   nodeKey: ''.concat(a, '-type'),
-                  typeSelectData: Mn,
+                  typeSelectData: _n,
                 }),
-                y.a.createElement(kn, t)),
+                y.a.createElement(Pn, t)),
             }),
-            y.a.createElement(_n, {
+            y.a.createElement(Cn, {
               className: 'dataSource-data-item-schema schema-item-form',
               id: ''.concat(a, '-data-').concat(u.format),
               key: ''.concat(a, '-data-').concat(u.format),
               indexRoute: ''.concat(o, '-1'),
               jsonKey: 'data',
               disabled: !0,
-              title: Nn({
+              title: kn({
                 indexRoute: ''.concat(o, '-1'),
                 jsonKey: 'data',
                 targetJsonData: u,
@@ -31446,14 +31423,14 @@ and limitations under the License.
                 typeIsFixed: !0,
               }),
             }),
-            y.a.createElement(_n, {
+            y.a.createElement(Cn, {
               className: 'dataSource-filter-item-schema schema-item-form',
               id: ''.concat(a, '-filter'),
               key: ''.concat(a, '-filter'),
               indexRoute: ''.concat(o, '-2'),
               jsonKey: 'filter',
               disabled: !0,
-              title: Nn({
+              title: kn({
                 indexRoute: ''.concat(o, '-2'),
                 jsonKey: 'filter',
                 targetJsonData: i.properties.filter,
@@ -31466,11 +31443,11 @@ and limitations under the License.
             }),
           );
         },
-        Dn = nt.a.TreeNode,
-        An = function (e) {
-          return y.a.createElement(On, e);
+        Mn = et.a.TreeNode,
+        Tn = function (e) {
+          return y.a.createElement(bn, e);
         },
-        Rn = function (e) {
+        Dn = function (e) {
           var t,
             n = e.parentType,
             r = e.jsonKey,
@@ -31484,14 +31461,14 @@ and limitations under the License.
             f = i.properties.trigger || {},
             p = i.properties.eventData || {};
           return y.a.createElement(
-            Dn,
+            Mn,
             {
               className: ''.concat(c, '-schema schema-item-form'),
               id: a,
               key: a,
               indexRoute: o,
               jsonKey: r,
-              title: An({
+              title: Tn({
                 indexRoute: o,
                 jsonKey: r,
                 targetJsonData: i,
@@ -31499,7 +31476,7 @@ and limitations under the License.
                 nodeKey: a,
               }),
             },
-            y.a.createElement(Dn, {
+            y.a.createElement(Mn, {
               className: 'event-type-item-schema schema-item-form',
               id: ''.concat(a, '-type'),
               key: ''.concat(a, '-type'),
@@ -31514,18 +31491,18 @@ and limitations under the License.
                   parentType: c,
                   nodeKey: ''.concat(a, '-type'),
                 }),
-                y.a.createElement(kn, t)),
+                y.a.createElement(Pn, t)),
             }),
             'on' === u.default &&
               s &&
-              y.a.createElement(Dn, {
+              y.a.createElement(Mn, {
                 className: 'event-register-item-schema schema-item-form',
                 id: ''.concat(a, '-register-').concat(u.default),
                 key: ''.concat(a, '-register-').concat(u.default),
                 indexRoute: ''.concat(o, '-1'),
                 jsonKey: 'register',
                 disabled: !0,
-                title: An({
+                title: Tn({
                   indexRoute: ''.concat(o, '-1'),
                   jsonKey: 'register',
                   targetJsonData: s,
@@ -31538,14 +31515,14 @@ and limitations under the License.
               }),
             'on' === u.default &&
               l &&
-              y.a.createElement(Dn, {
+              y.a.createElement(Mn, {
                 className: 'event-actionFunc-item-schema schema-item-form',
                 id: ''.concat(a, '-actionFunc-').concat(u.default),
                 key: ''.concat(a, '-actionFunc-').concat(u.default),
                 indexRoute: ''.concat(o, '-2'),
                 jsonKey: 'actionFunc',
                 disabled: !0,
-                title: An({
+                title: Tn({
                   indexRoute: ''.concat(o, '-2'),
                   jsonKey: 'actionFunc',
                   targetJsonData: l,
@@ -31558,14 +31535,14 @@ and limitations under the License.
               }),
             'emit' === u.default &&
               f &&
-              y.a.createElement(Dn, {
+              y.a.createElement(Mn, {
                 className: 'event-trigger-item-schema schema-item-form',
                 id: ''.concat(a, '-trigger-').concat(u.default),
                 key: ''.concat(a, '-trigger-').concat(u.default),
                 indexRoute: ''.concat(o, '-1'),
                 jsonKey: 'trigger',
                 disabled: !0,
-                title: An({
+                title: Tn({
                   indexRoute: ''.concat(o, '-1'),
                   jsonKey: 'trigger',
                   targetJsonData: f,
@@ -31578,14 +31555,14 @@ and limitations under the License.
               }),
             'emit' === u.default &&
               p &&
-              y.a.createElement(Dn, {
+              y.a.createElement(Mn, {
                 className: 'event-eventData-item-schema schema-item-form',
                 id: ''.concat(a, '-eventData-').concat(u.default),
                 key: ''.concat(a, '-eventData-').concat(u.default),
                 indexRoute: ''.concat(o, '-2'),
                 jsonKey: 'eventData',
                 disabled: !0,
-                title: An({
+                title: Tn({
                   indexRoute: ''.concat(o, '-2'),
                   jsonKey: 'eventData',
                   targetJsonData: p,
@@ -31598,11 +31575,11 @@ and limitations under the License.
               }),
           );
         },
-        In = nt.a.TreeNode,
-        Ln = function (e) {
-          return y.a.createElement(On, e);
+        An = et.a.TreeNode,
+        Rn = function (e) {
+          return y.a.createElement(bn, e);
         },
-        Fn = function (e) {
+        In = function (e) {
           var t,
             n = e.parentType,
             r = e.jsonKey,
@@ -31613,14 +31590,14 @@ and limitations under the License.
             u = i.propertyOrder[0],
             s = i.properties[u];
           return y.a.createElement(
-            In,
+            An,
             {
               className: ''.concat(c, '-schema schema-item-form'),
               id: a,
               key: a,
               indexRoute: o,
               jsonKey: r,
-              title: Ln({
+              title: Rn({
                 indexRoute: o,
                 jsonKey: r,
                 targetJsonData: i,
@@ -31628,14 +31605,14 @@ and limitations under the License.
                 nodeKey: a,
               }),
             },
-            y.a.createElement(In, {
+            y.a.createElement(An, {
               className: 'quantity-unit-item-schema schema-item-form',
               id: ''.concat(a, '-').concat(u),
               key: ''.concat(a, '-').concat(u),
               indexRoute: ''.concat(o, '-0'),
               jsonKey: u,
               disabled: !0,
-              title: Ln({
+              title: Rn({
                 indexRoute: ''.concat(o, '-0'),
                 jsonKey: u,
                 targetJsonData: s,
@@ -31645,7 +31622,7 @@ and limitations under the License.
                 hideOperaBtn: !0,
               }),
             }),
-            y.a.createElement(In, {
+            y.a.createElement(An, {
               className: 'quantity-typeSelect-item-schema schema-item-form',
               id: ''.concat(a, '-quantity'),
               key: ''.concat(a, '-quantity'),
@@ -31660,12 +31637,12 @@ and limitations under the License.
                   parentType: c,
                   nodeKey: ''.concat(a, '-quantity'),
                 }),
-                y.a.createElement(kn, t)),
+                y.a.createElement(Pn, t)),
             }),
           );
         };
       n(380);
-      function Kn(e) {
+      function Ln(e) {
         var t = (function () {
           if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
           if (Reflect.construct.sham) return !1;
@@ -31691,10 +31668,10 @@ and limitations under the License.
           return l()(this, n);
         };
       }
-      var Vn = yt.a.Option,
-        Hn = (function (e) {
+      var Fn = pt.a.Option,
+        Kn = (function (e) {
           u()(n, e);
-          var t = Kn(n);
+          var t = Ln(n);
           function n(e) {
             var r;
             return (
@@ -31744,11 +31721,11 @@ and limitations under the License.
                   ? a(t, n)
                   : ee.a.warning('删除失败，请至少保留一个可选项。');
               }),
-              (r.onAddBtnEvent = r.onAddBtnEvent.bind(pt()(r))),
-              (r.onCopyBtnEvent = r.onCopyBtnEvent.bind(pt()(r))),
-              (r.onDeleteBtnEvent = r.onDeleteBtnEvent.bind(pt()(r))),
-              (r.handleEnumKeyChange = r.handleEnumKeyChange.bind(pt()(r))),
-              (r.handleEnumTextChange = r.handleEnumTextChange.bind(pt()(r))),
+              (r.onAddBtnEvent = r.onAddBtnEvent.bind(lt()(r))),
+              (r.onCopyBtnEvent = r.onCopyBtnEvent.bind(lt()(r))),
+              (r.onDeleteBtnEvent = r.onDeleteBtnEvent.bind(lt()(r))),
+              (r.handleEnumKeyChange = r.handleEnumKeyChange.bind(lt()(r))),
+              (r.handleEnumTextChange = r.handleEnumTextChange.bind(lt()(r))),
               r
             );
           }
@@ -31767,7 +31744,7 @@ and limitations under the License.
                     d.createElement(
                       'div',
                       { className: 'key-input-item' },
-                      d.createElement(lt.a, {
+                      d.createElement(ut.a, {
                         defaultValue: t,
                         onPressEnter: this.handleEnumKeyChange,
                         onBlur: this.handleEnumKeyChange,
@@ -31777,10 +31754,10 @@ and limitations under the License.
                       'div',
                       { className: 'type-select-item' },
                       d.createElement(
-                        yt.a,
+                        pt.a,
                         { defaultValue: 'string', style: { width: 120 } },
                         d.createElement(
-                          Vn,
+                          Fn,
                           { key: 'string', value: 'string' },
                           'string',
                         ),
@@ -31789,7 +31766,7 @@ and limitations under the License.
                     d.createElement(
                       'div',
                       { className: 'title-input-item' },
-                      d.createElement(lt.a, {
+                      d.createElement(ut.a, {
                         defaultValue: n,
                         onPressEnter: this.handleEnumTextChange,
                         onBlur: this.handleEnumTextChange,
@@ -31799,25 +31776,25 @@ and limitations under the License.
                       'div',
                       { className: 'operate-item' },
                       d.createElement(
-                        ut.a,
+                        it.a,
                         { title: '删除' },
-                        d.createElement(Bt, {
+                        d.createElement(Vt, {
                           className: 'operate-btn delete-operate',
                           onClick: this.onDeleteBtnEvent,
                         }),
                       ),
                       d.createElement(
-                        ut.a,
+                        it.a,
                         { title: '新增兄弟节点' },
-                        d.createElement(Ut, {
+                        d.createElement(Wt, {
                           className: 'operate-btn',
                           onClick: this.onAddBtnEvent,
                         }),
                       ),
                       d.createElement(
-                        ut.a,
+                        it.a,
                         { title: '复制' },
-                        d.createElement($t, {
+                        d.createElement(qt, {
                           className: 'operate-btn',
                           onClick: this.onCopyBtnEvent,
                         }),
@@ -31830,14 +31807,14 @@ and limitations under the License.
             n
           );
         })(d.PureComponent);
-      Hn.propTypes = {
+      Kn.propTypes = {
         indexRoute: Y.a.string,
         enumIndex: Y.a.any,
         enumKey: Y.a.string,
         enumText: Y.a.string,
         enumNodeKey: Y.a.string,
       };
-      var Bn = $(function (e) {
+      var Vn = $(function (e) {
           return {
             getJSONDataByIndex: e.jsonSchemaStore.getJSONDataByIndex,
             updateEnumKey: e.jsonSchemaStore.updateEnumKey,
@@ -31847,12 +31824,67 @@ and limitations under the License.
             addEnumItem: e.jsonSchemaStore.addEnumItem,
             copyEnumItem: e.jsonSchemaStore.copyEnumItem,
           };
-        })(B(Hn)),
-        zn = nt.a.TreeNode,
-        Wn = function (e) {
-          return y.a.createElement(Bn, e);
+        })(B(Kn)),
+        Hn = et.a.TreeNode,
+        Bn = function (e) {
+          return y.a.createElement(Vn, e);
         },
+        Wn = function (e) {
+          var t,
+            n = e.parentType,
+            r = e.jsonKey,
+            o = e.indexRoute,
+            a = e.nodeKey,
+            i = e.targetJsonData,
+            c = he(i),
+            u = i.items.enum,
+            s = i.items.enumextra,
+            l = ''.concat(o, '-0');
+          return y.a.createElement(
+            Hn,
+            {
+              className: ''.concat(c, '-schema schema-item-form'),
+              id: a,
+              key: a,
+              indexRoute: o,
+              jsonKey: r,
+              title:
+                ((t = {
+                  indexRoute: o,
+                  jsonKey: r,
+                  targetJsonData: i,
+                  parentType: n,
+                  nodeKey: a,
+                }),
+                y.a.createElement(bn, t)),
+            },
+            u &&
+              u.length > 0 &&
+              u.map(function (e, t) {
+                var n = s[t],
+                  r = ''.concat(a).concat(c, '-').concat(e);
+                return y.a.createElement(Hn, {
+                  className: 'enum-item-schema schema-item-form',
+                  id: r,
+                  key: r,
+                  indexRoute: l,
+                  disabled: !0,
+                  title: Bn({
+                    indexRoute: l,
+                    enumIndex: t,
+                    enumKey: e,
+                    enumText: n,
+                    enumNodeKey: r,
+                  }),
+                });
+              }),
+          );
+        },
+        zn = et.a.TreeNode,
         Un = function (e) {
+          return y.a.createElement(Vn, e);
+        },
+        qn = function (e) {
           var t,
             n = e.parentType,
             r = e.jsonKey,
@@ -31879,7 +31911,7 @@ and limitations under the License.
                   parentType: n,
                   nodeKey: a,
                 }),
-                y.a.createElement(On, t)),
+                y.a.createElement(bn, t)),
             },
             u &&
               u.length > 0 &&
@@ -31892,7 +31924,7 @@ and limitations under the License.
                   key: r,
                   indexRoute: l,
                   disabled: !0,
-                  title: Wn({
+                  title: Un({
                     indexRoute: l,
                     enumIndex: t,
                     enumKey: e,
@@ -31903,10 +31935,7 @@ and limitations under the License.
               }),
           );
         },
-        qn = nt.a.TreeNode,
-        Jn = function (e) {
-          return y.a.createElement(Bn, e);
-        },
+        Jn = et.a.TreeNode,
         $n = function (e) {
           var t,
             n = e.parentType,
@@ -31914,60 +31943,8 @@ and limitations under the License.
             o = e.indexRoute,
             a = e.nodeKey,
             i = e.targetJsonData,
-            c = he(i),
-            u = i.items.enum,
-            s = i.items.enumextra,
-            l = ''.concat(o, '-0');
-          return y.a.createElement(
-            qn,
-            {
-              className: ''.concat(c, '-schema schema-item-form'),
-              id: a,
-              key: a,
-              indexRoute: o,
-              jsonKey: r,
-              title:
-                ((t = {
-                  indexRoute: o,
-                  jsonKey: r,
-                  targetJsonData: i,
-                  parentType: n,
-                  nodeKey: a,
-                }),
-                y.a.createElement(On, t)),
-            },
-            u &&
-              u.length > 0 &&
-              u.map(function (e, t) {
-                var n = s[t],
-                  r = ''.concat(a).concat(c, '-').concat(e);
-                return y.a.createElement(qn, {
-                  className: 'enum-item-schema schema-item-form',
-                  id: r,
-                  key: r,
-                  indexRoute: l,
-                  disabled: !0,
-                  title: Jn({
-                    indexRoute: l,
-                    enumIndex: t,
-                    enumKey: e,
-                    enumText: n,
-                    enumNodeKey: r,
-                  }),
-                });
-              }),
-          );
-        },
-        Gn = nt.a.TreeNode,
-        Yn = function (e) {
-          var t,
-            n = e.parentType,
-            r = e.jsonKey,
-            o = e.indexRoute,
-            a = e.nodeKey,
-            i = e.targetJsonData,
             c = he(i);
-          return y.a.createElement(Gn, {
+          return y.a.createElement(Jn, {
             className: ''.concat(c, '-schema schema-item-form'),
             id: a,
             key: a,
@@ -31981,34 +31958,34 @@ and limitations under the License.
                 parentType: n,
                 nodeKey: a,
               }),
-              y.a.createElement(On, t)),
+              y.a.createElement(bn, t)),
           });
         },
-        Xn = function (e) {
+        Gn = function (e) {
           switch (he(e.targetJsonData)) {
             case 'func':
             case 'style':
             case 'data':
             case 'object':
-              return Zn(e);
+              return Xn(e);
             case 'array':
-              return xn(e);
+              return jn(e);
             case 'datasource':
-              return Tn(e);
+              return Nn(e);
             case 'event':
-              return Rn(e);
+              return Dn(e);
             case 'quantity':
-              return Fn(e);
+              return In(e);
             case 'radio':
-              return Un(e);
+              return Wn(e);
             case 'select':
-              return $n(e);
+              return qn(e);
             default:
-              return Yn(e);
+              return $n(e);
           }
         },
-        Qn = nt.a.TreeNode,
-        Zn = function (e) {
+        Yn = et.a.TreeNode,
+        Xn = function (e) {
           var t,
             n = e.parentType,
             r = e.jsonKey,
@@ -32033,7 +32010,7 @@ and limitations under the License.
                     .concat(o ? o + '-' : '')
                     .concat(s, '-')
                     .concat(c);
-                return Xn({
+                return Gn({
                   parentType: a,
                   jsonKey: c,
                   indexRoute: i,
@@ -32050,7 +32027,7 @@ and limitations under the License.
               parentType: u,
             }),
             f = y.a.createElement(
-              Qn,
+              Yn,
               {
                 className: ''.concat(u, '-schema schema-item-form'),
                 id: a,
@@ -32066,14 +32043,14 @@ and limitations under the License.
                     parentType: n,
                     nodeKey: a,
                   }),
-                  y.a.createElement(On, t)),
+                  y.a.createElement(bn, t)),
               },
               l,
             );
           return c ? l : f;
         };
       n(382);
-      function er(e) {
+      function Qn(e) {
         var t = (function () {
           if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
           if (Reflect.construct.sham) return !1;
@@ -32099,9 +32076,9 @@ and limitations under the License.
           return l()(this, n);
         };
       }
-      var tr = (function (e) {
+      var Zn = (function (e) {
         u()(n, e);
-        var t = er(n);
+        var t = Qn(n);
         function n(e) {
           var r;
           return (
@@ -32171,20 +32148,20 @@ and limitations under the License.
                     return void ee.a.warning(
                       '目标位置不支持'.concat(g, '类型元素'),
                     );
-                  n.dragOverGapTop
-                    ? 'after' === b
-                      ? (c(l, !0), i(d, f, p, 'before'))
-                      : (i(d, f, p, 'before', !0), c(l))
-                    : (n.dragOver || n.dragOverGapBottom) &&
-                      ('after' === b
-                        ? (c(l, !0), i(d, f, p))
-                        : (i(d, f, p, '', !0), c(l)));
+                  p.dragSourceIndex || (p.dragSourceIndex = l),
+                    n.dragOverGapTop
+                      ? 'after' === b
+                        ? (c(l, !0), i(d, f, p, 'before'))
+                        : (i(d, f, p, 'before', !0), c(l))
+                      : (n.dragOver || n.dragOverGapBottom) &&
+                        ('after' === b
+                          ? (c(l, !0), i(d, f, p))
+                          : (i(d, f, p, '', !0), c(l)));
                 }
               }
             }),
             e.data && r.props.initJSONSchemaData(e.data),
             e.onChange && r.props.initOnChange(e.onChange),
-            e.wideScreen && r.props.setPageScreen(e.wideScreen),
             r
           );
         }
@@ -32196,9 +32173,7 @@ and limitations under the License.
                 fe(e.data, this.props.data) ||
                   this.props.initJSONSchemaData(e.data),
                   fe(e.onChange, this.props.onChange) ||
-                    this.props.initOnChange(e.onChange),
-                  fe(e.wideScreen, this.props.wideScreen) ||
-                    this.props.setPageScreen(e.wideScreen);
+                    this.props.initOnChange(e.onChange);
               },
             },
             {
@@ -32221,7 +32196,7 @@ and limitations under the License.
                   { className: 'json-schema-container' },
                   !t &&
                     d.createElement(
-                      nt.a,
+                      et.a,
                       {
                         draggable: !0,
                         selectable: !1,
@@ -32233,7 +32208,7 @@ and limitations under the License.
                           'data-data',
                         ],
                       },
-                      Zn({
+                      Xn({
                         parentType: '',
                         jsonKey: '',
                         indexRoute: '',
@@ -32255,12 +32230,8 @@ and limitations under the License.
           n
         );
       })(d.PureComponent);
-      tr.propTypes = {
-        wideScreen: Y.a.any,
-        onChange: Y.a.func,
-        data: Y.a.object,
-      };
-      var nr = $(function (e) {
+      Zn.propTypes = { onChange: Y.a.func, data: Y.a.object };
+      var er = $(function (e) {
         return {
           jsonSchema: e.jsonSchemaStore.jsonSchema,
           initJSONSchemaData: e.jsonSchemaStore.initJSONSchemaData,
@@ -32272,8 +32243,8 @@ and limitations under the License.
           isExitJsonKey: e.jsonSchemaStore.isExitJsonKey,
           isSupportCurType: e.jsonSchemaStore.isSupportCurType,
         };
-      })(B(tr));
-      function rr(e) {
+      })(B(Zn));
+      function tr(e) {
         var t = (function () {
           if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
           if (Reflect.construct.sham) return !1;
@@ -32299,9 +32270,9 @@ and limitations under the License.
           return l()(this, n);
         };
       }
-      var or = (function (e) {
+      var nr = (function (e) {
         u()(n, e);
-        var t = rr(n);
+        var t = tr(n);
         function n() {
           return o()(this, n), t.apply(this, arguments);
         }
@@ -32317,8 +32288,8 @@ and limitations under the License.
                   o = e.wideScreen,
                   a = d.createElement(
                     U,
-                    { jsonSchemaStore: et.jsonSchemaStore },
-                    d.createElement(nr, {
+                    { jsonSchemaStore: Qe.jsonSchemaStore },
+                    d.createElement(er, {
                       data: t,
                       onChange: n,
                       wideScreen: o,
@@ -32331,7 +32302,7 @@ and limitations under the License.
           n
         );
       })(d.PureComponent);
-      or.propTypes = {
+      nr.propTypes = {
         wideScreen: Y.a.any,
         onChange: Y.a.func,
         data: Y.a.any,
@@ -32384,7 +32355,7 @@ and limitations under the License.
       }
       var m = n(2),
         b = n.n(m),
-        g = n(95),
+        g = n(94),
         O = function (e) {
           var t,
             n = e.className,
@@ -32491,14 +32462,14 @@ and limitations under the License.
             V = Object(p.a)(K, 2),
             H = V[0],
             B = V[1],
-            z = function (e) {
+            W = function (e) {
               B(e);
               var t = A[e];
               t ? M(t.data.value, e) : M(null, -1);
             };
           u.useEffect(
             function () {
-              z(!1 !== j ? F(0) : -1);
+              W(!1 !== j ? F(0) : -1);
             },
             [A.length, m],
           ),
@@ -32510,7 +32481,7 @@ and limitations under the License.
                       t = A.findIndex(function (t) {
                         return t.data.value === e;
                       });
-                    z(t), L(t);
+                    W(t), L(t);
                   }
                 });
                 return function () {
@@ -32519,7 +32490,7 @@ and limitations under the License.
               },
               [P],
             );
-          var W = function (e) {
+          var z = function (e) {
             void 0 !== e && _(e, { selected: !h.has(e) }), w || N(!1);
           };
           if (
@@ -32536,12 +32507,12 @@ and limitations under the License.
                         0 !== n)
                       ) {
                         var r = F(H + n, n);
-                        L(r), z(r);
+                        L(r), W(r);
                       }
                       break;
                     case d.a.ENTER:
                       var o = A[H];
-                      o && !o.data.disabled ? W(o.data.value) : W(void 0),
+                      o && !o.data.disabled ? z(o.data.value) : z(void 0),
                         P && e.preventDefault();
                       break;
                     case d.a.ESC:
@@ -32668,10 +32639,10 @@ and limitations under the License.
                     className: x,
                     title: d,
                     onMouseMove: function () {
-                      H === t || s || z(t);
+                      H === t || s || W(t);
                     },
                     onClick: function () {
-                      s || W(p);
+                      s || z(p);
                     },
                     style: m,
                   }),
@@ -32779,10 +32750,10 @@ and limitations under the License.
           });
       }
       var T = n(4),
-        D = n(89),
-        A = n(88),
+        D = n(88),
+        A = n(87),
         R = n(61),
-        I = n(90);
+        I = n(89);
       var L = n(20),
         F = n(5);
       function K(e) {
@@ -32803,7 +32774,7 @@ and limitations under the License.
           window.document &&
           window.document.documentElement,
         B = 0;
-      function z(e, t) {
+      function W(e, t) {
         var n = Object.keys(e);
         if (Object.getOwnPropertySymbols) {
           var r = Object.getOwnPropertySymbols(e);
@@ -32815,16 +32786,16 @@ and limitations under the License.
         }
         return n;
       }
-      function W(e) {
+      function z(e) {
         for (var t = 1; t < arguments.length; t++) {
           var n = null != arguments[t] ? arguments[t] : {};
           t % 2
-            ? z(Object(n), !0).forEach(function (t) {
+            ? W(Object(n), !0).forEach(function (t) {
                 Object(l.a)(e, t, n[t]);
               })
             : Object.getOwnPropertyDescriptors
             ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n))
-            : z(Object(n)).forEach(function (t) {
+            : W(Object(n)).forEach(function (t) {
                 Object.defineProperty(
                   e,
                   t,
@@ -32843,7 +32814,7 @@ and limitations under the License.
         );
       }
       function q(e) {
-        var t = W({}, e);
+        var t = z({}, e);
         return (
           'props' in t ||
             Object.defineProperty(t, 'props', {
@@ -32905,7 +32876,7 @@ and limitations under the License.
         })(e, t);
         return n ? r : null;
       }
-      var Y = n(91),
+      var Y = n(90),
         X = n(62),
         Q = n(42),
         Z =
@@ -33378,8 +33349,8 @@ and limitations under the License.
             V = s.a.useRef(null),
             H = s.a.useState(0),
             B = Object(p.a)(H, 2),
-            z = B[0],
-            W = B[1];
+            W = B[0],
+            z = B[1];
           s.a.useEffect(function () {
             K(!0);
           }, []);
@@ -33387,7 +33358,7 @@ and limitations under the License.
             q = 'tags' === d || (o && y);
           ve(
             function () {
-              W(V.current.scrollWidth);
+              z(V.current.scrollWidth);
             },
             [U],
           );
@@ -33482,7 +33453,7 @@ and limitations under the License.
               'span',
               {
                 className: ''.concat(n, '-selection-search'),
-                style: { width: z },
+                style: { width: W },
               },
               s.a.createElement(he, {
                 ref: i,
@@ -33714,7 +33685,7 @@ and limitations under the License.
       });
       je.displayName = 'Selector';
       var Ee = je,
-        xe = n(94);
+        xe = n(93);
       function Se(e, t) {
         var n = Object.keys(e);
         if (Object.getOwnPropertySymbols) {
@@ -34081,8 +34052,8 @@ and limitations under the License.
         Ve,
         He,
         Be,
-        ze,
         We,
+        ze,
         Ue,
         qe,
         Je =
@@ -34161,7 +34132,7 @@ and limitations under the License.
                         var n = t.options.filter(function (t) {
                           return r(e, t);
                         });
-                        n.length && i.push(W(W({}, t), {}, { options: n }));
+                        n.length && i.push(z(z({}, t), {}, { options: n }));
                       }
                     else r(e, q(t)) && i.push(t);
                   }),
@@ -34207,9 +34178,9 @@ and limitations under the License.
           (Ve = Re.getLabeledValue),
           (He = Re.filterOptions),
           (Be = Re.isValueDisabled),
-          (ze = Re.findValueOption),
+          (We = Re.findValueOption),
           Re.warningProps,
-          (We = Re.fillOptionsWithMissingValue),
+          (ze = Re.fillOptionsWithMissingValue),
           (Ue = Re.omitDOMProps),
           u.forwardRef(function (e, t) {
             var n,
@@ -34242,8 +34213,8 @@ and limitations under the License.
               L = e.disabled,
               F = e.loading,
               K = e.defaultActiveFirstOption,
-              z = e.notFoundContent,
-              W = void 0 === z ? 'Not Found' : z,
+              W = e.notFoundContent,
+              z = void 0 === W ? 'Not Found' : W,
               U = e.optionLabelProp,
               q = e.backfill,
               J = e.getInputElement,
@@ -34449,7 +34420,7 @@ and limitations under the License.
                   var e = y;
                   return (
                     void 0 === e && (e = Fe(h)),
-                    'tags' === v && We && (e = We(e, ht, it, w)),
+                    'tags' === v && ze && (e = ze(e, ht, it, w)),
                     e || []
                   );
                 },
@@ -34577,7 +34548,7 @@ and limitations under the License.
               ));
             var It = function (e, t, n) {
                 var r = Nt([e]),
-                  o = ze([e], r)[0];
+                  o = We([e], r)[0];
                 if (!Ne.skipTriggerSelect) {
                   var a = ct
                     ? Ve(e, {
@@ -34625,7 +34596,7 @@ and limitations under the License.
                     }),
                     r = ut ? n : n[0];
                   if (xe && (0 !== mt.length || 0 !== n.length)) {
-                    var o = ze(e, t);
+                    var o = We(e, t);
                     xe(r, ut ? o : o[0]);
                   }
                   yt(r);
@@ -34649,14 +34620,14 @@ and limitations under the License.
               Vt = Object(Y.a)(void 0, { defaultValue: s, value: c }),
               Ht = Object(p.a)(Vt, 2),
               Bt = Ht[0],
-              zt = Ht[1],
-              Wt = Bt,
-              Ut = !W && !Mt.length;
-            (L || (Ut && Wt && 'combobox' === v)) && (Wt = !1);
-            var qt = !Ut && Wt,
+              Wt = Ht[1],
+              zt = Bt,
+              Ut = !z && !Mt.length;
+            (L || (Ut && zt && 'combobox' === v)) && (zt = !1);
+            var qt = !Ut && zt,
               Jt = function (e) {
-                var t = void 0 !== e ? e : !Wt;
-                Bt === t || L || (zt(t), he && he(t));
+                var t = void 0 !== e ? e : !zt;
+                Bt === t || L || (Wt(t), he && he(t));
               };
             !(function (e, t, n) {
               var r = u.useRef(null);
@@ -34722,15 +34693,15 @@ and limitations under the License.
             };
             u.useEffect(
               function () {
-                Bt && L && zt(!1);
+                Bt && L && Wt(!1);
               },
               [L],
             ),
               u.useEffect(
                 function () {
-                  Wt || ut || 'combobox' === v || $t('', !1, !1);
+                  zt || ut || 'combobox' === v || $t('', !1, !1);
                 },
-                [Wt],
+                [zt],
               );
             var Gt = we(),
               Yt = Object(p.a)(Gt, 2),
@@ -34769,7 +34740,7 @@ and limitations under the License.
                 ref: Ge,
                 prefixCls: o,
                 id: at,
-                open: Wt,
+                open: zt,
                 childrenAsData: !y,
                 options: Mt,
                 flattenOptions: Tt,
@@ -34785,7 +34756,7 @@ and limitations under the License.
                   on(t), q && 'combobox' === v && null !== e && jt(String(e));
                 },
                 defaultActiveFirstOption: an,
-                notFoundContent: W,
+                notFoundContent: z,
                 onScroll: ye,
                 searchValue: Ct,
                 menuItemSelectedIcon: I,
@@ -34817,7 +34788,7 @@ and limitations under the License.
                 customizeIconProps: {
                   loading: F,
                   searchValue: Ct,
-                  open: Wt,
+                  open: zt,
                   focused: Qe,
                   showSearch: st,
                 },
@@ -34833,7 +34804,7 @@ and limitations under the License.
               Object(l.a)(n, ''.concat(o, '-show-arrow'), yn),
               Object(l.a)(n, ''.concat(o, '-disabled'), L),
               Object(l.a)(n, ''.concat(o, '-loading'), F),
-              Object(l.a)(n, ''.concat(o, '-open'), Wt),
+              Object(l.a)(n, ''.concat(o, '-open'), zt),
               Object(l.a)(n, ''.concat(o, '-customize-input'), Kt),
               Object(l.a)(n, ''.concat(o, '-show-search'), st),
               n),
@@ -34872,7 +34843,7 @@ and limitations under the License.
                     n = Xt(),
                     r = e.which;
                   if (
-                    (Wt || r !== d.a.ENTER || Jt(!0),
+                    (zt || r !== d.a.ENTER || Jt(!0),
                     Qt(!!Ct),
                     r === d.a.BACKSPACE && !n && ut && !Ct && mt.length)
                   ) {
@@ -34888,7 +34859,7 @@ and limitations under the License.
                     c++
                   )
                     i[c - 1] = arguments[c];
-                  Wt &&
+                  zt &&
                     Ge.current &&
                     (t = Ge.current).onKeyDown.apply(t, [e].concat(i)),
                     Oe && Oe.apply(void 0, [e].concat(i));
@@ -34903,7 +34874,7 @@ and limitations under the License.
                   )
                     n[r - 1] = arguments[r];
                   var o;
-                  Wt &&
+                  zt &&
                     Ge.current &&
                     (o = Ge.current).onKeyUp.apply(o, [e].concat(n)),
                     ge && ge.apply(void 0, [e].concat(n));
@@ -34933,7 +34904,7 @@ and limitations under the License.
                 },
               }),
               Qe &&
-                !Wt &&
+                !zt &&
                 u.createElement(
                   'span',
                   {
@@ -34985,7 +34956,7 @@ and limitations under the License.
                     multiple: ut,
                     tagRender: de,
                     values: Rt,
-                    open: Wt,
+                    open: zt,
                     onToggleOpen: Jt,
                     searchValue: Ct,
                     activeValue: wt,
@@ -35355,7 +35326,7 @@ and limitations under the License.
         var t = arguments.length <= 1 ? void 0 : arguments[1];
         return t && t.target && e in t.target ? t.target[e] : t;
       }
-      function z(e, t, n) {
+      function W(e, t, n) {
         var r = e.length;
         if (t < 0 || t >= r || n < 0 || n >= r) return e;
         var o = e[t],
@@ -35376,7 +35347,7 @@ and limitations under the License.
             )
           : e;
       }
-      var W = "'${name}' is not a valid ${type}",
+      var z = "'${name}' is not a valid ${type}",
         U = {
           default: "Validation error on field '${name}'",
           required: "'${name}' is required",
@@ -35388,19 +35359,19 @@ and limitations under the License.
             invalid: "'${name}' is invalid date",
           },
           types: {
-            string: W,
-            method: W,
-            array: W,
-            object: W,
-            number: W,
-            date: W,
-            boolean: W,
-            integer: W,
-            float: W,
-            regexp: W,
-            email: W,
-            url: W,
-            hex: W,
+            string: z,
+            method: z,
+            array: z,
+            object: z,
+            number: z,
+            date: z,
+            boolean: z,
+            integer: z,
+            float: z,
+            regexp: z,
+            email: z,
+            url: z,
+            hex: z,
           },
           string: {
             len: "'${name}' must be exactly ${len} characters",
@@ -36137,7 +36108,7 @@ and limitations under the License.
                           e >= n.length ||
                           t < 0 ||
                           t >= n.length ||
-                          ((a.keys = z(a.keys, e, t)), c(z(n, e, t)));
+                          ((a.keys = W(a.keys, e, t)), c(W(n, e, t)));
                       }
                     },
                   };
@@ -37604,7 +37575,7 @@ and limitations under the License.
                     _ = S.draggable,
                     N = S.keyEntities,
                     M = this.isDisabled(),
-                    T = z(x),
+                    T = W(x),
                     D = (N[n] || {}).level;
                   return l.createElement(
                     'div',
@@ -37756,7 +37727,7 @@ and limitations under the License.
           Object(o.a)(n)
         );
       }
-      function z(e) {
+      function W(e) {
         var t = {};
         return (
           Object.keys(e).forEach(function (n) {
@@ -37765,8 +37736,8 @@ and limitations under the License.
           t
         );
       }
-      var W = n(6),
-        U = n(95),
+      var z = n(6),
+        U = n(94),
         q = n(62),
         J = function (e, t) {
           var n = e.className,
@@ -37788,7 +37759,7 @@ and limitations under the License.
               'treeNodeRequiredProps',
             ]),
             p = l.useState(!0),
-            d = Object(W.a)(p, 2),
+            d = Object(z.a)(p, 2),
             v = d[0],
             b = d[1],
             g = l.useContext(h).prefixCls,
@@ -37970,27 +37941,27 @@ and limitations under the License.
           };
         });
         var R = l.useState(!1),
-          I = Object(W.a)(R, 2),
+          I = Object(z.a)(R, 2),
           L = I[0],
           F = I[1],
           K = l.useState(o),
-          V = Object(W.a)(K, 2),
+          V = Object(z.a)(K, 2),
           H = V[0],
           B = V[1],
-          z = l.useState(r),
-          q = Object(W.a)(z, 2),
+          W = l.useState(r),
+          q = Object(z.a)(W, 2),
           J = q[0],
           Z = q[1],
           ee = l.useState(r),
-          oe = Object(W.a)(ee, 2),
+          oe = Object(z.a)(ee, 2),
           ae = oe[0],
           ie = oe[1],
           ce = l.useState([]),
-          ue = Object(W.a)(ce, 2),
+          ue = Object(z.a)(ce, 2),
           se = ue[0],
           le = ue[1],
           fe = l.useState(null),
-          pe = Object(W.a)(fe, 2),
+          pe = Object(z.a)(fe, 2),
           de = pe[0],
           ye = pe[1];
         function he() {
@@ -38831,7 +38802,7 @@ and limitations under the License.
                     N = u.height,
                     M = u.itemHeight,
                     T = u.virtual,
-                    D = z(this.props);
+                    D = W(this.props);
                   return l.createElement(
                     h.Provider,
                     {
@@ -39666,7 +39637,7 @@ and limitations under the License.
       })(i.a.Component);
       T.defaultProps = { autoMount: !0, autoDestroy: !0, forceRender: !1 };
       var D,
-        A = n(92);
+        A = n(91);
       var R = function (e) {
         var t =
             arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {},
@@ -39801,7 +39772,7 @@ and limitations under the License.
             return (e.__proto__ = t), e;
           })(e, t);
       }
-      function z(e) {
+      function W(e) {
         var t = (function () {
           if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
           if (Reflect.construct.sham) return !1;
@@ -39824,10 +39795,10 @@ and limitations under the License.
             var o = q(this).constructor;
             n = Reflect.construct(r, arguments, o);
           } else n = r.apply(this, arguments);
-          return W(this, n);
+          return z(this, n);
         };
       }
-      function W(e, t) {
+      function z(e, t) {
         return !t || ('object' !== J(t) && 'function' != typeof t) ? U(e) : t;
       }
       function U(e) {
@@ -39890,7 +39861,7 @@ and limitations under the License.
           var t,
             n,
             r,
-            o = z(a);
+            o = W(a);
           function a(e) {
             var t;
             !(function (e, t) {
@@ -40077,7 +40048,7 @@ and limitations under the License.
       n.r(t);
       var r = n(0),
         o = n.n(r),
-        a = n(94),
+        a = n(93),
         i = { adjustX: 1, adjustY: 1 },
         c = [0, 0],
         u = {

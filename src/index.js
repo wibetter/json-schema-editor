@@ -789,7 +789,7 @@ class IndexDemo extends React.PureComponent {
 
 ReactDOM.render(
   <div>
-    <h1>JSON数据可视化/JSONSchema&JSONEditor Demo</h1>
+    <h1>JSON数据可视化/JSONSchema Demo</h1>
 
     <br />
 
