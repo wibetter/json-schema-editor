@@ -131,10 +131,10 @@ class BaseFormSchema extends React.PureComponent {
     // 2.生成一个新的key值
     const newJsonKey = getNewJsonKeyIndex(parentJSONObj, jsonKey);
     // 3.复制时记录数据来源的路径值（备注：只保留最近的一次copy数值源）
-    saveWebCacheData(
+    /*saveWebCacheData(
       `${getNextIndexRoute(indexRoute)}-${newJsonKey}`,
       indexRoute,
-    );
+    );*/
     // 4.插入复制的json数据
     insertJsonData(indexRoute, newJsonKey, newJsonData);
   };

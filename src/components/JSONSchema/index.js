@@ -130,7 +130,7 @@ class JSONSchema extends React.PureComponent {
         return;
       }
 
-      let cacheTardetIndex = targetIndexRoute;
+      // let cacheTardetIndex = targetIndexRoute;
       // 非同级元素拖拽后删除
       if (node.dragOverGapTop) {
         /** 拖拽到目标元素前面 */
@@ -149,7 +149,7 @@ class JSONSchema extends React.PureComponent {
           deleteJsonByIndex(curIndexRoute);
         }
       } else if (node.dragOver || node.dragOverGapBottom) {
-        cacheTardetIndex = getNextIndexRoute(targetIndexRoute);
+        // cacheTardetIndex = getNextIndexRoute(targetIndexRoute);
         /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
         if (curPosition === 'after') {
           deleteJsonByIndex(curIndexRoute, true); // 设置为true表示跳过onChange
@@ -161,7 +161,7 @@ class JSONSchema extends React.PureComponent {
         }
       }
 
-      // 现获取拖拽元素的原始路径
+      /*// 现获取拖拽元素的原始路径
       const cacheTargetIndexRoute = getWebCacheData(
         `${curIndexRoute}-${curJsonKey}`,
       );
@@ -174,7 +174,7 @@ class JSONSchema extends React.PureComponent {
           `${cacheTardetIndex}-${curJsonKey}`,
           cacheTargetIndexRoute,
         );
-      }
+      }*/
     }
   };
 
