@@ -13,7 +13,6 @@ import {
 import AdvanceConfig from '$components/AdvanceConfig/index'; // 高级配置内容
 import {
   isBoxSchemaData,
-  getNextIndexRoute,
   isFirstSchemaData,
   getCurrentFormat,
   getParentIndexRoute,
@@ -120,6 +119,7 @@ class BaseFormSchema extends React.PureComponent {
       indexRoute,
       targetJsonData,
       getJSONDataByIndex,
+      indexRoute2keyRoute,
       jsonKey,
       insertJsonData,
       getNewJsonKeyIndex,
@@ -131,10 +131,11 @@ class BaseFormSchema extends React.PureComponent {
     // 2.生成一个新的key值
     const newJsonKey = getNewJsonKeyIndex(parentJSONObj, jsonKey);
     // 3.复制时记录数据来源的路径值（备注：只保留最近的一次copy数值源）
-    /*saveWebCacheData(
-      `${getNextIndexRoute(indexRoute)}-${newJsonKey}`,
-      indexRoute,
-    );*/
+    const currentFormat = getCurrentFormat(targetJsonData);
+    saveWebCacheData(
+      `${indexRoute2keyRoute(parentIndexRoute)}-${newJsonKey}-${currentFormat}`,
+      indexRoute2keyRoute(indexRoute),
+    );
     // 4.插入复制的json数据
     insertJsonData(indexRoute, newJsonKey, newJsonData);
   };
@@ -304,6 +305,7 @@ export default inject((stores) => ({
   getNewJsonKeyIndex: stores.jsonSchemaStore.getNewJsonKeyIndex,
   deleteJsonByIndex_CurKey: stores.jsonSchemaStore.deleteJsonByIndex_CurKey,
   getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
+  indexRoute2keyRoute: stores.jsonSchemaStore.indexRoute2keyRoute,
   addChildJson: stores.jsonSchemaStore.addChildJson,
   addNextJsonData: stores.jsonSchemaStore.addNextJsonData,
   insertJsonData: stores.jsonSchemaStore.insertJsonData,
