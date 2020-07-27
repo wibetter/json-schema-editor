@@ -3,19 +3,24 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Tree, message } from 'antd';
 import ObjectSchema from '$components/ObjectSchema/index';
-import { isEqual, isFirstSchemaElem } from '$utils/index';
+import {
+  isEqual,
+  isFirstSchemaElem,
+  saveWebCacheData,
+  getWebCacheData,
+} from '$utils/index';
 import {
   getCurrentFormat,
   isEmptySchema,
   isSameParent,
   getCurPosition,
   moveForward,
+  getNextIndexRoute,
 } from '$utils/jsonSchema';
 import './index.scss';
 
 class JSONSchema extends React.PureComponent {
   static propTypes = {
-    wideScreen: PropTypes.any,
     onChange: PropTypes.func,
     data: PropTypes.object,
   };
@@ -30,10 +35,6 @@ class JSONSchema extends React.PureComponent {
     if (props.onChange) {
       this.props.initOnChange(props.onChange);
     }
-    // 读取宽屏和小屏的配置
-    if (props.wideScreen) {
-      this.props.setPageScreen(props.wideScreen);
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,9 +44,6 @@ class JSONSchema extends React.PureComponent {
     // 记录onChange事件
     if (!isEqual(nextProps.onChange, this.props.onChange)) {
       this.props.initOnChange(nextProps.onChange);
-    }
-    if (!isEqual(nextProps.wideScreen, this.props.wideScreen)) {
-      this.props.setPageScreen(nextProps.wideScreen);
     }
   }
 
@@ -131,6 +129,8 @@ class JSONSchema extends React.PureComponent {
         message.warning(`目标位置不支持${curType}类型元素`);
         return;
       }
+
+      // let cacheTardetIndex = targetIndexRoute;
       // 非同级元素拖拽后删除
       if (node.dragOverGapTop) {
         /** 拖拽到目标元素前面 */
@@ -149,6 +149,7 @@ class JSONSchema extends React.PureComponent {
           deleteJsonByIndex(curIndexRoute);
         }
       } else if (node.dragOver || node.dragOverGapBottom) {
+        // cacheTardetIndex = getNextIndexRoute(targetIndexRoute);
         /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
         if (curPosition === 'after') {
           deleteJsonByIndex(curIndexRoute, true); // 设置为true表示跳过onChange
@@ -159,6 +160,21 @@ class JSONSchema extends React.PureComponent {
           deleteJsonByIndex(curIndexRoute);
         }
       }
+
+      /*// 现获取拖拽元素的原始路径
+      const cacheTargetIndexRoute = getWebCacheData(
+        `${curIndexRoute}-${curJsonKey}`,
+      );
+      // 跨级拖拽排序的时候，记录原始位置元素所在的位置，以便保留其数值
+      if (!cacheTargetIndexRoute) {
+        saveWebCacheData(`${cacheTardetIndex}-${curJsonKey}`, curIndexRoute);
+      } else {
+        // 只保留第一次跨级拖拽时的数值
+        saveWebCacheData(
+          `${cacheTardetIndex}-${curJsonKey}`,
+          cacheTargetIndexRoute,
+        );
+      }*/
     }
   };
 

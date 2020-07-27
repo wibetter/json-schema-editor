@@ -25,26 +25,9 @@ export default class JSONSchemaStore {
   @observable jsonSchema = {};
 
   /**
-   * 宽屏（wideScreen） or 小屏（mobileScreen）
-   */
-  @observable pageScreen = 'wideScreen'; // 默认小屏，宽屏: wideScreen，小屏：mobileScreen
-
-  /**
    * onChange: jsonSchema数据变动触发的onChange
    */
   @observable onChange = () => {}; // 函数类型
-
-  /**
-   * 设置当前屏幕模式：大屏 or 小屏
-   */
-  @action.bound
-  setPageScreen(pageScreen) {
-    if (pageScreen === 'wideScreen' || pageScreen) {
-      this.pageScreen = 'wideScreen';
-    } else {
-      this.pageScreen = 'mobileScreen'; // 默认宽屏
-    }
-  }
 
   /**
    * triggerChangeAction: 用于主动触发更新事件

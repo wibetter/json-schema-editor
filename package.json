@@ -1,6 +1,6 @@
 {
   "name": "@jdwork/json-schema-editor",
-  "version": "2.2.9",
+  "version": "3.1.2",
   "description": "JSON数据可视化/JSONSchema",
   "author": "liudan185",
   "license": "MIT",
@@ -116,7 +116,8 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "@jdwork/json-editor": "3.1.2"
   },
   "engines": {
     "node": ">= 10.13.0",

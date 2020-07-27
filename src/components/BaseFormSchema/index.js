@@ -13,11 +13,12 @@ import {
 import AdvanceConfig from '$components/AdvanceConfig/index'; // 高级配置内容
 import {
   isBoxSchemaData,
+  getNextIndexRoute,
   isFirstSchemaData,
   getCurrentFormat,
   getParentIndexRoute,
 } from '$utils/jsonSchema';
-import { objClone } from '$utils/index';
+import { objClone, saveWebCacheData } from '$utils/index';
 import { TypeList } from '$data/TypeList';
 import { TypeDataList } from '$data/TypeDataList';
 import './index.scss';
@@ -129,7 +130,12 @@ class BaseFormSchema extends React.PureComponent {
     const parentJSONObj = getJSONDataByIndex(parentIndexRoute);
     // 2.生成一个新的key值
     const newJsonKey = getNewJsonKeyIndex(parentJSONObj, jsonKey);
-    // 3.插入复制的json数据
+    // 3.复制时记录数据来源的路径值（备注：只保留最近的一次copy数值源）
+    /*saveWebCacheData(
+      `${getNextIndexRoute(indexRoute)}-${newJsonKey}`,
+      indexRoute,
+    );*/
+    // 4.插入复制的json数据
     insertJsonData(indexRoute, newJsonKey, newJsonData);
   };
 
