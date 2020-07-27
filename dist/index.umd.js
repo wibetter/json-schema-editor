@@ -30885,9 +30885,8 @@ and limitations under the License.
                   a = e.jsonKey,
                   i = e.insertJsonData,
                   c = e.getNewJsonKeyIndex,
-                  u = le(n),
-                  s = c(o(ve(t)), a);
-                (u.copySourceIndex = t), i(t, s, u);
+                  u = le(n);
+                i(t, c(o(ve(t)), a), u);
               }),
               (r.onDeleteBtnEvent = function () {
                 var e = r.props,
@@ -32148,15 +32147,14 @@ and limitations under the License.
                     return void ee.a.warning(
                       '目标位置不支持'.concat(g, '类型元素'),
                     );
-                  p.dragSourceIndex || (p.dragSourceIndex = l),
-                    n.dragOverGapTop
-                      ? 'after' === b
-                        ? (c(l, !0), i(d, f, p, 'before'))
-                        : (i(d, f, p, 'before', !0), c(l))
-                      : (n.dragOver || n.dragOverGapBottom) &&
-                        ('after' === b
-                          ? (c(l, !0), i(d, f, p))
-                          : (i(d, f, p, '', !0), c(l)));
+                  n.dragOverGapTop
+                    ? 'after' === b
+                      ? (c(l, !0), i(d, f, p, 'before'))
+                      : (i(d, f, p, 'before', !0), c(l))
+                    : (n.dragOver || n.dragOverGapBottom) &&
+                      ('after' === b
+                        ? (c(l, !0), i(d, f, p))
+                        : (i(d, f, p, '', !0), c(l)));
                 }
               }
             }),
