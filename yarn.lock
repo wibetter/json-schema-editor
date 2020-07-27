@@ -1160,6 +1160,42 @@
   dependencies:
     find-up "^4.0.0"
 
+"@jdwork/json-editor@3.1.2":
+  version "3.1.2"
+  resolved "http://registry.m.jd.com/@jdwork/json-editor/download/@jdwork/json-editor-3.1.2.tgz#e5b65dd8c861a4127075574997f9be4aeea0a813"
+  integrity sha1-5bZd2MhhpBJwdVdJl/m+Su6gqBM=
+  dependencies:
+    "@ant-design/icons" "^4.2.1"
+    "@babel/polyfill" "^7.10.1"
+    "@jdwork/json-schema-editor" "^2.2.9"
+    ace-builds "^1.4.12"
+    antd "^4.3.4"
+    generate-schema "^2.6.0"
+    json-schema-filter "^0.1.5"
+    mobx "^5.15.4"
+    mobx-react "^6.2.2"
+    moment "^2.27.0"
+    prop-types "^15.7.2"
+    react "^16.8.6"
+    react-ace "^9.1.1"
+    react-dom "^16.8.6"
+
+"@jdwork/json-schema-editor@^2.2.9":
+  version "2.2.9"
+  resolved "http://registry.m.jd.com/@jdwork/json-schema-editor/download/@jdwork/json-schema-editor-2.2.9.tgz#0fa206ec5d9ec94172170dab7fc5033eeac22485"
+  integrity sha1-D6IG7F2eyUFyFw2rf8UDPurCJIU=
+  dependencies:
+    "@ant-design/icons" "^4.2.1"
+    "@babel/polyfill" "^7.10.1"
+    antd "^4.3.4"
+    generate-schema "^2.6.0"
+    json5 "^2.1.3"
+    mobx "^5.15.4"
+    mobx-react "^6.2.2"
+    prop-types "^15.7.2"
+    react "^16.8.6"
+    react-dom "^16.8.6"
+
 "@mapbox/stylelint-processor-arbitrary-tags@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@mapbox/stylelint-processor-arbitrary-tags/-/stylelint-processor-arbitrary-tags-0.3.0.tgz#1d098ef1378fb1da38b156c3cb1e4d778e144825"
@@ -1511,6 +1547,11 @@ accepts@~1.3.7:
   dependencies:
     mime-types "~2.1.24"
     negotiator "0.6.2"
+
+ace-builds@^1.4.12, ace-builds@^1.4.6:
+  version "1.4.12"
+  resolved "http://registry.m.jd.com/ace-builds/download/ace-builds-1.4.12.tgz#888efa386e36f4345f40b5233fcc4fe4c588fae7"
+  integrity sha1-iI76OG429DRfQLUjP8xP5MWI+uc=
 
 acorn-jsx@^5.2.0:
   version "5.2.0"
@@ -3311,6 +3352,11 @@ detect-file@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/detect-file/-/detect-file-1.0.0.tgz#f0d66d03672a825cb1b73bdb3fe62310c8e552b7"
   integrity sha1-8NZtA2cqglyxtzvbP+YjEMjlUrc=
+
+diff-match-patch@^1.0.4:
+  version "1.0.5"
+  resolved "http://registry.m.jd.com/diff-match-patch/download/diff-match-patch-1.0.5.tgz#abb584d5f10cd1196dfc55aa03701592ae3f7b37"
+  integrity sha1-q7WE1fEM0Rlt/FWqA3AVkq4/ezc=
 
 diffie-hellman@^5.0.0:
   version "5.0.3"
@@ -5512,6 +5558,11 @@ json-parse-better-errors@^1.0.1, json-parse-better-errors@^1.0.2:
   resolved "https://registry.yarnpkg.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
   integrity sha512-mrqyZKfX5EhL7hvqcV6WG1yYjnjeuYDzDhhcAAUrq8Po85NBQBJP+ZDUT75qZQ98IkUoBqdkExkukOU7Ts2wrw==
 
+json-schema-filter@^0.1.5:
+  version "0.1.5"
+  resolved "http://registry.m.jd.com/json-schema-filter/download/json-schema-filter-0.1.5.tgz#f7936de557d6dc683583cc485fc98e12e37ce87e"
+  integrity sha1-95Nt5VfW3Gg1g8xIX8mOEuN86H4=
+
 json-schema-traverse@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz#69f6a87d9513ab8bb8fe63bdb0979c448e684660"
@@ -5777,6 +5828,16 @@ lodash._reinterpolate@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
   integrity sha1-DM8tiRZq8Ds2Y8eWU4t1rG4RTZ0=
+
+lodash.get@^4.4.2:
+  version "4.4.2"
+  resolved "http://registry.m.jd.com/lodash.get/download/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+  integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
+
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "http://registry.m.jd.com/lodash.isequal/download/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+  integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
 
 lodash.memoize@^4.1.2:
   version "4.1.2"
@@ -6302,6 +6363,11 @@ moment@^2.24.0, moment@^2.25.3:
   version "2.26.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.26.0.tgz#5e1f82c6bafca6e83e808b30c8705eed0dcbd39a"
   integrity sha512-oIixUO+OamkUkwjhAVE18rAMfRJNsNe/Stid/gwHSOfHrOtw9EhAY2AHvdKZ/k/MggcYELFCJz/Sn2pL8b8JMw==
+
+moment@^2.27.0:
+  version "2.27.0"
+  resolved "http://registry.m.jd.com/moment/download/moment-2.27.0.tgz#8bff4e3e26a236220dfe3e36de756b6ebaa0105d"
+  integrity sha1-i/9OPiaiNiIN/j423nVrbrqgEF0=
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -8078,6 +8144,17 @@ rc-virtual-list@^1.1.0, rc-virtual-list@^1.1.2:
     classnames "^2.2.6"
     raf "^3.4.1"
     rc-util "^5.0.0"
+
+react-ace@^9.1.1:
+  version "9.1.1"
+  resolved "http://registry.m.jd.com/react-ace/download/react-ace-9.1.1.tgz#fe27e1c668b0186dc1609c422198d1c2df34d2bf"
+  integrity sha1-/ifhxmiwGG3BYJxCIZjRwt800r8=
+  dependencies:
+    ace-builds "^1.4.6"
+    diff-match-patch "^1.0.4"
+    lodash.get "^4.4.2"
+    lodash.isequal "^4.5.0"
+    prop-types "^15.7.2"
 
 react-addons-perf@15.4.2:
   version "15.4.2"
