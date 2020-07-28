@@ -11,11 +11,11 @@ import {
 } from '$utils/index';
 import {
   getCurrentFormat,
+  getParentIndexRoute,
   isEmptySchema,
   isSameParent,
   getCurPosition,
   moveForward,
-  getNextIndexRoute,
 } from '$utils/jsonSchema';
 import './index.scss';
 
@@ -70,6 +70,7 @@ class JSONSchema extends React.PureComponent {
     const { dragNode, node } = eventData;
     const {
       getJSONDataByIndex,
+      indexRoute2keyRoute,
       insertJsonData,
       deleteJsonByIndex,
       isExitJsonKey,
@@ -130,7 +131,19 @@ class JSONSchema extends React.PureComponent {
         return;
       }
 
-      // let cacheTardetIndex = targetIndexRoute;
+      // 跨级拖动时
+      const currentFormat = getCurrentFormat(curJsonObj);
+      const curKeyRoute = indexRoute2keyRoute(curIndexRoute);
+      const targetParentIndexRoute = getParentIndexRoute(targetIndexRoute);
+      // 先获取拖拽元素的原始路径
+      const cacheKeyRoute = getWebCacheData(`${curKeyRoute}-${currentFormat}`);
+      saveWebCacheData(
+        `${indexRoute2keyRoute(
+          targetParentIndexRoute,
+        )}-${curJsonKey}-${currentFormat}`,
+        cacheKeyRoute || curKeyRoute,
+      );
+
       // 非同级元素拖拽后删除
       if (node.dragOverGapTop) {
         /** 拖拽到目标元素前面 */
@@ -149,7 +162,6 @@ class JSONSchema extends React.PureComponent {
           deleteJsonByIndex(curIndexRoute);
         }
       } else if (node.dragOver || node.dragOverGapBottom) {
-        // cacheTardetIndex = getNextIndexRoute(targetIndexRoute);
         /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
         if (curPosition === 'after') {
           deleteJsonByIndex(curIndexRoute, true); // 设置为true表示跳过onChange
@@ -160,21 +172,6 @@ class JSONSchema extends React.PureComponent {
           deleteJsonByIndex(curIndexRoute);
         }
       }
-
-      /*// 现获取拖拽元素的原始路径
-      const cacheTargetIndexRoute = getWebCacheData(
-        `${curIndexRoute}-${curJsonKey}`,
-      );
-      // 跨级拖拽排序的时候，记录原始位置元素所在的位置，以便保留其数值
-      if (!cacheTargetIndexRoute) {
-        saveWebCacheData(`${cacheTardetIndex}-${curJsonKey}`, curIndexRoute);
-      } else {
-        // 只保留第一次跨级拖拽时的数值
-        saveWebCacheData(
-          `${cacheTardetIndex}-${curJsonKey}`,
-          cacheTargetIndexRoute,
-        );
-      }*/
     }
   };
 
@@ -219,6 +216,7 @@ export default inject((stores) => ({
   initOnChange: stores.jsonSchemaStore.initOnChange,
   setPageScreen: stores.jsonSchemaStore.setPageScreen,
   getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
+  indexRoute2keyRoute: stores.jsonSchemaStore.indexRoute2keyRoute,
   insertJsonData: stores.jsonSchemaStore.insertJsonData,
   deleteJsonByIndex: stores.jsonSchemaStore.deleteJsonByIndex,
   isExitJsonKey: stores.jsonSchemaStore.isExitJsonKey,

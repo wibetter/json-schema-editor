@@ -9,7 +9,7 @@ import {
 import { isEqual, objClone, isFunction } from '$utils/index';
 import { TypeList } from '$data/TypeList';
 import { KeyWordList } from '$data/KeyWordList';
-import { isBoxSchemaData } from '$utils/jsonSchema';
+import { isBoxSchemaData, indexRoute2keyRoute } from '$utils/jsonSchema';
 import { initJSONSchemaData, initInputData } from '$data/index';
 
 export default class JSONSchemaStore {
@@ -76,6 +76,12 @@ export default class JSONSchemaStore {
     if (!ignore) {
       this.onChange(this.JSONSchemaObj);
     }
+  }
+
+  /** 根据索引路径获取对应的key值路径 */
+  @action.bound
+  indexRoute2keyRoute(indexRoute) {
+    return indexRoute2keyRoute(indexRoute, this.jsonSchema);
   }
 
   /** 根据索引路径获取对应的json数据[非联动式数据获取]  */

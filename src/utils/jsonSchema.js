@@ -220,6 +220,29 @@ export function isFirstSchemaData(format) {
   return isFirstSchema;
 }
 
+/** 根据索引路径获取对应的key值路径 */
+export function indexRoute2keyRoute(indexRoute, targetJsonSchemaObj) {
+  let curJsonSchemaObj = targetJsonSchemaObj;
+  let curKeyRoute = '';
+  const indexRouteArr = indexRoute.split('-');
+  for (let index = 0, size = indexRouteArr.length; index < size; index++) {
+    // 获取指定路径的json数据对象，需要按以下步骤（备注：确保是符合规则的json格式数据，使用isJSONSchemaFormat进行校验）
+    const curIndex = indexRouteArr[index];
+    if (curIndex === '0' && curJsonSchemaObj.items) {
+      // 从items中获取数据
+      curJsonSchemaObj = curJsonSchemaObj.items; // 对象类型数据引用
+      curKeyRoute = curKeyRoute ? `${curKeyRoute}-items` : 'items';
+    } else {
+      // 1、先根据路径值获取key值
+      const curKey = curJsonSchemaObj.propertyOrder[curIndex];
+      // 2、根据key值获取对应的json数据对象
+      curJsonSchemaObj = curJsonSchemaObj.properties[curKey]; // 对象类型数据引用
+      curKeyRoute = curKeyRoute ? `${curKeyRoute}-${curKey}` : curKey;
+    }
+  }
+  return curKeyRoute;
+}
+
 /** 【旧版jsonSchema转新版jsonSchema】
  * 新版有propertyOrder属性，旧版的required需要根据properties重新生成一份
  * 新版的title需要从description中获取值（旧版的title值使用的是description字段的值）
