@@ -32210,7 +32210,7 @@ and limitations under the License.
                         : (c(y, p, d, '', !0), u(f))),
                     setTimeout(function () {
                       ye(''.concat(i(x), '-').concat(b), O || g);
-                    }, 300);
+                    }, 0);
                 }
               }
             }),

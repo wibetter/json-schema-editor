@@ -11,7 +11,7 @@ import {
 } from '$utils/index';
 import {
   getCurrentFormat,
-  getNextIndexRoute,
+  getParentIndexRoute,
   isEmptySchema,
   isSameParent,
   getCurPosition,
@@ -89,13 +89,6 @@ class JSONSchema extends React.PureComponent {
     let targetIndexRoute = node.indexRoute;
     console.log(targetIndexRoute);
 
-    const currentFormat = getCurrentFormat(curJsonObj);
-    const curKeyRoute = indexRoute2keyRoute(curIndexRoute);
-    // 先获取拖拽元素的原始路径
-    const cacheTargetKeyRoute = getWebCacheData(
-      `${curKeyRoute}-${currentFormat}`,
-    );
-
     // 判断是否是同一个父级容器
     const isSameParentElem = isSameParent(curIndexRoute, targetIndexRoute);
     // 判断先后位置
@@ -138,7 +131,19 @@ class JSONSchema extends React.PureComponent {
         return;
       }
 
-      let cacheTardetIndex = targetIndexRoute;
+      // 跨级拖动时
+      const currentFormat = getCurrentFormat(curJsonObj);
+      const curKeyRoute = indexRoute2keyRoute(curIndexRoute);
+      const targetParentIndexRoute = getParentIndexRoute(targetIndexRoute);
+      // 先获取拖拽元素的原始路径
+      const cacheKeyRoute = getWebCacheData(`${curKeyRoute}-${currentFormat}`);
+      saveWebCacheData(
+        `${indexRoute2keyRoute(
+          targetParentIndexRoute,
+        )}-${curJsonKey}-${currentFormat}`,
+        cacheKeyRoute || curKeyRoute,
+      );
+
       // 非同级元素拖拽后删除
       if (node.dragOverGapTop) {
         /** 拖拽到目标元素前面 */
@@ -157,7 +162,6 @@ class JSONSchema extends React.PureComponent {
           deleteJsonByIndex(curIndexRoute);
         }
       } else if (node.dragOver || node.dragOverGapBottom) {
-        cacheTardetIndex = getNextIndexRoute(targetIndexRoute);
         /** 拖拽到目标元素当前位置，不进行位置置换，也认为是拖拽到目标元素后面 */
         if (curPosition === 'after') {
           deleteJsonByIndex(curIndexRoute, true); // 设置为true表示跳过onChange
@@ -168,23 +172,6 @@ class JSONSchema extends React.PureComponent {
           deleteJsonByIndex(curIndexRoute);
         }
       }
-
-      // 延迟300毫秒执行，以便获取到最新的key值路径
-      setTimeout(() => {
-        // 跨级拖拽排序的时候，记录原始位置元素所在的位置，以便保留其数值
-        if (!cacheTargetKeyRoute) {
-          saveWebCacheData(
-            `${indexRoute2keyRoute(cacheTardetIndex)}-${currentFormat}`,
-            curKeyRoute,
-          );
-        } else {
-          // 只保留第一次跨级拖拽时的数值
-          saveWebCacheData(
-            `${indexRoute2keyRoute(cacheTardetIndex)}-${currentFormat}`,
-            cacheTargetKeyRoute,
-          );
-        }
-      }, 300);
     }
   };
 
