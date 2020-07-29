@@ -295,12 +295,18 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
   // 转换旧版的quantity类型的数据结构
   if (newJSONSchema.format === 'quantity') {
     let curProperties = newJSONSchema.properties;
-    if (curProperties.quantity && isObject(curProperties.quantity)) {
-      curProperties.quantity.title = '单位类型';
-      curProperties.quantity.format = 'typeSelect';
-    }
-    if (curProperties.unit && isObject(curProperties.unit)) {
-      curProperties.unit.format = 'number';
+
+    const newQuantitySchema = TypeDataList.quantity; // 新版quantity的schema数据对象
+
+    if (
+      curProperties.quantity &&
+      isObject(curProperties.quantity) &&
+      curProperties.quantity.default
+    ) {
+      const oldDefault = curProperties.quantity.default;
+      // percent 自动转换成 %
+      newQuantitySchema.properties.quantity.default =
+        oldDefault === 'percent' ? '%' : oldDefault;
     }
   }
   // 转换旧版的event类型的数据结构
