@@ -29089,7 +29089,15 @@ and limitations under the License.
                   value: function (e) {
                     if (e && '{}' !== JSON.stringify(e)) {
                       if (!fe(e, this.JSONSchemaObj))
-                        if (e && e.lastUpdateTime) this.jsonSchema = e;
+                        if (
+                          e &&
+                          ((n = !1),
+                          (r = e.lastUpdateTime),
+                          (o = new Date('2020-07-29T07:30:00.691Z').getTime()),
+                          r && new Date(r).getTime() >= o && (n = !0),
+                          n)
+                        )
+                          this.jsonSchema = e;
                         else {
                           var t = (function e(t) {
                             var n = le(t);
@@ -29105,7 +29113,10 @@ and limitations under the License.
                                 'object' !== n.format &&
                                 'radio' !== n.format &&
                                 'select' !== n.format) ||
-                                !n.default ||
+                                !(function (e) {
+                                  var t = !1;
+                                  return void 0 !== e && (t = !0), t;
+                                })(n.default) ||
                                 delete n.default,
                               'radio' === n.format &&
                                 ((n.type = 'string'),
@@ -29131,7 +29142,7 @@ and limitations under the License.
                                 o.properties.quantity.default =
                                   'percent' === a ? '%' : a;
                               }
-                              n = Object.assign(n, o);
+                              n = o;
                             }
                             if ('datasource' === n.format) {
                               var i = n.properties;
@@ -29153,18 +29164,23 @@ and limitations under the License.
                             }
                             if ('event' === n.format) {
                               var l = n.properties,
-                                f = l.type && l.type.default,
-                                p =
+                                f = l.type && l.type.default;
+                              if ('in' === f || 'on' === f) {
+                                var p =
                                   (l.filter && l.filter.default) || '() => {}';
-                              'in' === f
-                                ? ((n = le(se.on)),
+                                (n = le(se.on)),
                                   l.actionFunc &&
                                     de(l.actionFunc) &&
-                                    (n.properties.actionFunc.default = le(p)))
-                                : ((n = le(se.emit)),
+                                    (n.properties.actionFunc.default =
+                                      l.actionFunc.default || le(p));
+                              } else {
+                                var d = (l.filter && l.filter.default) || '{}';
+                                (n = le(se.emit)),
                                   l.eventData &&
                                     de(l.eventData) &&
-                                    (n.properties.eventData.default = p));
+                                    (n.properties.eventData.default =
+                                      l.eventData.default || le(d));
+                              }
                             }
                             return (
                               n.properties &&
@@ -29181,6 +29197,7 @@ and limitations under the License.
                           this.jsonSchema = t;
                         }
                     } else this.jsonSchema = le(ae);
+                    var n, r, o;
                   },
                 },
                 {
