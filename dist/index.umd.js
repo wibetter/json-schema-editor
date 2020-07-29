@@ -29129,29 +29129,32 @@ and limitations under the License.
                                       (r.data.format = 'json')));
                             }
                             if ('quantity' === n.format) {
-                              var o = n.properties;
-                              o.quantity &&
+                              var o = n.properties,
+                                a = TypeDataList.quantity;
+                              if (
+                                o.quantity &&
                                 de(o.quantity) &&
-                                ((o.quantity.title = '单位类型'),
-                                (o.quantity.format = 'typeSelect')),
-                                o.unit &&
-                                  de(o.unit) &&
-                                  (o.unit.format = 'number');
+                                o.quantity.default
+                              ) {
+                                var i = o.quantity.default;
+                                a.properties.quantity.default =
+                                  'percent' === i ? '%' : i;
+                              }
                             }
                             if ('event' === n.format) {
-                              var a = n.properties,
-                                i = a.type && a.type.default,
-                                c =
-                                  (a.filter && a.filter.default) || '() => {}';
-                              'in' === i
+                              var c = n.properties,
+                                u = c.type && c.type.default,
+                                s =
+                                  (c.filter && c.filter.default) || '() => {}';
+                              'in' === u
                                 ? ((n = le(se.on)),
-                                  a.actionFunc &&
-                                    de(a.actionFunc) &&
-                                    (a.actionFunc.default = le(c)))
+                                  c.actionFunc &&
+                                    de(c.actionFunc) &&
+                                    (c.actionFunc.default = le(s)))
                                 : ((n = le(se.emit)),
-                                  a.eventData &&
-                                    de(a.eventData) &&
-                                    (a.eventData.default = c));
+                                  c.eventData &&
+                                    de(c.eventData) &&
+                                    (c.eventData.default = s));
                             }
                             return (
                               n.properties &&
