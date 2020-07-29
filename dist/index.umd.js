@@ -29098,6 +29098,15 @@ and limitations under the License.
                                 n.description &&
                                 (n.title = n.description),
                               n.format || (n.format = ve(n)),
+                              ('quantity' !== n.format &&
+                                'array' !== n.format &&
+                                'datasource' !== n.format &&
+                                'event' !== n.format &&
+                                'object' !== n.format &&
+                                'radio' !== n.format &&
+                                'select' !== n.format) ||
+                                !n.default ||
+                                delete n.default,
                               'radio' === n.format &&
                                 ((n.type = 'string'),
                                 n.enum &&
@@ -29109,52 +29118,53 @@ and limitations under the License.
                                   }),
                                   delete n.enum,
                                   delete n.enumextra)),
-                              'datasource' === n.format)
+                              'quantity' === n.format)
                             ) {
-                              var r = n.properties;
-                              r.type &&
-                                de(r.type) &&
-                                (r.type.title = '数据源类型'),
-                                r.filter &&
-                                  de(r.filter) &&
-                                  ((r.filter.title = '过滤器'),
-                                  (r.filter.format = 'codearea')),
-                                r.data &&
-                                  de(r.data) &&
-                                  ('remote' === r.type.default
-                                    ? ((r.data.title =
-                                        '用于设置获取元素数据的请求地址'),
-                                      (r.data.format = 'url'))
-                                    : ((r.data.title = '本地静态json数据'),
-                                      (r.data.format = 'json')));
-                            }
-                            if ('quantity' === n.format) {
-                              var o = n.properties,
-                                a = TypeDataList.quantity;
+                              var r = n.properties,
+                                o = le(ue.quantity);
                               if (
-                                o.quantity &&
-                                de(o.quantity) &&
-                                o.quantity.default
+                                r.quantity &&
+                                de(r.quantity) &&
+                                r.quantity.default
                               ) {
-                                var i = o.quantity.default;
-                                a.properties.quantity.default =
-                                  'percent' === i ? '%' : i;
+                                var a = r.quantity.default;
+                                o.properties.quantity.default =
+                                  'percent' === a ? '%' : a;
                               }
+                              n = Object.assign(n, o);
+                            }
+                            if ('datasource' === n.format) {
+                              var i = n.properties;
+                              n = le(ue.datasource);
+                              var c = i.type && i.type.default,
+                                u = i.data && i.data.default,
+                                s = i.filter && i.filter.default;
+                              (n.properties.filter.default = s
+                                ? le(s)
+                                : '() => {}'),
+                                (n.properties.data.default =
+                                  'local' === c
+                                    ? u
+                                      ? le(u)
+                                      : '{}'
+                                    : u
+                                    ? le(u)
+                                    : 'http://xxx');
                             }
                             if ('event' === n.format) {
-                              var c = n.properties,
-                                u = c.type && c.type.default,
-                                s =
-                                  (c.filter && c.filter.default) || '() => {}';
-                              'in' === u
+                              var l = n.properties,
+                                f = l.type && l.type.default,
+                                p =
+                                  (l.filter && l.filter.default) || '() => {}';
+                              'in' === f
                                 ? ((n = le(se.on)),
-                                  c.actionFunc &&
-                                    de(c.actionFunc) &&
-                                    (c.actionFunc.default = le(s)))
+                                  l.actionFunc &&
+                                    de(l.actionFunc) &&
+                                    (n.properties.actionFunc.default = le(p)))
                                 : ((n = le(se.emit)),
-                                  c.eventData &&
-                                    de(c.eventData) &&
-                                    (c.eventData.default = s));
+                                  l.eventData &&
+                                    de(l.eventData) &&
+                                    (n.properties.eventData.default = p));
                             }
                             return (
                               n.properties &&

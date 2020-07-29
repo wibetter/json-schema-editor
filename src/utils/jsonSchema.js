@@ -2,7 +2,7 @@ import { EventTypeDataList, TypeDataList } from '$data/TypeDataList';
 /**
  * JSONSchema数据对象的通用操作方法【非响应式数据操作方法集合】
  */
-import { objClone, isObject } from '$utils/index';
+import { objClone, isObject, exitPropertie } from '$utils/index';
 
 /** 【校验是否是合法的JsonSchema数据格式】
  *  主要判断当前JSON对象中是否有预先定义的属性：
@@ -266,7 +266,7 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
       newJSONSchema.format === 'object' ||
       newJSONSchema.format === 'radio' ||
       newJSONSchema.format === 'select') &&
-    newJSONSchema.default
+    exitPropertie(newJSONSchema.default)
   ) {
     delete newJSONSchema.default; // 单位计量输入类型的默认值改放unit属性中
   }
