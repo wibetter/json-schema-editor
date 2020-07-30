@@ -1,8 +1,8 @@
-import { EventTypeDataList } from '$data/TypeDataList';
+import { EventTypeDataList, TypeDataList } from '$data/TypeDataList';
 /**
  * JSONSchema数据对象的通用操作方法【非响应式数据操作方法集合】
  */
-import { objClone, isObject, isArray, exitPropertie } from '$utils/index';
+import { objClone, isObject, exitPropertie } from '$utils/index';
 
 /** 【校验是否是合法的JsonSchema数据格式】
  *  主要判断当前JSON对象中是否有预先定义的属性：
@@ -19,7 +19,7 @@ export function isJSONSchemaFormat(targetJsonObj) {
       targetJsonObj.title &&
       targetJsonObj.properties &&
       targetJsonObj.required &&
-      targetJsonObj['propertyOrder']
+      targetJsonObj.propertyOrder
     ) {
       isFormat = true;
     } else if (
@@ -27,7 +27,7 @@ export function isJSONSchemaFormat(targetJsonObj) {
       targetJsonObj.format &&
       targetJsonObj.title &&
       targetJsonObj.properties &&
-      targetJsonObj['propertyOrder']
+      targetJsonObj.propertyOrder
     ) {
       isFormat = true;
     } else if (targetJsonObj.format && targetJsonObj.title) {
@@ -35,6 +35,20 @@ export function isJSONSchemaFormat(targetJsonObj) {
     }
   }
   return isFormat;
+}
+
+/** 获取当前字段的类型（format）
+ *  如果当前字段没有format字段，则根据type字段赋予默认的类型 */
+export function getCurrentFormat(targetJsonData) {
+  let currentType = targetJsonData.format;
+  if (!currentType) {
+    if (targetJsonData.type) {
+      currentType = targetJsonData.type;
+    } else {
+      currentType = 'input';
+    }
+  }
+  return currentType;
 }
 
 /** 判断是否为空的jsonSchema
@@ -47,8 +61,8 @@ export function isEmptySchema(targetJsonObj) {
     const curType = getCurrentFormat(targetJsonObj);
     if (
       curType === 'object' &&
-      targetJsonObj['propertyOrder'] &&
-      targetJsonObj['propertyOrder'].length > 0
+      targetJsonObj.propertyOrder &&
+      targetJsonObj.propertyOrder.length > 0
     ) {
       isEmpty = false;
     }
@@ -82,7 +96,7 @@ export function getJSONDataByIndex(
         curJsonSchemaObj = curJsonSchemaObj.items;
       } else {
         // 1、先根据路径值获取key值
-        const curKeyTemp = curJsonSchemaObj['propertyOrder'][curIndex];
+        const curKeyTemp = curJsonSchemaObj.propertyOrder[curIndex];
         // 2、根据key值获取对应的json数据对象
         curJsonSchemaObj = curJsonSchemaObj.properties[curKeyTemp];
       }
@@ -102,9 +116,8 @@ export function isSameParent(curIndex, targetIndex) {
   targetIndexArr.pop();
   if (curIndexArr.join('-') === targetIndexArr.join('-')) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 /**
@@ -127,20 +140,6 @@ export function getCurPosition(curIndex, targetIndex) {
   return curPosition;
 }
 
-/** 获取当前字段的类型（format）
- *  如果当前字段没有format字段，则根据type字段赋予默认的类型 */
-export function getCurrentFormat(targetJsonData) {
-  let currentType = targetJsonData.format;
-  if (!currentType) {
-    if (targetJsonData.type) {
-      currentType = targetJsonData.type;
-    } else {
-      currentType = 'input';
-    }
-  }
-  return currentType;
-}
-
 /**
  * 获取父元素的路径值
  */
@@ -157,7 +156,7 @@ export function getNextIndexRoute(curIndexRoute) {
   const curIndexArr = curIndexRoute.split('-');
   const lastIndex = curIndexArr.pop();
   const endIndex = Number(lastIndex) + 1;
-  curIndexArr.push(endIndex + '');
+  curIndexArr.push(`${endIndex}`);
   return curIndexArr.join('-');
 }
 
@@ -257,6 +256,19 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
   if (!newJSONSchema.format) {
     newJSONSchema.format = getCurrentFormat(newJSONSchema);
   }
+  // 3.不需要default属性的类型自动删除
+  if (
+    (newJSONSchema.format === 'quantity' ||
+      newJSONSchema.format === 'array' ||
+      newJSONSchema.format === 'datasource' ||
+      newJSONSchema.format === 'event' ||
+      newJSONSchema.format === 'object' ||
+      newJSONSchema.format === 'radio' ||
+      newJSONSchema.format === 'select') &&
+    exitPropertie(newJSONSchema.default)
+  ) {
+    delete newJSONSchema.default; // 单位计量输入类型的默认值改放unit属性中
+  }
   // 转换旧版的radio类型的数据结构
   if (newJSONSchema.format === 'radio') {
     newJSONSchema.type = 'string';
@@ -272,59 +284,69 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
       delete newJSONSchema.enumextra;
     }
   }
-  // 转换旧版的datasource类型的数据结构
-  if (newJSONSchema.format === 'datasource') {
-    let curProperties = newJSONSchema.properties;
-    if (curProperties.type && isObject(curProperties.type)) {
-      curProperties.type.title = '数据源类型';
-    }
-    if (curProperties.filter && isObject(curProperties.filter)) {
-      curProperties.filter.title = '过滤器';
-      curProperties.filter.format = 'codearea';
-    }
-    if (curProperties.data && isObject(curProperties.data)) {
-      if (curProperties.type.default === 'remote') {
-        curProperties.data.title = '用于设置获取元素数据的请求地址';
-        curProperties.data.format = 'url';
-      } else {
-        curProperties.data.title = '本地静态json数据';
-        curProperties.data.format = 'json';
-      }
-    }
-  }
   // 转换旧版的quantity类型的数据结构
   if (newJSONSchema.format === 'quantity') {
-    let curProperties = newJSONSchema.properties;
-    if (curProperties.quantity && isObject(curProperties.quantity)) {
-      curProperties.quantity.title = '单位类型';
-      curProperties.quantity.format = 'typeSelect';
+    const curProperties = newJSONSchema.properties;
+    const newQuantitySchema = objClone(TypeDataList.quantity); // 新版quantity的schema数据对象
+    if (
+      curProperties.quantity &&
+      isObject(curProperties.quantity) &&
+      curProperties.quantity.default
+    ) {
+      const oldDefault = curProperties.quantity.default;
+      // percent 自动转换成 %
+      newQuantitySchema.properties.quantity.default =
+        oldDefault === 'percent' ? '%' : oldDefault;
     }
-    if (curProperties.unit && isObject(curProperties.unit)) {
-      curProperties.unit.format = 'number';
+    // 融合新版schema数据
+    newJSONSchema = newQuantitySchema;
+  }
+  // 转换旧版的datasource类型的数据结构
+  if (newJSONSchema.format === 'datasource') {
+    const curProperties = newJSONSchema.properties;
+    newJSONSchema = objClone(TypeDataList.datasource); // 新版datasource的schema数据对象
+    // 先获取旧版的关键数据
+    const typeProp = curProperties.type && curProperties.type.default;
+    const dataProp = curProperties.data && curProperties.data.default;
+    const filterProp = curProperties.filter && curProperties.filter.default;
+    newJSONSchema.properties.filter.default = filterProp
+      ? objClone(filterProp)
+      : '() => {}';
+    if (typeProp === 'local') {
+      newJSONSchema.properties.data.default = dataProp
+        ? objClone(dataProp)
+        : '{}';
+    } else {
+      newJSONSchema.properties.data.default = dataProp
+        ? objClone(dataProp)
+        : 'http://xxx';
     }
   }
   // 转换旧版的event类型的数据结构
   if (newJSONSchema.format === 'event') {
-    let curProperties = newJSONSchema.properties;
+    const curProperties = newJSONSchema.properties;
     // 先获取旧版的关键数据
     const eventType = curProperties.type && curProperties.type.default;
-    const eventFunc =
-      (curProperties.filter && curProperties.filter.default) || '() => {}';
     // 重构Event的数据结构
-    if (eventType === 'in') {
-      // 注册类事件
-      // newJSONSchema = Object.assign(newJSONSchema, EventTypeDataList.on);
+    if (eventType === 'in' || eventType === 'on') {
+      // 兼容旧版的'in'和新版的'on'
+      // 注册类事件: 新版type改成'on'
+      const eventFunc =
+        (curProperties.filter && curProperties.filter.default) || '() => {}';
       newJSONSchema = objClone(EventTypeDataList.on);
       if (curProperties.actionFunc && isObject(curProperties.actionFunc)) {
-        curProperties.actionFunc.default = objClone(eventFunc);
+        newJSONSchema.properties.actionFunc.default =
+          curProperties.actionFunc.default || objClone(eventFunc);
       }
     } else {
       // 其他，则默认为触发事件
-      // 注册类事件
-      // newJSONSchema = Object.assign(newJSONSchema, EventTypeDataList.emit);
+      // 注册类事件: 新版type改成'emit'
+      const eventFunc =
+        (curProperties.filter && curProperties.filter.default) || '{}';
       newJSONSchema = objClone(EventTypeDataList.emit);
       if (curProperties.eventData && isObject(curProperties.eventData)) {
-        curProperties.eventData.default = eventFunc;
+        newJSONSchema.properties.eventData.default =
+          curProperties.eventData.default || objClone(eventFunc);
       }
     }
   }

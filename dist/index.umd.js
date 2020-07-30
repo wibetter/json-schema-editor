@@ -29089,7 +29089,15 @@ and limitations under the License.
                   value: function (e) {
                     if (e && '{}' !== JSON.stringify(e)) {
                       if (!fe(e, this.JSONSchemaObj))
-                        if (e && e.lastUpdateTime) this.jsonSchema = e;
+                        if (
+                          e &&
+                          ((n = !1),
+                          (r = e.lastUpdateTime),
+                          (o = new Date('2020-07-29T07:30:00.691Z').getTime()),
+                          r && new Date(r).getTime() >= o && (n = !0),
+                          n)
+                        )
+                          this.jsonSchema = e;
                         else {
                           var t = (function e(t) {
                             var n = le(t);
@@ -29098,6 +29106,18 @@ and limitations under the License.
                                 n.description &&
                                 (n.title = n.description),
                               n.format || (n.format = ve(n)),
+                              ('quantity' !== n.format &&
+                                'array' !== n.format &&
+                                'datasource' !== n.format &&
+                                'event' !== n.format &&
+                                'object' !== n.format &&
+                                'radio' !== n.format &&
+                                'select' !== n.format) ||
+                                !(function (e) {
+                                  var t = !1;
+                                  return void 0 !== e && (t = !0), t;
+                                })(n.default) ||
+                                delete n.default,
                               'radio' === n.format &&
                                 ((n.type = 'string'),
                                 n.enum &&
@@ -29109,49 +29129,58 @@ and limitations under the License.
                                   }),
                                   delete n.enum,
                                   delete n.enumextra)),
-                              'datasource' === n.format)
+                              'quantity' === n.format)
                             ) {
-                              var r = n.properties;
-                              r.type &&
-                                de(r.type) &&
-                                (r.type.title = '数据源类型'),
-                                r.filter &&
-                                  de(r.filter) &&
-                                  ((r.filter.title = '过滤器'),
-                                  (r.filter.format = 'codearea')),
-                                r.data &&
-                                  de(r.data) &&
-                                  ('remote' === r.type.default
-                                    ? ((r.data.title =
-                                        '用于设置获取元素数据的请求地址'),
-                                      (r.data.format = 'url'))
-                                    : ((r.data.title = '本地静态json数据'),
-                                      (r.data.format = 'json')));
+                              var r = n.properties,
+                                o = le(ue.quantity);
+                              if (
+                                r.quantity &&
+                                de(r.quantity) &&
+                                r.quantity.default
+                              ) {
+                                var a = r.quantity.default;
+                                o.properties.quantity.default =
+                                  'percent' === a ? '%' : a;
+                              }
+                              n = o;
                             }
-                            if ('quantity' === n.format) {
-                              var o = n.properties;
-                              o.quantity &&
-                                de(o.quantity) &&
-                                ((o.quantity.title = '单位类型'),
-                                (o.quantity.format = 'typeSelect')),
-                                o.unit &&
-                                  de(o.unit) &&
-                                  (o.unit.format = 'number');
+                            if ('datasource' === n.format) {
+                              var i = n.properties;
+                              n = le(ue.datasource);
+                              var c = i.type && i.type.default,
+                                u = i.data && i.data.default,
+                                s = i.filter && i.filter.default;
+                              (n.properties.filter.default = s
+                                ? le(s)
+                                : '() => {}'),
+                                (n.properties.data.default =
+                                  'local' === c
+                                    ? u
+                                      ? le(u)
+                                      : '{}'
+                                    : u
+                                    ? le(u)
+                                    : 'http://xxx');
                             }
                             if ('event' === n.format) {
-                              var a = n.properties,
-                                i = a.type && a.type.default,
-                                c =
-                                  (a.filter && a.filter.default) || '() => {}';
-                              'in' === i
-                                ? ((n = le(se.on)),
-                                  a.actionFunc &&
-                                    de(a.actionFunc) &&
-                                    (a.actionFunc.default = le(c)))
-                                : ((n = le(se.emit)),
-                                  a.eventData &&
-                                    de(a.eventData) &&
-                                    (a.eventData.default = c));
+                              var l = n.properties,
+                                f = l.type && l.type.default;
+                              if ('in' === f || 'on' === f) {
+                                var p =
+                                  (l.filter && l.filter.default) || '() => {}';
+                                (n = le(se.on)),
+                                  l.actionFunc &&
+                                    de(l.actionFunc) &&
+                                    (n.properties.actionFunc.default =
+                                      l.actionFunc.default || le(p));
+                              } else {
+                                var d = (l.filter && l.filter.default) || '{}';
+                                (n = le(se.emit)),
+                                  l.eventData &&
+                                    de(l.eventData) &&
+                                    (n.properties.eventData.default =
+                                      l.eventData.default || le(d));
+                              }
                             }
                             return (
                               n.properties &&
@@ -29168,6 +29197,7 @@ and limitations under the License.
                           this.jsonSchema = t;
                         }
                     } else this.jsonSchema = le(ae);
+                    var n, r, o;
                   },
                 },
                 {

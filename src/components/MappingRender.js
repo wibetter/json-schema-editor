@@ -1,6 +1,4 @@
-import React from 'react';
 import { getCurrentFormat } from '$utils/jsonSchema';
-
 import ArraySchema from '$components/ArraySchema/index';
 import ObjectSchema from '$components/ObjectSchema/index';
 import DataSourceSchema from '$components/DataSourceSchema/index';

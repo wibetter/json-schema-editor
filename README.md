@@ -10,34 +10,65 @@ npm install --save @jdwork/json-schema-editor
 
 ## Usage
 
-```jsx
-import React, { Component } from 'react';
 
-import JSONSchemaEditor from '@jdwork/json-schema-editor';
+# JSONSchema
+
+使用场景：主要用于json结构/格式的可视化编辑
+技术栈：React/Mobx/ant-design
+特点：
+1. 支持11种基础类型组件（input、boolean、 date、date-time、 time、 url、 textarea、number、color、radio、 select）
+2. 支持8个特殊类型组件（Object、Array、Json、datasource、Event、CodeArea、htmlArea、quantity）
+3. 拖拽排序
+4. 复制功能
+5. 复杂嵌套
+6. 高级配置功能
+
+## Usage
+
+```
+npm install --save @jdwork/json-schema-editor
+```
+
+```js
+import * as React from 'react';
+import JSONSchemaEditor from '@jdwork/json-schema-editor/dist/index.umd';
 import '@jdwork/json-schema-editor/dist/index.css';
 
-const SchemaEditorElem = JSONSchemaEditor(option);
-const option = {};
+class IndexDemo extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-class Example extends Component {
+    this.state = {
+      jsonSchema: {},
+    };
+  }
+
   render() {
-    return <SchemaEditorElem />
+    const { jsonSchema } = this.state;
+    return (
+      <>
+        <div className="json-action-container">
+          <div className="json-schema-box">
+             <JSONSchemaEditor
+                data={jsonSchema}
+                onChange={(newJsonSchema) => {
+                  console.log('jsonSchemaChange', JSON.stringify(newJsonSchema));
+                  this.setState({
+                    jsonSchema: newJsonSchema,
+                  });
+                }}
+             />
+          </div>
+        </div>
+      </>
+    );
   }
 }
 ```
 
-## Option Object
+## JSONSchema Props
 
-|  name  | desc                                 | default |
-| ------ | ------------------------------------ | ------- |
-| `lang` | language, support `en_US` or `zh_CN` | en_US   |
-
-## SchemaEditor Props
-
-| name         | type     | default | desc               |
-| ------------ | -------- | ------- | ------------------ |
-| `data`       | string   | null    | the data of editor |
-| `onChange`   | function | null    |
-| `showEditor` | boolean  | false   |
-
-## License
+| name         | type     | default | desc                            |
+| ------------ | -------- | ------- | ------------------------------- |
+| `schemaData` | object   | {}      | json的结构数据                    |
+| `onChange`   | function | null    | schemaData内容变动时会触发onChange |

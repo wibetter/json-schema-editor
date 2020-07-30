@@ -5,9 +5,7 @@ import BaseFormSchema from '$components/BaseFormSchema/index';
 import { getCurrentFormat } from '$utils/jsonSchema';
 
 /** 渲染当前字段的表单项（Tree的单项内容） */
-const getTreeNodeTitleCont = (params) => {
-  return <BaseFormSchema {...params} />;
-};
+const getTreeNodeTitleCont = (params) => <BaseFormSchema {...params} />;
 
 /** 通用类型渲染组件
  *  可用于渲染：input、boolean、 date、date-time、 time、
