@@ -1054,6 +1054,13 @@
     resolve-from "5.0.0"
     resolve-global "1.0.0"
 
+"@commitlint/config-conventional@^9.1.1":
+  version "9.1.1"
+  resolved "http://registry.m.jd.com/@commitlint/config-conventional/download/@commitlint/config-conventional-9.1.1.tgz#c10e6ff8e56bd462fa33e17522b0f98da97daa39"
+  integrity sha1-wQ5v+OVr1GL6M+F1IrD5jal9qjk=
+  dependencies:
+    conventional-changelog-conventionalcommits "4.3.0"
+
 "@commitlint/ensure@^8.3.4":
   version "8.3.4"
   resolved "https://registry.yarnpkg.com/@commitlint/ensure/-/ensure-8.3.4.tgz#6931677e4ca0fde71686ae3b7a367261647a341d"
@@ -1160,14 +1167,13 @@
   dependencies:
     find-up "^4.0.0"
 
-"@jdwork/json-editor@3.1.2":
-  version "3.1.2"
-  resolved "http://registry.m.jd.com/@jdwork/json-editor/download/@jdwork/json-editor-3.1.2.tgz#e5b65dd8c861a4127075574997f9be4aeea0a813"
-  integrity sha1-5bZd2MhhpBJwdVdJl/m+Su6gqBM=
+"@jdwork/json-editor@3.1.13":
+  version "3.1.13"
+  resolved "http://registry.m.jd.com/@jdwork/json-editor/download/@jdwork/json-editor-3.1.13.tgz#e25b3b676328a84900613390a7a2e070ee5c594d"
+  integrity sha1-4ls7Z2MoqEkAYTOQp6LgcO5cWU0=
   dependencies:
     "@ant-design/icons" "^4.2.1"
     "@babel/polyfill" "^7.10.1"
-    "@jdwork/json-schema-editor" "^2.2.9"
     ace-builds "^1.4.12"
     antd "^4.3.4"
     generate-schema "^2.6.0"
@@ -1178,22 +1184,6 @@
     prop-types "^15.7.2"
     react "^16.8.6"
     react-ace "^9.1.1"
-    react-dom "^16.8.6"
-
-"@jdwork/json-schema-editor@^2.2.9":
-  version "2.2.9"
-  resolved "http://registry.m.jd.com/@jdwork/json-schema-editor/download/@jdwork/json-schema-editor-2.2.9.tgz#0fa206ec5d9ec94172170dab7fc5033eeac22485"
-  integrity sha1-D6IG7F2eyUFyFw2rf8UDPurCJIU=
-  dependencies:
-    "@ant-design/icons" "^4.2.1"
-    "@babel/polyfill" "^7.10.1"
-    antd "^4.3.4"
-    generate-schema "^2.6.0"
-    json5 "^2.1.3"
-    mobx "^5.15.4"
-    mobx-react "^6.2.2"
-    prop-types "^15.7.2"
-    react "^16.8.6"
     react-dom "^16.8.6"
 
 "@mapbox/stylelint-processor-arbitrary-tags@^0.3.0":
@@ -2845,6 +2835,15 @@ conventional-changelog-angular@^1.3.3:
   integrity sha512-suQnFSqCxRwyBxY68pYTsFkG0taIdinHLNEAX5ivtw8bCRnIgnpvcHmlR/yjUyZIrNPYAoXlY1WiEKWgSE4BNg==
   dependencies:
     compare-func "^1.3.1"
+    q "^1.5.1"
+
+conventional-changelog-conventionalcommits@4.3.0:
+  version "4.3.0"
+  resolved "http://registry.m.jd.com/conventional-changelog-conventionalcommits/download/conventional-changelog-conventionalcommits-4.3.0.tgz#c4205a659f7ca9d7881f29ee78a4e7d6aeb8b3c2"
+  integrity sha1-xCBaZZ98qdeIHynueKTn1q64s8I=
+  dependencies:
+    compare-func "^1.3.1"
+    lodash "^4.17.15"
     q "^1.5.1"
 
 conventional-commits-parser@^3.0.0:
@@ -5597,7 +5596,7 @@ json5@^1.0.1:
   dependencies:
     minimist "^1.2.0"
 
-json5@^2.1.2, json5@^2.1.3:
+json5@^2.1.2:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.1.3.tgz#c9b0f7fa9233bfe5807fe66fcf3a5617ed597d43"
   integrity sha512-KXPvOm8K9IJKFM0bmdn8QXh7udDh1g/giieX0NLCaMnb4hEiVFqnop2ImTXCc5e0/oHz3LTqmHGtExn5hfMkOA==

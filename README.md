@@ -10,9 +10,6 @@ npm install --save @jdwork/json-schema-editor
 
 ## Usage
 
-
-# JSONSchema
-
 使用场景：主要用于json结构/格式的可视化编辑
 
 技术栈：React/Mobx/ant-design
