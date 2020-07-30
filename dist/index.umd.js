@@ -3517,7 +3517,7 @@ and limitations under the License.
         i = y(n(230)),
         c = p(n(86)),
         u = n(235),
-        s = n(45),
+        s = n(46),
         l = p(n(33)),
         f = p(n(240));
       function p(e) {
@@ -3666,7 +3666,7 @@ and limitations under the License.
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
       var a = o(n(98)),
-        i = o(n(48)),
+        i = o(n(44)),
         c = o(n(68)),
         u = r(n(0)),
         s = o(n(2)),
@@ -4944,7 +4944,7 @@ and limitations under the License.
         i = p(n(385)),
         c = n(15),
         u = l(n(254)),
-        s = l(n(45));
+        s = l(n(46));
       function l(e) {
         return e && e.__esModule ? e : { default: e };
       }
@@ -5301,6 +5301,21 @@ and limitations under the License.
       n(35), n(203);
     },
     function (e, t) {
+      e.exports = function (e, t, n) {
+        return (
+          t in e
+            ? Object.defineProperty(e, t, {
+                value: n,
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+              })
+            : (e[t] = n),
+          e
+        );
+      };
+    },
+    function (e, t) {
       var n = (e.exports =
         'undefined' != typeof window && window.Math == Math
           ? window
@@ -5390,21 +5405,6 @@ and limitations under the License.
       n.d(t, 'a', function () {
         return r;
       });
-    },
-    function (e, t) {
-      e.exports = function (e, t, n) {
-        return (
-          t in e
-            ? Object.defineProperty(e, t, {
-                value: n,
-                enumerable: !0,
-                configurable: !0,
-                writable: !0,
-              })
-            : (e[t] = n),
-          e
-        );
-      };
     },
     function (e, t) {
       var n = (e.exports = { version: '2.6.11' });
@@ -5551,7 +5551,7 @@ and limitations under the License.
     function (e, t, n) {
       var r = n(108)('wks'),
         o = n(84),
-        a = n(44).Symbol,
+        a = n(45).Symbol,
         i = 'function' == typeof a;
       (e.exports = function (e) {
         return r[e] || (r[e] = (i && a[e]) || (i ? a : o)('Symbol.' + e));
@@ -5583,7 +5583,7 @@ and limitations under the License.
       'use strict';
       var r = n(0),
         o = n.n(r),
-        a = n(46),
+        a = n(47),
         i = n(2),
         c = n.n(i),
         u = n(36),
@@ -6019,7 +6019,7 @@ and limitations under the License.
         c = f(n(331)),
         u = f(n(147)),
         s = n(15),
-        l = f(n(45));
+        l = f(n(46));
       function f(e) {
         return e && e.__esModule ? e : { default: e };
       }
@@ -6150,7 +6150,7 @@ and limitations under the License.
       };
     },
     function (e, t, n) {
-      var r = n(44),
+      var r = n(45),
         o = n(49),
         a = n(134),
         i = n(55),
@@ -6239,7 +6239,7 @@ and limitations under the License.
         a = l(n(54)),
         i = p(n(149)),
         c = n(15),
-        u = l(n(45)),
+        u = l(n(46)),
         s = l(n(59));
       function l(e) {
         return e && e.__esModule ? e : { default: e };
@@ -8467,8 +8467,8 @@ and limitations under the License.
         f = n.n(l),
         p = n(12),
         d = n.n(p),
-        y = n(47),
-        h = n(46),
+        y = n(48),
+        h = n(47),
         v = n(37);
       function m(e, t, n, r) {
         var o = d.a.unstable_batchedUpdates
@@ -10613,7 +10613,7 @@ and limitations under the License.
             )
           );
         },
-        p = n(46);
+        p = n(47);
       function d(e, t) {
         if (null == e) return {};
         var n,
@@ -11547,7 +11547,7 @@ and limitations under the License.
         c = p(n(53)),
         u = p(n(150)),
         s = n(15),
-        l = p(n(45)),
+        l = p(n(46)),
         f = p(n(59));
       function p(e) {
         return e && e.__esModule ? e : { default: e };
@@ -11818,7 +11818,7 @@ and limitations under the License.
           return Array.isArray(e) ? e : [e];
         }),
         (t.useInsertStyles = t.iconStyles = t.svgBaseProps = void 0);
-      var a = o(n(48)),
+      var a = o(n(44)),
         i = o(n(77)),
         c = n(126),
         u = r(n(0)),
@@ -11945,7 +11945,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       var r = n(49),
-        o = n(44),
+        o = n(45),
         a = o['__core-js_shared__'] || (o['__core-js_shared__'] = {});
       (e.exports = function (e, t) {
         return a[e] || (a[e] = void 0 !== t ? t : {});
@@ -12165,7 +12165,7 @@ and limitations under the License.
         u = y(n(150)),
         s = n(115),
         l = y(n(59)),
-        f = y(n(45)),
+        f = y(n(46)),
         p = y(n(279)),
         d = n(73);
       function y(e) {
@@ -12682,7 +12682,7 @@ and limitations under the License.
       t.f = n(60);
     },
     function (e, t, n) {
-      var r = n(44),
+      var r = n(45),
         o = n(49),
         a = n(83),
         i = n(121),
@@ -13267,7 +13267,7 @@ and limitations under the License.
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
       var o = r(n(68)),
-        a = r(n(48)),
+        a = r(n(44)),
         i = n(99);
       function c(e, t) {
         var n = Object.keys(e);
@@ -13416,7 +13416,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       var r = n(57),
-        o = n(44).document,
+        o = n(45).document,
         a = r(o) && r(o.createElement);
       e.exports = function (e) {
         return a ? o.createElement(e) : {};
@@ -15940,7 +15940,7 @@ and limitations under the License.
           return h;
         });
       var o = r(n(40)),
-        a = r(n(48)),
+        a = r(n(44)),
         i = r(n(68)),
         c = r(n(357)),
         u = r(n(79)),
@@ -20908,7 +20908,7 @@ and limitations under the License.
         o = n(10);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
-      var a = o(n(48)),
+      var a = o(n(44)),
         i = o(n(29)),
         c = o(n(30)),
         u = o(n(31)),
@@ -21476,7 +21476,7 @@ and limitations under the License.
         c = d(n(53)),
         u = d(n(72)),
         s = d(n(74)),
-        l = d(n(45)),
+        l = d(n(46)),
         f = n(15),
         p = n(73);
       function d(e) {
@@ -22993,7 +22993,7 @@ and limitations under the License.
         c = n(24),
         u = n(14),
         s = n(0),
-        l = n(46),
+        l = n(47),
         f = n(39),
         p = n(5),
         d = n(37),
@@ -23858,7 +23858,7 @@ and limitations under the License.
           };
     },
     function (e, t, n) {
-      var r = n(44).document;
+      var r = n(45).document;
       e.exports = r && r.documentElement;
     },
     function (e, t, n) {
@@ -23884,7 +23884,7 @@ and limitations under the License.
     function (e, t, n) {
       n(306);
       for (
-        var r = n(44),
+        var r = n(45),
           o = n(55),
           a = n(118),
           i = n(60)('toStringTag'),
@@ -23944,7 +23944,7 @@ and limitations under the License.
     },
     function (e, t, n) {
       'use strict';
-      var r = n(44),
+      var r = n(45),
         o = n(51),
         a = n(50),
         i = n(69),
@@ -24399,7 +24399,7 @@ and limitations under the License.
         a = l(n(2)),
         i = l(n(117)),
         c = n(15),
-        u = l(n(45)),
+        u = l(n(46)),
         s = n(123);
       function l(e) {
         return e && e.__esModule ? e : { default: e };
@@ -26884,7 +26884,7 @@ and limitations under the License.
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = t.InternalTreeNode = void 0);
       var a = o(n(68)),
-        i = o(n(48)),
+        i = o(n(44)),
         c = o(n(29)),
         u = o(n(30)),
         s = o(n(22)),
@@ -27401,7 +27401,7 @@ and limitations under the License.
         o = n(10);
       Object.defineProperty(t, '__esModule', { value: !0 }),
         (t.default = void 0);
-      var a = o(n(48)),
+      var a = o(n(44)),
         i = r(n(0)),
         c = o(n(2)),
         u = function (e) {
@@ -27984,7 +27984,7 @@ and limitations under the License.
       'use strict';
       n.r(t),
         n.d(t, 'default', function () {
-          return or;
+          return ur;
         });
       var r = n(29),
         o = n.n(r),
@@ -28392,13 +28392,15 @@ and limitations under the License.
         Y = n.n(G),
         X = n(40),
         Q = n.n(X),
-        Z = (n(78), n(33)),
+        Z = n(44),
         ee = n.n(Z),
-        te = n(95),
+        te = (n(78), n(33)),
         ne = n.n(te),
-        re = n(11),
+        re = n(95),
         oe = n.n(re),
-        ae =
+        ae = n(11),
+        ie = n.n(ae),
+        ce =
           (n(182),
           {
             type: 'object',
@@ -28468,7 +28470,7 @@ and limitations under the License.
             required: ['func', 'style', 'data'],
             propertyOrder: ['func', 'style', 'data'],
           }),
-        ie = {
+        ue = {
           type: 'string',
           title: '单文本框',
           format: 'input',
@@ -28478,7 +28480,7 @@ and limitations under the License.
           isRequired: !1,
           readOnly: !1,
         },
-        ce = {
+        se = {
           type: 'object',
           format: 'event',
           title: '事件',
@@ -28518,9 +28520,9 @@ and limitations under the License.
           required: ['type', 'trigger', 'eventData'],
           propertyOrder: ['type', 'trigger', 'eventData'],
         },
-        ue = {
-          jsonschema: ae,
-          input: ie,
+        le = {
+          jsonschema: ce,
+          input: ue,
           boolean: {
             type: 'boolean',
             title: '布尔值',
@@ -28774,9 +28776,9 @@ and limitations under the License.
             required: ['type', 'data', 'filter'],
             propertyOrder: ['type', 'data', 'filter'],
           },
-          event: ce,
+          event: se,
         },
-        se = {
+        fe = {
           on: {
             type: 'object',
             format: 'event',
@@ -28817,16 +28819,16 @@ and limitations under the License.
             required: ['type', 'register', 'actionFunc'],
             propertyOrder: ['type', 'register', 'actionFunc'],
           },
-          emit: ce,
+          emit: se,
         };
-      function le(e) {
+      function pe(e) {
         var t = JSON.stringify(e);
         return JSON.parse(t);
       }
-      function fe(e, t) {
+      function de(e, t) {
         return JSON.stringify(e) === JSON.stringify(t);
       }
-      function pe(e) {
+      function ye(e) {
         var t = !1;
         return (
           (e.indexOf('func-schema') >= 0 ||
@@ -28836,7 +28838,7 @@ and limitations under the License.
           t
         );
       }
-      function de(e) {
+      function he(e) {
         var t = !1;
         return (
           'Object' === Object.prototype.toString.call(e).slice(8, -1) &&
@@ -28844,12 +28846,16 @@ and limitations under the License.
           t
         );
       }
-      function ye(e, t) {
+      function ve(e, t) {
         window.sessionStorage && window.sessionStorage.setItem(e, t);
       }
-      function he(e, t, n) {
+      function me(e) {
+        var t = e.format;
+        return t || (t = e.type ? e.type : 'input'), t;
+      }
+      function be(e, t, n) {
         var r = t;
-        if ((n && (r = le(t)), e))
+        if ((n && (r = pe(t)), e))
           for (var o = e.split('-'), a = 0, i = o.length; a < i; a++) {
             var c = o[a];
             if (
@@ -28865,20 +28871,16 @@ and limitations under the License.
           }
         return r;
       }
-      function ve(e) {
-        var t = e.format;
-        return t || (t = e.type ? e.type : 'input'), t;
-      }
-      function me(e) {
+      function ge(e) {
         var t = e.split('-');
         return t.pop(), t.join('-');
       }
-      function be(e) {
+      function Oe(e) {
         var t = e.split('-'),
           n = t.pop();
         return [t.join('-'), n];
       }
-      function ge(e) {
+      function we(e) {
         var t = !1;
         return (
           ('func' !== e && 'style' !== e && 'data' !== e && 'object' !== e) ||
@@ -28886,13 +28888,11 @@ and limitations under the License.
           t
         );
       }
-      function Oe(e) {
+      function je(e) {
         var t = !1;
         return ('func' !== e && 'style' !== e && 'data' !== e) || (t = !0), t;
       }
-      var we,
-        je,
-        Ee,
+      var Ee,
         xe,
         Se,
         Pe,
@@ -28921,7 +28921,9 @@ and limitations under the License.
         Ge,
         Ye,
         Xe,
-        Qe = {
+        Qe,
+        Ze,
+        et = {
           func: [
             'input',
             'boolean',
@@ -29015,7 +29017,7 @@ and limitations under the License.
             'object',
           ],
         },
-        Ze = [
+        tt = [
           'key',
           'enum',
           'enumextra',
@@ -29039,11 +29041,40 @@ and limitations under the License.
           'event',
           'array',
           'object',
-        ],
-        et = {
-          jsonSchemaStore: new ((we = m.f.bound),
-          (je = m.f.bound),
-          (Ee = m.f.bound),
+        ];
+      function nt(e, t) {
+        var n = Object.keys(e);
+        if (Object.getOwnPropertySymbols) {
+          var r = Object.getOwnPropertySymbols(e);
+          t &&
+            (r = r.filter(function (t) {
+              return Object.getOwnPropertyDescriptor(e, t).enumerable;
+            })),
+            n.push.apply(n, r);
+        }
+        return n;
+      }
+      function rt(e) {
+        for (var t = 1; t < arguments.length; t++) {
+          var n = null != arguments[t] ? arguments[t] : {};
+          t % 2
+            ? nt(Object(n), !0).forEach(function (t) {
+                ee()(e, t, n[t]);
+              })
+            : Object.getOwnPropertyDescriptors
+            ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n))
+            : nt(Object(n)).forEach(function (t) {
+                Object.defineProperty(
+                  e,
+                  t,
+                  Object.getOwnPropertyDescriptor(n, t),
+                );
+              });
+        }
+        return e;
+      }
+      var ot = {
+          jsonSchemaStore: new ((Ee = m.f.bound),
           (xe = m.f.bound),
           (Se = m.f.bound),
           (Pe = m.f.bound),
@@ -29068,13 +29099,15 @@ and limitations under the License.
           (Ue = m.f.bound),
           (qe = m.f.bound),
           (Je = m.f.bound),
-          ($e = (function () {
+          ($e = m.f.bound),
+          (Ge = m.f.bound),
+          (Ye = (function () {
             function e() {
               o()(this, e),
                 (this.curJsonKeyIndex = 1),
-                ne()(this, 'triggerChange', Ge, this),
-                ne()(this, 'jsonSchema', Ye, this),
-                ne()(this, 'onChange', Xe, this);
+                oe()(this, 'triggerChange', Xe, this),
+                oe()(this, 'jsonSchema', Qe, this),
+                oe()(this, 'onChange', Ze, this);
             }
             return (
               i()(e, [
@@ -29088,7 +29121,7 @@ and limitations under the License.
                   key: 'initJSONSchemaData',
                   value: function (e) {
                     if (e && '{}' !== JSON.stringify(e)) {
-                      if (!fe(e, this.JSONSchemaObj))
+                      if (!de(e, this.JSONSchemaObj))
                         if (
                           e &&
                           ((n = !1),
@@ -29100,12 +29133,12 @@ and limitations under the License.
                           this.jsonSchema = e;
                         else {
                           var t = (function e(t) {
-                            var n = le(t);
+                            var n = pe(t);
                             if (
                               (!n.title &&
                                 n.description &&
                                 (n.title = n.description),
-                              n.format || (n.format = ve(n)),
+                              n.format || (n.format = me(n)),
                               ('quantity' !== n.format &&
                                 'array' !== n.format &&
                                 'datasource' !== n.format &&
@@ -29124,18 +29157,18 @@ and limitations under the License.
                                   n.enumextra &&
                                   ((n.items = {
                                     type: 'string',
-                                    enum: le(n.enum),
-                                    enumextra: le(n.enumextra),
+                                    enum: pe(n.enum),
+                                    enumextra: pe(n.enumextra),
                                   }),
                                   delete n.enum,
                                   delete n.enumextra)),
                               'quantity' === n.format)
                             ) {
                               var r = n.properties,
-                                o = le(ue.quantity);
+                                o = pe(le.quantity);
                               if (
                                 r.quantity &&
-                                de(r.quantity) &&
+                                he(r.quantity) &&
                                 r.quantity.default
                               ) {
                                 var a = r.quantity.default;
@@ -29146,20 +29179,20 @@ and limitations under the License.
                             }
                             if ('datasource' === n.format) {
                               var i = n.properties;
-                              n = le(ue.datasource);
+                              n = pe(le.datasource);
                               var c = i.type && i.type.default,
                                 u = i.data && i.data.default,
                                 s = i.filter && i.filter.default;
                               (n.properties.filter.default = s
-                                ? le(s)
+                                ? pe(s)
                                 : '() => {}'),
                                 (n.properties.data.default =
                                   'local' === c
                                     ? u
-                                      ? le(u)
+                                      ? pe(u)
                                       : '{}'
                                     : u
-                                    ? le(u)
+                                    ? pe(u)
                                     : 'http://xxx');
                             }
                             if ('event' === n.format) {
@@ -29168,18 +29201,18 @@ and limitations under the License.
                               if ('in' === f || 'on' === f) {
                                 var p =
                                   (l.filter && l.filter.default) || '() => {}';
-                                (n = le(se.on)),
+                                (n = pe(fe.on)),
                                   l.actionFunc &&
-                                    de(l.actionFunc) &&
+                                    he(l.actionFunc) &&
                                     (n.properties.actionFunc.default =
-                                      l.actionFunc.default || le(p));
+                                      l.actionFunc.default || pe(p));
                               } else {
                                 var d = (l.filter && l.filter.default) || '{}';
-                                (n = le(se.emit)),
+                                (n = pe(fe.emit)),
                                   l.eventData &&
-                                    de(l.eventData) &&
+                                    he(l.eventData) &&
                                     (n.properties.eventData.default =
-                                      l.eventData.default || le(d));
+                                      l.eventData.default || pe(d));
                               }
                             }
                             return (
@@ -29196,7 +29229,7 @@ and limitations under the License.
                           })(e);
                           this.jsonSchema = t;
                         }
-                    } else this.jsonSchema = le(ae);
+                    } else this.jsonSchema = pe(ce);
                     var n, r, o;
                   },
                 },
@@ -29253,7 +29286,7 @@ and limitations under the License.
                 {
                   key: 'getJSONDataByIndex',
                   value: function (e) {
-                    return he(e, this.jsonSchema, !0);
+                    return be(e, this.jsonSchema, !0);
                   },
                 },
                 {
@@ -29274,13 +29307,13 @@ and limitations under the License.
                 {
                   key: 'isExitJsonKey',
                   value: function (e, t) {
-                    var n = me(e),
+                    var n = ge(e),
                       r = this.getJSONDataByIndex(n);
                     return (
                       !!(r.propertyOrder && r.propertyOrder.indexOf(t) >= 0) ||
-                      (Ze &&
-                        Ze.indexOf(t) >= 0 &&
-                        ee.a.warning(
+                      (tt &&
+                        tt.indexOf(t) >= 0 &&
+                        ne.a.warning(
                           ''.concat(
                             t,
                             '是JSONSchema的关键字，建议您换一个，避免后续出现数据异常。',
@@ -29293,55 +29326,51 @@ and limitations under the License.
                 {
                   key: 'isSupportCurType',
                   value: function (e, t) {
-                    var n = me(e),
+                    var n = ge(e),
                       r = this.getJSONDataByIndex(n),
-                      o = Qe[r.format];
+                      o = et[r.format];
                     return !!(o && o.indexOf(t) >= 0);
                   },
                 },
                 {
                   key: 'addChildJson',
                   value: function (e, t) {
-                    var n = he(e, this.jsonSchema);
-                    if (ge(n.format)) {
+                    var n = be(e, this.jsonSchema);
+                    if (we(n.format)) {
                       var r = this.getNewJsonKeyIndex(n);
                       n.required.push(r),
                         n.propertyOrder.push(r),
-                        (n.properties[r] = ie),
+                        (n.properties[r] = ue),
                         this.jsonSchemaChange(t);
-                    } else ee.a.warning('非对象类型字段不允许插入子元素');
+                    } else ne.a.warning('非对象类型字段不允许插入子元素');
                   },
                 },
                 {
                   key: 'editJsonData',
                   value: function (e, t, n, r) {
-                    var o = he(me(e), this.jsonSchema);
-                    (o.properties[t] = Object.assign(
-                      {},
-                      le(o.properties[t]),
-                      n,
-                    )),
+                    var o = be(ge(e), this.jsonSchema);
+                    (o.properties[t] = rt(rt({}, pe(o.properties[t])), n)),
                       this.jsonSchemaChange(r);
                   },
                 },
                 {
                   key: 'changeType',
                   value: function (e, t, n, r) {
-                    (he(me(e), this.jsonSchema).properties[t] = le(n)),
+                    (be(ge(e), this.jsonSchema).properties[t] = pe(n)),
                       this.jsonSchemaChange(r);
                   },
                 },
                 {
                   key: 'updateJsonData',
                   value: function (e, t, n) {
-                    var r = he(e, this.jsonSchema);
-                    Object.assign(r, le(t)), this.jsonSchemaChange(n);
+                    var r = be(e, this.jsonSchema);
+                    Object.assign(r, pe(t)), this.jsonSchemaChange(n);
                   },
                 },
                 {
                   key: 'editJsonKey',
                   value: function (e, t, n) {
-                    var r = he(e, this.jsonSchema, !0);
+                    var r = be(e, this.jsonSchema, !0);
                     this.insertJsonData(e, t, r, '', !0),
                       this.deleteJsonByIndex(e, !0),
                       this.jsonSchemaChange(n);
@@ -29350,18 +29379,18 @@ and limitations under the License.
                 {
                   key: 'addNextJsonData',
                   value: function (e) {
-                    var t = he(me(e), this.jsonSchema),
+                    var t = be(ge(e), this.jsonSchema),
                       n = this.getNewJsonKeyIndex(t);
-                    this.insertJsonData(e, n, ie);
+                    this.insertJsonData(e, n, ue);
                   },
                 },
                 {
                   key: 'insertJsonData',
                   value: function (e, t, n, r, o) {
-                    var a = be(e),
+                    var a = Oe(e),
                       i = a[0],
                       c = a[1],
-                      u = he(i, this.jsonSchema);
+                      u = be(i, this.jsonSchema);
                     u.required.push(t), (u.properties[t] = n);
                     var s = u.propertyOrder,
                       l = 'before' === r ? Number(c) : Number(c) + 1,
@@ -29374,7 +29403,7 @@ and limitations under the License.
                 {
                   key: 'deleteJsonByIndex_CurKey',
                   value: function (e, t, n) {
-                    var r = he(me(e), this.jsonSchema);
+                    var r = be(ge(e), this.jsonSchema);
                     delete r.properties[t];
                     var o = r.propertyOrder.indexOf(t);
                     r.propertyOrder.splice(o, 1);
@@ -29385,10 +29414,10 @@ and limitations under the License.
                 {
                   key: 'deleteJsonByIndex',
                   value: function (e, t) {
-                    var n = be(e),
+                    var n = Oe(e),
                       r = n[0],
                       o = n[1],
-                      a = he(r, this.jsonSchema),
+                      a = be(r, this.jsonSchema),
                       i = a.propertyOrder[o];
                     delete a.properties[i];
                     var c = a.propertyOrder.indexOf(i);
@@ -29400,7 +29429,7 @@ and limitations under the License.
                 {
                   key: 'updateEnumItem',
                   value: function (e, t, n, r, o) {
-                    var a = he(e, this.jsonSchema);
+                    var a = be(e, this.jsonSchema);
                     a.enum &&
                       a.enumextra &&
                       ((a.enum[t] = n), (a.enumextra[t] = r)),
@@ -29411,15 +29440,15 @@ and limitations under the License.
                   key: 'isExitEnumKey',
                   value: function (e, t, n) {
                     var r = !1,
-                      o = he(e, this.jsonSchema);
+                      o = be(e, this.jsonSchema);
                     if (o.enum) {
-                      var a = le(o.enum);
+                      var a = pe(o.enum);
                       t >= 0 && a.splice(t, 1), a.indexOf(n) >= 0 && (r = !0);
                     }
                     return (
-                      Ze &&
-                        Ze.indexOf(n) >= 0 &&
-                        ee.a.warning(
+                      tt &&
+                        tt.indexOf(n) >= 0 &&
+                        ne.a.warning(
                           ''.concat(
                             n,
                             '是JSONSchema的关键字，建议您换一个，避免后续出现数据异常。',
@@ -29432,14 +29461,14 @@ and limitations under the License.
                 {
                   key: 'updateEnumKey',
                   value: function (e, t, n, r) {
-                    var o = he(e, this.jsonSchema);
+                    var o = be(e, this.jsonSchema);
                     o.enum && (o.enum[t] = n), this.jsonSchemaChange(r);
                   },
                 },
                 {
                   key: 'updateEnumText',
                   value: function (e, t, n, r) {
-                    var o = he(e, this.jsonSchema);
+                    var o = be(e, this.jsonSchema);
                     o.enumextra && (o.enumextra[t] = n),
                       this.jsonSchemaChange(r);
                   },
@@ -29447,7 +29476,7 @@ and limitations under the License.
                 {
                   key: 'deleteEnumItem',
                   value: function (e, t, n) {
-                    var r = he(e, this.jsonSchema);
+                    var r = be(e, this.jsonSchema);
                     r.enum &&
                       r.enumextra &&
                       (r.enum.splice(t, 1), r.enumextra.splice(t, 1)),
@@ -29457,7 +29486,7 @@ and limitations under the License.
                 {
                   key: 'insertEnumItem',
                   value: function (e, t, n, r, o, a) {
-                    var i = he(e, this.jsonSchema);
+                    var i = be(e, this.jsonSchema);
                     if (i.enum && i.enumextra) {
                       var c = 'before' === o ? Number(t) : Number(t) + 1,
                         u = i.enum.slice(0, c),
@@ -29488,7 +29517,7 @@ and limitations under the License.
                 {
                   key: 'addEnumItem',
                   value: function (e, t) {
-                    var n = he(e, this.jsonSchema);
+                    var n = be(e, this.jsonSchema);
                     if (n.enum) {
                       var r = this.getNewEnumIndex(n.enum),
                         o = '选项'.concat(this.curJsonKeyIndex - 1);
@@ -29499,7 +29528,7 @@ and limitations under the License.
                 {
                   key: 'copyEnumItem',
                   value: function (e, t) {
-                    var n = he(e, this.jsonSchema);
+                    var n = be(e, this.jsonSchema);
                     if (n.enum) {
                       var r = n.enum[t],
                         o = n.enumextra[t],
@@ -29519,7 +29548,7 @@ and limitations under the License.
               e
             );
           })()),
-          (Ge = oe()($e.prototype, 'triggerChange', [m.n], {
+          (Xe = ie()(Ye.prototype, 'triggerChange', [m.n], {
             configurable: !0,
             enumerable: !0,
             writable: !0,
@@ -29527,7 +29556,7 @@ and limitations under the License.
               return !1;
             },
           })),
-          (Ye = oe()($e.prototype, 'jsonSchema', [m.n], {
+          (Qe = ie()(Ye.prototype, 'jsonSchema', [m.n], {
             configurable: !0,
             enumerable: !0,
             writable: !0,
@@ -29535,7 +29564,7 @@ and limitations under the License.
               return {};
             },
           })),
-          (Xe = oe()($e.prototype, 'onChange', [m.n], {
+          (Ze = ie()(Ye.prototype, 'onChange', [m.n], {
             configurable: !0,
             enumerable: !0,
             writable: !0,
@@ -29543,228 +29572,228 @@ and limitations under the License.
               return function () {};
             },
           })),
-          oe()(
-            $e.prototype,
+          ie()(
+            Ye.prototype,
             'triggerChangeAction',
-            [we],
+            [Ee],
             Object.getOwnPropertyDescriptor(
-              $e.prototype,
+              Ye.prototype,
               'triggerChangeAction',
             ),
-            $e.prototype,
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
+          ie()(
+            Ye.prototype,
             'initJSONSchemaData',
-            [je],
-            Object.getOwnPropertyDescriptor($e.prototype, 'initJSONSchemaData'),
-            $e.prototype,
+            [xe],
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'initJSONSchemaData'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
+          ie()(
+            Ye.prototype,
             'JSONSchemaObj',
             [m.g],
-            Object.getOwnPropertyDescriptor($e.prototype, 'JSONSchemaObj'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'JSONSchemaObj'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
+          ie()(
+            Ye.prototype,
             'initOnChange',
-            [Ee],
-            Object.getOwnPropertyDescriptor($e.prototype, 'initOnChange'),
-            $e.prototype,
-          ),
-          oe()(
-            $e.prototype,
-            'jsonSchemaChange',
-            [xe],
-            Object.getOwnPropertyDescriptor($e.prototype, 'jsonSchemaChange'),
-            $e.prototype,
-          ),
-          oe()(
-            $e.prototype,
-            'indexRoute2keyRoute',
             [Se],
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'initOnChange'),
+            Ye.prototype,
+          ),
+          ie()(
+            Ye.prototype,
+            'jsonSchemaChange',
+            [Pe],
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'jsonSchemaChange'),
+            Ye.prototype,
+          ),
+          ie()(
+            Ye.prototype,
+            'indexRoute2keyRoute',
+            [Ce],
             Object.getOwnPropertyDescriptor(
-              $e.prototype,
+              Ye.prototype,
               'indexRoute2keyRoute',
             ),
-            $e.prototype,
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
+          ie()(
+            Ye.prototype,
             'getJSONDataByIndex',
-            [Pe],
-            Object.getOwnPropertyDescriptor($e.prototype, 'getJSONDataByIndex'),
-            $e.prototype,
-          ),
-          oe()(
-            $e.prototype,
-            'getNewJsonKeyIndex',
-            [Ce],
-            Object.getOwnPropertyDescriptor($e.prototype, 'getNewJsonKeyIndex'),
-            $e.prototype,
-          ),
-          oe()(
-            $e.prototype,
-            'isExitJsonKey',
             [ke],
-            Object.getOwnPropertyDescriptor($e.prototype, 'isExitJsonKey'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'getJSONDataByIndex'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'isSupportCurType',
+          ie()(
+            Ye.prototype,
+            'getNewJsonKeyIndex',
             [_e],
-            Object.getOwnPropertyDescriptor($e.prototype, 'isSupportCurType'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'getNewJsonKeyIndex'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'addChildJson',
+          ie()(
+            Ye.prototype,
+            'isExitJsonKey',
             [Ne],
-            Object.getOwnPropertyDescriptor($e.prototype, 'addChildJson'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'isExitJsonKey'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'editJsonData',
+          ie()(
+            Ye.prototype,
+            'isSupportCurType',
             [Me],
-            Object.getOwnPropertyDescriptor($e.prototype, 'editJsonData'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'isSupportCurType'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'changeType',
+          ie()(
+            Ye.prototype,
+            'addChildJson',
             [Te],
-            Object.getOwnPropertyDescriptor($e.prototype, 'changeType'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'addChildJson'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'updateJsonData',
+          ie()(
+            Ye.prototype,
+            'editJsonData',
             [De],
-            Object.getOwnPropertyDescriptor($e.prototype, 'updateJsonData'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'editJsonData'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'editJsonKey',
+          ie()(
+            Ye.prototype,
+            'changeType',
             [Ae],
-            Object.getOwnPropertyDescriptor($e.prototype, 'editJsonKey'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'changeType'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'addNextJsonData',
+          ie()(
+            Ye.prototype,
+            'updateJsonData',
             [Re],
-            Object.getOwnPropertyDescriptor($e.prototype, 'addNextJsonData'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'updateJsonData'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'insertJsonData',
+          ie()(
+            Ye.prototype,
+            'editJsonKey',
             [Ie],
-            Object.getOwnPropertyDescriptor($e.prototype, 'insertJsonData'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'editJsonKey'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'deleteJsonByIndex_CurKey',
+          ie()(
+            Ye.prototype,
+            'addNextJsonData',
             [Le],
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'addNextJsonData'),
+            Ye.prototype,
+          ),
+          ie()(
+            Ye.prototype,
+            'insertJsonData',
+            [Fe],
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'insertJsonData'),
+            Ye.prototype,
+          ),
+          ie()(
+            Ye.prototype,
+            'deleteJsonByIndex_CurKey',
+            [Ke],
             Object.getOwnPropertyDescriptor(
-              $e.prototype,
+              Ye.prototype,
               'deleteJsonByIndex_CurKey',
             ),
-            $e.prototype,
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
+          ie()(
+            Ye.prototype,
             'deleteJsonByIndex',
-            [Fe],
-            Object.getOwnPropertyDescriptor($e.prototype, 'deleteJsonByIndex'),
-            $e.prototype,
-          ),
-          oe()(
-            $e.prototype,
-            'updateEnumItem',
-            [Ke],
-            Object.getOwnPropertyDescriptor($e.prototype, 'updateEnumItem'),
-            $e.prototype,
-          ),
-          oe()(
-            $e.prototype,
-            'isExitEnumKey',
             [Ve],
-            Object.getOwnPropertyDescriptor($e.prototype, 'isExitEnumKey'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'deleteJsonByIndex'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'updateEnumKey',
+          ie()(
+            Ye.prototype,
+            'updateEnumItem',
             [He],
-            Object.getOwnPropertyDescriptor($e.prototype, 'updateEnumKey'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'updateEnumItem'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'updateEnumText',
+          ie()(
+            Ye.prototype,
+            'isExitEnumKey',
             [Be],
-            Object.getOwnPropertyDescriptor($e.prototype, 'updateEnumText'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'isExitEnumKey'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'deleteEnumItem',
+          ie()(
+            Ye.prototype,
+            'updateEnumKey',
             [We],
-            Object.getOwnPropertyDescriptor($e.prototype, 'deleteEnumItem'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'updateEnumKey'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'insertEnumItem',
+          ie()(
+            Ye.prototype,
+            'updateEnumText',
             [ze],
-            Object.getOwnPropertyDescriptor($e.prototype, 'insertEnumItem'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'updateEnumText'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'getNewEnumIndex',
+          ie()(
+            Ye.prototype,
+            'deleteEnumItem',
             [Ue],
-            Object.getOwnPropertyDescriptor($e.prototype, 'getNewEnumIndex'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'deleteEnumItem'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'addEnumItem',
+          ie()(
+            Ye.prototype,
+            'insertEnumItem',
             [qe],
-            Object.getOwnPropertyDescriptor($e.prototype, 'addEnumItem'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'insertEnumItem'),
+            Ye.prototype,
           ),
-          oe()(
-            $e.prototype,
-            'copyEnumItem',
+          ie()(
+            Ye.prototype,
+            'getNewEnumIndex',
             [Je],
-            Object.getOwnPropertyDescriptor($e.prototype, 'copyEnumItem'),
-            $e.prototype,
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'getNewEnumIndex'),
+            Ye.prototype,
           ),
-          $e)(),
+          ie()(
+            Ye.prototype,
+            'addEnumItem',
+            [$e],
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'addEnumItem'),
+            Ye.prototype,
+          ),
+          ie()(
+            Ye.prototype,
+            'copyEnumItem',
+            [Ge],
+            Object.getOwnPropertyDescriptor(Ye.prototype, 'copyEnumItem'),
+            Ye.prototype,
+          ),
+          Ye)(),
         },
-        tt = (n(43), n(25)),
-        nt = n.n(tt),
-        rt = (n(205), n(171)),
-        ot = n.n(rt),
-        at = (n(101), n(74)),
+        at = (n(43), n(25)),
         it = n.n(at),
-        ct = (n(102), n(21)),
+        ct = (n(205), n(171)),
         ut = n.n(ct),
-        st = (n(80), n(34)),
+        st = (n(101), n(74)),
         lt = n.n(st),
-        ft = n(22),
+        ft = (n(102), n(21)),
         pt = n.n(ft),
-        dt = (n(103), n(41)),
+        dt = (n(80), n(34)),
         yt = n.n(dt),
-        ht = {
+        ht = n(22),
+        vt = n.n(ht),
+        mt = (n(103), n(41)),
+        bt = n.n(mt),
+        gt = {
           icon: {
             tag: 'svg',
             attrs: { viewBox: '64 64 896 896', focusable: 'false' },
@@ -29781,16 +29810,16 @@ and limitations under the License.
           name: 'close',
           theme: 'outlined',
         },
-        vt = n(6),
-        mt = n(1),
-        bt = n(7),
-        gt = n(2),
-        Ot = n.n(gt),
-        wt = n(20),
-        jt = n(126),
-        Et = n(5),
-        xt = n(127);
-      function St(e, t) {
+        Ot = n(6),
+        wt = n(1),
+        jt = n(7),
+        Et = n(2),
+        xt = n.n(Et),
+        St = n(20),
+        Pt = n(126),
+        Ct = n(5),
+        kt = n(127);
+      function _t(e, t) {
         var n = Object.keys(e);
         if (Object.getOwnPropertySymbols) {
           var r = Object.getOwnPropertySymbols(e);
@@ -29802,16 +29831,16 @@ and limitations under the License.
         }
         return n;
       }
-      function Pt(e) {
+      function Nt(e) {
         for (var t = 1; t < arguments.length; t++) {
           var n = null != arguments[t] ? arguments[t] : {};
           t % 2
-            ? St(Object(n), !0).forEach(function (t) {
-                Object(mt.a)(e, t, n[t]);
+            ? _t(Object(n), !0).forEach(function (t) {
+                Object(wt.a)(e, t, n[t]);
               })
             : Object.getOwnPropertyDescriptors
             ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n))
-            : St(Object(n)).forEach(function (t) {
+            : _t(Object(n)).forEach(function (t) {
                 Object.defineProperty(
                   e,
                   t,
@@ -29821,15 +29850,15 @@ and limitations under the License.
         }
         return e;
       }
-      function Ct(e) {
+      function Mt(e) {
         return (
-          'object' === Object(wt.a)(e) &&
+          'object' === Object(St.a)(e) &&
           'string' == typeof e.name &&
           'string' == typeof e.theme &&
-          ('object' === Object(wt.a)(e.icon) || 'function' == typeof e.icon)
+          ('object' === Object(St.a)(e.icon) || 'function' == typeof e.icon)
         );
       }
-      function kt() {
+      function Tt() {
         var e =
           arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
         return Object.keys(e).reduce(function (t, n) {
@@ -29844,16 +29873,16 @@ and limitations under the License.
           return t;
         }, {});
       }
-      function _t(e) {
-        return Object(jt.generate)(e)[0];
+      function Dt(e) {
+        return Object(Pt.generate)(e)[0];
       }
-      function Nt(e) {
+      function At(e) {
         return e ? (Array.isArray(e) ? e : [e]) : [];
       }
-      var Mt =
+      var Rt =
           '\n.anticon {\n  display: inline-block;\n  color: inherit;\n  font-style: normal;\n  line-height: 0;\n  text-align: center;\n  text-transform: none;\n  vertical-align: -0.125em;\n  text-rendering: optimizeLegibility;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n.anticon > * {\n  line-height: 1;\n}\n\n.anticon svg {\n  display: inline-block;\n}\n\n.anticon::before {\n  display: none;\n}\n\n.anticon .anticon-icon {\n  display: block;\n}\n\n.anticon[tabindex] {\n  cursor: pointer;\n}\n\n.anticon-spin::before,\n.anticon-spin {\n  display: inline-block;\n  -webkit-animation: loadingCircle 1s infinite linear;\n  animation: loadingCircle 1s infinite linear;\n}\n\n@-webkit-keyframes loadingCircle {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n\n@keyframes loadingCircle {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n',
-        Tt = !1;
-      function Dt(e, t) {
+        It = !1;
+      function Lt(e, t) {
         var n = Object.keys(e);
         if (Object.getOwnPropertySymbols) {
           var r = Object.getOwnPropertySymbols(e);
@@ -29865,16 +29894,16 @@ and limitations under the License.
         }
         return n;
       }
-      function At(e) {
+      function Ft(e) {
         for (var t = 1; t < arguments.length; t++) {
           var n = null != arguments[t] ? arguments[t] : {};
           t % 2
-            ? Dt(Object(n), !0).forEach(function (t) {
-                Object(mt.a)(e, t, n[t]);
+            ? Lt(Object(n), !0).forEach(function (t) {
+                Object(wt.a)(e, t, n[t]);
               })
             : Object.getOwnPropertyDescriptors
             ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n))
-            : Dt(Object(n)).forEach(function (t) {
+            : Lt(Object(n)).forEach(function (t) {
                 Object.defineProperty(
                   e,
                   t,
@@ -29884,12 +29913,12 @@ and limitations under the License.
         }
         return e;
       }
-      var Rt = {
+      var Kt = {
         primaryColor: '#333',
         secondaryColor: '#E6E6E6',
         calculated: !1,
       };
-      var It = function (e) {
+      var Vt = function (e) {
         var t,
           n,
           r = e.icon,
@@ -29898,7 +29927,7 @@ and limitations under the License.
           i = e.style,
           c = e.primaryColor,
           u = e.secondaryColor,
-          s = Object(bt.a)(e, [
+          s = Object(jt.a)(e, [
             'icon',
             'className',
             'onClick',
@@ -29906,30 +29935,30 @@ and limitations under the License.
             'primaryColor',
             'secondaryColor',
           ]),
-          l = Rt;
+          l = Kt;
         if (
-          (c && (l = { primaryColor: c, secondaryColor: u || _t(c) }),
+          (c && (l = { primaryColor: c, secondaryColor: u || Dt(c) }),
           (function () {
             var e =
               arguments.length > 0 && void 0 !== arguments[0]
                 ? arguments[0]
-                : Mt;
+                : Rt;
             Object(d.useEffect)(function () {
-              Tt || (Object(xt.insertCss)(e, { prepend: !0 }), (Tt = !0));
+              It || (Object(kt.insertCss)(e, { prepend: !0 }), (It = !0));
             }, []);
           })(),
-          (t = Ct(r)),
+          (t = Mt(r)),
           (n = 'icon should be icon definiton, but got '.concat(r)),
-          Object(Et.a)(t, '[@ant-design/icons] '.concat(n)),
-          !Ct(r))
+          Object(Ct.a)(t, '[@ant-design/icons] '.concat(n)),
+          !Mt(r))
         )
           return null;
         var f = r;
         return (
           f &&
             'function' == typeof f.icon &&
-            (f = At(
-              At({}, f),
+            (f = Ft(
+              Ft({}, f),
               {},
               { icon: f.icon(l.primaryColor, l.secondaryColor) },
             )),
@@ -29937,14 +29966,14 @@ and limitations under the License.
             return r
               ? y.a.createElement(
                   t.tag,
-                  Pt(Pt({ key: n }, kt(t.attrs)), r),
+                  Nt(Nt({ key: n }, Tt(t.attrs)), r),
                   (t.children || []).map(function (r, o) {
                     return e(r, ''.concat(n, '-').concat(t.tag, '-').concat(o));
                   }),
                 )
               : y.a.createElement(
                   t.tag,
-                  Pt({ key: n }, kt(t.attrs)),
+                  Nt({ key: n }, Tt(t.attrs)),
                   (t.children || []).map(function (r, o) {
                     return e(r, ''.concat(n, '-').concat(t.tag, '-').concat(o));
                   }),
@@ -29952,7 +29981,7 @@ and limitations under the License.
           })(
             f.icon,
             'svg-'.concat(f.name),
-            At(
+            Ft(
               {
                 className: o,
                 onClick: a,
@@ -29968,27 +29997,27 @@ and limitations under the License.
           )
         );
       };
-      (It.displayName = 'IconReact'),
-        (It.getTwoToneColors = function () {
-          return At({}, Rt);
+      (Vt.displayName = 'IconReact'),
+        (Vt.getTwoToneColors = function () {
+          return Ft({}, Kt);
         }),
-        (It.setTwoToneColors = function (e) {
+        (Vt.setTwoToneColors = function (e) {
           var t = e.primaryColor,
             n = e.secondaryColor;
-          (Rt.primaryColor = t),
-            (Rt.secondaryColor = n || _t(t)),
-            (Rt.calculated = !!n);
+          (Kt.primaryColor = t),
+            (Kt.secondaryColor = n || Dt(t)),
+            (Kt.calculated = !!n);
         });
-      var Lt = It;
-      function Ft(e) {
-        var t = Nt(e),
-          n = Object(vt.a)(t, 2),
+      var Ht = Vt;
+      function Bt(e) {
+        var t = At(e),
+          n = Object(Ot.a)(t, 2),
           r = n[0],
           o = n[1];
-        return Lt.setTwoToneColors({ primaryColor: r, secondaryColor: o });
+        return Ht.setTwoToneColors({ primaryColor: r, secondaryColor: o });
       }
-      Ft('#1890ff');
-      var Kt = d.forwardRef(function (e, t) {
+      Bt('#1890ff');
+      var Wt = d.forwardRef(function (e, t) {
         var n = e.className,
           r = e.icon,
           o = e.spin,
@@ -29996,7 +30025,7 @@ and limitations under the License.
           i = e.tabIndex,
           c = e.onClick,
           u = e.twoToneColor,
-          s = Object(bt.a)(e, [
+          s = Object(jt.a)(e, [
             'className',
             'icon',
             'spin',
@@ -30005,12 +30034,12 @@ and limitations under the License.
             'onClick',
             'twoToneColor',
           ]),
-          l = Ot()(
+          l = xt()(
             'anticon',
-            Object(mt.a)({}, 'anticon-'.concat(r.name), Boolean(r.name)),
+            Object(wt.a)({}, 'anticon-'.concat(r.name), Boolean(r.name)),
             n,
           ),
-          f = Ot()({ 'anticon-spin': !!o || 'loading' === r.name }),
+          f = xt()({ 'anticon-spin': !!o || 'loading' === r.name }),
           p = i;
         void 0 === p && c && (p = -1);
         var y = a
@@ -30019,8 +30048,8 @@ and limitations under the License.
                 transform: 'rotate('.concat(a, 'deg)'),
               }
             : void 0,
-          h = Nt(u),
-          v = Object(vt.a)(h, 2),
+          h = At(u),
+          v = Object(Ot.a)(h, 2),
           m = v[0],
           b = v[1];
         return d.createElement(
@@ -30031,7 +30060,7 @@ and limitations under the License.
             onClick: c,
             className: l,
           }),
-          d.createElement(Lt, {
+          d.createElement(Ht, {
             className: f,
             icon: r,
             primaryColor: m,
@@ -30040,24 +30069,24 @@ and limitations under the License.
           }),
         );
       });
-      (Kt.displayName = 'AntdIcon'),
-        (Kt.getTwoToneColor = function () {
-          var e = Lt.getTwoToneColors();
+      (Wt.displayName = 'AntdIcon'),
+        (Wt.getTwoToneColor = function () {
+          var e = Ht.getTwoToneColors();
           return e.calculated
             ? [e.primaryColor, e.secondaryColor]
             : e.primaryColor;
         }),
-        (Kt.setTwoToneColor = Ft);
-      var Vt = Kt,
-        Ht = function (e, t) {
+        (Wt.setTwoToneColor = Bt);
+      var zt = Wt,
+        Ut = function (e, t) {
           return d.createElement(
-            Vt,
-            Object.assign({}, e, { ref: t, icon: ht }),
+            zt,
+            Object.assign({}, e, { ref: t, icon: gt }),
           );
         };
-      Ht.displayName = 'CloseOutlined';
-      var Bt = d.forwardRef(Ht),
-        Wt = {
+      Ut.displayName = 'CloseOutlined';
+      var qt = d.forwardRef(Ut),
+        Jt = {
           icon: {
             tag: 'svg',
             attrs: { viewBox: '64 64 896 896', focusable: 'false' },
@@ -30086,15 +30115,15 @@ and limitations under the License.
           name: 'plus',
           theme: 'outlined',
         },
-        zt = function (e, t) {
+        $t = function (e, t) {
           return d.createElement(
-            Vt,
-            Object.assign({}, e, { ref: t, icon: Wt }),
+            zt,
+            Object.assign({}, e, { ref: t, icon: Jt }),
           );
         };
-      zt.displayName = 'PlusOutlined';
-      var Ut = d.forwardRef(zt),
-        qt = {
+      $t.displayName = 'PlusOutlined';
+      var Gt = d.forwardRef($t),
+        Yt = {
           icon: {
             tag: 'svg',
             attrs: { viewBox: '64 64 896 896', focusable: 'false' },
@@ -30111,15 +30140,15 @@ and limitations under the License.
           name: 'copy',
           theme: 'outlined',
         },
-        Jt = function (e, t) {
+        Xt = function (e, t) {
           return d.createElement(
-            Vt,
-            Object.assign({}, e, { ref: t, icon: qt }),
+            zt,
+            Object.assign({}, e, { ref: t, icon: Yt }),
           );
         };
-      Jt.displayName = 'CopyOutlined';
-      var $t = d.forwardRef(Jt),
-        Gt = {
+      Xt.displayName = 'CopyOutlined';
+      var Qt = d.forwardRef(Xt),
+        Zt = {
           icon: {
             tag: 'svg',
             attrs: { viewBox: '64 64 896 896', focusable: 'false' },
@@ -30136,15 +30165,15 @@ and limitations under the License.
           name: 'setting',
           theme: 'outlined',
         },
-        Yt = function (e, t) {
+        en = function (e, t) {
           return d.createElement(
-            Vt,
-            Object.assign({}, e, { ref: t, icon: Gt }),
+            zt,
+            Object.assign({}, e, { ref: t, icon: Zt }),
           );
         };
-      Yt.displayName = 'SettingOutlined';
-      var Xt = d.forwardRef(Yt),
-        Qt = {
+      en.displayName = 'SettingOutlined';
+      var tn = d.forwardRef(en),
+        nn = {
           icon: {
             tag: 'svg',
             attrs: { viewBox: '64 64 896 896', focusable: 'false' },
@@ -30161,23 +30190,23 @@ and limitations under the License.
           name: 'drag',
           theme: 'outlined',
         },
-        Zt = function (e, t) {
+        rn = function (e, t) {
           return d.createElement(
-            Vt,
-            Object.assign({}, e, { ref: t, icon: Qt }),
+            zt,
+            Object.assign({}, e, { ref: t, icon: nn }),
           );
         };
-      Zt.displayName = 'DragOutlined';
-      var en = d.forwardRef(Zt),
-        tn = (n(262), n(66)),
-        nn = n.n(tn),
-        rn = (n(265), n(130)),
-        on = n.n(rn),
-        an = (n(268), n(129)),
+      rn.displayName = 'DragOutlined';
+      var on = d.forwardRef(rn),
+        an = (n(262), n(66)),
         cn = n.n(an),
-        un = (n(271), n(96)),
+        un = (n(265), n(130)),
         sn = n.n(un),
-        ln = [].concat(
+        ln = (n(268), n(129)),
+        fn = n.n(ln),
+        pn = (n(271), n(96)),
+        dn = n.n(pn),
+        yn = [].concat(
           [
             'input',
             'boolean',
@@ -30202,7 +30231,7 @@ and limitations under the License.
             'object',
           ],
         );
-      function fn(e) {
+      function hn(e) {
         var t = !1;
         return (
           '#'.concat(['number'].join('#'), '#').indexOf('#'.concat(e, '#')) >=
@@ -30210,7 +30239,7 @@ and limitations under the License.
           t
         );
       }
-      function pn(e) {
+      function vn(e) {
         var t = !1;
         return (
           '#'.concat(['array'].join('#'), '#').indexOf('#'.concat(e, '#')) >=
@@ -30219,7 +30248,7 @@ and limitations under the License.
         );
       }
       n(294);
-      function dn(e) {
+      function mn(e) {
         var t = (function () {
           if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
           if (Reflect.construct.sham) return !1;
@@ -30245,10 +30274,10 @@ and limitations under the License.
           return l()(this, n);
         };
       }
-      var yn = lt.a.TextArea,
-        hn = (function (e) {
+      var bn = yt.a.TextArea,
+        gn = (function (e) {
           u()(n, e);
-          var t = dn(n);
+          var t = mn(n);
           function n(e) {
             var r;
             return (
@@ -30266,7 +30295,7 @@ and limitations under the License.
               }),
               (r.renderDefaultContent = function (e, t, n) {
                 if ('boolean' === e)
-                  return d.createElement(sn.a, {
+                  return d.createElement(dn.a, {
                     style: { display: 'inline-block' },
                     defaultChecked: t.default,
                     checkedChildren: 'true',
@@ -30279,7 +30308,7 @@ and limitations under the License.
                   var o = t.items.enum,
                     a = t.items.enumextra;
                   return d.createElement(
-                    cn.a.Group,
+                    fn.a.Group,
                     {
                       style: { display: 'inline-block' },
                       defaultValue: t.default,
@@ -30293,7 +30322,7 @@ and limitations under the License.
                       o.map(function (e, t) {
                         var r = a[t],
                           o = ''.concat(n, '-radio-').concat(e);
-                        return d.createElement(cn.a, { value: e, key: o }, r);
+                        return d.createElement(fn.a, { value: e, key: o }, r);
                       }),
                   );
                 }
@@ -30301,7 +30330,7 @@ and limitations under the License.
                   var i = t.items.enum,
                     c = t.items.enumextra;
                   return d.createElement(
-                    on.a.Group,
+                    sn.a.Group,
                     {
                       style: { display: 'inline-block' },
                       onChange: function (e) {
@@ -30314,12 +30343,12 @@ and limitations under the License.
                       i.map(function (e, t) {
                         var r = c[t],
                           o = ''.concat(n, '-radio-').concat(e);
-                        return d.createElement(on.a, { value: e, key: o }, r);
+                        return d.createElement(sn.a, { value: e, key: o }, r);
                       }),
                   );
                 }
                 return 'color' === e
-                  ? d.createElement(lt.a, {
+                  ? d.createElement(yt.a, {
                       style: { display: 'inline-block' },
                       className: 'color-item-form',
                       type: 'color',
@@ -30333,7 +30362,7 @@ and limitations under the License.
                     'codearea' === e ||
                     'htmlarea' === e ||
                     'json' === e
-                  ? d.createElement(yn, {
+                  ? d.createElement(bn, {
                       style: { display: 'inline-block' },
                       rows: 4,
                       placeholder: '请输入'.concat(t.title, '的默认值'),
@@ -30348,7 +30377,7 @@ and limitations under the License.
                       },
                     })
                   : 'number' === e
-                  ? d.createElement(nn.a, {
+                  ? d.createElement(cn.a, {
                       style: { display: 'inline-block' },
                       placeholder: '请输入'.concat(t.title, '的默认值'),
                       defaultValue: t.default,
@@ -30356,7 +30385,7 @@ and limitations under the License.
                         r.handleValueChange('default', e);
                       },
                     })
-                  : d.createElement(lt.a, {
+                  : d.createElement(yt.a, {
                       style: { display: 'inline-block' },
                       placeholder: '请输入'.concat(t.title, '的默认值'),
                       defaultValue: t.default,
@@ -30370,7 +30399,7 @@ and limitations under the License.
                       },
                     });
               }),
-              (r.handleValueChange = r.handleValueChange.bind(pt()(r))),
+              (r.handleValueChange = r.handleValueChange.bind(vt()(r))),
               r
             );
           }
@@ -30385,7 +30414,7 @@ and limitations under the License.
                     r = this.props,
                     o = r.nodeKey,
                     a = r.targetJsonData,
-                    i = ve(a);
+                    i = me(a);
                   return d.createElement(
                     'div',
                     { className: 'advance-config-model' },
@@ -30419,7 +30448,7 @@ and limitations under the License.
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            pt.a,
                             {
                               title:
                                 '当前属性设置为只读后，用户不能对其进行任何编辑操作',
@@ -30438,7 +30467,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(sn.a, {
+                            d.createElement(dn.a, {
                               style: { display: 'inline-block' },
                               defaultChecked: a.readOnly,
                               checkedChildren: 'true',
@@ -30471,7 +30500,7 @@ and limitations under the License.
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            pt.a,
                             {
                               title:
                                 '当前属性设置为必填项后，如果用户没有给其设置数值，则会进行标红提示。',
@@ -30490,7 +30519,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(sn.a, {
+                            d.createElement(dn.a, {
                               style: { display: 'inline-block' },
                               defaultChecked: a.isRequired,
                               checkedChildren: 'true',
@@ -30536,7 +30565,7 @@ and limitations under the License.
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            pt.a,
                             { placement: 'top' },
                             d.createElement(
                               'span',
@@ -30559,7 +30588,7 @@ and limitations under the License.
                       var t = !1;
                       return (
                         '#'
-                          .concat(ln.join('#'), '#')
+                          .concat(yn.join('#'), '#')
                           .indexOf('#'.concat(e, '#')) >= 0 && (t = !0),
                         t
                       );
@@ -30574,7 +30603,7 @@ and limitations under the License.
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            pt.a,
                             {
                               title:
                                 '字段描述内容将作为Title的补充信息提供给用户',
@@ -30593,7 +30622,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(lt.a, {
+                            d.createElement(yt.a, {
                               style: { display: 'inline-block' },
                               placeholder: '请输入'.concat(
                                 a.title,
@@ -30644,7 +30673,7 @@ and limitations under the License.
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            pt.a,
                             {
                               title:
                                 '输入提示内容将作为输入区域的提示信息展示给用户',
@@ -30663,7 +30692,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(lt.a, {
+                            d.createElement(yt.a, {
                               style: { display: 'inline-block' },
                               placeholder: '请输入'.concat(
                                 a.title,
@@ -30682,7 +30711,7 @@ and limitations under the License.
                           ),
                         ),
                       ),
-                    fn(i) &&
+                    hn(i) &&
                       d.createElement(
                         'div',
                         {
@@ -30693,7 +30722,7 @@ and limitations under the License.
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            pt.a,
                             {
                               title:
                                 '设置最小值后，用户输入的数值必须大于当前最小值',
@@ -30712,7 +30741,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(nn.a, {
+                            d.createElement(cn.a, {
                               style: { display: 'inline-block' },
                               defaultValue: a.minimum,
                               onPressEnter: function (e) {
@@ -30727,7 +30756,7 @@ and limitations under the License.
                           ),
                         ),
                       ),
-                    fn(i) &&
+                    hn(i) &&
                       d.createElement(
                         'div',
                         {
@@ -30738,7 +30767,7 @@ and limitations under the License.
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            pt.a,
                             {
                               title:
                                 '设置最大值后，用户输入的数值必须大于当前最大值',
@@ -30757,7 +30786,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(nn.a, {
+                            d.createElement(cn.a, {
                               style: { display: 'inline-block' },
                               defaultValue: a.maximum,
                               onPressEnter: function (e) {
@@ -30772,7 +30801,7 @@ and limitations under the License.
                           ),
                         ),
                       ),
-                    pn(i) &&
+                    vn(i) &&
                       d.createElement(
                         'div',
                         {
@@ -30785,7 +30814,7 @@ and limitations under the License.
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            pt.a,
                             {
                               title:
                                 '设置最少子项个数后，当前字段的子字段数量必须大于最少子项数',
@@ -30804,7 +30833,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(nn.a, {
+                            d.createElement(cn.a, {
                               style: { display: 'inline-block' },
                               defaultValue: a['minimum-child'],
                               onChange: function (e) {
@@ -30814,7 +30843,7 @@ and limitations under the License.
                           ),
                         ),
                       ),
-                    pn(i) &&
+                    vn(i) &&
                       d.createElement(
                         'div',
                         {
@@ -30827,7 +30856,7 @@ and limitations under the License.
                           'div',
                           { className: 'element-title' },
                           d.createElement(
-                            ut.a,
+                            pt.a,
                             {
                               title:
                                 '设置最多子项个数后，当前字段的子字段数量必须少于最多子项数',
@@ -30846,7 +30875,7 @@ and limitations under the License.
                           d.createElement(
                             'div',
                             { className: 'form-item-box' },
-                            d.createElement(nn.a, {
+                            d.createElement(cn.a, {
                               style: { display: 'inline-block' },
                               defaultValue: a['maximum-child'],
                               onChange: function (e) {
@@ -30863,20 +30892,20 @@ and limitations under the License.
             n
           );
         })(d.PureComponent);
-      hn.propTypes = {
+      gn.propTypes = {
         jsonKey: Y.a.string,
         indexRoute: Y.a.string,
         nodeKey: Y.a.string,
         targetJsonData: Y.a.any,
       };
-      var vn = $(function (e) {
+      var On = $(function (e) {
         return {
           getJSONDataByIndex: e.jsonSchemaStore.getJSONDataByIndex,
           editJsonData: e.jsonSchemaStore.editJsonData,
         };
-      })(B(hn));
+      })(B(gn));
       n(337);
-      function mn(e) {
+      function wn(e) {
         var t = (function () {
           if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
           if (Reflect.construct.sham) return !1;
@@ -30902,10 +30931,10 @@ and limitations under the License.
           return l()(this, n);
         };
       }
-      var bn = yt.a.Option,
-        gn = (function (e) {
+      var jn = bt.a.Option,
+        En = (function (e) {
           u()(n, e);
-          var t = mn(n);
+          var t = wn(n);
           function n(e) {
             var r;
             return (
@@ -30915,7 +30944,7 @@ and limitations under the License.
                   n = t.indexRoute,
                   o = t.jsonKey,
                   a = t.changeType;
-                t.targetJsonData.format !== e && a(n, o, ue[e]);
+                t.targetJsonData.format !== e && a(n, o, le[e]);
               }),
               (r.handleJsonKeyChange = function (e) {
                 var t = e.target.value,
@@ -30926,7 +30955,7 @@ and limitations under the License.
                   c = n.isExitJsonKey;
                 a !== t &&
                   (c(o, t)
-                    ? ee.a.warning('当前key已存在，请换一个吧。')
+                    ? ne.a.warning('当前key已存在，请换一个吧。')
                     : i(o, t));
               }),
               (r.handleTitleChange = function (e) {
@@ -30938,8 +30967,8 @@ and limitations under the License.
                 n.targetJsonData.title !== t && i(o, a, { title: t });
               }),
               (r.getCurrentTypeList = function (e) {
-                var t = Qe[e || 'all'];
-                return (t && 0 !== t.length) || (t = Qe.all), t;
+                var t = et[e || 'all'];
+                return (t && 0 !== t.length) || (t = et.all), t;
               }),
               (r.onAddBtnEvent = function () {
                 var e = r.props,
@@ -30947,7 +30976,7 @@ and limitations under the License.
                   n = e.targetJsonData,
                   o = e.addChildJson,
                   a = e.addNextJsonData;
-                ge(ve(n)) ? o(t) : a(t);
+                we(me(n)) ? o(t) : a(t);
               }),
               (r.onCopyBtnEvent = function () {
                 var e = r.props,
@@ -30958,11 +30987,11 @@ and limitations under the License.
                   i = e.jsonKey,
                   c = e.insertJsonData,
                   u = e.getNewJsonKeyIndex,
-                  s = le(n),
-                  l = me(t),
+                  s = pe(n),
+                  l = ge(t),
                   f = u(o(l), i),
-                  p = ve(n);
-                ye(''.concat(a(l), '-').concat(f, '-').concat(p), a(t)),
+                  p = me(n);
+                ve(''.concat(a(l), '-').concat(f, '-').concat(p), a(t)),
                   c(t, f, s);
               }),
               (r.onDeleteBtnEvent = function () {
@@ -30975,12 +31004,12 @@ and limitations under the License.
                 e.preventDefault(), e.stopPropagation();
               }),
               (r.state = { isShowAdvance: !1 }),
-              (r.onAddBtnEvent = r.onAddBtnEvent.bind(pt()(r))),
-              (r.onCopyBtnEvent = r.onCopyBtnEvent.bind(pt()(r))),
-              (r.onDeleteBtnEvent = r.onDeleteBtnEvent.bind(pt()(r))),
-              (r.handleJsonKeyChange = r.handleJsonKeyChange.bind(pt()(r))),
-              (r.handleTitleChange = r.handleTitleChange.bind(pt()(r))),
-              (r.selectHandleChange = r.selectHandleChange.bind(pt()(r))),
+              (r.onAddBtnEvent = r.onAddBtnEvent.bind(vt()(r))),
+              (r.onCopyBtnEvent = r.onCopyBtnEvent.bind(vt()(r))),
+              (r.onDeleteBtnEvent = r.onDeleteBtnEvent.bind(vt()(r))),
+              (r.handleJsonKeyChange = r.handleJsonKeyChange.bind(vt()(r))),
+              (r.handleTitleChange = r.handleTitleChange.bind(vt()(r))),
+              (r.selectHandleChange = r.selectHandleChange.bind(vt()(r))),
               r
             );
           }
@@ -31003,8 +31032,8 @@ and limitations under the License.
                     f = this.props.titleIsFixed || !1,
                     p = this.props.hideOperaBtn || !1,
                     y = this.getCurrentTypeList(n),
-                    h = ve(i),
-                    v = Oe(h) || u || !1;
+                    h = me(i),
+                    v = je(h) || u || !1;
                   return d.createElement(
                     'div',
                     { className: 'base-schema-box', id: a },
@@ -31015,7 +31044,7 @@ and limitations under the License.
                         draggable: 'true',
                         onDragStart: this.ignoreDragEvent,
                       },
-                      d.createElement(lt.a, {
+                      d.createElement(yt.a, {
                         defaultValue: o,
                         disabled: v || s,
                         onPressEnter: this.handleJsonKeyChange,
@@ -31030,7 +31059,7 @@ and limitations under the License.
                         onDragStart: this.ignoreDragEvent,
                       },
                       d.createElement(
-                        yt.a,
+                        bt.a,
                         {
                           defaultValue: h,
                           style: { width: 120 },
@@ -31038,7 +31067,7 @@ and limitations under the License.
                           disabled: v || l,
                         },
                         y.map(function (e) {
-                          return d.createElement(bn, { key: e, value: e }, e);
+                          return d.createElement(jn, { key: e, value: e }, e);
                         }),
                       ),
                     ),
@@ -31049,7 +31078,7 @@ and limitations under the License.
                         draggable: 'true',
                         onDragStart: this.ignoreDragEvent,
                       },
-                      d.createElement(lt.a, {
+                      d.createElement(yt.a, {
                         defaultValue: i.title,
                         disabled: v || f,
                         onPressEnter: this.handleTitleChange,
@@ -31062,35 +31091,35 @@ and limitations under the License.
                         { className: 'operate-item' },
                         !v &&
                           d.createElement(
-                            ut.a,
+                            pt.a,
                             { title: '删除' },
-                            d.createElement(Bt, {
+                            d.createElement(qt, {
                               className: 'operate-btn delete-operate',
                               onClick: this.onDeleteBtnEvent,
                             }),
                           ),
                         d.createElement(
-                          ut.a,
-                          { title: ge(h) ? '新增子节点' : '新增兄弟节点' },
-                          d.createElement(Ut, {
+                          pt.a,
+                          { title: we(h) ? '新增子节点' : '新增兄弟节点' },
+                          d.createElement(Gt, {
                             className: 'operate-btn',
                             onClick: this.onAddBtnEvent,
                           }),
                         ),
                         !v &&
                           d.createElement(
-                            ut.a,
+                            pt.a,
                             { title: '复制' },
-                            d.createElement($t, {
+                            d.createElement(Qt, {
                               className: 'operate-btn',
                               onClick: this.onCopyBtnEvent,
                             }),
                           ),
                         !v &&
                           d.createElement(
-                            ut.a,
+                            pt.a,
                             { title: '高级设置' },
-                            d.createElement(Xt, {
+                            d.createElement(tn, {
                               className: 'operate-btn',
                               onClick: function () {
                                 e.setState({ isShowAdvance: !0 });
@@ -31099,9 +31128,9 @@ and limitations under the License.
                           ),
                         !v &&
                           d.createElement(
-                            ut.a,
+                            pt.a,
                             { title: '按住进行拖拽' },
-                            d.createElement(en, {
+                            d.createElement(on, {
                               className: 'operate-btn drag-btn',
                             }),
                           ),
@@ -31113,7 +31142,7 @@ and limitations under the License.
                         ' ',
                       ),
                     d.createElement(
-                      ot.a,
+                      ut.a,
                       {
                         visible: c,
                         title: '高级设置 / 当前字段：'
@@ -31124,7 +31153,7 @@ and limitations under the License.
                         },
                         footer: [
                           d.createElement(
-                            it.a,
+                            lt.a,
                             {
                               key: 'submit',
                               type: 'primary',
@@ -31136,7 +31165,7 @@ and limitations under the License.
                           ),
                         ],
                       },
-                      d.createElement(vn, {
+                      d.createElement(On, {
                         indexRoute: r,
                         jsonKey: o,
                         targetJsonData: i,
@@ -31149,7 +31178,7 @@ and limitations under the License.
             n
           );
         })(d.PureComponent);
-      gn.propTypes = {
+      En.propTypes = {
         parentType: Y.a.string,
         jsonKey: Y.a.string,
         indexRoute: Y.a.string,
@@ -31161,7 +31190,7 @@ and limitations under the License.
         typeIsFixed: Y.a.any,
         titleIsFixed: Y.a.any,
       };
-      var On = $(function (e) {
+      var xn = $(function (e) {
           return {
             getNewJsonKeyIndex: e.jsonSchemaStore.getNewJsonKeyIndex,
             deleteJsonByIndex_CurKey:
@@ -31176,19 +31205,19 @@ and limitations under the License.
             changeType: e.jsonSchemaStore.changeType,
             isExitJsonKey: e.jsonSchemaStore.isExitJsonKey,
           };
-        })(B(gn)),
-        wn = nt.a.TreeNode,
-        jn = function (e) {
-          return y.a.createElement(On, e);
+        })(B(En)),
+        Sn = it.a.TreeNode,
+        Pn = function (e) {
+          return y.a.createElement(xn, e);
         },
-        En = function (e) {
+        Cn = function (e) {
           var t = e.parentType,
             n = e.jsonKey,
             r = e.indexRoute,
             o = e.nodeKey,
             a = e.targetJsonData;
           return y.a.createElement(
-            wn,
+            Sn,
             {
               className: 'array-item-schema schema-item-form',
               id: o,
@@ -31196,7 +31225,7 @@ and limitations under the License.
               indexRoute: r,
               jsonKey: n,
               disabled: !0,
-              title: jn({
+              title: Pn({
                 indexRoute: r,
                 jsonKey: n,
                 targetJsonData: a,
@@ -31212,15 +31241,15 @@ and limitations under the License.
                 o = e.parentNodeKey,
                 a = e.parentType;
               return t.map(function (e, t) {
-                var i = r ? r + '-' + t : t + '',
+                var i = r ? ''.concat(r, '-').concat(t) : ''.concat(t),
                   c = e,
                   u = n[c],
-                  s = ve(u),
+                  s = me(u),
                   l = ''
-                    .concat(o ? o + '-' : '')
+                    .concat(o ? ''.concat(o, '-') : '')
                     .concat(s, '-')
                     .concat(c);
-                return Xn({
+                return tr({
                   parentType: a,
                   jsonKey: c,
                   indexRoute: i,
@@ -31238,22 +31267,22 @@ and limitations under the License.
             }),
           );
         },
-        xn = function (e) {
+        kn = function (e) {
           var t = e.parentType,
             n = e.jsonKey,
             r = e.indexRoute,
             o = e.nodeKey,
             a = e.targetJsonData,
-            i = ve(a);
+            i = me(a);
           return y.a.createElement(
-            wn,
+            Sn,
             {
               className: ''.concat(i, '-schema schema-item-form'),
               id: o,
               key: o,
               indexRoute: r,
               jsonKey: n,
-              title: jn({
+              title: Pn({
                 indexRoute: r,
                 jsonKey: n,
                 targetJsonData: a,
@@ -31261,7 +31290,7 @@ and limitations under the License.
                 nodeKey: o,
               }),
             },
-            En({
+            Cn({
               parentType: i,
               jsonKey: 'items',
               indexRoute: ''.concat(r, '-0'),
@@ -31271,7 +31300,7 @@ and limitations under the License.
           );
         };
       n(378);
-      function Sn(e) {
+      function _n(e) {
         var t = (function () {
           if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
           if (Reflect.construct.sham) return !1;
@@ -31297,10 +31326,10 @@ and limitations under the License.
           return l()(this, n);
         };
       }
-      var Pn = yt.a.Option,
-        Cn = (function (e) {
+      var Nn = bt.a.Option,
+        Mn = (function (e) {
           u()(n, e);
-          var t = Sn(n);
+          var t = _n(n);
           function n(e) {
             var r;
             return (
@@ -31322,20 +31351,20 @@ and limitations under the License.
                         ((l = n.split('-')),
                         (f = l.pop()),
                         (p = Number(f) + 1),
-                        l.push(p + ''),
+                        l.push(''.concat(p)),
                         l.join('-')),
                         'data',
                         s,
                       );
                   }
                   var l, f, p;
-                  if (se) {
-                    var d = se[e];
-                    if ('事件类型' === a.title && d) u(me(n), d);
+                  if (fe) {
+                    var d = fe[e];
+                    if ('事件类型' === a.title && d) u(ge(n), d);
                   }
                 }
               }),
-              (r.typeHandleChange = r.typeHandleChange.bind(pt()(r))),
+              (r.typeHandleChange = r.typeHandleChange.bind(vt()(r))),
               r
             );
           }
@@ -31347,7 +31376,7 @@ and limitations under the License.
                   var e = this.props,
                     t = e.nodeKey,
                     n = e.targetJsonData,
-                    r = ve(n),
+                    r = me(n),
                     o = n.enum || [],
                     a = n.enumextra || [];
                   return d.createElement(
@@ -31357,14 +31386,14 @@ and limitations under the License.
                       'div',
                       { className: 'key-input-item' },
                       d.createElement(
-                        yt.a,
+                        bt.a,
                         {
                           defaultValue: n.default || 'local',
                           onChange: this.typeHandleChange,
                         },
                         o.map(function (e, t) {
                           return d.createElement(
-                            Pn,
+                            Nn,
                             { key: e, value: e },
                             a[t],
                           );
@@ -31375,19 +31404,19 @@ and limitations under the License.
                       'div',
                       { className: 'type-select-item' },
                       d.createElement(
-                        yt.a,
+                        bt.a,
                         {
                           defaultValue: r,
                           style: { width: 120 },
                           disabled: !0,
                         },
-                        d.createElement(Pn, { key: r, value: r }, r),
+                        d.createElement(Nn, { key: r, value: r }, r),
                       ),
                     ),
                     d.createElement(
                       'div',
                       { className: 'title-input-item' },
-                      d.createElement(lt.a, {
+                      d.createElement(yt.a, {
                         defaultValue: n.title,
                         disabled: !0,
                       }),
@@ -31400,7 +31429,7 @@ and limitations under the License.
             n
           );
         })(d.PureComponent);
-      Cn.propTypes = {
+      Mn.propTypes = {
         parentType: Y.a.string,
         jsonKey: Y.a.string,
         indexRoute: Y.a.string,
@@ -31409,17 +31438,17 @@ and limitations under the License.
         typeSelectData: Y.a.any,
         isFixed: Y.a.any,
       };
-      var kn = $(function (e) {
+      var Tn = $(function (e) {
           return {
             editJsonData: e.jsonSchemaStore.editJsonData,
             updateJsonData: e.jsonSchemaStore.updateJsonData,
           };
-        })(B(Cn)),
-        _n = nt.a.TreeNode,
-        Nn = function (e) {
-          return y.a.createElement(On, e);
+        })(B(Mn)),
+        Dn = it.a.TreeNode,
+        An = function (e) {
+          return y.a.createElement(xn, e);
         },
-        Mn = {
+        Rn = {
           local: {
             type: 'string',
             title: '本地json数据',
@@ -31439,104 +31468,15 @@ and limitations under the License.
             description: '用于设置获取元素数据的请求地址',
           },
         },
-        Tn = function (e) {
+        In = function (e) {
           var t,
             n = e.parentType,
             r = e.jsonKey,
             o = e.indexRoute,
             a = e.nodeKey,
             i = e.targetJsonData,
-            c = ve(i),
+            c = me(i),
             u = i.properties.data || {};
-          return y.a.createElement(
-            _n,
-            {
-              className: ''.concat(c, '-schema schema-item-form'),
-              id: a,
-              key: a,
-              indexRoute: o,
-              jsonKey: r,
-              title: Nn({
-                indexRoute: o,
-                jsonKey: r,
-                targetJsonData: i,
-                parentType: n,
-                nodeKey: a,
-              }),
-            },
-            y.a.createElement(_n, {
-              className: 'dataSource-type-item-schema schema-item-form',
-              id: ''.concat(a, '-type'),
-              key: ''.concat(a, '-type'),
-              indexRoute: ''.concat(o, '-0'),
-              jsonKey: 'type',
-              disabled: !0,
-              title:
-                ((t = {
-                  indexRoute: ''.concat(o, '-0'),
-                  jsonKey: 'type',
-                  targetJsonData: i.properties.type,
-                  parentType: c,
-                  nodeKey: ''.concat(a, '-type'),
-                  typeSelectData: Mn,
-                }),
-                y.a.createElement(kn, t)),
-            }),
-            y.a.createElement(_n, {
-              className: 'dataSource-data-item-schema schema-item-form',
-              id: ''.concat(a, '-data-').concat(u.format),
-              key: ''.concat(a, '-data-').concat(u.format),
-              indexRoute: ''.concat(o, '-1'),
-              jsonKey: 'data',
-              disabled: !0,
-              title: Nn({
-                indexRoute: ''.concat(o, '-1'),
-                jsonKey: 'data',
-                targetJsonData: u,
-                parentType: c,
-                nodeKey: ''.concat(a, '-data-').concat(u.format),
-                hideOperaBtn: !0,
-                keyIsFixed: !0,
-                typeIsFixed: !0,
-              }),
-            }),
-            y.a.createElement(_n, {
-              className: 'dataSource-filter-item-schema schema-item-form',
-              id: ''.concat(a, '-filter'),
-              key: ''.concat(a, '-filter'),
-              indexRoute: ''.concat(o, '-2'),
-              jsonKey: 'filter',
-              disabled: !0,
-              title: Nn({
-                indexRoute: ''.concat(o, '-2'),
-                jsonKey: 'filter',
-                targetJsonData: i.properties.filter,
-                parentType: c,
-                nodeKey: ''.concat(a, '-filter'),
-                hideOperaBtn: !0,
-                keyIsFixed: !0,
-                typeIsFixed: !0,
-              }),
-            }),
-          );
-        },
-        Dn = nt.a.TreeNode,
-        An = function (e) {
-          return y.a.createElement(On, e);
-        },
-        Rn = function (e) {
-          var t,
-            n = e.parentType,
-            r = e.jsonKey,
-            o = e.indexRoute,
-            a = e.nodeKey,
-            i = e.targetJsonData,
-            c = ve(i),
-            u = i.properties.type || {},
-            s = i.properties.register || {},
-            l = i.properties.actionFunc || {},
-            f = i.properties.trigger || {},
-            p = i.properties.eventData || {};
           return y.a.createElement(
             Dn,
             {
@@ -31554,6 +31494,95 @@ and limitations under the License.
               }),
             },
             y.a.createElement(Dn, {
+              className: 'dataSource-type-item-schema schema-item-form',
+              id: ''.concat(a, '-type'),
+              key: ''.concat(a, '-type'),
+              indexRoute: ''.concat(o, '-0'),
+              jsonKey: 'type',
+              disabled: !0,
+              title:
+                ((t = {
+                  indexRoute: ''.concat(o, '-0'),
+                  jsonKey: 'type',
+                  targetJsonData: i.properties.type,
+                  parentType: c,
+                  nodeKey: ''.concat(a, '-type'),
+                  typeSelectData: Rn,
+                }),
+                y.a.createElement(Tn, t)),
+            }),
+            y.a.createElement(Dn, {
+              className: 'dataSource-data-item-schema schema-item-form',
+              id: ''.concat(a, '-data-').concat(u.format),
+              key: ''.concat(a, '-data-').concat(u.format),
+              indexRoute: ''.concat(o, '-1'),
+              jsonKey: 'data',
+              disabled: !0,
+              title: An({
+                indexRoute: ''.concat(o, '-1'),
+                jsonKey: 'data',
+                targetJsonData: u,
+                parentType: c,
+                nodeKey: ''.concat(a, '-data-').concat(u.format),
+                hideOperaBtn: !0,
+                keyIsFixed: !0,
+                typeIsFixed: !0,
+              }),
+            }),
+            y.a.createElement(Dn, {
+              className: 'dataSource-filter-item-schema schema-item-form',
+              id: ''.concat(a, '-filter'),
+              key: ''.concat(a, '-filter'),
+              indexRoute: ''.concat(o, '-2'),
+              jsonKey: 'filter',
+              disabled: !0,
+              title: An({
+                indexRoute: ''.concat(o, '-2'),
+                jsonKey: 'filter',
+                targetJsonData: i.properties.filter,
+                parentType: c,
+                nodeKey: ''.concat(a, '-filter'),
+                hideOperaBtn: !0,
+                keyIsFixed: !0,
+                typeIsFixed: !0,
+              }),
+            }),
+          );
+        },
+        Ln = it.a.TreeNode,
+        Fn = function (e) {
+          return y.a.createElement(xn, e);
+        },
+        Kn = function (e) {
+          var t,
+            n = e.parentType,
+            r = e.jsonKey,
+            o = e.indexRoute,
+            a = e.nodeKey,
+            i = e.targetJsonData,
+            c = me(i),
+            u = i.properties.type || {},
+            s = i.properties.register || {},
+            l = i.properties.actionFunc || {},
+            f = i.properties.trigger || {},
+            p = i.properties.eventData || {};
+          return y.a.createElement(
+            Ln,
+            {
+              className: ''.concat(c, '-schema schema-item-form'),
+              id: a,
+              key: a,
+              indexRoute: o,
+              jsonKey: r,
+              title: Fn({
+                indexRoute: o,
+                jsonKey: r,
+                targetJsonData: i,
+                parentType: n,
+                nodeKey: a,
+              }),
+            },
+            y.a.createElement(Ln, {
               className: 'event-type-item-schema schema-item-form',
               id: ''.concat(a, '-type'),
               key: ''.concat(a, '-type'),
@@ -31568,18 +31597,18 @@ and limitations under the License.
                   parentType: c,
                   nodeKey: ''.concat(a, '-type'),
                 }),
-                y.a.createElement(kn, t)),
+                y.a.createElement(Tn, t)),
             }),
             'on' === u.default &&
               s &&
-              y.a.createElement(Dn, {
+              y.a.createElement(Ln, {
                 className: 'event-register-item-schema schema-item-form',
                 id: ''.concat(a, '-register-').concat(u.default),
                 key: ''.concat(a, '-register-').concat(u.default),
                 indexRoute: ''.concat(o, '-1'),
                 jsonKey: 'register',
                 disabled: !0,
-                title: An({
+                title: Fn({
                   indexRoute: ''.concat(o, '-1'),
                   jsonKey: 'register',
                   targetJsonData: s,
@@ -31592,14 +31621,14 @@ and limitations under the License.
               }),
             'on' === u.default &&
               l &&
-              y.a.createElement(Dn, {
+              y.a.createElement(Ln, {
                 className: 'event-actionFunc-item-schema schema-item-form',
                 id: ''.concat(a, '-actionFunc-').concat(u.default),
                 key: ''.concat(a, '-actionFunc-').concat(u.default),
                 indexRoute: ''.concat(o, '-2'),
                 jsonKey: 'actionFunc',
                 disabled: !0,
-                title: An({
+                title: Fn({
                   indexRoute: ''.concat(o, '-2'),
                   jsonKey: 'actionFunc',
                   targetJsonData: l,
@@ -31612,14 +31641,14 @@ and limitations under the License.
               }),
             'emit' === u.default &&
               f &&
-              y.a.createElement(Dn, {
+              y.a.createElement(Ln, {
                 className: 'event-trigger-item-schema schema-item-form',
                 id: ''.concat(a, '-trigger-').concat(u.default),
                 key: ''.concat(a, '-trigger-').concat(u.default),
                 indexRoute: ''.concat(o, '-1'),
                 jsonKey: 'trigger',
                 disabled: !0,
-                title: An({
+                title: Fn({
                   indexRoute: ''.concat(o, '-1'),
                   jsonKey: 'trigger',
                   targetJsonData: f,
@@ -31632,14 +31661,14 @@ and limitations under the License.
               }),
             'emit' === u.default &&
               p &&
-              y.a.createElement(Dn, {
+              y.a.createElement(Ln, {
                 className: 'event-eventData-item-schema schema-item-form',
                 id: ''.concat(a, '-eventData-').concat(u.default),
                 key: ''.concat(a, '-eventData-').concat(u.default),
                 indexRoute: ''.concat(o, '-2'),
                 jsonKey: 'eventData',
                 disabled: !0,
-                title: An({
+                title: Fn({
                   indexRoute: ''.concat(o, '-2'),
                   jsonKey: 'eventData',
                   targetJsonData: p,
@@ -31652,29 +31681,29 @@ and limitations under the License.
               }),
           );
         },
-        In = nt.a.TreeNode,
-        Ln = function (e) {
-          return y.a.createElement(On, e);
+        Vn = it.a.TreeNode,
+        Hn = function (e) {
+          return y.a.createElement(xn, e);
         },
-        Fn = function (e) {
+        Bn = function (e) {
           var t,
             n = e.parentType,
             r = e.jsonKey,
             o = e.indexRoute,
             a = e.nodeKey,
             i = e.targetJsonData,
-            c = ve(i),
+            c = me(i),
             u = i.propertyOrder[0],
             s = i.properties[u];
           return y.a.createElement(
-            In,
+            Vn,
             {
               className: ''.concat(c, '-schema schema-item-form'),
               id: a,
               key: a,
               indexRoute: o,
               jsonKey: r,
-              title: Ln({
+              title: Hn({
                 indexRoute: o,
                 jsonKey: r,
                 targetJsonData: i,
@@ -31682,14 +31711,14 @@ and limitations under the License.
                 nodeKey: a,
               }),
             },
-            y.a.createElement(In, {
+            y.a.createElement(Vn, {
               className: 'quantity-unit-item-schema schema-item-form',
               id: ''.concat(a, '-').concat(u),
               key: ''.concat(a, '-').concat(u),
               indexRoute: ''.concat(o, '-0'),
               jsonKey: u,
               disabled: !0,
-              title: Ln({
+              title: Hn({
                 indexRoute: ''.concat(o, '-0'),
                 jsonKey: u,
                 targetJsonData: s,
@@ -31699,7 +31728,7 @@ and limitations under the License.
                 hideOperaBtn: !0,
               }),
             }),
-            y.a.createElement(In, {
+            y.a.createElement(Vn, {
               className: 'quantity-typeSelect-item-schema schema-item-form',
               id: ''.concat(a, '-quantity'),
               key: ''.concat(a, '-quantity'),
@@ -31714,12 +31743,12 @@ and limitations under the License.
                   parentType: c,
                   nodeKey: ''.concat(a, '-quantity'),
                 }),
-                y.a.createElement(kn, t)),
+                y.a.createElement(Tn, t)),
             }),
           );
         };
       n(380);
-      function Kn(e) {
+      function Wn(e) {
         var t = (function () {
           if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
           if (Reflect.construct.sham) return !1;
@@ -31745,10 +31774,10 @@ and limitations under the License.
           return l()(this, n);
         };
       }
-      var Vn = yt.a.Option,
-        Hn = (function (e) {
+      var zn = bt.a.Option,
+        Un = (function (e) {
           u()(n, e);
-          var t = Kn(n);
+          var t = Wn(n);
           function n(e) {
             var r;
             return (
@@ -31763,7 +31792,7 @@ and limitations under the License.
                   u = n.updateEnumKey;
                 t !== i &&
                   (c(o, a, t)
-                    ? ee.a.warning('对不起，存在相同的key值，请重新编辑。')
+                    ? ne.a.warning('对不起，存在相同的key值，请重新编辑。')
                     : u(o, a, t));
               }),
               (r.handleEnumTextChange = function (e) {
@@ -31796,13 +31825,13 @@ and limitations under the License.
                   i = o(t);
                 i.enum && i.enum.length > 1
                   ? a(t, n)
-                  : ee.a.warning('删除失败，请至少保留一个可选项。');
+                  : ne.a.warning('删除失败，请至少保留一个可选项。');
               }),
-              (r.onAddBtnEvent = r.onAddBtnEvent.bind(pt()(r))),
-              (r.onCopyBtnEvent = r.onCopyBtnEvent.bind(pt()(r))),
-              (r.onDeleteBtnEvent = r.onDeleteBtnEvent.bind(pt()(r))),
-              (r.handleEnumKeyChange = r.handleEnumKeyChange.bind(pt()(r))),
-              (r.handleEnumTextChange = r.handleEnumTextChange.bind(pt()(r))),
+              (r.onAddBtnEvent = r.onAddBtnEvent.bind(vt()(r))),
+              (r.onCopyBtnEvent = r.onCopyBtnEvent.bind(vt()(r))),
+              (r.onDeleteBtnEvent = r.onDeleteBtnEvent.bind(vt()(r))),
+              (r.handleEnumKeyChange = r.handleEnumKeyChange.bind(vt()(r))),
+              (r.handleEnumTextChange = r.handleEnumTextChange.bind(vt()(r))),
               r
             );
           }
@@ -31821,7 +31850,7 @@ and limitations under the License.
                     d.createElement(
                       'div',
                       { className: 'key-input-item' },
-                      d.createElement(lt.a, {
+                      d.createElement(yt.a, {
                         defaultValue: t,
                         onPressEnter: this.handleEnumKeyChange,
                         onBlur: this.handleEnumKeyChange,
@@ -31831,10 +31860,10 @@ and limitations under the License.
                       'div',
                       { className: 'type-select-item' },
                       d.createElement(
-                        yt.a,
+                        bt.a,
                         { defaultValue: 'string', style: { width: 120 } },
                         d.createElement(
-                          Vn,
+                          zn,
                           { key: 'string', value: 'string' },
                           'string',
                         ),
@@ -31843,7 +31872,7 @@ and limitations under the License.
                     d.createElement(
                       'div',
                       { className: 'title-input-item' },
-                      d.createElement(lt.a, {
+                      d.createElement(yt.a, {
                         defaultValue: n,
                         onPressEnter: this.handleEnumTextChange,
                         onBlur: this.handleEnumTextChange,
@@ -31853,25 +31882,25 @@ and limitations under the License.
                       'div',
                       { className: 'operate-item' },
                       d.createElement(
-                        ut.a,
+                        pt.a,
                         { title: '删除' },
-                        d.createElement(Bt, {
+                        d.createElement(qt, {
                           className: 'operate-btn delete-operate',
                           onClick: this.onDeleteBtnEvent,
                         }),
                       ),
                       d.createElement(
-                        ut.a,
+                        pt.a,
                         { title: '新增兄弟节点' },
-                        d.createElement(Ut, {
+                        d.createElement(Gt, {
                           className: 'operate-btn',
                           onClick: this.onAddBtnEvent,
                         }),
                       ),
                       d.createElement(
-                        ut.a,
+                        pt.a,
                         { title: '复制' },
-                        d.createElement($t, {
+                        d.createElement(Qt, {
                           className: 'operate-btn',
                           onClick: this.onCopyBtnEvent,
                         }),
@@ -31884,14 +31913,14 @@ and limitations under the License.
             n
           );
         })(d.PureComponent);
-      Hn.propTypes = {
+      Un.propTypes = {
         indexRoute: Y.a.string,
         enumIndex: Y.a.any,
         enumKey: Y.a.string,
         enumText: Y.a.string,
         enumNodeKey: Y.a.string,
       };
-      var Bn = $(function (e) {
+      var qn = $(function (e) {
           return {
             getJSONDataByIndex: e.jsonSchemaStore.getJSONDataByIndex,
             updateEnumKey: e.jsonSchemaStore.updateEnumKey,
@@ -31901,79 +31930,24 @@ and limitations under the License.
             addEnumItem: e.jsonSchemaStore.addEnumItem,
             copyEnumItem: e.jsonSchemaStore.copyEnumItem,
           };
-        })(B(Hn)),
-        Wn = nt.a.TreeNode,
-        zn = function (e) {
-          return y.a.createElement(Bn, e);
-        },
-        Un = function (e) {
-          var t,
-            n = e.parentType,
-            r = e.jsonKey,
-            o = e.indexRoute,
-            a = e.nodeKey,
-            i = e.targetJsonData,
-            c = ve(i),
-            u = i.items.enum,
-            s = i.items.enumextra,
-            l = ''.concat(o, '-0');
-          return y.a.createElement(
-            Wn,
-            {
-              className: ''.concat(c, '-schema schema-item-form'),
-              id: a,
-              key: a,
-              indexRoute: o,
-              jsonKey: r,
-              title:
-                ((t = {
-                  indexRoute: o,
-                  jsonKey: r,
-                  targetJsonData: i,
-                  parentType: n,
-                  nodeKey: a,
-                }),
-                y.a.createElement(On, t)),
-            },
-            u &&
-              u.length > 0 &&
-              u.map(function (e, t) {
-                var n = s[t],
-                  r = ''.concat(a).concat(c, '-').concat(e);
-                return y.a.createElement(Wn, {
-                  className: 'enum-item-schema schema-item-form',
-                  id: r,
-                  key: r,
-                  indexRoute: l,
-                  disabled: !0,
-                  title: zn({
-                    indexRoute: l,
-                    enumIndex: t,
-                    enumKey: e,
-                    enumText: n,
-                    enumNodeKey: r,
-                  }),
-                });
-              }),
-          );
-        },
-        qn = nt.a.TreeNode,
-        Jn = function (e) {
-          return y.a.createElement(Bn, e);
-        },
+        })(B(Un)),
+        Jn = it.a.TreeNode,
         $n = function (e) {
+          return y.a.createElement(qn, e);
+        },
+        Gn = function (e) {
           var t,
             n = e.parentType,
             r = e.jsonKey,
             o = e.indexRoute,
             a = e.nodeKey,
             i = e.targetJsonData,
-            c = ve(i),
+            c = me(i),
             u = i.items.enum,
             s = i.items.enumextra,
             l = ''.concat(o, '-0');
           return y.a.createElement(
-            qn,
+            Jn,
             {
               className: ''.concat(c, '-schema schema-item-form'),
               id: a,
@@ -31988,20 +31962,20 @@ and limitations under the License.
                   parentType: n,
                   nodeKey: a,
                 }),
-                y.a.createElement(On, t)),
+                y.a.createElement(xn, t)),
             },
             u &&
               u.length > 0 &&
               u.map(function (e, t) {
                 var n = s[t],
                   r = ''.concat(a).concat(c, '-').concat(e);
-                return y.a.createElement(qn, {
+                return y.a.createElement(Jn, {
                   className: 'enum-item-schema schema-item-form',
                   id: r,
                   key: r,
                   indexRoute: l,
                   disabled: !0,
-                  title: Jn({
+                  title: $n({
                     indexRoute: l,
                     enumIndex: t,
                     enumKey: e,
@@ -32012,16 +31986,71 @@ and limitations under the License.
               }),
           );
         },
-        Gn = nt.a.TreeNode,
-        Yn = function (e) {
+        Yn = it.a.TreeNode,
+        Xn = function (e) {
+          return y.a.createElement(qn, e);
+        },
+        Qn = function (e) {
           var t,
             n = e.parentType,
             r = e.jsonKey,
             o = e.indexRoute,
             a = e.nodeKey,
             i = e.targetJsonData,
-            c = ve(i);
-          return y.a.createElement(Gn, {
+            c = me(i),
+            u = i.items.enum,
+            s = i.items.enumextra,
+            l = ''.concat(o, '-0');
+          return y.a.createElement(
+            Yn,
+            {
+              className: ''.concat(c, '-schema schema-item-form'),
+              id: a,
+              key: a,
+              indexRoute: o,
+              jsonKey: r,
+              title:
+                ((t = {
+                  indexRoute: o,
+                  jsonKey: r,
+                  targetJsonData: i,
+                  parentType: n,
+                  nodeKey: a,
+                }),
+                y.a.createElement(xn, t)),
+            },
+            u &&
+              u.length > 0 &&
+              u.map(function (e, t) {
+                var n = s[t],
+                  r = ''.concat(a).concat(c, '-').concat(e);
+                return y.a.createElement(Yn, {
+                  className: 'enum-item-schema schema-item-form',
+                  id: r,
+                  key: r,
+                  indexRoute: l,
+                  disabled: !0,
+                  title: Xn({
+                    indexRoute: l,
+                    enumIndex: t,
+                    enumKey: e,
+                    enumText: n,
+                    enumNodeKey: r,
+                  }),
+                });
+              }),
+          );
+        },
+        Zn = it.a.TreeNode,
+        er = function (e) {
+          var t,
+            n = e.parentType,
+            r = e.jsonKey,
+            o = e.indexRoute,
+            a = e.nodeKey,
+            i = e.targetJsonData,
+            c = me(i);
+          return y.a.createElement(Zn, {
             className: ''.concat(c, '-schema schema-item-form'),
             id: a,
             key: a,
@@ -32035,34 +32064,34 @@ and limitations under the License.
                 parentType: n,
                 nodeKey: a,
               }),
-              y.a.createElement(On, t)),
+              y.a.createElement(xn, t)),
           });
         },
-        Xn = function (e) {
-          switch (ve(e.targetJsonData)) {
+        tr = function (e) {
+          switch (me(e.targetJsonData)) {
             case 'func':
             case 'style':
             case 'data':
             case 'object':
-              return Zn(e);
+              return rr(e);
             case 'array':
-              return xn(e);
+              return kn(e);
             case 'datasource':
-              return Tn(e);
+              return In(e);
             case 'event':
-              return Rn(e);
+              return Kn(e);
             case 'quantity':
-              return Fn(e);
+              return Bn(e);
             case 'radio':
-              return Un(e);
+              return Gn(e);
             case 'select':
-              return $n(e);
+              return Qn(e);
             default:
-              return Yn(e);
+              return er(e);
           }
         },
-        Qn = nt.a.TreeNode,
-        Zn = function (e) {
+        nr = it.a.TreeNode,
+        rr = function (e) {
           var t,
             n = e.parentType,
             r = e.jsonKey,
@@ -32070,8 +32099,8 @@ and limitations under the License.
             a = e.nodeKey,
             i = e.targetJsonData,
             c = e.isOnlyShowChild,
-            u = ve(i),
-            s = Oe(u),
+            u = me(i),
+            s = je(u),
             l = (function (e) {
               var t = e.propertyOrder,
                 n = e.properties,
@@ -32079,15 +32108,15 @@ and limitations under the License.
                 o = e.parentNodeKey,
                 a = e.parentType;
               return t.map(function (e, t) {
-                var i = r ? r + '-' + t : t + '',
+                var i = r ? ''.concat(r, '-').concat(t) : ''.concat(t),
                   c = e,
                   u = n[c],
-                  s = ve(u),
+                  s = me(u),
                   l = ''
-                    .concat(o ? o + '-' : '')
+                    .concat(o ? ''.concat(o, '-') : '')
                     .concat(s, '-')
                     .concat(c);
-                return Xn({
+                return tr({
                   parentType: a,
                   jsonKey: c,
                   indexRoute: i,
@@ -32104,7 +32133,7 @@ and limitations under the License.
               parentType: u,
             }),
             f = y.a.createElement(
-              Qn,
+              nr,
               {
                 className: ''.concat(u, '-schema schema-item-form'),
                 id: a,
@@ -32120,14 +32149,14 @@ and limitations under the License.
                     parentType: n,
                     nodeKey: a,
                   }),
-                  y.a.createElement(On, t)),
+                  y.a.createElement(xn, t)),
               },
               l,
             );
           return c ? l : f;
         };
       n(382);
-      function er(e) {
+      function or(e) {
         var t = (function () {
           if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
           if (Reflect.construct.sham) return !1;
@@ -32153,9 +32182,9 @@ and limitations under the License.
           return l()(this, n);
         };
       }
-      var tr = (function (e) {
+      var ar = (function (e) {
         u()(n, e);
-        var t = er(n);
+        var t = or(n);
         function n(e) {
           var r;
           return (
@@ -32163,8 +32192,8 @@ and limitations under the License.
             ((r = t.call(this, e)).onDragStart = function (e) {
               var t = e.node;
               t.className &&
-                pe(t.className) &&
-                ee.a.warning('一级固定类型元素不支持拖拽哦');
+                ye(t.className) &&
+                ne.a.warning('一级固定类型元素不支持拖拽哦');
             }),
             (r.onDrop = function (e) {
               var t = e.dragNode,
@@ -32176,7 +32205,7 @@ and limitations under the License.
                 u = o.deleteJsonByIndex,
                 s = o.isExitJsonKey,
                 l = o.isSupportCurType;
-              if (!t.className || !pe(t.className)) {
+              if (!t.className || !ye(t.className)) {
                 var f = t.indexRoute,
                   p = t.jsonKey,
                   d = a(f);
@@ -32220,20 +32249,20 @@ and limitations under the License.
                       : (n.dragOver || n.dragOverGapBottom) && c(y, p, d);
                 else {
                   if (s(y, p))
-                    return void ee.a.warning('目标位置中有重名的元素');
-                  var O = ve(d);
+                    return void ne.a.warning('目标位置中有重名的元素');
+                  var O = me(d);
                   if (!l(y, O))
-                    return void ee.a.warning(
+                    return void ne.a.warning(
                       '目标位置不支持'.concat(O, '类型元素'),
                     );
-                  var w = ve(d),
+                  var w = me(d),
                     j = i(f),
-                    E = me(y),
+                    E = ge(y),
                     x = (function (e) {
                       if (window.sessionStorage)
                         return window.sessionStorage.getItem(e);
                     })(''.concat(j, '-').concat(w));
-                  ye(''.concat(i(E), '-').concat(p, '-').concat(w), x || j),
+                  ve(''.concat(i(E), '-').concat(p, '-').concat(w), x || j),
                     n.dragOverGapTop
                       ? 'after' === g
                         ? (u(f, !0), c(y, p, d, 'before'))
@@ -32255,9 +32284,9 @@ and limitations under the License.
             {
               key: 'componentWillReceiveProps',
               value: function (e) {
-                fe(e.data, this.props.data) ||
+                de(e.data, this.props.data) ||
                   this.props.initJSONSchemaData(e.data),
-                  fe(e.onChange, this.props.onChange) ||
+                  de(e.onChange, this.props.onChange) ||
                     this.props.initOnChange(e.onChange);
               },
             },
@@ -32269,7 +32298,7 @@ and limitations under the License.
                     var t = !0;
                     return (
                       e &&
-                        'object' === ve(e) &&
+                        'object' === me(e) &&
                         e.propertyOrder &&
                         e.propertyOrder.length > 0 &&
                         (t = !1),
@@ -32281,7 +32310,7 @@ and limitations under the License.
                   { className: 'json-schema-container' },
                   !t &&
                     d.createElement(
-                      nt.a,
+                      it.a,
                       {
                         draggable: !0,
                         selectable: !1,
@@ -32293,7 +32322,7 @@ and limitations under the License.
                           'data-data',
                         ],
                       },
-                      Zn({
+                      rr({
                         parentType: '',
                         jsonKey: '',
                         indexRoute: '',
@@ -32315,8 +32344,8 @@ and limitations under the License.
           n
         );
       })(d.PureComponent);
-      tr.propTypes = { onChange: Y.a.func, data: Y.a.object };
-      var nr = $(function (e) {
+      ar.propTypes = { onChange: Y.a.func, data: Y.a.object };
+      var ir = $(function (e) {
         return {
           jsonSchema: e.jsonSchemaStore.jsonSchema,
           initJSONSchemaData: e.jsonSchemaStore.initJSONSchemaData,
@@ -32329,8 +32358,8 @@ and limitations under the License.
           isExitJsonKey: e.jsonSchemaStore.isExitJsonKey,
           isSupportCurType: e.jsonSchemaStore.isSupportCurType,
         };
-      })(B(tr));
-      function rr(e) {
+      })(B(ar));
+      function cr(e) {
         var t = (function () {
           if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
           if (Reflect.construct.sham) return !1;
@@ -32356,9 +32385,9 @@ and limitations under the License.
           return l()(this, n);
         };
       }
-      var or = (function (e) {
+      var ur = (function (e) {
         u()(n, e);
-        var t = rr(n);
+        var t = cr(n);
         function n() {
           return o()(this, n), t.apply(this, arguments);
         }
@@ -32374,8 +32403,8 @@ and limitations under the License.
                   o = e.wideScreen,
                   a = d.createElement(
                     U,
-                    { jsonSchemaStore: et.jsonSchemaStore },
-                    d.createElement(nr, {
+                    { jsonSchemaStore: ot.jsonSchemaStore },
+                    d.createElement(ir, {
                       data: t,
                       onChange: n,
                       wideScreen: o,
@@ -32388,7 +32417,7 @@ and limitations under the License.
           n
         );
       })(d.PureComponent);
-      or.propTypes = {
+      ur.propTypes = {
         wideScreen: Y.a.any,
         onChange: Y.a.func,
         data: Y.a.any,
@@ -39168,7 +39197,7 @@ and limitations under the License.
         d = n(12),
         y = n.n(d),
         h = n(8),
-        v = n(47),
+        v = n(48),
         m = n(76),
         b = function (e, t) {
           var n = {};
