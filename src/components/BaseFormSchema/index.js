@@ -87,7 +87,7 @@ class BaseFormSchema extends React.PureComponent {
     const myParentType = parentType || 'all';
     let typeList = TypeList[myParentType];
     if (!typeList || typeList.length === 0) {
-      typeList = TypeList['all']; // 如果当前类型清单为空，则默认展示所有的字段类型
+      typeList = TypeList.all; // 如果当前类型清单为空，则默认展示所有的字段类型
     }
     return typeList;
   };
@@ -196,13 +196,11 @@ class BaseFormSchema extends React.PureComponent {
             onChange={this.selectHandleChange}
             disabled={readOnly || typeIsFixed}
           >
-            {currentTypeList.map((item) => {
-              return (
-                <Option key={item} value={item}>
-                  {item}
-                </Option>
-              );
-            })}
+            {currentTypeList.map((item) => (
+              <Option key={item} value={item}>
+                {item}
+              </Option>
+            ))}
           </Select>
         </div>
         <div

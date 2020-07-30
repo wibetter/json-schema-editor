@@ -124,7 +124,7 @@ export function isNeedReadOnlyOption(curFormat) {
  * */
 export function isNeedIsRequiredOption(curFormat) {
   let isSupported = false;
-  /*const supportedTypeList = [
+  /* const supportedTypeList = [
     'input',
     'url',
     'textarea',
@@ -134,7 +134,7 @@ export function isNeedIsRequiredOption(curFormat) {
     'json',
     'codearea',
     'htmlarea',
-  ];*/
+  ]; */
   const supportedTypeList = [];
   const supportedTypeListChar = `#${supportedTypeList.join('#')}#`;
   if (supportedTypeListChar.indexOf(`#${curFormat}#`) >= 0) {

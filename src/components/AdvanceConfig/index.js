@@ -52,7 +52,8 @@ class AdvanceConfig extends React.PureComponent {
           }}
         />
       );
-    } else if (currentFormat === 'radio') {
+    }
+    if (currentFormat === 'radio') {
       // 如果是选择类型的组件，需要提取选择项
       const enumKeys = targetJsonData.items.enum;
       const enumTexts = targetJsonData.items.enumextra;
@@ -80,7 +81,8 @@ class AdvanceConfig extends React.PureComponent {
             })}
         </Radio.Group>
       );
-    } else if (currentFormat === 'select') {
+    }
+    if (currentFormat === 'select') {
       // 如果是选择类型的组件，需要提取选择项
       const enumKeys = targetJsonData.items.enum;
       const enumTexts = targetJsonData.items.enumextra;
@@ -107,7 +109,8 @@ class AdvanceConfig extends React.PureComponent {
             })}
         </Checkbox.Group>
       );
-    } else if (currentFormat === 'color') {
+    }
+    if (currentFormat === 'color') {
       return (
         <Input
           style={{ display: 'inline-block' }}
@@ -120,7 +123,8 @@ class AdvanceConfig extends React.PureComponent {
           }}
         />
       );
-    } else if (
+    }
+    if (
       currentFormat === 'textarea' ||
       currentFormat === 'codearea' ||
       currentFormat === 'htmlarea' ||
@@ -142,7 +146,8 @@ class AdvanceConfig extends React.PureComponent {
           }}
         />
       );
-    } else if (currentFormat === 'number') {
+    }
+    if (currentFormat === 'number') {
       return (
         <InputNumber
           style={{ display: 'inline-block' }}
@@ -153,24 +158,23 @@ class AdvanceConfig extends React.PureComponent {
           }}
         />
       );
-    } else {
-      // 其他都默认以input控件进行录入
-      return (
-        <Input
-          style={{ display: 'inline-block' }}
-          placeholder={`请输入${targetJsonData.title}的默认值`}
-          defaultValue={targetJsonData.default}
-          onPressEnter={(event) => {
-            const { value } = event.target;
-            this.handleValueChange('default', value);
-          }}
-          onBlur={(event) => {
-            const { value } = event.target;
-            this.handleValueChange('default', value);
-          }}
-        />
-      );
     }
+    // 其他都默认以input控件进行录入
+    return (
+      <Input
+        style={{ display: 'inline-block' }}
+        placeholder={`请输入${targetJsonData.title}的默认值`}
+        defaultValue={targetJsonData.default}
+        onPressEnter={(event) => {
+          const { value } = event.target;
+          this.handleValueChange('default', value);
+        }}
+        onBlur={(event) => {
+          const { value } = event.target;
+          this.handleValueChange('default', value);
+        }}
+      />
+    );
   };
 
   render() {

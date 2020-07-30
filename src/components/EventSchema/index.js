@@ -6,14 +6,10 @@ import TypeSelectFormSchema from '$components/TypeSelectFormSchema/index';
 import { getCurrentFormat } from '$utils/jsonSchema';
 
 /** 渲染当前字段的表单项（Tree的单项内容） */
-const getTreeNodeTitleCont = (params) => {
-  return <BaseFormSchema {...params} />;
-};
+const getTreeNodeTitleCont = (params) => <BaseFormSchema {...params} />;
 
 /** 渲染dataSelect在的内容 */
-const getTypeSelectCont = (params) => {
-  return <TypeSelectFormSchema {...params} />;
-};
+const getTypeSelectCont = (params) => <TypeSelectFormSchema {...params} />;
 
 /** Event类型渲染组件 */
 const EventSchema = (props) => {

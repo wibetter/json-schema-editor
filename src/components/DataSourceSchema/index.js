@@ -6,9 +6,7 @@ import TypeSelectFormSchema from '$components/TypeSelectFormSchema/index';
 import { getCurrentFormat } from '$utils/jsonSchema';
 
 /** 渲染当前字段的表单项（Tree的单项内容） */
-const getTreeNodeTitleCont = (params) => {
-  return <BaseFormSchema {...params} />;
-};
+const getTreeNodeTitleCont = (params) => <BaseFormSchema {...params} />;
 
 // 选择不同的数据源类型，则展示不同的data内容(均为不可编辑状态)
 const typeSelectData = {
@@ -33,9 +31,7 @@ const typeSelectData = {
 };
 
 /** 渲染dataSelect在的内容 */
-const getTypeSelectCont = (params) => {
-  return <TypeSelectFormSchema {...params} />;
-};
+const getTypeSelectCont = (params) => <TypeSelectFormSchema {...params} />;
 
 /** DataSource类型渲染组件 */
 const DataSourceSchema = (props) => {

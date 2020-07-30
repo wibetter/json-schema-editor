@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Tree } from 'antd';
 import BaseFormSchema from '$components/BaseFormSchema/index';
 import MappingRender from '$components/MappingRender';
@@ -7,9 +6,7 @@ const { TreeNode } = Tree;
 import { isFirstSchemaData, getCurrentFormat } from '$utils/jsonSchema';
 
 /** 渲染当前字段的表单项（Tree的单项内容） */
-const getTreeNodeTitleCont = (params) => {
-  return <BaseFormSchema {...params} />;
-};
+const getTreeNodeTitleCont = (params) => <BaseFormSchema {...params} />;
 
 /** 渲染properties中的元素
  *  通过遍历propertyOrder有序的获取key值，
@@ -28,8 +25,8 @@ const propertiesRender = (params) => {
   return propertyOrder.map((key, index) => {
     /** 1. 获取当前元素的路径值 */
     const currentIndexRoute = parentIndexRoute
-      ? parentIndexRoute + '-' + index
-      : index + '';
+      ? `${parentIndexRoute}-${index}`
+      : `${index}`;
     /** 2. 获取当前元素的key值 */
     const currentJsonKey = key;
     /** 3. 获取当前元素的json数据对象 */
@@ -38,7 +35,7 @@ const propertiesRender = (params) => {
     const currentFormat = getCurrentFormat(currentSchemaData);
     /** 5. 获取当前元素的id，用于做唯一标识 */
     const nodeKey = `${
-      parentNodeKey ? parentNodeKey + '-' : ''
+      parentNodeKey ? `${parentNodeKey}-` : ''
     }${currentFormat}-${currentJsonKey}`;
 
     return MappingRender({

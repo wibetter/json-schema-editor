@@ -5,20 +5,24 @@ import {
   getParentIndexRoute_CurIndex,
   getJSONDataByIndex,
   oldJSONSchemaToNewJSONSchema,
+  isBoxSchemaData,
+  indexRoute2keyRoute,
 } from '$utils/jsonSchema';
 import { isEqual, objClone, isFunction, isNewSchemaData } from '$utils/index';
 import { TypeList } from '$data/TypeList';
 import { KeyWordList } from '$data/KeyWordList';
-import { isBoxSchemaData, indexRoute2keyRoute } from '$utils/jsonSchema';
+
 import { initJSONSchemaData, initInputData } from '$data/index';
 
 export default class JSONSchemaStore {
   /** 主要用于自动生成jsonKey中的index */
   curJsonKeyIndex = 1; // 非响应式
+
   /**
    * triggerChange: 用于强制触发更新事件
    */
   @observable triggerChange = false;
+
   /**
    * jsonSchema: JSONSchema数据对象
    */
@@ -93,9 +97,7 @@ export default class JSONSchemaStore {
   /** 根据parentJSONObj自动生成jsonKey */
   @action.bound
   getNewJsonKeyIndex(parentJSONObj, prefix) {
-    let newJsonKeyIndex = `${prefix ? prefix : 'field'}_${
-      this.curJsonKeyIndex
-    }`;
+    let newJsonKeyIndex = `${prefix || 'field'}_${this.curJsonKeyIndex}`;
     if (parentJSONObj.propertyOrder.indexOf(newJsonKeyIndex) >= 0) {
       // 表示存在相同的jsonKey
       this.curJsonKeyIndex += 1;
@@ -116,7 +118,8 @@ export default class JSONSchemaStore {
     ) {
       // 表示存在相同的jsonKey
       return true;
-    } else if (KeyWordList && KeyWordList.indexOf(jsonKey) >= 0) {
+    }
+    if (KeyWordList && KeyWordList.indexOf(jsonKey) >= 0) {
       // 表示当前jsonKey是JSONSchema的关键字
       message.warning(
         `${jsonKey}是JSONSchema的关键字，建议您换一个，避免后续出现数据异常。`,
@@ -147,7 +150,7 @@ export default class JSONSchemaStore {
     if (isBoxSchemaData(curJSONObj.format)) {
       const childKey = this.getNewJsonKeyIndex(curJSONObj);
       curJSONObj.required.push(childKey);
-      curJSONObj['propertyOrder'].push(childKey);
+      curJSONObj.propertyOrder.push(childKey);
       curJSONObj.properties[childKey] = initInputData;
       // 触发onChange事件
       this.jsonSchemaChange(ignoreOnChange);
@@ -164,11 +167,10 @@ export default class JSONSchemaStore {
   editJsonData(curIndexRoute, jsonKey, newJsonDataObj, ignoreOnChange) {
     const parentIndexRoute = getParentIndexRoute(curIndexRoute);
     const parentJSONObj = getJSONDataByIndex(parentIndexRoute, this.jsonSchema);
-    parentJSONObj.properties[jsonKey] = Object.assign(
-      {},
-      objClone(parentJSONObj.properties[jsonKey]),
-      newJsonDataObj,
-    );
+    parentJSONObj.properties[jsonKey] = {
+      ...objClone(parentJSONObj.properties[jsonKey]),
+      ...newJsonDataObj,
+    };
     // 触发onChange事件
     this.jsonSchemaChange(ignoreOnChange);
   }
@@ -241,13 +243,13 @@ export default class JSONSchemaStore {
     parentJSONObj.required.push(jsonKey);
     parentJSONObj.properties[jsonKey] = curJSONObj;
     // 4.在propertyOrder的对应位置插入newJsonKey【有序插入newJsonKey】
-    const currentPropertyOrder = parentJSONObj['propertyOrder'];
+    const currentPropertyOrder = parentJSONObj.propertyOrder;
     // 5.获取插入位置
     const positionIndex =
       position === 'before' ? Number(curIndex) : Number(curIndex) + 1;
     const startArr = currentPropertyOrder.slice(0, positionIndex);
     const endArr = currentPropertyOrder.slice(positionIndex);
-    parentJSONObj['propertyOrder'] = [...startArr, jsonKey, ...endArr];
+    parentJSONObj.propertyOrder = [...startArr, jsonKey, ...endArr];
     // 触发onChange事件
     this.jsonSchemaChange(ignoreOnChange);
   }
@@ -412,7 +414,7 @@ export default class JSONSchemaStore {
   /** 根据parentJSONObj自动生成jsonKey */
   @action.bound
   getNewEnumIndex(enumKeys, prefix) {
-    let newEnumKey = `${prefix ? prefix : 'enum'}_${this.curJsonKeyIndex}`;
+    let newEnumKey = `${prefix || 'enum'}_${this.curJsonKeyIndex}`;
     if (enumKeys.indexOf(newEnumKey) >= 0) {
       // 表示存在相同的jsonKey
       this.curJsonKeyIndex += 1;

@@ -19,7 +19,7 @@ export function isJSONSchemaFormat(targetJsonObj) {
       targetJsonObj.title &&
       targetJsonObj.properties &&
       targetJsonObj.required &&
-      targetJsonObj['propertyOrder']
+      targetJsonObj.propertyOrder
     ) {
       isFormat = true;
     } else if (
@@ -27,7 +27,7 @@ export function isJSONSchemaFormat(targetJsonObj) {
       targetJsonObj.format &&
       targetJsonObj.title &&
       targetJsonObj.properties &&
-      targetJsonObj['propertyOrder']
+      targetJsonObj.propertyOrder
     ) {
       isFormat = true;
     } else if (targetJsonObj.format && targetJsonObj.title) {
@@ -35,6 +35,20 @@ export function isJSONSchemaFormat(targetJsonObj) {
     }
   }
   return isFormat;
+}
+
+/** 获取当前字段的类型（format）
+ *  如果当前字段没有format字段，则根据type字段赋予默认的类型 */
+export function getCurrentFormat(targetJsonData) {
+  let currentType = targetJsonData.format;
+  if (!currentType) {
+    if (targetJsonData.type) {
+      currentType = targetJsonData.type;
+    } else {
+      currentType = 'input';
+    }
+  }
+  return currentType;
 }
 
 /** 判断是否为空的jsonSchema
@@ -47,8 +61,8 @@ export function isEmptySchema(targetJsonObj) {
     const curType = getCurrentFormat(targetJsonObj);
     if (
       curType === 'object' &&
-      targetJsonObj['propertyOrder'] &&
-      targetJsonObj['propertyOrder'].length > 0
+      targetJsonObj.propertyOrder &&
+      targetJsonObj.propertyOrder.length > 0
     ) {
       isEmpty = false;
     }
@@ -82,7 +96,7 @@ export function getJSONDataByIndex(
         curJsonSchemaObj = curJsonSchemaObj.items;
       } else {
         // 1、先根据路径值获取key值
-        const curKeyTemp = curJsonSchemaObj['propertyOrder'][curIndex];
+        const curKeyTemp = curJsonSchemaObj.propertyOrder[curIndex];
         // 2、根据key值获取对应的json数据对象
         curJsonSchemaObj = curJsonSchemaObj.properties[curKeyTemp];
       }
@@ -102,9 +116,8 @@ export function isSameParent(curIndex, targetIndex) {
   targetIndexArr.pop();
   if (curIndexArr.join('-') === targetIndexArr.join('-')) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 /**
@@ -127,20 +140,6 @@ export function getCurPosition(curIndex, targetIndex) {
   return curPosition;
 }
 
-/** 获取当前字段的类型（format）
- *  如果当前字段没有format字段，则根据type字段赋予默认的类型 */
-export function getCurrentFormat(targetJsonData) {
-  let currentType = targetJsonData.format;
-  if (!currentType) {
-    if (targetJsonData.type) {
-      currentType = targetJsonData.type;
-    } else {
-      currentType = 'input';
-    }
-  }
-  return currentType;
-}
-
 /**
  * 获取父元素的路径值
  */
@@ -157,7 +156,7 @@ export function getNextIndexRoute(curIndexRoute) {
   const curIndexArr = curIndexRoute.split('-');
   const lastIndex = curIndexArr.pop();
   const endIndex = Number(lastIndex) + 1;
-  curIndexArr.push(endIndex + '');
+  curIndexArr.push(`${endIndex}`);
   return curIndexArr.join('-');
 }
 
@@ -287,7 +286,7 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
   }
   // 转换旧版的quantity类型的数据结构
   if (newJSONSchema.format === 'quantity') {
-    let curProperties = newJSONSchema.properties;
+    const curProperties = newJSONSchema.properties;
     const newQuantitySchema = objClone(TypeDataList.quantity); // 新版quantity的schema数据对象
     if (
       curProperties.quantity &&
@@ -304,7 +303,7 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
   }
   // 转换旧版的datasource类型的数据结构
   if (newJSONSchema.format === 'datasource') {
-    let curProperties = newJSONSchema.properties;
+    const curProperties = newJSONSchema.properties;
     newJSONSchema = objClone(TypeDataList.datasource); // 新版datasource的schema数据对象
     // 先获取旧版的关键数据
     const typeProp = curProperties.type && curProperties.type.default;
@@ -325,7 +324,7 @@ export function oldJSONSchemaToNewJSONSchema(oldJSONSchema) {
   }
   // 转换旧版的event类型的数据结构
   if (newJSONSchema.format === 'event') {
-    let curProperties = newJSONSchema.properties;
+    const curProperties = newJSONSchema.properties;
     // 先获取旧版的关键数据
     const eventType = curProperties.type && curProperties.type.default;
     // 重构Event的数据结构

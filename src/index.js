@@ -1,8 +1,8 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import JSONSchemaEditor from './main';
 import { Switch } from 'antd';
 import JSONEditor from '@jdwork/json-editor/dist/index.umd';
+import JSONSchemaEditor from './main';
 import '@jdwork/json-editor/dist/index.css';
 import './index.scss';
 

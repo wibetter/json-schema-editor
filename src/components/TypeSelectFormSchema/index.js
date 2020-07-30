@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { Input, message, Select } from 'antd';
+import { Input, Select } from 'antd';
 const { Option } = Select;
 import { EventTypeDataList } from '$data/TypeDataList';
 import {
@@ -82,13 +82,11 @@ class TypeSelectFormSchema extends React.PureComponent {
             defaultValue={targetJsonData.default || 'local'}
             onChange={this.typeHandleChange}
           >
-            {curEnums.map((item, enumIndex) => {
-              return (
-                <Option key={item} value={item}>
-                  {curEnumextras[enumIndex]}
-                </Option>
-              );
-            })}
+            {curEnums.map((item, enumIndex) => (
+              <Option key={item} value={item}>
+                {curEnumextras[enumIndex]}
+              </Option>
+            ))}
           </Select>
         </div>
         <div className="type-select-item">
