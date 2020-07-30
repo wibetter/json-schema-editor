@@ -1,6 +1,5 @@
-node_modules/
-dist/
-build/**/*.js
-config/
-**/mock
-
+build/*
+config/*
+dist/*
+node_modules/*
+test/*
