@@ -15,6 +15,7 @@ npm install --save @jdwork/json-schema-editor
 
 使用场景：主要用于json结构/格式的可视化编辑
 技术栈：React/Mobx/ant-design
+Demo：http://qcsatw77d.bkt.clouddn.com/demoV3.1.13.html
 特点：
 1. 支持11种基础类型组件（input、boolean、 date、date-time、 time、 url、 textarea、number、color、radio、 select）
 2. 支持8个特殊类型组件（Object、Array、Json、datasource、Event、CodeArea、htmlArea、quantity）
