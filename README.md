@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-npm install --save @jdwork/json-schema-editor
+npm install --save @wibetter/json-schema-editor
 ```
 
 ## Usage
@@ -27,13 +27,13 @@ Demo：http://qcsatw77d.bkt.clouddn.com/demoV3.1.13.html
 ## Usage
 
 ```
-npm install --save @jdwork/json-schema-editor
+npm install --save @wibetter/json-schema-editor
 ```
 
 ```js
 import * as React from 'react';
-import JSONSchemaEditor from '@jdwork/json-schema-editor/dist/index.umd';
-import '@jdwork/json-schema-editor/dist/index.css';
+import JSONSchemaEditor from '@wibetter/json-schema-editor/dist/index.umd';
+import '@wibetter/json-schema-editor/dist/index.css';
 
 class IndexDemo extends React.PureComponent {
   constructor(props) {
