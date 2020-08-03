@@ -1,7 +1,11 @@
 {
   "name": "@wibetter/json-schema-editor",
-  "version": "3.1.15",
-  "description": "JSON数据可视化/JSONSchema",
+  "version": "3.2.1",
+  "description": "JSON数据可视化/JSONSchema, 主要用于json结构/格式的可视化编辑",
+  "keywords": [
+    "json",
+    "json数据结构可视化"
+  ],
   "author": "ldan@wibetter",
   "license": "MIT",
   "main": "dist/index.umd.js",
