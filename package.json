@@ -1,6 +1,6 @@
 {
   "name": "@wibetter/json-schema-editor",
-  "version": "3.1.13",
+  "version": "3.1.15",
   "description": "JSON数据可视化/JSONSchema",
   "author": "ldan@wibetter",
   "license": "MIT",
@@ -28,6 +28,10 @@
     "*.js": [
       "prettier --write"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+http://git@github.com:wibetter/json-schema-editor.git"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
@@ -119,7 +123,7 @@
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
     "webpack-merge": "^4.2.2",
-    "@wibetter/json-editor": "3.2.9"
+    "@wibetter/json-editor": "^3.2.9"
   },
   "engines": {
     "node": ">= 10.13.0",
