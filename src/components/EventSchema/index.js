@@ -13,7 +13,7 @@ const getTypeSelectCont = (params) => <TypeSelectFormSchema {...params} />;
 
 /** Event类型渲染组件 */
 const EventSchema = (props) => {
-  const { parentType, jsonKey, indexRoute, nodeKey, targetJsonData } = props;
+  const { jsonKey, indexRoute, nodeKey, targetJsonData } = props;
   const currentFormat = getCurrentFormat(targetJsonData);
   const typeJsonObj = targetJsonData.properties.type || {};
   // 注册类型事件的数据对象
@@ -31,22 +31,18 @@ const EventSchema = (props) => {
       indexRoute={indexRoute}
       jsonKey={jsonKey}
       title={getTreeNodeTitleCont({
-        indexRoute,
-        jsonKey,
-        targetJsonData,
-        parentType,
-        nodeKey,
+        ...props,
       })}
     >
       <TreeNode
         className={'event-type-item-schema schema-item-form'}
         id={`${nodeKey}-type`}
         key={`${nodeKey}-type`}
-        indexRoute={`${indexRoute}-0`}
+        indexRoute={indexRoute ? `${indexRoute}-0` : '0'}
         jsonKey={'type'}
         disabled={true}
         title={getTypeSelectCont({
-          indexRoute: `${indexRoute}-0`,
+          indexRoute: indexRoute ? `${indexRoute}-0` : '0',
           jsonKey: 'type',
           targetJsonData: typeJsonObj,
           parentType: currentFormat,
@@ -58,11 +54,11 @@ const EventSchema = (props) => {
           className={'event-register-item-schema schema-item-form'}
           id={`${nodeKey}-register-${typeJsonObj.default}`}
           key={`${nodeKey}-register-${typeJsonObj.default}`}
-          indexRoute={`${indexRoute}-1`}
+          indexRoute={indexRoute ? `${indexRoute}-1` : '1'}
           jsonKey={'register'}
           disabled={true}
           title={getTreeNodeTitleCont({
-            indexRoute: `${indexRoute}-1`,
+            indexRoute: indexRoute ? `${indexRoute}-1` : '1',
             jsonKey: 'register',
             targetJsonData: registerJsonObj,
             parentType: currentFormat,
@@ -78,11 +74,11 @@ const EventSchema = (props) => {
           className={'event-actionFunc-item-schema schema-item-form'}
           id={`${nodeKey}-actionFunc-${typeJsonObj.default}`}
           key={`${nodeKey}-actionFunc-${typeJsonObj.default}`}
-          indexRoute={`${indexRoute}-2`}
+          indexRoute={indexRoute ? `${indexRoute}-2` : '2'}
           jsonKey={'actionFunc'}
           disabled={true}
           title={getTreeNodeTitleCont({
-            indexRoute: `${indexRoute}-2`,
+            indexRoute: indexRoute ? `${indexRoute}-2` : '2',
             jsonKey: 'actionFunc',
             targetJsonData: actionFuncJsonObj,
             parentType: currentFormat,
@@ -98,11 +94,11 @@ const EventSchema = (props) => {
           className={'event-trigger-item-schema schema-item-form'}
           id={`${nodeKey}-trigger-${typeJsonObj.default}`}
           key={`${nodeKey}-trigger-${typeJsonObj.default}`}
-          indexRoute={`${indexRoute}-1`}
+          indexRoute={indexRoute ? `${indexRoute}-1` : '1'}
           jsonKey={'trigger'}
           disabled={true}
           title={getTreeNodeTitleCont({
-            indexRoute: `${indexRoute}-1`,
+            indexRoute: indexRoute ? `${indexRoute}-1` : '1',
             jsonKey: 'trigger',
             targetJsonData: triggerJsonObj,
             parentType: currentFormat,
@@ -118,11 +114,11 @@ const EventSchema = (props) => {
           className={'event-eventData-item-schema schema-item-form'}
           id={`${nodeKey}-eventData-${typeJsonObj.default}`}
           key={`${nodeKey}-eventData-${typeJsonObj.default}`}
-          indexRoute={`${indexRoute}-2`}
+          indexRoute={indexRoute ? `${indexRoute}-2` : '2'}
           jsonKey={'eventData'}
           disabled={true}
           title={getTreeNodeTitleCont({
-            indexRoute: `${indexRoute}-2`,
+            indexRoute: indexRoute ? `${indexRoute}-2` : '2',
             jsonKey: 'eventData',
             targetJsonData: eventDataJsonObj,
             parentType: currentFormat,

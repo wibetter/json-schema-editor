@@ -161,15 +161,16 @@ class BaseFormSchema extends React.PureComponent {
       targetJsonData,
     } = this.props;
     const { isShowAdvance } = this.state;
+    const isFirstChild = this.props.isFirstSchema || false; // 是否是最外层的schema元素
     const isFixed = this.props.isFixed || false; // 是否为固有的属性（不可编辑、不可删除）
     const keyIsFixed = this.props.keyIsFixed || false; // key是否为不可编辑的属性
     const typeIsFixed = this.props.typeIsFixed || false; // type是否为不可编辑的属性
     const titleIsFixed = this.props.titleIsFixed || false; // title是否为不可编辑的属性
-    const hideOperaBtn = this.props.hideOperaBtn || false; // 是否隐藏操作类按钮
+    const hideOperaBtn = isFirstChild || this.props.hideOperaBtn || false; // 是否隐藏操作类按钮
     const currentTypeList = this.getCurrentTypeList(parentType); // 根据父级元素类型获取可供使用的类型清单
     const currentFormat = getCurrentFormat(targetJsonData);
     const isFirstSchema = isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
-    const readOnly = isFirstSchema || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
+    const readOnly = isFirstChild || isFirstSchema || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
 
     return (
       <div className="base-schema-box" id={nodeKey}>
@@ -179,7 +180,7 @@ class BaseFormSchema extends React.PureComponent {
           onDragStart={this.ignoreDragEvent}
         >
           <Input
-            defaultValue={jsonKey}
+            defaultValue={jsonKey || 'key值不存在'}
             disabled={readOnly || keyIsFixed}
             onPressEnter={this.handleJsonKeyChange}
             onBlur={this.handleJsonKeyChange}

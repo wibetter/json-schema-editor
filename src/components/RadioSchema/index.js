@@ -13,13 +13,13 @@ const enumItemRender = (params) => <EnumItemSchema {...params} />;
 
 /** Radio类型渲染组件 */
 const RadioSchema = (props) => {
-  const { parentType, jsonKey, indexRoute, nodeKey, targetJsonData } = props;
+  const { jsonKey, indexRoute, nodeKey, targetJsonData } = props;
   const currentFormat = getCurrentFormat(targetJsonData);
 
   // 获取枚举值
   const enumKeys = targetJsonData.items.enum;
   const enumTexts = targetJsonData.items.enumextra;
-  const curIndexRoute = `${indexRoute}-0`;
+  const curIndexRoute = indexRoute ? `${indexRoute}-0` : '0';
 
   return (
     <TreeNode
@@ -29,11 +29,7 @@ const RadioSchema = (props) => {
       indexRoute={indexRoute}
       jsonKey={jsonKey}
       title={getTreeNodeTitleCont({
-        indexRoute,
-        jsonKey,
-        targetJsonData,
-        parentType,
-        nodeKey,
+        ...props,
       })}
     >
       {enumKeys &&

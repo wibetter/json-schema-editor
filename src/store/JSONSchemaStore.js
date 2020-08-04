@@ -1,6 +1,7 @@
 import { observable, computed, action, toJS } from 'mobx';
 import { message } from 'antd';
 import {
+  isNewSchemaData,
   getParentIndexRoute,
   getParentIndexRoute_CurIndex,
   getJSONDataByIndex,
@@ -8,7 +9,7 @@ import {
   isBoxSchemaData,
   indexRoute2keyRoute,
 } from '$utils/jsonSchema';
-import { isEqual, objClone, isFunction, isNewSchemaData } from '$utils/index';
+import { isEqual, objClone, isFunction } from '$utils/index';
 import { TypeList } from '$data/TypeList';
 import { KeyWordList } from '$data/KeyWordList';
 

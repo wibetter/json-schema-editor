@@ -12,7 +12,7 @@ const getTreeNodeTitleCont = (params) => <BaseFormSchema {...params} />;
  *  url、 textarea、color、number、json
  * */
 const GeneralSchema = (props) => {
-  const { parentType, jsonKey, indexRoute, nodeKey, targetJsonData } = props;
+  const { jsonKey, indexRoute, nodeKey, targetJsonData } = props;
   const currentFormat = getCurrentFormat(targetJsonData);
 
   return (
@@ -23,11 +23,7 @@ const GeneralSchema = (props) => {
       indexRoute={indexRoute}
       jsonKey={jsonKey}
       title={getTreeNodeTitleCont({
-        indexRoute,
-        jsonKey,
-        targetJsonData,
-        parentType,
-        nodeKey,
+        ...props,
       })}
     ></TreeNode>
   );
