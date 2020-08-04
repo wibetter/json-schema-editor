@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Tree, message } from 'antd';
 import ObjectSchema from '$components/ObjectSchema/index';
+import MappingRender from '$components/MappingRender';
 import {
   isEqual,
   isFirstSchemaElem,
@@ -178,6 +179,7 @@ class JSONSchema extends React.PureComponent {
   render() {
     const { jsonSchema } = this.props;
     const isEmpty = isEmptySchema(jsonSchema);
+    const currentFormat = getCurrentFormat(jsonSchema);
     /**
      * 备注：此处单独将object进行渲染，主要是为了将Tree根组件抽离出来（以便在此处进行拖拽事件的处理），
      * JSONSchema的一级字段必须为object类型（规避非法的jsonSchema数据，以及结构单一的jsonSchema数据，
@@ -191,16 +193,32 @@ class JSONSchema extends React.PureComponent {
             selectable={false}
             onDragStart={this.onDragStart}
             onDrop={this.onDrop}
-            defaultExpandedKeys={['func-func', 'style-style', 'data-data']}
+            defaultExpandedKeys={[
+              'func-func',
+              'style-style',
+              'data-data',
+              'first-schema',
+            ]}
           >
-            {ObjectSchema({
-              parentType: '',
-              jsonKey: '',
-              indexRoute: '',
-              nodeKey: '',
-              targetJsonData: jsonSchema,
-              isOnlyShowChild: true,
-            })}
+            {currentFormat === 'object' &&
+              ObjectSchema({
+                parentType: '',
+                jsonKey: '',
+                indexRoute: '',
+                nodeKey: '',
+                targetJsonData: jsonSchema,
+                isOnlyShowChild: true,
+              })}
+            {currentFormat !== 'object' &&
+              MappingRender({
+                parentType: '',
+                jsonKey: '',
+                indexRoute: '',
+                nodeKey: 'first-schema',
+                targetJsonData: jsonSchema,
+                key: 'schema',
+                isFirstSchema: true,
+              })}
           </Tree>
         )}
         {isEmpty && (

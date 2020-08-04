@@ -35,7 +35,7 @@ const getTypeSelectCont = (params) => <TypeSelectFormSchema {...params} />;
 
 /** DataSource类型渲染组件 */
 const DataSourceSchema = (props) => {
-  const { parentType, jsonKey, indexRoute, nodeKey, targetJsonData } = props;
+  const { jsonKey, indexRoute, nodeKey, targetJsonData } = props;
   const currentFormat = getCurrentFormat(targetJsonData);
   const dataJsonObj = targetJsonData.properties.data || {};
 
@@ -47,22 +47,18 @@ const DataSourceSchema = (props) => {
       indexRoute={indexRoute}
       jsonKey={jsonKey}
       title={getTreeNodeTitleCont({
-        indexRoute,
-        jsonKey,
-        targetJsonData,
-        parentType,
-        nodeKey,
+        ...props,
       })}
     >
       <TreeNode
         className={'dataSource-type-item-schema schema-item-form'}
         id={`${nodeKey}-type`}
         key={`${nodeKey}-type`}
-        indexRoute={`${indexRoute}-0`}
+        indexRoute={indexRoute ? `${indexRoute}-0` : '0'}
         jsonKey={'type'}
         disabled={true}
         title={getTypeSelectCont({
-          indexRoute: `${indexRoute}-0`,
+          indexRoute: indexRoute ? `${indexRoute}-0` : '0',
           jsonKey: 'type',
           targetJsonData: targetJsonData.properties.type,
           parentType: currentFormat,
@@ -74,11 +70,11 @@ const DataSourceSchema = (props) => {
         className={'dataSource-data-item-schema schema-item-form'}
         id={`${nodeKey}-data-${dataJsonObj.format}`}
         key={`${nodeKey}-data-${dataJsonObj.format}`}
-        indexRoute={`${indexRoute}-1`}
+        indexRoute={indexRoute ? `${indexRoute}-1` : '1'}
         jsonKey={'data'}
         disabled={true}
         title={getTreeNodeTitleCont({
-          indexRoute: `${indexRoute}-1`,
+          indexRoute: indexRoute ? `${indexRoute}-1` : '1',
           jsonKey: 'data',
           targetJsonData: dataJsonObj,
           parentType: currentFormat,
@@ -92,11 +88,11 @@ const DataSourceSchema = (props) => {
         className={'dataSource-filter-item-schema schema-item-form'}
         id={`${nodeKey}-filter`}
         key={`${nodeKey}-filter`}
-        indexRoute={`${indexRoute}-2`}
+        indexRoute={indexRoute ? `${indexRoute}-2` : '2'}
         jsonKey={'filter'}
         disabled={true}
         title={getTreeNodeTitleCont({
-          indexRoute: `${indexRoute}-2`,
+          indexRoute: indexRoute ? `${indexRoute}-2` : '2',
           jsonKey: 'filter',
           targetJsonData: targetJsonData.properties.filter,
           parentType: currentFormat,

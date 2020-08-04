@@ -54,7 +54,6 @@ const propertiesRender = (params) => {
  * */
 const ObjectSchema = (props) => {
   const {
-    parentType,
     jsonKey,
     indexRoute,
     nodeKey,
@@ -83,11 +82,7 @@ const ObjectSchema = (props) => {
       jsonKey={jsonKey}
       disabled={isFirstSchema}
       title={getTreeNodeTitleCont({
-        indexRoute,
-        jsonKey,
-        targetJsonData,
-        parentType,
-        nodeKey,
+        ...props,
       })}
     >
       {propertiesContElem}

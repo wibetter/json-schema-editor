@@ -12,7 +12,7 @@ npm install --save @wibetter/json-schema-editor
 
 使用场景：主要用于json结构/格式的可视化编辑
 
-技术栈：React/Mobx/ant-design
+技术栈：React/Mobx/Ant Design
 
 Demo：http://qcsatw77d.bkt.clouddn.com/demoV3.1.13.html
 

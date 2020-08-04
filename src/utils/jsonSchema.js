@@ -4,39 +4,6 @@ import { EventTypeDataList, TypeDataList } from '$data/TypeDataList';
  */
 import { objClone, isObject, exitPropertie } from '$utils/index';
 
-/** 【校验是否是合法的JsonSchema数据格式】
- *  主要判断当前JSON对象中是否有预先定义的属性：
- *  Object类型必须有的属性：type、format、title、properties、required、propertyOrder；
- *  Array类型必须有的属性：type、format、title、properties、propertyOrder；
- *  基本数据类型必须有的属性：type、title、format
- * */
-export function isJSONSchemaFormat(targetJsonObj) {
-  let isFormat = false;
-  if (targetJsonObj.type) {
-    if (
-      targetJsonObj.type === 'object' &&
-      targetJsonObj.format &&
-      targetJsonObj.title &&
-      targetJsonObj.properties &&
-      targetJsonObj.required &&
-      targetJsonObj.propertyOrder
-    ) {
-      isFormat = true;
-    } else if (
-      targetJsonObj.type === 'array' &&
-      targetJsonObj.format &&
-      targetJsonObj.title &&
-      targetJsonObj.properties &&
-      targetJsonObj.propertyOrder
-    ) {
-      isFormat = true;
-    } else if (targetJsonObj.format && targetJsonObj.title) {
-      isFormat = true;
-    }
-  }
-  return isFormat;
-}
-
 /** 获取当前字段的类型（format）
  *  如果当前字段没有format字段，则根据type字段赋予默认的类型 */
 export function getCurrentFormat(targetJsonData) {
@@ -51,23 +18,107 @@ export function getCurrentFormat(targetJsonData) {
   return currentType;
 }
 
-/** 判断是否为空的jsonSchema
- * 备注：一级字段必须为object，用于规避非法的jsonSchema数据，以及结构单一的jsonSchema数据，
- * 后续再单独考虑如何兼容单一结构的jsonSchema数据。
+/** 判断是否为空的Schema
+ *
+ * 包括 通用schema和区块配置专用的schema
  * */
-export function isEmptySchema(targetJsonObj) {
+export function isEmptySchema(targetJsonSchema) {
   let isEmpty = true;
-  if (targetJsonObj) {
-    const curType = getCurrentFormat(targetJsonObj);
+  if (!targetJsonSchema) {
+    return isEmpty;
+  }
+  const curType = getCurrentFormat(targetJsonSchema);
+  if (
+    curType === 'object' &&
+    targetJsonSchema.properties &&
+    targetJsonSchema.propertyOrder &&
+    targetJsonSchema.propertyOrder.length > 0
+  ) {
+    // Object对象类型
+    isEmpty = false;
+  } else if (
+    curType === 'array' &&
+    targetJsonSchema.items &&
+    targetJsonSchema.items.properties &&
+    targetJsonSchema.items.propertyOrder &&
+    targetJsonSchema.items.propertyOrder.length > 0
+  ) {
+    // Array数组类型
+    isEmpty = false;
+  } else if (targetJsonSchema.type || targetJsonSchema.format) {
+    // 其他基本类型
+    isEmpty = false;
+  }
+  return isEmpty;
+}
+
+/** 判断是否为空的WidgetSchema
+ * 备注：WidgetSchema 一级字段必须为object，且有三个子属性：func、style、data
+ * */
+export function isEmptyWidgetSchema(targetJsonSchema) {
+  let isEmpty = true;
+  if (targetJsonSchema) {
+    const curType = getCurrentFormat(targetJsonSchema);
     if (
       curType === 'object' &&
-      targetJsonObj.propertyOrder &&
-      targetJsonObj.propertyOrder.length > 0
+      targetJsonSchema.properties &&
+      targetJsonSchema.propertyOrder &&
+      targetJsonSchema.propertyOrder.length > 0
     ) {
-      isEmpty = false;
+      const funcSchema = targetJsonSchema.properties.func || {};
+      const styleSchema = targetJsonSchema.properties.style || {};
+      const dataSchema = targetJsonSchema.properties.data || {};
+      if (
+        (funcSchema.propertyOrder && funcSchema.propertyOrder.length > 0) ||
+        (styleSchema.propertyOrder && styleSchema.propertyOrder.length > 0) ||
+        (dataSchema.propertyOrder && dataSchema.propertyOrder.length > 0)
+      ) {
+        isEmpty = false;
+      }
     }
   }
   return isEmpty;
+}
+
+/** 判断是否为用于区块配置的jsonSchema数据（
+ * 备注：一级字段必须为object（用于规避非法的jsonSchema数据，以及结构单一的jsonSchema数据）
+ * 且具备固定的三个子属性（func、style、data）
+ * */
+export function isUsedToWidgetConfig(targetJsonSchema) {
+  let isWidgetConfig = false;
+  if (targetJsonSchema) {
+    const curType = getCurrentFormat(targetJsonSchema);
+    if (
+      curType === 'object' &&
+      targetJsonSchema.properties &&
+      targetJsonSchema.propertyOrder &&
+      targetJsonSchema.properties.func &&
+      targetJsonSchema.properties.style &&
+      targetJsonSchema.properties.data
+    ) {
+      isWidgetConfig = true;
+    }
+  }
+  return isWidgetConfig;
+}
+
+/**
+ *  判断是否是最新版的schema数据
+ *  备注：确保当前schema数据是通过@wibetter/json-schema-editor生成的
+ * */
+export function isNewSchemaData(schemaData) {
+  let isNewVersion = false;
+  const { lastUpdateTime } = schemaData;
+  // 从那一刻开始就认为是新版JSONSchema
+  const newVersionTime = new Date('2020-07-29T07:30:00.691Z').getTime();
+  if (
+    isUsedToWidgetConfig(schemaData) &&
+    lastUpdateTime &&
+    new Date(lastUpdateTime).getTime() >= newVersionTime
+  ) {
+    isNewVersion = true;
+  }
+  return isNewVersion;
 }
 
 /** 根据索引路径获取对应的json数据  */
@@ -94,7 +145,7 @@ export function getJSONDataByIndex(
       ) {
         // 从items中获取数据
         curJsonSchemaObj = curJsonSchemaObj.items;
-      } else {
+      } else if (curIndex) {
         // 1、先根据路径值获取key值
         const curKeyTemp = curJsonSchemaObj.propertyOrder[curIndex];
         // 2、根据key值获取对应的json数据对象
@@ -231,7 +282,7 @@ export function indexRoute2keyRoute(indexRoute, targetJsonSchemaObj) {
       // 从items中获取数据
       curJsonSchemaObj = curJsonSchemaObj.items; // 对象类型数据引用
       curKeyRoute = curKeyRoute ? `${curKeyRoute}-items` : 'items';
-    } else {
+    } else if (curIndex) {
       // 1、先根据路径值获取key值
       const curKey = curJsonSchemaObj.propertyOrder[curIndex];
       // 2、根据key值获取对应的json数据对象

@@ -83,8 +83,21 @@ const itemsRender = (props) => {
 
 /** Array类型渲染组件 */
 const ArraySchema = (props) => {
-  const { parentType, jsonKey, indexRoute, nodeKey, targetJsonData } = props;
+  const {
+    parentIndexRoute,
+    jsonKey,
+    indexRoute,
+    nodeKey,
+    targetJsonData,
+  } = props;
   const currentFormat = getCurrentFormat(targetJsonData);
+
+  // 获取items的index路径值
+  const currentIndexRoute = parentIndexRoute ? `${parentIndexRoute}-0` : '0';
+  // 获取items的jsonKey
+  const currentJsonKey = 'items';
+  // 获取items的key路径
+  const curNodeKey = nodeKey ? `${nodeKey}-items` : 'items';
 
   return (
     <TreeNode
@@ -94,18 +107,14 @@ const ArraySchema = (props) => {
       indexRoute={indexRoute}
       jsonKey={jsonKey}
       title={getTreeNodeTitleCont({
-        indexRoute,
-        jsonKey,
-        targetJsonData,
-        parentType,
-        nodeKey,
+        ...props,
       })}
     >
       {itemsRender({
         parentType: currentFormat,
-        jsonKey: 'items',
-        indexRoute: `${indexRoute}-0`,
-        nodeKey: `${nodeKey}-items`,
+        jsonKey: currentJsonKey,
+        indexRoute: currentIndexRoute,
+        nodeKey: curNodeKey,
         targetJsonData: targetJsonData.items,
       })}
     </TreeNode>
