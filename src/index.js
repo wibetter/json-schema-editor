@@ -123,7 +123,7 @@ class IndexDemo extends React.PureComponent {
           propertyOrder: ['name', 'field_1'],
         },
       }, // 通用schema类型-数组类型 显示 ok / update ok
-      jsonSchema: {
+      jsonSchema3: {
         type: 'object',
         title: '数据源',
         format: 'datasource',
@@ -434,7 +434,7 @@ class IndexDemo extends React.PureComponent {
           'field_12',
         ],
       }, // 通用schema类型 显示 ok / update ok
-      jsonSchema6: {
+      jsonSchema: {
         type: 'object',
         title: 'jsonSchemaObject',
         properties: {
