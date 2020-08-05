@@ -1507,10 +1507,10 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
-"@wibetter/json-editor@^3.2.11":
-  version "3.2.11"
-  resolved "https://registry.yarnpkg.com/@wibetter/json-editor/-/json-editor-3.2.11.tgz#606818df9792ca11b0be5cb7ffddc828a8d2b1bc"
-  integrity sha512-orT2/hkINpdbx1et6DDUyXI9IMBorx7td4cW1wsN1/8yf7gIF9sGhpkpsU6i+o9OhQVqOOu9hFfXzpX/3Mi4kg==
+"@wibetter/json-editor@^3.2.12":
+  version "3.2.12"
+  resolved "https://registry.yarnpkg.com/@wibetter/json-editor/-/json-editor-3.2.12.tgz#dd52ef3b12db2598ceb586e8425a8134856eff39"
+  integrity sha512-j9v/GRxtFUgruLGTfax8qMHFpvJATe3iYLG9IrRiiFkl08qgrdE7wUU4tnDGH48lul30azn/GwrpDdQCYHW8hw==
   dependencies:
     "@ant-design/icons" "^4.2.1"
     "@babel/polyfill" "^7.10.1"

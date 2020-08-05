@@ -1,6 +1,6 @@
 {
   "name": "@wibetter/json-schema-editor",
-  "version": "3.2.7",
+  "version": "3.2.8",
   "description": "JSON数据可视化/JSONSchema, 主要用于json结构/格式的可视化编辑",
   "keywords": [
     "json",
@@ -127,7 +127,7 @@
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
     "webpack-merge": "^4.2.2",
-    "@wibetter/json-editor": "^3.2.11"
+    "@wibetter/json-editor": "^3.2.12"
   },
   "engines": {
     "node": ">= 10.13.0",
