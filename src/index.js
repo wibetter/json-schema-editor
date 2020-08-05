@@ -14,7 +14,7 @@ class IndexDemo extends React.PureComponent {
     super(props);
 
     this.state = {
-      jsonSchema: {
+      jsonSchema0: {
         type: 'object',
         title: '单位计量输入',
         format: 'quantity',
@@ -122,8 +122,8 @@ class IndexDemo extends React.PureComponent {
           required: ['name', 'field_1'],
           propertyOrder: ['name', 'field_1'],
         },
-      }, // 通用schema类型-数组类型 显示 ? / update ok
-      jsonSchema3: {
+      }, // 通用schema类型-数组类型 显示 ok / update ok
+      jsonSchema: {
         type: 'object',
         title: '数据源',
         format: 'datasource',

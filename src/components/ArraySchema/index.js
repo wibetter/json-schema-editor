@@ -83,17 +83,11 @@ const itemsRender = (props) => {
 
 /** Array类型渲染组件 */
 const ArraySchema = (props) => {
-  const {
-    parentIndexRoute,
-    jsonKey,
-    indexRoute,
-    nodeKey,
-    targetJsonData,
-  } = props;
+  const { jsonKey, indexRoute, nodeKey, targetJsonData } = props;
   const currentFormat = getCurrentFormat(targetJsonData);
 
   // 获取items的index路径值
-  const currentIndexRoute = parentIndexRoute ? `${parentIndexRoute}-0` : '0';
+  const currentIndexRoute = indexRoute ? `${indexRoute}-0` : '0';
   // 获取items的jsonKey
   const currentJsonKey = 'items';
   // 获取items的key路径

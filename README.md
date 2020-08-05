@@ -1,6 +1,6 @@
 # json-schema-editor
 
-> JSON数据可视化/JSONSchema
+> JSON数据可视化/JSONSchema, 主要用于json结构/格式的可视化编辑
 
 ## Install
 
