@@ -25401,30 +25401,29 @@ and limitations under the License.
           );
         },
         Tn = function (e) {
-          var t = e.parentIndexRoute,
-            n = e.jsonKey,
-            r = e.indexRoute,
-            o = e.nodeKey,
-            a = e.targetJsonData,
-            i = ge(a),
-            c = t ? ''.concat(t, '-0') : '0',
-            s = o ? ''.concat(o, '-items') : 'items';
+          var t = e.jsonKey,
+            n = e.indexRoute,
+            r = e.nodeKey,
+            o = e.targetJsonData,
+            a = ge(o),
+            i = n ? ''.concat(n, '-0') : '0',
+            c = r ? ''.concat(r, '-items') : 'items';
           return h.a.createElement(
             kn,
             {
-              className: ''.concat(i, '-schema schema-item-form'),
-              id: o,
-              key: o,
-              indexRoute: r,
-              jsonKey: n,
+              className: ''.concat(a, '-schema schema-item-form'),
+              id: r,
+              key: r,
+              indexRoute: n,
+              jsonKey: t,
               title: Nn(Pn({}, e)),
             },
             _n({
-              parentType: i,
+              parentType: a,
               jsonKey: 'items',
-              indexRoute: c,
-              nodeKey: s,
-              targetJsonData: a.items,
+              indexRoute: i,
+              nodeKey: c,
+              targetJsonData: o.items,
             }),
           );
         };
