@@ -2,14 +2,6 @@
 
 > JSON数据可视化/JSONSchema, 主要用于json结构/格式的可视化编辑
 
-## Install
-
-```bash
-npm install --save @wibetter/json-schema-editor
-```
-
-## Usage
-
 使用场景：主要用于json结构/格式的可视化编辑
 
 技术栈：React/Mobx/Ant Design
@@ -23,6 +15,13 @@ Demo：http://qcsatw77d.bkt.clouddn.com/demoV3.1.13.html
 4. 复制功能
 5. 复杂嵌套
 6. 高级配置功能
+
+## Install
+
+```bash
+npm install --save @wibetter/json-schema-editor
+```
+
 
 ## Usage
 
