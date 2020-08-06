@@ -5,6 +5,7 @@ import {
   initBooleanData,
   initColorData,
   initDataSourceData,
+  initDataSourceDataV2,
   initDateData,
   initDateTimeData,
   initEventData,
@@ -50,4 +51,10 @@ export const TypeDataList = {
 export const EventTypeDataList = {
   on: initEventDataTypeON,
   emit: initEventData,
+};
+
+// 数据源类型
+export const DataSourceTypeList = {
+  local: initDataSourceData,
+  remote: initDataSourceDataV2,
 };
