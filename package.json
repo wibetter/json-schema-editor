@@ -37,11 +37,13 @@
     "type": "git",
     "url": "git+http://git@github.com:wibetter/json-schema-editor.git"
   },
+  "bugs": {
+    "url": "https://github.com/wibetter/json-schema-editor/issues"
+  },
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
     "@babel/polyfill": "^7.10.1",
     "antd": "^4.3.4",
-    "generate-schema": "^2.6.0",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
     "prop-types": "^15.7.2",
@@ -127,7 +129,7 @@
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
     "webpack-merge": "^4.2.2",
-    "@wibetter/json-editor": "^3.2.12"
+    "@wibetter/json-editor": "^3.2.13"
   },
   "engines": {
     "node": ">= 10.13.0",

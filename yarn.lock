@@ -1507,17 +1507,15 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
-"@wibetter/json-editor@^3.2.12":
-  version "3.2.12"
-  resolved "https://registry.yarnpkg.com/@wibetter/json-editor/-/json-editor-3.2.12.tgz#dd52ef3b12db2598ceb586e8425a8134856eff39"
-  integrity sha512-j9v/GRxtFUgruLGTfax8qMHFpvJATe3iYLG9IrRiiFkl08qgrdE7wUU4tnDGH48lul30azn/GwrpDdQCYHW8hw==
+"@wibetter/json-editor@^3.2.13":
+  version "3.2.13"
+  resolved "https://registry.yarnpkg.com/@wibetter/json-editor/-/json-editor-3.2.13.tgz#d27cbca83c8e292efd921757b94e51aa3a33391e"
+  integrity sha512-6nvJhS5iiNurnnarss9raEkDHx0/LKxtjlmj9NMAcK5Hohw0bTR+QmhLKxjkAfMAX4KbuQUQYRD0f9L9KMIQLQ==
   dependencies:
     "@ant-design/icons" "^4.2.1"
     "@babel/polyfill" "^7.10.1"
     ace-builds "^1.4.12"
     antd "^4.3.4"
-    generate-schema "^2.6.0"
-    json-schema-filter "^0.1.5"
     mobx "^5.15.4"
     mobx-react "^6.2.2"
     moment "^2.27.0"
@@ -2741,7 +2739,7 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@^2.18.0, commander@^2.20.0, commander@^2.9.0:
+commander@^2.18.0, commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
@@ -4456,14 +4454,6 @@ gaze@^1.0.0:
   dependencies:
     globule "^1.0.0"
 
-generate-schema@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/generate-schema/-/generate-schema-2.6.0.tgz#9ac037550fd4243783a9f7681d39bee8870bcec2"
-  integrity sha512-EUBKfJNzT8f91xUk5X5gKtnbdejZeE065UAJ3BCzE8VEbvwKI9Pm5jaWmqVeK1MYc1g5weAVFDTSJzN7ymtTqA==
-  dependencies:
-    commander "^2.9.0"
-    type-of-is "^3.4.0"
-
 gensync@^1.0.0-beta.1:
   version "1.0.0-beta.1"
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.1.tgz#58f4361ff987e5ff6e1e7a210827aa371eaac269"
@@ -5531,11 +5521,6 @@ json-parse-better-errors@^1.0.1, json-parse-better-errors@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
   integrity sha512-mrqyZKfX5EhL7hvqcV6WG1yYjnjeuYDzDhhcAAUrq8Po85NBQBJP+ZDUT75qZQ98IkUoBqdkExkukOU7Ts2wrw==
-
-json-schema-filter@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/json-schema-filter/-/json-schema-filter-0.1.5.tgz#f7936de557d6dc683583cc485fc98e12e37ce87e"
-  integrity sha1-95Nt5VfW3Gg1g8xIX8mOEuN86H4=
 
 json-schema-traverse@^0.4.1:
   version "0.4.1"
@@ -9782,11 +9767,6 @@ type-is@~1.6.17, type-is@~1.6.18:
   dependencies:
     media-typer "0.3.0"
     mime-types "~2.1.24"
-
-type-of-is@^3.4.0:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/type-of-is/-/type-of-is-3.5.1.tgz#eec2fc89b828dbf9900eb6416eee30f4fe0fcd31"
-  integrity sha1-7sL8ibgo2/mQDrZBbu4w9P4PzTE=
 
 typedarray-to-buffer@^3.1.5:
   version "3.1.5"
