@@ -173,129 +173,140 @@ class BaseFormSchema extends React.PureComponent {
     const readOnly = isFirstChild || isFirstSchema || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
 
     return (
-      <div className="base-schema-box" id={nodeKey}>
-        <div
-          className="key-input-item"
-          draggable="true"
-          onDragStart={this.ignoreDragEvent}
-        >
-          <Input
-            defaultValue={jsonKey || 'key值不存在'}
-            disabled={readOnly || keyIsFixed}
-            onPressEnter={this.handleJsonKeyChange}
-            onBlur={this.handleJsonKeyChange}
-          />
-        </div>
-        <div
-          className="type-select-item"
-          draggable="true"
-          onDragStart={this.ignoreDragEvent}
-        >
-          <Select
-            defaultValue={currentFormat}
-            style={{ width: 120 }}
-            onChange={this.selectHandleChange}
-            disabled={readOnly || typeIsFixed}
-          >
-            {currentTypeList.map((item) => (
-              <Option key={item} value={item}>
-                {item}
-              </Option>
-            ))}
-          </Select>
-        </div>
-        <div
-          className="title-input-item"
-          draggable="true"
-          onDragStart={this.ignoreDragEvent}
-        >
-          <Input
-            defaultValue={targetJsonData.title}
-            disabled={readOnly || titleIsFixed}
-            onPressEnter={this.handleTitleChange}
-            onBlur={this.handleTitleChange}
-          />
-        </div>
-        {!hideOperaBtn && (
-          <div className="operate-item">
-            {!readOnly && (
-              <Tooltip title="删除">
-                <CloseOutlined
-                  className="operate-btn delete-operate"
-                  onClick={this.onDeleteBtnEvent}
-                />
-              </Tooltip>
-            )}
-            <Tooltip
-              title={
-                isBoxSchemaData(currentFormat) ? '新增子节点' : '新增兄弟节点'
-              }
+      <>
+        {targetJsonData && (
+          <div className="base-schema-box" id={nodeKey}>
+            <div
+              className="key-input-item"
+              draggable="true"
+              onDragStart={this.ignoreDragEvent}
             >
-              <PlusOutlined
-                className="operate-btn"
-                onClick={this.onAddBtnEvent}
+              <Input
+                defaultValue={jsonKey || 'key值不存在'}
+                disabled={readOnly || keyIsFixed}
+                onPressEnter={this.handleJsonKeyChange}
+                onBlur={this.handleJsonKeyChange}
               />
-            </Tooltip>
-            {!readOnly && (
-              <Tooltip title="复制">
-                <CopyOutlined
-                  className="operate-btn"
-                  onClick={this.onCopyBtnEvent}
-                />
-              </Tooltip>
+            </div>
+            <div
+              className="type-select-item"
+              draggable="true"
+              onDragStart={this.ignoreDragEvent}
+            >
+              <Select
+                defaultValue={currentFormat}
+                style={{ width: 120 }}
+                onChange={this.selectHandleChange}
+                disabled={readOnly || typeIsFixed}
+              >
+                {currentTypeList.map((item) => (
+                  <Option key={item} value={item}>
+                    {item}
+                  </Option>
+                ))}
+              </Select>
+            </div>
+            <div
+              className="title-input-item"
+              draggable="true"
+              onDragStart={this.ignoreDragEvent}
+            >
+              <Input
+                defaultValue={targetJsonData.title}
+                disabled={readOnly || titleIsFixed}
+                onPressEnter={this.handleTitleChange}
+                onBlur={this.handleTitleChange}
+              />
+            </div>
+            {!hideOperaBtn && (
+              <div className="operate-item">
+                {!readOnly && (
+                  <Tooltip title="删除">
+                    <CloseOutlined
+                      className="operate-btn delete-operate"
+                      onClick={this.onDeleteBtnEvent}
+                    />
+                  </Tooltip>
+                )}
+                <Tooltip
+                  title={
+                    isBoxSchemaData(currentFormat)
+                      ? '新增子节点'
+                      : '新增兄弟节点'
+                  }
+                >
+                  <PlusOutlined
+                    className="operate-btn"
+                    onClick={this.onAddBtnEvent}
+                  />
+                </Tooltip>
+                {!readOnly && (
+                  <Tooltip title="复制">
+                    <CopyOutlined
+                      className="operate-btn"
+                      onClick={this.onCopyBtnEvent}
+                    />
+                  </Tooltip>
+                )}
+                {!readOnly && (
+                  <Tooltip title="高级设置">
+                    <SettingOutlined
+                      className="operate-btn"
+                      onClick={() => {
+                        // 显示高级设置模态框
+                        this.setState({
+                          isShowAdvance: true,
+                        });
+                      }}
+                    />
+                  </Tooltip>
+                )}
+                {!readOnly && (
+                  <Tooltip title="按住进行拖拽">
+                    <DragOutlined className="operate-btn drag-btn" />
+                  </Tooltip>
+                )}
+              </div>
             )}
-            {!readOnly && (
-              <Tooltip title="高级设置">
-                <SettingOutlined
-                  className="operate-btn"
-                  onClick={() => {
-                    // 显示高级设置模态框
-                    this.setState({
-                      isShowAdvance: true,
-                    });
-                  }}
-                />
-              </Tooltip>
-            )}
-            {!readOnly && (
-              <Tooltip title="按住进行拖拽">
-                <DragOutlined className="operate-btn drag-btn" />
-              </Tooltip>
-            )}
-          </div>
-        )}
-        {hideOperaBtn && <div className="operate-item">&nbsp;</div>}
-        <Modal
-          visible={isShowAdvance}
-          title={`高级设置 / 当前字段：${targetJsonData.title}(${jsonKey})`}
-          onCancel={() => {
-            this.setState({
-              isShowAdvance: false,
-            });
-          }}
-          footer={[
-            <Button
-              key="submit"
-              type="primary"
-              onClick={() => {
+            {hideOperaBtn && <div className="operate-item">&nbsp;</div>}
+            <Modal
+              visible={isShowAdvance}
+              title={`高级设置 / 当前字段：${targetJsonData.title}(${jsonKey})`}
+              onCancel={() => {
                 this.setState({
                   isShowAdvance: false,
                 });
               }}
+              footer={[
+                <Button
+                  key="submit"
+                  type="primary"
+                  onClick={() => {
+                    this.setState({
+                      isShowAdvance: false,
+                    });
+                  }}
+                >
+                  保存并关闭
+                </Button>,
+              ]}
             >
-              保存并关闭
-            </Button>,
-          ]}
-        >
-          <AdvanceConfig
-            {...{
-              indexRoute,
-              jsonKey,
-              targetJsonData,
-            }}
-          />
-        </Modal>
-      </div>
+              <AdvanceConfig
+                {...{
+                  indexRoute,
+                  jsonKey,
+                  targetJsonData,
+                }}
+              />
+            </Modal>
+          </div>
+        )}
+        {!targetJsonData && (
+          <div className="base-schema-box">
+            <div className="warn-text">{jsonKey}：数据元素为空</div>
+          </div>
+        )}
+      </>
     );
   }
 }

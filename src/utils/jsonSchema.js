@@ -11,9 +11,9 @@ import { objClone, isObject, exitPropertie } from '$utils/index';
 /** 获取当前字段的类型（format）
  *  如果当前字段没有format字段，则根据type字段赋予默认的类型 */
 export function getCurrentFormat(targetJsonData) {
-  let currentType = targetJsonData.format;
+  let currentType = targetJsonData && targetJsonData.format;
   if (!currentType) {
-    if (targetJsonData.type) {
+    if (targetJsonData && targetJsonData.type) {
       currentType = targetJsonData.type;
     } else {
       currentType = 'input';
