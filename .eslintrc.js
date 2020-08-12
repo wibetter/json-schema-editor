@@ -1,12 +1,14 @@
 module.exports = {
   root: true,
-  // 此项是用来指定eslint解析器的，解析器必须符合规则，babel-eslint解析器是对babel解析器的包装使其与ESLint解析
-  parser: 'babel-eslint',
+  // 此项是用来指定eslint解析器的，解析器必须符合规则，
+  parser: 'vue-eslint-parser',
   // 此项是用来指定javaScript语言类型和风格，sourceType用来指定js导入的方式，默认是script，此处设置为module，指某块导入方式
   parserOptions: {
+    parser: 'babel-eslint', // babel-eslint解析器是对babel解析器的包装使其与ESLint解析
     ecmaVersion: 6,
-    sourceType: 'module',
+    sourceType: 'module', // 支持的ES语法版本，默认为5。注意只是语法，不包括ES的全局变量
     ecmaFeatures: {
+      // Features是特征的意思，这里用于指定要使用其他那些语言对象
       jsx: true,
     },
   },
@@ -19,11 +21,13 @@ module.exports = {
   // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
   // 此项是用来配置标准的js风格，就是说写代码的时候要规范的写，如果你使用vs-code我觉得应该可以避免出错
   extends: [
-    'airbnb-base', // eslint-config-airbnb-base
+    /** vue 的额外添加的规则是 v-if, v-else 等指令检测 */
+    'plugin:vue/essential', // 额外添加的规则可查看 https://vuejs.github.io/eslint-plugin-vue/rules/
+    'airbnb-base', // eslint-config-airbnb-base/**
   ],
   // 此项是用来提供插件的，插件名称省略了eslint-plugin-，下面这个配置是用来规范html的
   // required to lint *.src files
-  plugins: ['html', 'react', 'prettier'],
+  plugins: ['prettier', 'html', 'react'],
   // check if imports actually resolve
   settings: {
     'import/resolver': {

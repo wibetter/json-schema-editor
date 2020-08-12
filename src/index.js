@@ -14,29 +14,6 @@ class IndexDemo extends React.PureComponent {
     super(props);
 
     this.state = {
-      jsonSchema0: {
-        type: 'object',
-        title: '单位计量输入',
-        format: 'quantity',
-        isRequired: false,
-        default: '',
-        description: '',
-        placeholder: '',
-        readOnly: false,
-        properties: {
-          unit: { type: 'number', title: '数值', format: 'number' },
-          quantity: {
-            type: 'string',
-            default: 'px',
-            format: 'typeSelect',
-            enum: ['px', 'rem', 'em', '%'],
-            enumextra: ['px', 'rem', 'em', '%'],
-            title: '单位类型',
-          },
-        },
-        required: ['unit', 'quantity'],
-        propertyOrder: ['unit', 'quantity'],
-      }, // 通用schema类型-基础类型 显示 ok / 不可编辑
       jsonSchema1: {
         type: 'object',
         title: '对象类型',

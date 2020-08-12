@@ -23006,8 +23006,8 @@ and limitations under the License.
         window.sessionStorage && window.sessionStorage.setItem(e, t);
       }
       function Ee(e) {
-        var t = e.format;
-        return t || (t = e.type ? e.type : 'input'), t;
+        var t = e && e.format;
+        return t || (t = e && e.type ? e.type : 'input'), t;
       }
       function xe(e, t, n) {
         var r = t;
@@ -25162,142 +25162,162 @@ and limitations under the License.
                     y = Pe(m),
                     b = s || y || u || !1;
                   return p.createElement(
-                    'div',
-                    { className: 'base-schema-box', id: a },
-                    p.createElement(
-                      'div',
-                      {
-                        className: 'key-input-item',
-                        draggable: 'true',
-                        onDragStart: this.ignoreDragEvent,
-                      },
-                      p.createElement(gt.a, {
-                        defaultValue: o || 'key值不存在',
-                        disabled: b || l,
-                        onPressEnter: this.handleJsonKeyChange,
-                        onBlur: this.handleJsonKeyChange,
-                      }),
-                    ),
-                    p.createElement(
-                      'div',
-                      {
-                        className: 'type-select-item',
-                        draggable: 'true',
-                        onDragStart: this.ignoreDragEvent,
-                      },
-                      p.createElement(
-                        xt.a,
-                        {
-                          defaultValue: m,
-                          style: { width: 120 },
-                          onChange: this.selectHandleChange,
-                          disabled: b || f,
-                        },
-                        v.map(function (e) {
-                          return p.createElement(Cn, { key: e, value: e }, e);
-                        }),
-                      ),
-                    ),
-                    p.createElement(
-                      'div',
-                      {
-                        className: 'title-input-item',
-                        draggable: 'true',
-                        onDragStart: this.ignoreDragEvent,
-                      },
-                      p.createElement(gt.a, {
-                        defaultValue: i.title,
-                        disabled: b || d,
-                        onPressEnter: this.handleTitleChange,
-                        onBlur: this.handleTitleChange,
-                      }),
-                    ),
-                    !h &&
+                    p.Fragment,
+                    null,
+                    i &&
                       p.createElement(
                         'div',
-                        { className: 'operate-item' },
-                        !b &&
-                          p.createElement(
-                            yt.a,
-                            { title: '删除' },
-                            p.createElement(Gt, {
-                              className: 'operate-btn delete-operate',
-                              onClick: this.onDeleteBtnEvent,
-                            }),
-                          ),
+                        { className: 'base-schema-box', id: a },
                         p.createElement(
-                          yt.a,
-                          { title: Se(m) ? '新增子节点' : '新增兄弟节点' },
-                          p.createElement(Zt, {
-                            className: 'operate-btn',
-                            onClick: this.onAddBtnEvent,
+                          'div',
+                          {
+                            className: 'key-input-item',
+                            draggable: 'true',
+                            onDragStart: this.ignoreDragEvent,
+                          },
+                          p.createElement(gt.a, {
+                            defaultValue: o || 'key值不存在',
+                            disabled: b || l,
+                            onPressEnter: this.handleJsonKeyChange,
+                            onBlur: this.handleJsonKeyChange,
                           }),
                         ),
-                        !b &&
+                        p.createElement(
+                          'div',
+                          {
+                            className: 'type-select-item',
+                            draggable: 'true',
+                            onDragStart: this.ignoreDragEvent,
+                          },
                           p.createElement(
-                            yt.a,
-                            { title: '复制' },
-                            p.createElement(tn, {
-                              className: 'operate-btn',
-                              onClick: this.onCopyBtnEvent,
+                            xt.a,
+                            {
+                              defaultValue: m,
+                              style: { width: 120 },
+                              onChange: this.selectHandleChange,
+                              disabled: b || f,
+                            },
+                            v.map(function (e) {
+                              return p.createElement(
+                                Cn,
+                                { key: e, value: e },
+                                e,
+                              );
                             }),
                           ),
-                        !b &&
+                        ),
+                        p.createElement(
+                          'div',
+                          {
+                            className: 'title-input-item',
+                            draggable: 'true',
+                            onDragStart: this.ignoreDragEvent,
+                          },
+                          p.createElement(gt.a, {
+                            defaultValue: i.title,
+                            disabled: b || d,
+                            onPressEnter: this.handleTitleChange,
+                            onBlur: this.handleTitleChange,
+                          }),
+                        ),
+                        !h &&
                           p.createElement(
-                            yt.a,
-                            { title: '高级设置' },
-                            p.createElement(on, {
-                              className: 'operate-btn',
-                              onClick: function () {
-                                e.setState({ isShowAdvance: !0 });
-                              },
-                            }),
+                            'div',
+                            { className: 'operate-item' },
+                            !b &&
+                              p.createElement(
+                                yt.a,
+                                { title: '删除' },
+                                p.createElement(Gt, {
+                                  className: 'operate-btn delete-operate',
+                                  onClick: this.onDeleteBtnEvent,
+                                }),
+                              ),
+                            p.createElement(
+                              yt.a,
+                              { title: Se(m) ? '新增子节点' : '新增兄弟节点' },
+                              p.createElement(Zt, {
+                                className: 'operate-btn',
+                                onClick: this.onAddBtnEvent,
+                              }),
+                            ),
+                            !b &&
+                              p.createElement(
+                                yt.a,
+                                { title: '复制' },
+                                p.createElement(tn, {
+                                  className: 'operate-btn',
+                                  onClick: this.onCopyBtnEvent,
+                                }),
+                              ),
+                            !b &&
+                              p.createElement(
+                                yt.a,
+                                { title: '高级设置' },
+                                p.createElement(on, {
+                                  className: 'operate-btn',
+                                  onClick: function () {
+                                    e.setState({ isShowAdvance: !0 });
+                                  },
+                                }),
+                              ),
+                            !b &&
+                              p.createElement(
+                                yt.a,
+                                { title: '按住进行拖拽' },
+                                p.createElement(sn, {
+                                  className: 'operate-btn drag-btn',
+                                }),
+                              ),
                           ),
-                        !b &&
+                        h &&
                           p.createElement(
-                            yt.a,
-                            { title: '按住进行拖拽' },
-                            p.createElement(sn, {
-                              className: 'operate-btn drag-btn',
-                            }),
+                            'div',
+                            { className: 'operate-item' },
+                            ' ',
                           ),
+                        p.createElement(
+                          pt.a,
+                          {
+                            visible: c,
+                            title: '高级设置 / 当前字段：'
+                              .concat(i.title, '(')
+                              .concat(o, ')'),
+                            onCancel: function () {
+                              e.setState({ isShowAdvance: !1 });
+                            },
+                            footer: [
+                              p.createElement(
+                                vt.a,
+                                {
+                                  key: 'submit',
+                                  type: 'primary',
+                                  onClick: function () {
+                                    e.setState({ isShowAdvance: !1 });
+                                  },
+                                },
+                                '保存并关闭',
+                              ),
+                            ],
+                          },
+                          p.createElement(xn, {
+                            indexRoute: r,
+                            jsonKey: o,
+                            targetJsonData: i,
+                          }),
+                        ),
                       ),
-                    h &&
+                    !i &&
                       p.createElement(
                         'div',
-                        { className: 'operate-item' },
-                        ' ',
+                        { className: 'base-schema-box' },
+                        p.createElement(
+                          'div',
+                          { className: 'warn-text' },
+                          o,
+                          '：数据元素为空',
+                        ),
                       ),
-                    p.createElement(
-                      pt.a,
-                      {
-                        visible: c,
-                        title: '高级设置 / 当前字段：'
-                          .concat(i.title, '(')
-                          .concat(o, ')'),
-                        onCancel: function () {
-                          e.setState({ isShowAdvance: !1 });
-                        },
-                        footer: [
-                          p.createElement(
-                            vt.a,
-                            {
-                              key: 'submit',
-                              type: 'primary',
-                              onClick: function () {
-                                e.setState({ isShowAdvance: !1 });
-                              },
-                            },
-                            '保存并关闭',
-                          ),
-                        ],
-                      },
-                      p.createElement(xn, {
-                        indexRoute: r,
-                        jsonKey: o,
-                        targetJsonData: i,
-                      }),
-                    ),
                   );
                 },
               },
