@@ -1,3 +1,5 @@
+const { curWebpackBaseConfPath } = require('akfun');
+
 module.exports = {
   root: true,
   // 此项是用来指定eslint解析器的，解析器必须符合规则，
@@ -32,7 +34,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       webpack: {
-        config: 'build/webpack.base.conf.js',
+        config: curWebpackBaseConfPath,
       },
     },
   },
@@ -42,7 +44,7 @@ module.exports = {
   // "error" or 2 将规则视为一个错误 (退出码为1)
   // ESLint自定义规则：http://eslint.cn/docs/rules/
   rules: {
-    // "prettier/prettier": 0, // Runs Prettier as an ESLint rule and reports differences as individual ESLint issues.
+    'prettier/prettier': 0, // Runs Prettier as an ESLint rule and reports differences as individual ESLint issues.
     // don't require .vue extension when importing
     'import/extensions': [
       'error',
@@ -56,19 +58,12 @@ module.exports = {
     'react/jsx-uses-vars': 'error',
     'import/first': 0,
     'arrow-parens': 0,
-    // allow optionalDependencies
-    'import/no-extraneous-dependencies': [
-      'error',
-      {
-        optionalDependencies: ['test/unit/jsEntries.js'],
-      },
-    ],
     'no-underscore-dangle': 'off',
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    'no-debugger': 1,
     'linebreak-style': 'off',
-    'no-alert': process.env.NODE_ENV === 'production' ? 1 : 0, // 是否禁止使用alert confirm prompt
-    'no-console': process.env.NODE_ENV === 'production' ? 1 : 0, // 是否禁止使用console，0表示关闭
+    'no-alert': 1, // 是否禁止使用alert confirm prompt
+    'no-console': 1, // 是否禁止使用console，0表示关闭
     'consistent-return': 0, // return 后面是否允许省略
     'comma-dangle': 0, // 允许末尾有逗号
     'no-use-before-define': 1, // 兼容函数本身调用自己的情况
@@ -81,7 +76,7 @@ module.exports = {
     camelcase: 1, // 双峰驼命名格式
     'no-shadow': 0, // 外部作用域中的变量不能与它所包含的作用域中的变量或参数同名
     'prefer-destructuring': 0, // 该规则强制执行解构操作，而不是通过成员表达式访问属性。
-    quotes: [1, 'single'], //引号类型 `` "" ''
+    quotes: [1, 'single'],
     'quote-props': 1, // 对象字面量中的属性名是否强制双引号
     'import/no-cycle': 0, // 循环依赖
     'no-lonely-if': 0, // 禁止else语句内只有if语句
