@@ -13,7 +13,10 @@ import { isEqual, objClone, isFunction } from '$utils/index';
 import { TypeList } from '$data/TypeList';
 import { KeyWordList } from '$data/KeyWordList';
 
-import { initJSONSchemaData, initInputData } from '$data/index';
+import { TypeDataList } from '$data/TypeDataList';
+
+const initJSONSchemaData = TypeDataList.jsonschema;
+const initInputData = TypeDataList.input;
 
 export default class JSONSchemaStore {
   /** 主要用于自动生成jsonKey中的index */

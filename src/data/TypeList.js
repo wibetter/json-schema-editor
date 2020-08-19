@@ -35,6 +35,7 @@ export const DATASCHEME_TYPE = [
   'json',
   'codearea',
   'htmlarea',
+  'dynamic-data',
   'datasource',
   'event',
   'object',

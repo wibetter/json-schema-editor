@@ -195,7 +195,7 @@ class BaseFormSchema extends React.PureComponent {
             >
               <Select
                 defaultValue={currentFormat}
-                style={{ width: 120 }}
+                style={{ width: 150 }}
                 onChange={this.selectHandleChange}
                 disabled={readOnly || typeIsFixed}
               >
