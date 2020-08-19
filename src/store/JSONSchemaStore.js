@@ -14,7 +14,6 @@ import { TypeList } from '$data/TypeList';
 import { KeyWordList } from '$data/KeyWordList';
 
 import { TypeDataList } from '$data/TypeDataList';
-
 const initJSONSchemaData = TypeDataList.jsonschema;
 const initInputData = TypeDataList.input;
 

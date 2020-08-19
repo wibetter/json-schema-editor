@@ -1702,10 +1702,10 @@ ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.2, ajv@^6.12.3:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-akfun@^1.3.19:
-  version "1.3.19"
-  resolved "https://registry.yarnpkg.com/akfun/-/akfun-1.3.19.tgz#412e42c97b26ef70de2c2559b4ffbc7653017c87"
-  integrity sha512-kVYjkzUfRIjfZrC+2BPQy90FWgTbKQ88wTaXydGk1fnt7rxquayDz50wX5K7JT4S2rsJNV/69Yhma1iHUxU+Mw==
+akfun@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/akfun/-/akfun-1.5.1.tgz#22798036a1178009d269cb02716341e19d3afdbf"
+  integrity sha512-uhyJz9lfdsnO5cnHev+kx1+ZWSgQ8FRzBhaJkXwxfXkKxRoeqy+U20E8C7ZmFCVFC29qGRk+QnO/xuVQRGNS5Q==
   dependencies:
     "@babel/cli" "^7.10.1"
     "@babel/core" "^7.10.2"
