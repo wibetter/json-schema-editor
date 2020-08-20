@@ -15,6 +15,7 @@ const getTypeSelectCont = (params) => <TypeSelectFormSchema {...params} />;
 const DynamicDataSchema = (props) => {
   const { jsonKey, indexRoute, nodeKey, targetJsonData } = props;
   const currentFormat = getCurrentFormat(targetJsonData);
+  const configJsonObj = targetJsonData.properties.config || {};
   const dataJsonObj = targetJsonData.properties.data || {};
 
   return (
@@ -44,36 +45,36 @@ const DynamicDataSchema = (props) => {
         })}
       ></TreeNode>
       <TreeNode
-        className={'dataSource-data-item-schema schema-item-form'}
-        id={`${nodeKey}-data-${dataJsonObj.format}`}
-        key={`${nodeKey}-data-${dataJsonObj.format}`}
+        className={'dataSource-config-item-schema schema-item-form'}
+        id={`${nodeKey}-config-${dataJsonObj.format}`}
+        key={`${nodeKey}-config-${dataJsonObj.format}`}
         indexRoute={indexRoute ? `${indexRoute}-1` : '1'}
-        jsonKey={'data'}
+        jsonKey={'config'}
         disabled={true}
         title={getTreeNodeTitleCont({
           indexRoute: indexRoute ? `${indexRoute}-1` : '1',
-          jsonKey: 'data',
-          targetJsonData: dataJsonObj,
+          jsonKey: 'config',
+          targetJsonData: configJsonObj,
           parentType: currentFormat,
-          nodeKey: `${nodeKey}-data-${dataJsonObj.format}`,
+          nodeKey: `${nodeKey}-config-${configJsonObj.format}`,
           hideOperaBtn: true,
           keyIsFixed: true,
           typeIsFixed: true,
         })}
       ></TreeNode>
       <TreeNode
-        className={'dataSource-filter-item-schema schema-item-form'}
-        id={`${nodeKey}-filter`}
-        key={`${nodeKey}-filter`}
+        className={'dataSource-data-item-schema schema-item-form'}
+        id={`${nodeKey}-data-${dataJsonObj.format}`}
+        key={`${nodeKey}-data-${dataJsonObj.format}`}
         indexRoute={indexRoute ? `${indexRoute}-2` : '2'}
-        jsonKey={'filter'}
+        jsonKey={'data'}
         disabled={true}
         title={getTreeNodeTitleCont({
           indexRoute: indexRoute ? `${indexRoute}-2` : '2',
-          jsonKey: 'filter',
-          targetJsonData: targetJsonData.properties.filter,
+          jsonKey: 'data',
+          targetJsonData: dataJsonObj,
           parentType: currentFormat,
-          nodeKey: `${nodeKey}-filter`,
+          nodeKey: `${nodeKey}-data-${dataJsonObj.format}`,
           hideOperaBtn: true,
           keyIsFixed: true,
           typeIsFixed: true,

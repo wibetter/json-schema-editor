@@ -1043,7 +1043,7 @@ class IndexDemo extends React.PureComponent {
             />
           </div>
           <div className="json-editor-box">
-            <JSONEditor
+            {/*<JSONEditor
               wideScreen={wideScreen} // 宽屏和小屏的配置项
               schemaData={jsonSchema}
               jsonData={jsonData}
@@ -1053,7 +1053,7 @@ class IndexDemo extends React.PureComponent {
                   jsonData: newJsonData,
                 });
               }}
-            />
+            />*/}
           </div>
         </div>
       </>

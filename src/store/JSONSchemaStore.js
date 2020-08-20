@@ -179,7 +179,7 @@ export default class JSONSchemaStore {
   }
 
   /** 根据索引路径值(indexRoute)更新对应的json数据对象
-   *  备注：主要用于变更对应的type属性值=
+   *  备注：主要用于变更对应的type属性值
    * */
   @action.bound
   changeType(curIndexRoute, jsonKey, newJsonDataObj, ignoreOnChange) {

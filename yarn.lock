@@ -1611,10 +1611,10 @@
     react "^16.8.6"
     react-dom "^16.8.6"
 
-"@wibetter/json-utils@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@wibetter/json-utils/-/json-utils-1.1.1.tgz#2b2e3da858ce3bd08e4be877110e9265e78d2c75"
-  integrity sha512-ctrCBJgOti20ZXv6vc+VR19Vg4u+oUycokCAve67Jz1w44ZYyr8gZ+b9PSZm/FQGxy96VTs8akZyuTUHP/gmjQ==
+"@wibetter/json-utils@^1.1.8":
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/@wibetter/json-utils/-/json-utils-1.1.8.tgz#7ca16398dac20afcf2643c1048a1e06441b09402"
+  integrity sha512-9FJaSPcUgJjzBlSWXPxok5lwQSPrOwjFhjtzQAQHInJ6XSUlQZ1uvvEeMvRTI7nFAlvNYSdvHzDaXG35yCOsbw==
   dependencies:
     "@babel/polyfill" "^7.10.1"
 
