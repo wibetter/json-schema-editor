@@ -1596,6 +1596,40 @@
     react-ace "^9.1.1"
     react-dom "^16.8.6"
 
+"@wibetter/json-editor@^3.3.9":
+  version "3.3.9"
+  resolved "https://registry.yarnpkg.com/@wibetter/json-editor/-/json-editor-3.3.9.tgz#4defde03e8a96bf8ae688b11e4f6027682a8e62f"
+  integrity sha512-GIhQy8Ln84LMp2v3Q/BnxrSYSjFCwn4B3WCs2awYUPdtRJ+Nz/Xnp1u4ParBqpUeGUQEnvkmaZ6wqiszl+IsYA==
+  dependencies:
+    "@ant-design/icons" "^4.2.1"
+    "@wibetter/json-schema-editor" "^3.3.10"
+    "@wibetter/json-utils" "^1.1.9"
+    ace-builds "^1.4.12"
+    antd "^4.3.4"
+    mobx "^5.15.4"
+    mobx-react "^6.2.2"
+    moment "^2.27.0"
+    prop-types "^15.7.2"
+    react "^16.8.6"
+    react-ace "^9.1.1"
+    react-dom "^16.8.6"
+
+"@wibetter/json-schema-editor@^3.3.10":
+  version "3.3.10"
+  resolved "https://registry.yarnpkg.com/@wibetter/json-schema-editor/-/json-schema-editor-3.3.10.tgz#ae07a2bc985ed9c548a42ae7a17e2d6a03910567"
+  integrity sha512-P8eaL/501YQQcKFD/mCSouIKUlhqZQvOb5BEBbX3qG6IxqvY8YX8SUOb7XRVbOS3Qvvqg5q+shXJsq5eOha7yQ==
+  dependencies:
+    "@ant-design/icons" "^4.2.1"
+    "@babel/polyfill" "^7.10.1"
+    "@wibetter/json-editor" "^3.3.5"
+    "@wibetter/json-utils" "^1.1.9"
+    antd "^4.3.4"
+    mobx "^5.15.4"
+    mobx-react "^6.2.2"
+    prop-types "^15.7.2"
+    react "^16.8.6"
+    react-dom "^16.8.6"
+
 "@wibetter/json-schema-editor@^3.3.6":
   version "3.3.6"
   resolved "https://registry.yarnpkg.com/@wibetter/json-schema-editor/-/json-schema-editor-3.3.6.tgz#adc3f7eb03a3a32c599d5860ea8f8457a97c7718"
@@ -1611,10 +1645,17 @@
     react "^16.8.6"
     react-dom "^16.8.6"
 
-"@wibetter/json-utils@^1.1.8":
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/@wibetter/json-utils/-/json-utils-1.1.8.tgz#7ca16398dac20afcf2643c1048a1e06441b09402"
-  integrity sha512-9FJaSPcUgJjzBlSWXPxok5lwQSPrOwjFhjtzQAQHInJ6XSUlQZ1uvvEeMvRTI7nFAlvNYSdvHzDaXG35yCOsbw==
+"@wibetter/json-utils@^1.1.13":
+  version "1.1.13"
+  resolved "https://registry.npmjs.org/@wibetter/json-utils/-/json-utils-1.1.13.tgz#ec8b4bf725c0dd998efc0a7255b1efd40909a5be"
+  integrity sha512-WQOjA3hLAW+LMYR/JNzi8YXtESj7TNIZbg1IEFolj9/CTe7jz2hRbxp/9Ga+YIhHar8WVT9/lrfty/96dmV4rA==
+  dependencies:
+    "@babel/polyfill" "^7.10.1"
+
+"@wibetter/json-utils@^1.1.9":
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/@wibetter/json-utils/-/json-utils-1.1.9.tgz#e22b1459921f0d3b1f56688ca2317cd57e09e46a"
+  integrity sha512-esz0NBlXtmHlSXnGuJ0uo91i1jumwKCt2UFy5XMFecPRzZtb2HsUBx6twXXxvMMuD9RSc3P869vcBVSIy2p8Nw==
   dependencies:
     "@babel/polyfill" "^7.10.1"
 
