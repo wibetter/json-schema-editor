@@ -1596,6 +1596,24 @@
     react-ace "^9.1.1"
     react-dom "^16.8.6"
 
+"@wibetter/json-editor@^3.3.23":
+  version "3.3.25"
+  resolved "https://registry.npmjs.org/@wibetter/json-editor/-/json-editor-3.3.25.tgz#02ee919fb2f59e1e62944fd99cbca449316e3b2d"
+  integrity sha512-4ANn5YNEbZdkzBChGcY4V1FrC5mzwhVZosEP7wW7d5tn30Pczbb2rnIWtmE/aTEDcH+/pWMlssA4S2UZVuDF0g==
+  dependencies:
+    "@ant-design/icons" "^4.2.1"
+    "@wibetter/json-schema-editor" "^3.3.15"
+    "@wibetter/json-utils" "^1.1.13"
+    ace-builds "^1.4.12"
+    antd "^4.3.4"
+    mobx "^5.15.4"
+    mobx-react "^6.2.2"
+    moment "^2.27.0"
+    prop-types "^15.7.2"
+    react "^16.8.6"
+    react-ace "^9.1.1"
+    react-dom "^16.8.6"
+
 "@wibetter/json-editor@^3.3.9":
   version "3.3.9"
   resolved "https://registry.yarnpkg.com/@wibetter/json-editor/-/json-editor-3.3.9.tgz#4defde03e8a96bf8ae688b11e4f6027682a8e62f"
@@ -1623,6 +1641,22 @@
     "@babel/polyfill" "^7.10.1"
     "@wibetter/json-editor" "^3.3.5"
     "@wibetter/json-utils" "^1.1.9"
+    antd "^4.3.4"
+    mobx "^5.15.4"
+    mobx-react "^6.2.2"
+    prop-types "^15.7.2"
+    react "^16.8.6"
+    react-dom "^16.8.6"
+
+"@wibetter/json-schema-editor@^3.3.15":
+  version "3.3.15"
+  resolved "https://registry.npmjs.org/@wibetter/json-schema-editor/-/json-schema-editor-3.3.15.tgz#942541c40c6b3e1da09b426a9256379409b60d3d"
+  integrity sha512-ZBvyrwMZcIozkFVnY8MwyDrFZIUUj5RJUQKVD5KvVmyjRDKbuhbxeXfRiBcC1aN6KSzb8fVkrPNAwz3IsBOKjQ==
+  dependencies:
+    "@ant-design/icons" "^4.2.1"
+    "@babel/polyfill" "^7.10.1"
+    "@wibetter/json-editor" "^3.3.9"
+    "@wibetter/json-utils" "^1.1.13"
     antd "^4.3.4"
     mobx "^5.15.4"
     mobx-react "^6.2.2"
