@@ -70,10 +70,10 @@ class EnumItemSchema extends React.PureComponent {
     const {
       indexRoute,
       enumIndex,
-      getJSONDataByIndex,
+      getSchemaByIndexRoute,
       deleteEnumItem,
     } = this.props;
-    const itemJSONObj = getJSONDataByIndex(indexRoute);
+    const itemJSONObj = getSchemaByIndexRoute(indexRoute);
     if (itemJSONObj.enum && itemJSONObj.enum.length > 1) {
       deleteEnumItem(indexRoute, enumIndex); // 删除指定位置的枚举值
     } else {
@@ -133,7 +133,7 @@ class EnumItemSchema extends React.PureComponent {
 }
 
 export default inject((stores) => ({
-  getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
+  getSchemaByIndexRoute: stores.jsonSchemaStore.getSchemaByIndexRoute,
   updateEnumKey: stores.jsonSchemaStore.updateEnumKey,
   updateEnumText: stores.jsonSchemaStore.updateEnumText,
   isExitEnumKey: stores.jsonSchemaStore.isExitEnumKey,

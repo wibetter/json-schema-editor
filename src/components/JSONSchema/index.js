@@ -17,7 +17,7 @@ import {
   isSameParent,
   getCurPosition,
   moveForward,
-} from '$utils/jsonSchema';
+} from '@wibetter/json-utils';
 import './index.scss';
 
 class JSONSchema extends React.PureComponent {
@@ -70,7 +70,7 @@ class JSONSchema extends React.PureComponent {
      * */
     const { dragNode, node } = eventData;
     const {
-      getJSONDataByIndex,
+      getSchemaByIndexRoute,
       indexRoute2keyRoute,
       insertJsonData,
       deleteJsonByIndex,
@@ -83,7 +83,7 @@ class JSONSchema extends React.PureComponent {
     const curIndexRoute = dragNode.indexRoute;
     const curJsonKey = dragNode.jsonKey;
     // 获取当前拖动的元素
-    const curJsonObj = getJSONDataByIndex(curIndexRoute);
+    const curJsonObj = getSchemaByIndexRoute(curIndexRoute);
     console.log(curIndexRoute);
 
     // 放置的目标元素key
@@ -234,7 +234,7 @@ export default inject((stores) => ({
   initJSONSchemaData: stores.jsonSchemaStore.initJSONSchemaData,
   initOnChange: stores.jsonSchemaStore.initOnChange,
   setPageScreen: stores.jsonSchemaStore.setPageScreen,
-  getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
+  getSchemaByIndexRoute: stores.jsonSchemaStore.getSchemaByIndexRoute,
   indexRoute2keyRoute: stores.jsonSchemaStore.indexRoute2keyRoute,
   insertJsonData: stores.jsonSchemaStore.insertJsonData,
   deleteJsonByIndex: stores.jsonSchemaStore.deleteJsonByIndex,

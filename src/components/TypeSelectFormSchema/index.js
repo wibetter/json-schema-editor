@@ -3,12 +3,12 @@ import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Input, Select } from 'antd';
 const { Option } = Select;
-import { EventTypeDataList } from '$data/TypeDataList';
 import {
   getCurrentFormat,
   getNextIndexRoute,
   getParentIndexRoute,
-} from '$utils/jsonSchema';
+  EventTypeDataList,
+} from '@wibetter/json-utils';
 import './index.scss';
 
 /** 主要用于渲染typeSelect类型的元素

@@ -1,5 +1,3 @@
-// import JSON5 from 'json5';
-
 /** js对象数据深拷贝，避免数据联动 */
 export function objClone(targetObj) {
   const newObj = JSON.stringify(targetObj);

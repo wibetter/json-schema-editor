@@ -3,7 +3,7 @@ import { Tree } from 'antd';
 const { TreeNode } = Tree;
 import BaseFormSchema from '$components/BaseFormSchema/index';
 import MappingRender from '$components/MappingRender';
-import { getCurrentFormat } from '$utils/jsonSchema';
+import { getCurrentFormat } from '@wibetter/json-utils';
 
 /** 渲染当前字段的表单项（Tree的单项内容） */
 const getTreeNodeTitleCont = (params) => <BaseFormSchema {...params} />;
