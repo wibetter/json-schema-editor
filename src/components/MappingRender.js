@@ -1,4 +1,4 @@
-import { getCurrentFormat } from '$utils/jsonSchema';
+import { getCurrentFormat } from '@wibetter/json-utils';
 import ArraySchema from '$components/ArraySchema/index';
 import ObjectSchema from '$components/ObjectSchema/index';
 import DataSourceSchema from '$components/DataSourceSchema/index';

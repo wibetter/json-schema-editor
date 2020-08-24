@@ -12,7 +12,7 @@ import {
   isNeedMinMaxOption,
   isNeedMinMaxChildOption,
 } from '$utils/advanced.config';
-import { getCurrentFormat } from '$utils/jsonSchema';
+import { getCurrentFormat } from '@wibetter/json-utils';
 import './index.scss';
 
 class AdvanceConfig extends React.PureComponent {
@@ -454,6 +454,6 @@ class AdvanceConfig extends React.PureComponent {
 }
 
 export default inject((stores) => ({
-  getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
+  getSchemaByIndexRoute: stores.jsonSchemaStore.getSchemaByIndexRoute,
   editJsonData: stores.jsonSchemaStore.editJsonData,
 }))(observer(AdvanceConfig));

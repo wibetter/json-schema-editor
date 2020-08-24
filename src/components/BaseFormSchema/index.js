@@ -16,10 +16,10 @@ import {
   isFirstSchemaData,
   getCurrentFormat,
   getParentIndexRoute,
-} from '$utils/jsonSchema';
+  TypeDataList,
+} from '@wibetter/json-utils';
 import { objClone, saveWebCacheData } from '$utils/index';
 import { TypeList } from '$data/TypeList';
-import { TypeDataList } from '$data/TypeDataList';
 import './index.scss';
 
 class BaseFormSchema extends React.PureComponent {
@@ -118,7 +118,7 @@ class BaseFormSchema extends React.PureComponent {
     const {
       indexRoute,
       targetJsonData,
-      getJSONDataByIndex,
+      getSchemaByIndexRoute,
       indexRoute2keyRoute,
       jsonKey,
       insertJsonData,
@@ -127,7 +127,7 @@ class BaseFormSchema extends React.PureComponent {
     const newJsonData = objClone(targetJsonData);
     // 1.获取父元素
     const parentIndexRoute = getParentIndexRoute(indexRoute);
-    const parentJSONObj = getJSONDataByIndex(parentIndexRoute);
+    const parentJSONObj = getSchemaByIndexRoute(parentIndexRoute);
     // 2.生成一个新的key值
     const newJsonKey = getNewJsonKeyIndex(parentJSONObj, jsonKey);
     // 3.复制时记录数据来源的路径值（备注：只保留最近的一次copy数值源）
@@ -314,7 +314,7 @@ class BaseFormSchema extends React.PureComponent {
 export default inject((stores) => ({
   getNewJsonKeyIndex: stores.jsonSchemaStore.getNewJsonKeyIndex,
   deleteJsonByIndex_CurKey: stores.jsonSchemaStore.deleteJsonByIndex_CurKey,
-  getJSONDataByIndex: stores.jsonSchemaStore.getJSONDataByIndex,
+  getSchemaByIndexRoute: stores.jsonSchemaStore.getSchemaByIndexRoute,
   indexRoute2keyRoute: stores.jsonSchemaStore.indexRoute2keyRoute,
   addChildJson: stores.jsonSchemaStore.addChildJson,
   addNextJsonData: stores.jsonSchemaStore.addNextJsonData,
