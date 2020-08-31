@@ -44,8 +44,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "@wibetter/json-utils": "^1.1.13",
-    "@wibetter/json-editor": "^3.3.23"
+    "@wibetter/json-utils": "^1.1.16",
+    "@wibetter/json-editor": "^3.3.27"
   },
   "devDependencies": {
     "akfun": "^1.5.1",
