@@ -1,9 +1,9 @@
 import React from 'react';
 import { Tree } from 'antd';
 const { TreeNode } = Tree;
+import { getCurrentFormat } from '@wibetter/json-utils';
 import BaseFormSchema from '$components/BaseFormSchema/index';
 import MappingRender from '$components/MappingRender';
-import { getCurrentFormat } from '@wibetter/json-utils';
 
 /** 渲染当前字段的表单项（Tree的单项内容） */
 const getTreeNodeTitleCont = (params) => <BaseFormSchema {...params} />;
