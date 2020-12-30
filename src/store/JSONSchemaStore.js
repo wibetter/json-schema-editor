@@ -482,9 +482,13 @@ export default class JSONSchemaStore {
   childElemSort = (indexRoute) => {
     const itemJSONObj = getSchemaByIndexRoute(indexRoute, this.jsonSchema);
     const curPropertyOrder = itemJSONObj.propertyOrder; // 待排序的key值数组
-    const baseElemArr = []; // 基础类型：input、url、quantity、number
-    const selectElemArr = []; // 选择类型：radio、select、color、boolean、date、date-time、time
+    const baseElemArr = []; // 基础类型：input、url
+    const numberElemArr = []; // 数字类型：quantity、number
+    const selectElemArr = []; // 选择类型：radio、select、color、boolean
+    const timeElemArr = []; // 时间类型：date、date-time、time
     const areaElemArr = []; // 长文本类型：textarea、codearea、htmlarea、json
+    const imageElemArr = []; // 图片类型
+    const objectElemArr = []; // object、array类型
     const funcElemArr = []; // event、datasource等特殊类型
 
     for (let index = 0, size = curPropertyOrder.length; index < size; index++) {
@@ -494,18 +498,22 @@ export default class JSONSchemaStore {
       switch (curType) {
         case 'input':
         case 'url':
+          baseElemArr.push(curKey);
+          break;
         case 'number':
         case 'quantity':
-          baseElemArr.push(curKey);
+          numberElemArr.push(curKey);
           break;
         case 'radio':
         case 'select':
         case 'boolean':
+        case 'color':
+          selectElemArr.push(curKey);
+          break;
         case 'date':
         case 'date-time':
         case 'time':
-        case 'color':
-          selectElemArr.push(curKey);
+          timeElemArr.push(curKey);
           break;
         case 'textarea':
         case 'json':
@@ -513,16 +521,28 @@ export default class JSONSchemaStore {
         case 'htmlarea':
           areaElemArr.push(curKey);
           break;
+        case 'image':
+          imageElemArr.push(curKey);
+          break;
+        case 'object':
+        case 'array':
+          objectElemArr.push(curKey);
+          break;
         default:
           funcElemArr.push(curKey);
           break;
       }
     }
+
     // 获取最新的key值顺序数组
     itemJSONObj.propertyOrder = [
       ...baseElemArr,
+      ...numberElemArr,
       ...selectElemArr,
+      ...timeElemArr,
+      ...imageElemArr,
       ...areaElemArr,
+      ...objectElemArr,
       ...funcElemArr,
     ];
     // 触发onChange事件
