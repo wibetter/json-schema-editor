@@ -92,6 +92,7 @@ export const ALL_TYPE = [
   'codearea',
   'htmlarea',
   'datasource',
+  'dynamic-data',
   'event',
   'array',
   'object',
