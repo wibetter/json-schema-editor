@@ -9,6 +9,7 @@ import {
   CopyOutlined,
   DragOutlined,
   SettingOutlined,
+  SortAscendingOutlined,
 } from '@ant-design/icons';
 import AdvanceConfig from '$components/AdvanceConfig/index'; // 高级配置内容
 import {
@@ -48,6 +49,7 @@ class BaseFormSchema extends React.PureComponent {
     this.handleJsonKeyChange = this.handleJsonKeyChange.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.selectHandleChange = this.selectHandleChange.bind(this);
+    this.childElemSort = this.childElemSort.bind(this);
   }
 
   /** select类型变动事件处理器 */
@@ -152,6 +154,12 @@ class BaseFormSchema extends React.PureComponent {
     event.stopPropagation();
   };
 
+  /** 数据项排序功能 */
+  childElemSort = () => {
+    const { indexRoute, childElemSort } = this.props;
+    childElemSort(indexRoute);
+  };
+
   render() {
     const {
       parentType,
@@ -171,6 +179,7 @@ class BaseFormSchema extends React.PureComponent {
     const currentFormat = getCurrentFormat(targetJsonData);
     const isFirstSchema = isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
     const readOnly = isFirstChild || isFirstSchema || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
+    const isBoxElem = isBoxSchemaData(currentFormat); // 判断是否是容器类型元素
 
     return (
       <>
@@ -228,18 +237,23 @@ class BaseFormSchema extends React.PureComponent {
                     />
                   </Tooltip>
                 )}
-                <Tooltip
-                  title={
-                    isBoxSchemaData(currentFormat)
-                      ? '新增子节点'
-                      : '新增兄弟节点'
-                  }
-                >
+                <Tooltip title={isBoxElem ? '新增子节点' : '新增兄弟节点'}>
                   <PlusOutlined
                     className="operate-btn"
                     onClick={this.onAddBtnEvent}
                   />
                 </Tooltip>
+
+                {/* 自动排序功能 */}
+                {isBoxElem && (
+                  <Tooltip title={'数据项排序'}>
+                    <SortAscendingOutlined
+                      className="operate-btn"
+                      onClick={this.childElemSort}
+                    />
+                  </Tooltip>
+                )}
+
                 {!readOnly && (
                   <Tooltip title="复制">
                     <CopyOutlined
@@ -319,6 +333,7 @@ export default inject((stores) => ({
   addChildJson: stores.jsonSchemaStore.addChildJson,
   addNextJsonData: stores.jsonSchemaStore.addNextJsonData,
   insertJsonData: stores.jsonSchemaStore.insertJsonData,
+  childElemSort: stores.jsonSchemaStore.childElemSort,
   editJsonData: stores.jsonSchemaStore.editJsonData,
   editJsonKey: stores.jsonSchemaStore.editJsonKey,
   changeType: stores.jsonSchemaStore.changeType,

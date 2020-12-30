@@ -5,7 +5,7 @@ import MappingRender from '$components/MappingRender';
 const { TreeNode } = Tree;
 import { isFirstSchemaData, getCurrentFormat } from '@wibetter/json-utils';
 
-/** 渲染当前字段的表单项（Tree的单项内容） */
+/** 渲染当前字段的表单项（Tree的表单项内容） */
 const getTreeNodeTitleCont = (params) => <BaseFormSchema {...params} />;
 
 /** 渲染properties中的元素

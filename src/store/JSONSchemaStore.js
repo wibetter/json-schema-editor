@@ -11,6 +11,7 @@ import {
   oldSchemaToNewSchema,
   isBoxSchemaData,
   indexRoute2keyRoute,
+  getCurrentFormat,
   KeyWordList,
   TypeDataList,
 } from '@wibetter/json-utils';
@@ -475,4 +476,56 @@ export default class JSONSchemaStore {
       this.insertEnumItem(indexRoute, enumIndex, newEnumKey, newEnumText); // 插入copy的枚举元素
     }
   }
+
+  /** 数据项排序功能 */
+  @action.bound
+  childElemSort = (indexRoute) => {
+    const itemJSONObj = getSchemaByIndexRoute(indexRoute, this.jsonSchema);
+    const curPropertyOrder = itemJSONObj.propertyOrder; // 待排序的key值数组
+    const baseElemArr = []; // 基础类型：input、url、quantity、number
+    const selectElemArr = []; // 选择类型：radio、select、color、boolean、date、date-time、time
+    const areaElemArr = []; // 长文本类型：textarea、codearea、htmlarea、json
+    const funcElemArr = []; // event、datasource等特殊类型
+
+    for (let index = 0, size = curPropertyOrder.length; index < size; index++) {
+      const curKey = curPropertyOrder[index];
+      const curItem = itemJSONObj.properties[curKey];
+      const curType = getCurrentFormat(curItem);
+      switch (curType) {
+        case 'input':
+        case 'url':
+        case 'number':
+        case 'quantity':
+          baseElemArr.push(curKey);
+          break;
+        case 'radio':
+        case 'select':
+        case 'boolean':
+        case 'date':
+        case 'date-time':
+        case 'time':
+        case 'color':
+          selectElemArr.push(curKey);
+          break;
+        case 'textarea':
+        case 'json':
+        case 'codearea':
+        case 'htmlarea':
+          areaElemArr.push(curKey);
+          break;
+        default:
+          funcElemArr.push(curKey);
+          break;
+      }
+    }
+    // 获取最新的key值顺序数组
+    itemJSONObj.propertyOrder = [
+      ...baseElemArr,
+      ...selectElemArr,
+      ...areaElemArr,
+      ...funcElemArr,
+    ];
+    // 触发onChange事件
+    this.jsonSchemaChange();
+  };
 }
