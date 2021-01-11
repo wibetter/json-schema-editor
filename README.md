@@ -2,8 +2,6 @@
 
 > JSON数据可视化/JSONSchema, 以可视化界面编辑json schema数据（带结构/格式的json数据）。
 
-使用场景：以可视化界面自定模型数据（json schema数据）
-
 技术栈：React/Mobx/Ant Design
 
 特点：
@@ -16,7 +14,6 @@
 
 ## 功能示例
 
-##### JSONSchema功能示例：
 ![image](https://user-images.githubusercontent.com/11958920/104154681-78f5e680-5420-11eb-978f-6219acfa933d.png)
 
 ## 安装
