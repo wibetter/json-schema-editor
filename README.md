@@ -6,7 +6,7 @@
 
 特点：
 1. 支持11种基础类型组件（input、boolean、 date、date-time、 time、 url、 textarea、number、color、radio、 select）
-2. 支持9个特殊类型组件（object、array、Json、datasource、dynamic-data、event、codearea、htmlarea、quantity）
+2. 支持10个特殊类型组件（object、array、Json、datasource、dynamic-data、event、codearea、htmlarea、text-editor、quantity）
 3. 拖拽排序
 4. 复制功能
 5. 复杂嵌套
