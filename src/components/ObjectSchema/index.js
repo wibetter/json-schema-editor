@@ -44,7 +44,7 @@ const propertiesRender = (params) => {
       indexRoute: currentIndexRoute,
       key: nodeKey,
       nodeKey,
-      targetJsonData: currentSchemaData,
+      targetJsonSchema: currentSchemaData,
     });
   });
 };
@@ -57,16 +57,16 @@ const ObjectSchema = (props) => {
     jsonKey,
     indexRoute,
     nodeKey,
-    targetJsonData,
+    targetJsonSchema,
     isOnlyShowChild,
   } = props;
-  const currentFormat = getCurrentFormat(targetJsonData);
+  const currentFormat = getCurrentFormat(targetJsonSchema);
   const isFirstSchema = isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
 
   /** 先获取当前节点的properties内容 */
   const propertiesContElem = propertiesRender({
-    propertyOrder: targetJsonData.propertyOrder,
-    properties: targetJsonData.properties,
+    propertyOrder: targetJsonSchema.propertyOrder,
+    properties: targetJsonSchema.properties,
     parentIndexRoute: indexRoute,
     parentNodeKey: nodeKey,
     parentType: currentFormat,

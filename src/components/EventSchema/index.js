@@ -13,15 +13,15 @@ const getTypeSelectCont = (params) => <TypeSelectFormSchema {...params} />;
 
 /** Event类型渲染组件 */
 const EventSchema = (props) => {
-  const { jsonKey, indexRoute, nodeKey, targetJsonData } = props;
-  const currentFormat = getCurrentFormat(targetJsonData);
-  const typeJsonObj = targetJsonData.properties.type || {};
+  const { jsonKey, indexRoute, nodeKey, targetJsonSchema } = props;
+  const currentFormat = getCurrentFormat(targetJsonSchema);
+  const typeJsonObj = targetJsonSchema.properties.type || {};
   // 注册类型事件的数据对象
-  const registerJsonObj = targetJsonData.properties.register || {};
-  const actionFuncJsonObj = targetJsonData.properties.actionFunc || {};
+  const registerJsonObj = targetJsonSchema.properties.register || {};
+  const actionFuncJsonObj = targetJsonSchema.properties.actionFunc || {};
   // 触发事件类型的数据对象
-  const triggerJsonObj = targetJsonData.properties.trigger || {};
-  const eventDataJsonObj = targetJsonData.properties.eventData || {};
+  const triggerJsonObj = targetJsonSchema.properties.trigger || {};
+  const eventDataJsonObj = targetJsonSchema.properties.eventData || {};
 
   return (
     <TreeNode
@@ -44,7 +44,7 @@ const EventSchema = (props) => {
         title={getTypeSelectCont({
           indexRoute: indexRoute ? `${indexRoute}-0` : '0',
           jsonKey: 'type',
-          targetJsonData: typeJsonObj,
+          targetJsonSchema: typeJsonObj,
           parentType: currentFormat,
           nodeKey: `${nodeKey}-type`,
         })}
@@ -60,7 +60,7 @@ const EventSchema = (props) => {
           title={getTreeNodeTitleCont({
             indexRoute: indexRoute ? `${indexRoute}-1` : '1',
             jsonKey: 'register',
-            targetJsonData: registerJsonObj,
+            targetJsonSchema: registerJsonObj,
             parentType: currentFormat,
             nodeKey: `${nodeKey}-register-${typeJsonObj.default}`,
             hideOperaBtn: true,
@@ -80,7 +80,7 @@ const EventSchema = (props) => {
           title={getTreeNodeTitleCont({
             indexRoute: indexRoute ? `${indexRoute}-2` : '2',
             jsonKey: 'actionFunc',
-            targetJsonData: actionFuncJsonObj,
+            targetJsonSchema: actionFuncJsonObj,
             parentType: currentFormat,
             nodeKey: `${nodeKey}-actionFunc-${typeJsonObj.default}`,
             hideOperaBtn: true,
@@ -100,7 +100,7 @@ const EventSchema = (props) => {
           title={getTreeNodeTitleCont({
             indexRoute: indexRoute ? `${indexRoute}-1` : '1',
             jsonKey: 'trigger',
-            targetJsonData: triggerJsonObj,
+            targetJsonSchema: triggerJsonObj,
             parentType: currentFormat,
             nodeKey: `${nodeKey}-trigger-${typeJsonObj.default}`,
             hideOperaBtn: true,
@@ -120,7 +120,7 @@ const EventSchema = (props) => {
           title={getTreeNodeTitleCont({
             indexRoute: indexRoute ? `${indexRoute}-2` : '2',
             jsonKey: 'eventData',
-            targetJsonData: eventDataJsonObj,
+            targetJsonSchema: eventDataJsonObj,
             parentType: currentFormat,
             nodeKey: `${nodeKey}-eventData-${typeJsonObj.default}`,
             hideOperaBtn: true,

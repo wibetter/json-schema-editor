@@ -29,7 +29,7 @@ class BaseFormSchema extends React.PureComponent {
     jsonKey: PropTypes.string,
     indexRoute: PropTypes.string,
     nodeKey: PropTypes.string,
-    targetJsonData: PropTypes.any,
+    targetJsonSchema: PropTypes.any,
     isFixed: PropTypes.any,
     hideOperaBtn: PropTypes.any,
     keyIsFixed: PropTypes.any,
@@ -54,8 +54,8 @@ class BaseFormSchema extends React.PureComponent {
 
   /** select类型变动事件处理器 */
   selectHandleChange = (newFormat) => {
-    const { indexRoute, jsonKey, changeType, targetJsonData } = this.props;
-    if (targetJsonData.format === newFormat) return; // format值未改变则直接跳出
+    const { indexRoute, jsonKey, changeType, targetJsonSchema } = this.props;
+    if (targetJsonSchema.format === newFormat) return; // format值未改变则直接跳出
     // 根据当前新的类型获取初始化的对象数据
     const newTypeData = TypeDataList[newFormat];
     changeType(indexRoute, jsonKey, newTypeData);
@@ -76,8 +76,8 @@ class BaseFormSchema extends React.PureComponent {
   /** title类型输入值变动事件处理器 */
   handleTitleChange = (event) => {
     const { value } = event.target;
-    const { indexRoute, jsonKey, editJsonData, targetJsonData } = this.props;
-    if (targetJsonData.title === value) return; // title值未改变则直接跳出
+    const { indexRoute, jsonKey, editJsonData, targetJsonSchema } = this.props;
+    if (targetJsonSchema.title === value) return; // title值未改变则直接跳出
     editJsonData(indexRoute, jsonKey, {
       title: value,
     });
@@ -99,11 +99,11 @@ class BaseFormSchema extends React.PureComponent {
   onAddBtnEvent = () => {
     const {
       indexRoute,
-      targetJsonData,
+      targetJsonSchema,
       addChildJson,
       addNextJsonData,
     } = this.props;
-    const currentFormat = getCurrentFormat(targetJsonData);
+    const currentFormat = getCurrentFormat(targetJsonSchema);
 
     if (isBoxSchemaData(currentFormat)) {
       // 表示当前是容器类型字段
@@ -119,21 +119,21 @@ class BaseFormSchema extends React.PureComponent {
   onCopyBtnEvent = () => {
     const {
       indexRoute,
-      targetJsonData,
+      targetJsonSchema,
       getSchemaByIndexRoute,
       indexRoute2keyRoute,
       jsonKey,
       insertJsonData,
       getNewJsonKeyIndex,
     } = this.props;
-    const newJsonData = objClone(targetJsonData);
+    const newJsonData = objClone(targetJsonSchema);
     // 1.获取父元素
     const parentIndexRoute = getParentIndexRoute(indexRoute);
     const parentJSONObj = getSchemaByIndexRoute(parentIndexRoute);
     // 2.生成一个新的key值
     const newJsonKey = getNewJsonKeyIndex(parentJSONObj, jsonKey);
     // 3.复制时记录数据来源的路径值（备注：只保留最近的一次copy数值源）
-    const currentFormat = getCurrentFormat(targetJsonData);
+    const currentFormat = getCurrentFormat(targetJsonSchema);
     saveWebCacheData(
       `${indexRoute2keyRoute(parentIndexRoute)}-${newJsonKey}-${currentFormat}`,
       indexRoute2keyRoute(indexRoute),
@@ -166,7 +166,7 @@ class BaseFormSchema extends React.PureComponent {
       indexRoute,
       jsonKey,
       nodeKey,
-      targetJsonData,
+      targetJsonSchema,
     } = this.props;
     const { isShowAdvance } = this.state;
     const isFirstChild = this.props.isFirstSchema || false; // 是否是最外层的schema元素
@@ -176,14 +176,14 @@ class BaseFormSchema extends React.PureComponent {
     const titleIsFixed = this.props.titleIsFixed || false; // title是否为不可编辑的属性
     const hideOperaBtn = isFirstChild || this.props.hideOperaBtn || false; // 是否隐藏操作类按钮
     const currentTypeList = this.getCurrentTypeList(parentType); // 根据父级元素类型获取可供使用的类型清单
-    const currentFormat = getCurrentFormat(targetJsonData);
+    const currentFormat = getCurrentFormat(targetJsonSchema);
     const isFirstSchema = isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
     const readOnly = isFirstChild || isFirstSchema || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
     const isBoxElem = isBoxSchemaData(currentFormat); // 判断是否是容器类型元素
 
     return (
       <>
-        {targetJsonData && (
+        {targetJsonSchema && (
           <div className="base-schema-box" id={nodeKey}>
             <div
               className="key-input-item"
@@ -221,7 +221,7 @@ class BaseFormSchema extends React.PureComponent {
               onDragStart={this.ignoreDragEvent}
             >
               <Input
-                defaultValue={targetJsonData.title}
+                defaultValue={targetJsonSchema.title}
                 disabled={readOnly || titleIsFixed}
                 onPressEnter={this.handleTitleChange}
                 onBlur={this.handleTitleChange}
@@ -285,7 +285,7 @@ class BaseFormSchema extends React.PureComponent {
             {hideOperaBtn && <div className="operate-item">&nbsp;</div>}
             <Modal
               visible={isShowAdvance}
-              title={`高级设置 / 当前字段：${targetJsonData.title}(${jsonKey})`}
+              title={`高级设置 / 当前字段：${targetJsonSchema.title}(${jsonKey})`}
               onCancel={() => {
                 this.setState({
                   isShowAdvance: false,
@@ -309,13 +309,13 @@ class BaseFormSchema extends React.PureComponent {
                 {...{
                   indexRoute,
                   jsonKey,
-                  targetJsonData,
+                  targetJsonSchema,
                 }}
               />
             </Modal>
           </div>
         )}
-        {!targetJsonData && (
+        {!targetJsonSchema && (
           <div className="base-schema-box">
             <div className="warn-text">{jsonKey}：数据元素为空</div>
           </div>

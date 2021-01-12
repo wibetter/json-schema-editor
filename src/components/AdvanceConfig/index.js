@@ -20,7 +20,7 @@ class AdvanceConfig extends React.PureComponent {
     jsonKey: PropTypes.string,
     indexRoute: PropTypes.string,
     nodeKey: PropTypes.string,
-    targetJsonData: PropTypes.any,
+    targetJsonSchema: PropTypes.any,
   };
 
   constructor(props) {
@@ -31,20 +31,20 @@ class AdvanceConfig extends React.PureComponent {
 
   /** 数值变动事件处理器 */
   handleValueChange = (curKey, newVal) => {
-    const { indexRoute, jsonKey, targetJsonData, editJsonData } = this.props;
-    if (targetJsonData[curKey] === newVal) return; // title值未改变则直接跳出
+    const { indexRoute, jsonKey, targetJsonSchema, editJsonData } = this.props;
+    if (targetJsonSchema[curKey] === newVal) return; // title值未改变则直接跳出
     const newJsonData = {};
     newJsonData[curKey] = newVal;
     editJsonData(indexRoute, jsonKey, newJsonData);
   };
 
   /** 根据当前类型显示对应的输入组件 */
-  renderDefaultContent = (currentFormat, targetJsonData, nodeKey) => {
+  renderDefaultContent = (currentFormat, targetJsonSchema, nodeKey) => {
     if (currentFormat === 'boolean') {
       return (
         <Switch
           style={{ display: 'inline-block' }}
-          defaultChecked={targetJsonData.default}
+          defaultChecked={targetJsonSchema.default}
           checkedChildren="true"
           unCheckedChildren="false"
           onChange={(checked) => {
@@ -55,12 +55,12 @@ class AdvanceConfig extends React.PureComponent {
     }
     if (currentFormat === 'radio') {
       // 如果是选择类型的组件，需要提取选择项
-      const enumKeys = targetJsonData.items.enum;
-      const enumTexts = targetJsonData.items.enumextra;
+      const enumKeys = targetJsonSchema.items.enum;
+      const enumTexts = targetJsonSchema.items.enumextra;
       return (
         <Radio.Group
           style={{ display: 'inline-block' }}
-          defaultValue={targetJsonData.default}
+          defaultValue={targetJsonSchema.default}
           onChange={(event) => {
             const { value } = event.target;
             this.handleValueChange('default', value);
@@ -84,15 +84,15 @@ class AdvanceConfig extends React.PureComponent {
     }
     if (currentFormat === 'select') {
       // 如果是选择类型的组件，需要提取选择项
-      const enumKeys = targetJsonData.items.enum;
-      const enumTexts = targetJsonData.items.enumextra;
+      const enumKeys = targetJsonSchema.items.enum;
+      const enumTexts = targetJsonSchema.items.enumextra;
       return (
         <Checkbox.Group
           style={{ display: 'inline-block' }}
           onChange={(checkedValue) => {
             this.handleValueChange('default', checkedValue);
           }}
-          defaultValue={targetJsonData.default}
+          defaultValue={targetJsonSchema.default}
         >
           {enumKeys &&
             enumKeys.length > 0 &&
@@ -116,7 +116,7 @@ class AdvanceConfig extends React.PureComponent {
           style={{ display: 'inline-block' }}
           className="color-item-form"
           type="color"
-          defaultValue={targetJsonData.default}
+          defaultValue={targetJsonSchema.default}
           onChange={(event) => {
             const { value } = event.target;
             this.handleValueChange('default', value);
@@ -134,8 +134,8 @@ class AdvanceConfig extends React.PureComponent {
         <TextArea
           style={{ display: 'inline-block' }}
           rows={4}
-          placeholder={`请输入${targetJsonData.title}的默认值`}
-          defaultValue={targetJsonData.default}
+          placeholder={`请输入${targetJsonSchema.title}的默认值`}
+          defaultValue={targetJsonSchema.default}
           onPressEnter={(event) => {
             const { value } = event.target;
             this.handleValueChange('default', value);
@@ -151,8 +151,8 @@ class AdvanceConfig extends React.PureComponent {
       return (
         <InputNumber
           style={{ display: 'inline-block' }}
-          placeholder={`请输入${targetJsonData.title}的默认值`}
-          defaultValue={targetJsonData.default}
+          placeholder={`请输入${targetJsonSchema.title}的默认值`}
+          defaultValue={targetJsonSchema.default}
           onChange={(newVal) => {
             this.handleValueChange('default', newVal);
           }}
@@ -163,8 +163,8 @@ class AdvanceConfig extends React.PureComponent {
     return (
       <Input
         style={{ display: 'inline-block' }}
-        placeholder={`请输入${targetJsonData.title}的默认值`}
-        defaultValue={targetJsonData.default}
+        placeholder={`请输入${targetJsonSchema.title}的默认值`}
+        defaultValue={targetJsonSchema.default}
         onPressEnter={(event) => {
           const { value } = event.target;
           this.handleValueChange('default', value);
@@ -178,8 +178,8 @@ class AdvanceConfig extends React.PureComponent {
   };
 
   render() {
-    const { nodeKey, targetJsonData } = this.props;
-    const currentFormat = getCurrentFormat(targetJsonData);
+    const { nodeKey, targetJsonSchema } = this.props;
+    const currentFormat = getCurrentFormat(targetJsonSchema);
 
     /** 默认值需要进行细分
      *  输入形式的基础类型组件（input、boolean、 date、date-time、 time、 url、number），以input表单形式让用户填充；
@@ -193,7 +193,7 @@ class AdvanceConfig extends React.PureComponent {
         {isNeedReadOnlyOption(currentFormat) && (
           <div
             className="wide-screen-element-warp"
-            key={`${nodeKey}-readOnly-${targetJsonData.readOnly}`}
+            key={`${nodeKey}-readOnly-${targetJsonSchema.readOnly}`}
           >
             <div className="element-title">
               <Tooltip
@@ -207,7 +207,7 @@ class AdvanceConfig extends React.PureComponent {
               <div className="form-item-box">
                 <Switch
                   style={{ display: 'inline-block' }}
-                  defaultChecked={targetJsonData.readOnly}
+                  defaultChecked={targetJsonSchema.readOnly}
                   checkedChildren="true"
                   unCheckedChildren="false"
                   onChange={(checked) => {
@@ -221,7 +221,7 @@ class AdvanceConfig extends React.PureComponent {
         {isNeedIsRequiredOption(currentFormat) && (
           <div
             className="wide-screen-element-warp"
-            key={`${nodeKey}-isRequired-${targetJsonData.isRequired}`}
+            key={`${nodeKey}-isRequired-${targetJsonSchema.isRequired}`}
           >
             <div className="element-title">
               <Tooltip
@@ -237,7 +237,7 @@ class AdvanceConfig extends React.PureComponent {
               <div className="form-item-box">
                 <Switch
                   style={{ display: 'inline-block' }}
-                  defaultChecked={targetJsonData.isRequired}
+                  defaultChecked={targetJsonSchema.isRequired}
                   checkedChildren="true"
                   unCheckedChildren="false"
                   onChange={(checked) => {
@@ -259,7 +259,7 @@ class AdvanceConfig extends React.PureComponent {
               <div className="form-item-box">
                 {this.renderDefaultContent(
                   currentFormat,
-                  targetJsonData,
+                  targetJsonSchema,
                   nodeKey,
                 )}
               </div>
@@ -283,8 +283,8 @@ class AdvanceConfig extends React.PureComponent {
               <div className="form-item-box">
                 <Input
                   style={{ display: 'inline-block' }}
-                  placeholder={`请输入${targetJsonData.title}的字段描述`}
-                  defaultValue={targetJsonData.description}
+                  placeholder={`请输入${targetJsonSchema.title}的字段描述`}
+                  defaultValue={targetJsonSchema.description}
                   onPressEnter={(event) => {
                     const { value } = event.target;
                     this.handleValueChange('description', value);
@@ -315,8 +315,8 @@ class AdvanceConfig extends React.PureComponent {
               <div className="form-item-box">
                 <Input
                   style={{ display: 'inline-block' }}
-                  placeholder={`请输入${targetJsonData.title}的输入提示`}
-                  defaultValue={targetJsonData.placeholder}
+                  placeholder={`请输入${targetJsonSchema.title}的输入提示`}
+                  defaultValue={targetJsonSchema.placeholder}
                   onPressEnter={(event) => {
                     const { value } = event.target;
                     this.handleValueChange('placeholder', value);
@@ -333,7 +333,7 @@ class AdvanceConfig extends React.PureComponent {
         {isNeedMinMaxOption(currentFormat) && (
           <div
             className="wide-screen-element-warp"
-            key={`${nodeKey}-minimum-${targetJsonData.minimum}`}
+            key={`${nodeKey}-minimum-${targetJsonSchema.minimum}`}
           >
             <div className="element-title">
               <Tooltip
@@ -347,7 +347,7 @@ class AdvanceConfig extends React.PureComponent {
               <div className="form-item-box">
                 <InputNumber
                   style={{ display: 'inline-block' }}
-                  defaultValue={targetJsonData.minimum}
+                  defaultValue={targetJsonSchema.minimum}
                   onPressEnter={(event) => {
                     const { value } = event.target;
                     this.handleValueChange('minimum', value);
@@ -364,7 +364,7 @@ class AdvanceConfig extends React.PureComponent {
         {isNeedMinMaxOption(currentFormat) && (
           <div
             className="wide-screen-element-warp"
-            key={`${nodeKey}-maximum-${targetJsonData.maximum}`}
+            key={`${nodeKey}-maximum-${targetJsonSchema.maximum}`}
           >
             <div className="element-title">
               <Tooltip
@@ -378,7 +378,7 @@ class AdvanceConfig extends React.PureComponent {
               <div className="form-item-box">
                 <InputNumber
                   style={{ display: 'inline-block' }}
-                  defaultValue={targetJsonData.maximum}
+                  defaultValue={targetJsonSchema.maximum}
                   onPressEnter={(event) => {
                     const { value } = event.target;
                     this.handleValueChange('maximum', value);
@@ -395,7 +395,7 @@ class AdvanceConfig extends React.PureComponent {
         {isNeedMinMaxChildOption(currentFormat) && (
           <div
             className="wide-screen-element-warp"
-            key={`${nodeKey}-minimum-child-${targetJsonData['minimum-child']}`}
+            key={`${nodeKey}-minimum-child-${targetJsonSchema['minimum-child']}`}
           >
             <div className="element-title">
               <Tooltip
@@ -411,7 +411,7 @@ class AdvanceConfig extends React.PureComponent {
               <div className="form-item-box">
                 <InputNumber
                   style={{ display: 'inline-block' }}
-                  defaultValue={targetJsonData['minimum-child']}
+                  defaultValue={targetJsonSchema['minimum-child']}
                   onChange={(newVal) => {
                     this.handleValueChange('minimum-child', newVal);
                   }}
@@ -423,7 +423,7 @@ class AdvanceConfig extends React.PureComponent {
         {isNeedMinMaxChildOption(currentFormat) && (
           <div
             className="wide-screen-element-warp"
-            key={`${nodeKey}-maximum-child-${targetJsonData['maximum-child']}`}
+            key={`${nodeKey}-maximum-child-${targetJsonSchema['maximum-child']}`}
           >
             <div className="element-title">
               <Tooltip
@@ -439,7 +439,7 @@ class AdvanceConfig extends React.PureComponent {
               <div className="form-item-box">
                 <InputNumber
                   style={{ display: 'inline-block' }}
-                  defaultValue={targetJsonData['maximum-child']}
+                  defaultValue={targetJsonSchema['maximum-child']}
                   onChange={(newVal) => {
                     this.handleValueChange('maximum-child', newVal);
                   }}

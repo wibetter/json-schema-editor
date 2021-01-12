@@ -44,14 +44,14 @@ const propertiesRender = (params) => {
       indexRoute: currentIndexRoute,
       key: nodeKey,
       nodeKey,
-      targetJsonData: currentSchemaData,
+      targetJsonSchema: currentSchemaData,
     });
   });
 };
 
 /** 渲染items中的元素 */
 const itemsRender = (props) => {
-  const { parentType, jsonKey, indexRoute, nodeKey, targetJsonData } = props;
+  const { parentType, jsonKey, indexRoute, nodeKey, targetJsonSchema } = props;
 
   return (
     <TreeNode
@@ -64,15 +64,15 @@ const itemsRender = (props) => {
       title={getTreeNodeTitleCont({
         indexRoute,
         jsonKey,
-        targetJsonData,
+        targetJsonSchema,
         parentType,
         nodeKey,
         isFixed: true,
       })}
     >
       {propertiesRender({
-        propertyOrder: targetJsonData.propertyOrder,
-        properties: targetJsonData.properties,
+        propertyOrder: targetJsonSchema.propertyOrder,
+        properties: targetJsonSchema.properties,
         parentIndexRoute: indexRoute,
         parentNodeKey: nodeKey,
         parentType: 'array-object',
@@ -83,8 +83,8 @@ const itemsRender = (props) => {
 
 /** Array类型渲染组件 */
 const ArraySchema = (props) => {
-  const { jsonKey, indexRoute, nodeKey, targetJsonData } = props;
-  const currentFormat = getCurrentFormat(targetJsonData);
+  const { jsonKey, indexRoute, nodeKey, targetJsonSchema } = props;
+  const currentFormat = getCurrentFormat(targetJsonSchema);
 
   // 获取items的index路径值
   const currentIndexRoute = indexRoute ? `${indexRoute}-0` : '0';
@@ -109,7 +109,7 @@ const ArraySchema = (props) => {
         jsonKey: currentJsonKey,
         indexRoute: currentIndexRoute,
         nodeKey: curNodeKey,
-        targetJsonData: targetJsonData.items,
+        targetJsonSchema: targetJsonSchema.items,
       })}
     </TreeNode>
   );

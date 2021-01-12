@@ -206,7 +206,7 @@ class JSONSchema extends React.PureComponent {
                 jsonKey: '',
                 indexRoute: '',
                 nodeKey: '',
-                targetJsonData: jsonSchema,
+                targetJsonSchema: jsonSchema,
                 isOnlyShowChild: true,
               })}
             {currentFormat !== 'object' &&
@@ -215,7 +215,7 @@ class JSONSchema extends React.PureComponent {
                 jsonKey: '',
                 indexRoute: '',
                 nodeKey: 'first-schema',
-                targetJsonData: jsonSchema,
+                targetJsonSchema: jsonSchema,
                 key: 'schema',
                 isFirstSchema: true,
               })}

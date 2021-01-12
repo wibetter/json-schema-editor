@@ -13,12 +13,12 @@ const getTypeSelectCont = (params) => <TypeSelectFormSchema {...params} />;
 
 /** Quantity类型渲染组件 */
 const QuantitySchema = (props) => {
-  const { jsonKey, indexRoute, nodeKey, targetJsonData } = props;
-  const currentFormat = getCurrentFormat(targetJsonData);
+  const { jsonKey, indexRoute, nodeKey, targetJsonSchema } = props;
+  const currentFormat = getCurrentFormat(targetJsonSchema);
 
   /** 获取quantity中的数值对象（默认第一个就是数值对象） */
-  const unitJsonKey = targetJsonData.propertyOrder[0];
-  const unitJsonData = targetJsonData.properties[unitJsonKey];
+  const unitJsonKey = targetJsonSchema.propertyOrder[0];
+  const unitJsonData = targetJsonSchema.properties[unitJsonKey];
 
   return (
     <TreeNode
@@ -41,7 +41,7 @@ const QuantitySchema = (props) => {
         title={getTreeNodeTitleCont({
           indexRoute: indexRoute ? `${indexRoute}-0` : '0',
           jsonKey: unitJsonKey,
-          targetJsonData: unitJsonData,
+          targetJsonSchema: unitJsonData,
           parentType: currentFormat,
           nodeKey: `${nodeKey}-${unitJsonKey}`,
           typeIsFixed: true,
@@ -58,7 +58,7 @@ const QuantitySchema = (props) => {
         title={getTypeSelectCont({
           indexRoute: indexRoute ? `${indexRoute}-1` : '1',
           jsonKey: 'quantity',
-          targetJsonData: targetJsonData.properties.quantity,
+          targetJsonSchema: targetJsonSchema.properties.quantity,
           parentType: currentFormat,
           nodeKey: `${nodeKey}-quantity`,
         })}

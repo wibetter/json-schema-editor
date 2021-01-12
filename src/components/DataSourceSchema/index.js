@@ -35,9 +35,9 @@ const getTypeSelectCont = (params) => <TypeSelectFormSchema {...params} />;
 
 /** DataSource类型渲染组件 */
 const DataSourceSchema = (props) => {
-  const { jsonKey, indexRoute, nodeKey, targetJsonData } = props;
-  const currentFormat = getCurrentFormat(targetJsonData);
-  const dataJsonObj = targetJsonData.properties.data || {};
+  const { jsonKey, indexRoute, nodeKey, targetJsonSchema } = props;
+  const currentFormat = getCurrentFormat(targetJsonSchema);
+  const dataJsonObj = targetJsonSchema.properties.data || {};
 
   return (
     <TreeNode
@@ -60,7 +60,7 @@ const DataSourceSchema = (props) => {
         title={getTypeSelectCont({
           indexRoute: indexRoute ? `${indexRoute}-0` : '0',
           jsonKey: 'type',
-          targetJsonData: targetJsonData.properties.type,
+          targetJsonSchema: targetJsonSchema.properties.type,
           parentType: currentFormat,
           nodeKey: `${nodeKey}-type`,
           typeSelectData,
@@ -76,7 +76,7 @@ const DataSourceSchema = (props) => {
         title={getTreeNodeTitleCont({
           indexRoute: indexRoute ? `${indexRoute}-1` : '1',
           jsonKey: 'data',
-          targetJsonData: dataJsonObj,
+          targetJsonSchema: dataJsonObj,
           parentType: currentFormat,
           nodeKey: `${nodeKey}-data-${dataJsonObj.format}`,
           hideOperaBtn: true,
@@ -94,7 +94,7 @@ const DataSourceSchema = (props) => {
         title={getTreeNodeTitleCont({
           indexRoute: indexRoute ? `${indexRoute}-2` : '2',
           jsonKey: 'filter',
-          targetJsonData: targetJsonData.properties.filter,
+          targetJsonSchema: targetJsonSchema.properties.filter,
           parentType: currentFormat,
           nodeKey: `${nodeKey}-filter`,
           hideOperaBtn: true,

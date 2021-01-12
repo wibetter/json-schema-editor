@@ -13,10 +13,10 @@ const getTypeSelectCont = (params) => <TypeSelectFormSchema {...params} />;
 
 /** DynamicData类型渲染组件 */
 const DynamicDataSchema = (props) => {
-  const { jsonKey, indexRoute, nodeKey, targetJsonData } = props;
-  const currentFormat = getCurrentFormat(targetJsonData);
-  const configJsonObj = targetJsonData.properties.config || {};
-  const dataJsonObj = targetJsonData.properties.data || {};
+  const { jsonKey, indexRoute, nodeKey, targetJsonSchema } = props;
+  const currentFormat = getCurrentFormat(targetJsonSchema);
+  const configJsonObj = targetJsonSchema.properties.config || {};
+  const dataJsonObj = targetJsonSchema.properties.data || {};
 
   return (
     <TreeNode
@@ -39,7 +39,7 @@ const DynamicDataSchema = (props) => {
         title={getTypeSelectCont({
           indexRoute: indexRoute ? `${indexRoute}-0` : '0',
           jsonKey: 'type',
-          targetJsonData: targetJsonData.properties.type,
+          targetJsonSchema: targetJsonSchema.properties.type,
           parentType: currentFormat,
           nodeKey: `${nodeKey}-type`,
         })}
@@ -54,7 +54,7 @@ const DynamicDataSchema = (props) => {
         title={getTreeNodeTitleCont({
           indexRoute: indexRoute ? `${indexRoute}-1` : '1',
           jsonKey: 'config',
-          targetJsonData: configJsonObj,
+          targetJsonSchema: configJsonObj,
           parentType: currentFormat,
           nodeKey: `${nodeKey}-config-${configJsonObj.format}`,
           hideOperaBtn: true,
@@ -72,7 +72,7 @@ const DynamicDataSchema = (props) => {
         title={getTreeNodeTitleCont({
           indexRoute: indexRoute ? `${indexRoute}-2` : '2',
           jsonKey: 'data',
-          targetJsonData: dataJsonObj,
+          targetJsonSchema: dataJsonObj,
           parentType: currentFormat,
           nodeKey: `${nodeKey}-data-${dataJsonObj.format}`,
           hideOperaBtn: true,

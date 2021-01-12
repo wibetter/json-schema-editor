@@ -11,8 +11,8 @@ import GeneralSchema from '$components/GeneralSchema/index';
 
 /** 根据当前类型选择对应的组件进行渲染 */
 const MappingRender = (props) => {
-  const { targetJsonData } = props;
-  const curType = getCurrentFormat(targetJsonData); // 获取当前元素类型（format）
+  const { targetJsonSchema } = props;
+  const curType = getCurrentFormat(targetJsonSchema); // 获取当前元素类型（format）
 
   switch (curType) {
     case 'func':
