@@ -16,12 +16,14 @@
 
 ![image](https://user-images.githubusercontent.com/11958920/104154681-78f5e680-5420-11eb-978f-6219acfa933d.png)
 
+备注：JSONSchema仅用于生成结构化的json数据，需要配合JSONEditor（[git地址](https://github.com/wibetter/json-editor)）渲染其内容。
+
+
 ## 安装
 
 ```bash
 npm install --save @wibtter/json-schema-editor
 ```
-
 
 ## 使用示例
 
