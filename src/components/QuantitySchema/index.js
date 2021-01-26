@@ -46,6 +46,7 @@ const QuantitySchema = (props) => {
           nodeKey: `${nodeKey}-${unitJsonKey}`,
           typeIsFixed: true,
           hideOperaBtn: true,
+          isShowAdvanceBtn: true,
         })}
       ></TreeNode>
       <TreeNode

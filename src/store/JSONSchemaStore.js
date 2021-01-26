@@ -34,6 +34,11 @@ export default class JSONSchemaStore {
   @observable jsonSchema = {};
 
   /**
+   * 可以添加的子项类型: SchemaTypeList（TypeList）
+   */
+  @observable SchemaTypeList = TypeList;
+
+  /**
    * onChange: jsonSchema数据变动触发的onChange
    */
   @observable onChange = () => {}; // 函数类型
@@ -44,6 +49,47 @@ export default class JSONSchemaStore {
   @action.bound
   triggerChangeAction() {
     this.triggerChange = !this.triggerChange;
+  }
+
+  /** 根据配置数据初始化TypeList  */
+  @action.bound
+  initSchemaTypeList(typeListOption) {
+    if (!typeListOption || JSON.stringify(typeListOption) === '{}') {
+      // 直接使用原有的TypeList数据
+    } else if (!isEqual(typeListOption, this.SchemaTypeList)) {
+      // 属性&函数类参数子项类型
+      if (typeListOption.func) {
+        this.SchemaTypeList['func'] = typeListOption.func;
+      }
+      // 样式类参数子项类型
+      if (typeListOption.style) {
+        this.SchemaTypeList['style'] = typeListOption.style;
+      }
+      // 数据类参数子项类型
+      if (typeListOption.data) {
+        this.SchemaTypeList['data'] = typeListOption.data;
+      }
+      // 事件类参数子项类型
+      if (typeListOption.event) {
+        this.SchemaTypeList['event'] = typeListOption.event;
+      }
+      // 对象类参数子项类型
+      if (typeListOption.object) {
+        this.SchemaTypeList['object'] = typeListOption.object;
+      }
+      // 数组类参数子项类型
+      if (typeListOption.array) {
+        this.SchemaTypeList['array'] = typeListOption.array;
+      }
+      // 数组-对象类参数子项类型
+      if (typeListOption['array-object']) {
+        this.SchemaTypeList['array-object'] = typeListOption['array-object'];
+      }
+      // 所有参数子项类型
+      if (typeListOption.all) {
+        this.SchemaTypeList['all'] = typeListOption.all;
+      }
+    }
   }
 
   /** 根据索引路径获取对应的json数据[非联动式数据获取]  */
@@ -138,8 +184,8 @@ export default class JSONSchemaStore {
   isSupportCurType(indexRoute, curType) {
     const parentIndexRoute = getParentIndexRoute(indexRoute);
     const parentJSONObj = this.getSchemaByIndexRoute(parentIndexRoute);
-    const parantTypeList = TypeList[parentJSONObj.format];
-    if (parantTypeList && parantTypeList.indexOf(curType) >= 0) {
+    const parentTypeList = this.SchemaTypeList[parentJSONObj.format];
+    if (parentTypeList && parentTypeList.indexOf(curType) >= 0) {
       // 表示支持当前类型
       return true;
     }

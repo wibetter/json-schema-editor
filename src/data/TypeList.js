@@ -61,6 +61,7 @@ export const OBJECT_TYPE = [
   'object',
   'array',
 ];
+
 // 数组&对象类型可选项（仅用于Array的items子项）
 export const ARRAY_OBJECT_TYPE = [
   'input',
@@ -77,8 +78,10 @@ export const ARRAY_OBJECT_TYPE = [
   'select',
   'array',
 ];
+
 // 数组类型可选项
 export const ARRAY_TYPE = ['object'];
+
 // 所有的字段类型
 export const ALL_TYPE = [
   'input',
@@ -105,8 +108,10 @@ export const ALL_TYPE = [
 ];
 // radio单选类型可选项
 export const RADIO_TYPE = ['string'];
+
 // select多选类型可选项
 export const SELECT_TYPE = ['string'];
+
 // 类型清单
 export const TypeList = {
   func: FUNCSCHEME_TYPE,

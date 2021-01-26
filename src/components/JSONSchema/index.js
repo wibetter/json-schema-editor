@@ -24,6 +24,7 @@ class JSONSchema extends React.PureComponent {
   static propTypes = {
     onChange: PropTypes.func,
     data: PropTypes.object,
+    typeList: PropTypes.object,
   };
 
   constructor(props) {
@@ -36,6 +37,10 @@ class JSONSchema extends React.PureComponent {
     if (props.onChange) {
       this.props.initOnChange(props.onChange);
     }
+    // 重置TypeList
+    if (props.typeList) {
+      this.props.initSchemaTypeList(props.typeList);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,6 +50,10 @@ class JSONSchema extends React.PureComponent {
     // 记录onChange事件
     if (!isEqual(nextProps.onChange, this.props.onChange)) {
       this.props.initOnChange(nextProps.onChange);
+    }
+    // 重置TypeList
+    if (!isEqual(nextProps.typeList, this.props.typeList)) {
+      this.props.initSchemaTypeList(nextProps.typeList);
     }
   }
 
@@ -207,7 +216,7 @@ class JSONSchema extends React.PureComponent {
                 indexRoute: '',
                 nodeKey: '',
                 targetJsonSchema: jsonSchema,
-                isOnlyShowChild: true,
+                isOnlyShowChild: true, // 一级object类型不显示，仅显示其子项
               })}
             {currentFormat !== 'object' &&
               MappingRender({
@@ -233,6 +242,7 @@ export default inject((stores) => ({
   jsonSchema: stores.jsonSchemaStore.jsonSchema,
   initJSONSchemaData: stores.jsonSchemaStore.initJSONSchemaData,
   initOnChange: stores.jsonSchemaStore.initOnChange,
+  initSchemaTypeList: stores.jsonSchemaStore.initSchemaTypeList,
   setPageScreen: stores.jsonSchemaStore.setPageScreen,
   getSchemaByIndexRoute: stores.jsonSchemaStore.getSchemaByIndexRoute,
   indexRoute2keyRoute: stores.jsonSchemaStore.indexRoute2keyRoute,
