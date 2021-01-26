@@ -16,15 +16,21 @@ export default class JSONSchemaEditor extends React.PureComponent {
     wideScreen: PropTypes.any,
     onChange: PropTypes.func,
     data: PropTypes.any,
+    typeList: PropTypes.any,
     element: PropTypes.any,
   };
 
   render() {
-    const { data, onChange, element, wideScreen } = this.props;
+    const { data, typeList, onChange, element, wideScreen } = this.props;
 
     const renderContent = (
       <Provider jsonSchemaStore={JSONStore.jsonSchemaStore}>
-        <JSONSchema data={data} onChange={onChange} wideScreen={wideScreen} />
+        <JSONSchema
+          data={data}
+          typeList={typeList}
+          onChange={onChange}
+          wideScreen={wideScreen}
+        />
       </Provider>
     );
 

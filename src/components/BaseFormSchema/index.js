@@ -20,7 +20,6 @@ import {
   TypeDataList,
 } from '@wibetter/json-utils';
 import { objClone, saveWebCacheData } from '$utils/index';
-import { TypeList } from '$data/TypeList';
 import './index.scss';
 
 class BaseFormSchema extends React.PureComponent {
@@ -32,6 +31,7 @@ class BaseFormSchema extends React.PureComponent {
     targetJsonSchema: PropTypes.any,
     isFixed: PropTypes.any,
     hideOperaBtn: PropTypes.any,
+    isShowAdvanceBtn: PropTypes.any,
     keyIsFixed: PropTypes.any,
     typeIsFixed: PropTypes.any,
     titleIsFixed: PropTypes.any,
@@ -86,10 +86,11 @@ class BaseFormSchema extends React.PureComponent {
   /** 获取当前字段的类型清单
    *  根据父元素的类型决定当前字段的类型可选择范围，如果父类型为空则默认使用全新的可选择类型 */
   getCurrentTypeList = (parentType) => {
+    const { SchemaTypeList } = this.props;
     const myParentType = parentType || 'all';
-    let typeList = TypeList[myParentType];
+    let typeList = SchemaTypeList[myParentType];
     if (!typeList || typeList.length === 0) {
-      typeList = TypeList.all; // 如果当前类型清单为空，则默认展示所有的字段类型
+      typeList = SchemaTypeList.all; // 如果当前类型清单为空，则默认展示所有的字段类型
     }
     return typeList;
   };
@@ -175,6 +176,7 @@ class BaseFormSchema extends React.PureComponent {
     const typeIsFixed = this.props.typeIsFixed || false; // type是否为不可编辑的属性
     const titleIsFixed = this.props.titleIsFixed || false; // title是否为不可编辑的属性
     const hideOperaBtn = isFirstChild || this.props.hideOperaBtn || false; // 是否隐藏操作类按钮
+    const isShowAdvanceBtn = this.props.isShowAdvanceBtn || false; // 是否显示高级操作按钮
     const currentTypeList = this.getCurrentTypeList(parentType); // 根据父级元素类型获取可供使用的类型清单
     const currentFormat = getCurrentFormat(targetJsonSchema);
     const isFirstSchema = isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
@@ -282,7 +284,24 @@ class BaseFormSchema extends React.PureComponent {
                 )}
               </div>
             )}
-            {hideOperaBtn && <div className="operate-item">&nbsp;</div>}
+            {hideOperaBtn && (
+              <div className="operate-item">
+                {isShowAdvanceBtn && (
+                  <Tooltip title="高级设置">
+                    <SettingOutlined
+                      className="operate-btn"
+                      onClick={() => {
+                        // 显示高级设置模态框
+                        this.setState({
+                          isShowAdvance: true,
+                        });
+                      }}
+                    />
+                  </Tooltip>
+                )}
+                &nbsp;
+              </div>
+            )}
             <Modal
               visible={isShowAdvance}
               title={`高级设置 / 当前字段：${targetJsonSchema.title}(${jsonKey})`}
@@ -326,6 +345,7 @@ class BaseFormSchema extends React.PureComponent {
 }
 
 export default inject((stores) => ({
+  SchemaTypeList: stores.jsonSchemaStore.SchemaTypeList,
   getNewJsonKeyIndex: stores.jsonSchemaStore.getNewJsonKeyIndex,
   deleteJsonByIndex_CurKey: stores.jsonSchemaStore.deleteJsonByIndex_CurKey,
   getSchemaByIndexRoute: stores.jsonSchemaStore.getSchemaByIndexRoute,

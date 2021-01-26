@@ -1214,6 +1214,54 @@ class IndexDemo extends React.PureComponent {
           'field_12',
         ],
       },
+      jsonSchema8: {
+        type: 'ui-widget',
+        name: 'button',
+        title: 'button 元子组件',
+        'ui-type': 'LEGAO',
+        'ui-framework': 'react',
+        format: 'object',
+        properties: {
+          props: {
+            type: 'object',
+            format: 'func',
+            title: '属性设置',
+            readOnly: false,
+            properties: {},
+            required: [],
+            propertyOrder: [],
+          },
+          style: {
+            type: 'object',
+            format: 'style',
+            title: '样式设置',
+            readOnly: false,
+            properties: {},
+            required: [],
+            propertyOrder: [],
+          },
+          event: {
+            type: 'object',
+            format: 'data',
+            title: '事件设置',
+            readOnly: false,
+            properties: {},
+            required: [],
+            propertyOrder: [],
+          },
+          data: {
+            type: 'object',
+            format: 'data',
+            title: '数据设置',
+            readOnly: false,
+            properties: {},
+            required: [],
+            propertyOrder: [],
+          },
+        },
+        required: ['props', 'style', 'event', 'data'],
+        propertyOrder: ['props', 'style', 'event', 'data'],
+      },
       jsonData: {},
       dynamicDataList: [
         {
@@ -1276,11 +1324,101 @@ class IndexDemo extends React.PureComponent {
         },
       ],
       wideScreen: false,
+      curTypeList: {
+        func: [
+          'input',
+          'boolean',
+          'number',
+          'color',
+          'url',
+          'textarea',
+          'text-editor',
+          'radio',
+          'select',
+          'date',
+          'date-time',
+          'time',
+          'quantity',
+          'json',
+          'codearea',
+          'htmlarea',
+          'event',
+          'array',
+          'object',
+        ],
+        style: [
+          'color',
+          'quantity',
+          'input',
+          'boolean',
+          'number',
+          'radio',
+          'select',
+        ],
+        data: [
+          'json',
+          'codearea',
+          'htmlarea',
+          'text-editor',
+          'dynamic-data',
+          'datasource',
+          'object',
+          'array',
+        ],
+        event: ['event'],
+        object: [
+          'input',
+          'boolean',
+          'color',
+          'date',
+          'date-time',
+          'time',
+          'url',
+          'textarea',
+          'number',
+          'object',
+          'array',
+        ],
+        'array-object': [
+          'input',
+          'boolean',
+          'color',
+          'date',
+          'date-time',
+          'time',
+          'url',
+          'textarea',
+          'number',
+          'object',
+          'array',
+        ],
+        all: [
+          'input',
+          'boolean',
+          'number',
+          'color',
+          'url',
+          'textarea',
+          'text-editor',
+          'radio',
+          'select',
+          'date',
+          'date-time',
+          'time',
+          'quantity',
+          'json',
+          'codearea',
+          'htmlarea',
+          'event',
+          'array',
+          'object',
+        ],
+      },
     };
   }
 
   render() {
-    const { jsonSchema, jsonData, wideScreen } = this.state;
+    const { jsonSchema, jsonData, curTypeList, wideScreen } = this.state;
     return (
       <>
         <div className="title-container">
@@ -1316,6 +1454,7 @@ class IndexDemo extends React.PureComponent {
           <div className="json-schema-box">
             <JSONSchemaEditor
               data={jsonSchema}
+              typeList={curTypeList}
               onChange={(newJsonSchema) => {
                 console.log('jsonSchemaChange', newJsonSchema);
                 this.setState({
