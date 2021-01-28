@@ -411,7 +411,7 @@ class IndexDemo extends React.PureComponent {
           'field_12',
         ],
       }, // 通用schema类型 显示 ok / update ok
-      jsonSchema6: {
+      jsonSchema: {
         type: 'object',
         title: 'jsonSchemaObject',
         properties: {

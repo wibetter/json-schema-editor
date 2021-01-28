@@ -180,8 +180,7 @@ class BaseFormSchema extends React.PureComponent {
     const currentFormat = getCurrentFormat(targetJsonSchema);
     const isFixedSchema =
       targetJsonSchema.isFixedSchema || isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
-    const hideOperaBtn =
-      isFixedSchema || isFirstSchema || this.props.hideOperaBtn || false; // 是否隐藏操作类按钮
+    const hideOperaBtn = this.props.hideOperaBtn || false; // 是否隐藏操作类按钮
     const readOnly = isFixedSchema || isFirstSchema || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
     const isBoxElem = isBoxSchemaData(currentFormat); // 判断是否是容器类型元素
 

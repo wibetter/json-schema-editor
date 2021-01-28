@@ -1,6 +1,6 @@
 {
   "name": "@wibetter/json-schema-editor",
-  "version": "3.5.1",
+  "version": "3.5.2",
   "description": "JSON数据可视化/JSONSchema, 主要用于json结构/格式的可视化编辑",
   "keywords": [
     "json",
@@ -45,7 +45,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "@wibetter/json-utils": "1.2.23",
-    "@wibetter/json-editor": "3.3.56"
+    "@wibetter/json-editor": "3.3.58"
   },
   "devDependencies": {
     "akfun": "^1.5.9",
