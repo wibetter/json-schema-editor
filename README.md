@@ -67,7 +67,7 @@ class IndexDemo extends React.PureComponent {
 
 | name         | type     | default | desc                            |
 | ------------ | -------- | ------- | ------------------------------- |
-| `schemaData` | object   | {}      | json schema（带结构的json数据）    |
-| `typeList`   | object   | {}      | 用于设置func、style、data的子项可选类型    |
+| `schemaData` | object   | {}      | 必填项，json schema（带结构的json数据）    |
+| `typeList`   | object   | {}      | 非必填，用于设置func、style、data的子项可选类型    |
 | `onChange`   | function | () => {}  | schemaData内容变动时会触发onChange |
 

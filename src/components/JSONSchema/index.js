@@ -185,6 +185,27 @@ class JSONSchema extends React.PureComponent {
     }
   };
 
+  /**
+   * 默认展开二级schema面板
+   */
+  catchExpandedKeys = (jsonSchema) => {
+    const defaultExpandedKeys = [];
+    if (jsonSchema && jsonSchema.propertyOrder && jsonSchema.properties) {
+      jsonSchema.propertyOrder.map((key, index) => {
+        /** 1. 获取当前元素的key值 */
+        const currentJsonKey = key;
+        /** 2. 获取当前元素的json数据对象 */
+        const currentSchemaData = jsonSchema.properties[currentJsonKey];
+        /** 3. 判断是否是容器类型元素，如果是则禁止选中 */
+        const currentFormat = getCurrentFormat(currentSchemaData);
+        /** 4. 获取当前元素的id，用于做唯一标识 */
+        let nodeKey = `${currentFormat}-${currentJsonKey}`; // 使用当前format+jsonKey作为nodeKey
+        defaultExpandedKeys.push(nodeKey);
+      });
+    }
+    return defaultExpandedKeys;
+  };
+
   render() {
     const { jsonSchema } = this.props;
     const isEmpty = isEmptySchema(jsonSchema);
@@ -202,12 +223,11 @@ class JSONSchema extends React.PureComponent {
             selectable={false}
             onDragStart={this.onDragStart}
             onDrop={this.onDrop}
-            defaultExpandedKeys={[
-              'func-func',
-              'style-style',
-              'data-data',
-              'first-schema',
-            ]}
+            defaultExpandedKeys={
+              currentFormat === 'object' && !isEmpty
+                ? this.catchExpandedKeys(jsonSchema)
+                : []
+            }
           >
             {currentFormat === 'object' &&
               ObjectSchema({

@@ -20,6 +20,7 @@ const propertiesRender = (params) => {
     parentIndexRoute,
     parentNodeKey,
     parentType,
+    isOnlyShowChild,
   } = params;
 
   return propertyOrder.map((key, index) => {
@@ -34,9 +35,9 @@ const propertiesRender = (params) => {
     /** 4. 判断是否是容器类型元素，如果是则禁止选中 */
     const currentFormat = getCurrentFormat(currentSchemaData);
     /** 5. 获取当前元素的id，用于做唯一标识 */
-    const nodeKey = `${
+    let nodeKey = `${
       parentNodeKey ? `${parentNodeKey}-` : ''
-    }${currentFormat}-${currentJsonKey}`;
+    }${currentFormat}-${currentJsonKey}`; // 默认只使用当前format+jsonKey作为nodeKey
 
     return MappingRender({
       parentType,
@@ -70,6 +71,7 @@ const ObjectSchema = (props) => {
     parentIndexRoute: indexRoute,
     parentNodeKey: nodeKey,
     parentType: currentFormat,
+    isOnlyShowChild,
   });
 
   /** 节点内容 */
