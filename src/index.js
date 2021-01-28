@@ -411,7 +411,7 @@ class IndexDemo extends React.PureComponent {
           'field_12',
         ],
       }, // 通用schema类型 显示 ok / update ok
-      jsonSchema: {
+      jsonSchema6: {
         type: 'object',
         title: 'jsonSchemaObject',
         properties: {
@@ -991,7 +991,7 @@ class IndexDemo extends React.PureComponent {
         required: ['func', 'style', 'data'],
         format: 'object',
         propertyOrder: ['func', 'style', 'data'],
-      }, // 用于区块配置的schema  显示 ok / update ok
+      }, // 用于组件配置的schema  显示 ok / update ok
       jsonSchema7: {
         type: 'object',
         format: 'object',
@@ -1242,9 +1242,10 @@ class IndexDemo extends React.PureComponent {
           },
           event: {
             type: 'object',
-            format: 'data',
+            format: 'object',
             title: '事件设置',
             readOnly: false,
+            isFixedSchema: true,
             properties: {},
             required: [],
             propertyOrder: [],
@@ -1425,14 +1426,14 @@ class IndexDemo extends React.PureComponent {
           <div className="title1-box">
             <p>
               <b>JSONSchema</b>:
-              提供可视化界面编辑json格式/结构；(目前主要用于区块的模型设置，定义区块的配置项)
+              提供可视化界面编辑json格式/结构；(目前主要用于组件的模型设置，定义组件的配置项)
             </p>
           </div>
           <div className="title2-box">
             <p>
               <b>JSONEditor</b>:
-              提供可视化界面编辑json数据内容，用于区块的可视化配置，避免用户直接编辑json数据内容；
-              (目前主要用于区块的配置) 。
+              提供可视化界面编辑json数据内容，用于组件的可视化配置，避免用户直接编辑json数据内容；
+              (目前主要用于组件的配置) 。
             </p>
             <div>
               展示模式：

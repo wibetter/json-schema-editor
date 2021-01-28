@@ -6,7 +6,9 @@ const { TreeNode } = Tree;
 import { isFirstSchemaData, getCurrentFormat } from '@wibetter/json-utils';
 
 /** 渲染当前字段的表单项（Tree的表单项内容） */
-const getTreeNodeTitleCont = (params) => <BaseFormSchema {...params} />;
+const getTreeNodeTitleCont = (params) => {
+  return <BaseFormSchema {...params} />;
+};
 
 /** 渲染properties中的元素
  *  通过遍历propertyOrder有序的获取key值，
@@ -20,7 +22,6 @@ const propertiesRender = (params) => {
     parentIndexRoute,
     parentNodeKey,
     parentType,
-    isOnlyShowChild,
   } = params;
 
   return propertyOrder.map((key, index) => {
@@ -62,7 +63,8 @@ const ObjectSchema = (props) => {
     isOnlyShowChild,
   } = props;
   const currentFormat = getCurrentFormat(targetJsonSchema);
-  const isFirstSchema = isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
+  const isFirstSchema =
+    targetJsonSchema.isFixedSchema || isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
 
   /** 先获取当前节点的properties内容 */
   const propertiesContElem = propertiesRender({

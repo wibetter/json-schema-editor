@@ -14,10 +14,10 @@ import {
 import AdvanceConfig from '$components/AdvanceConfig/index'; // 高级配置内容
 import {
   isBoxSchemaData,
-  isFirstSchemaData,
   getCurrentFormat,
   getParentIndexRoute,
   TypeDataList,
+  isFirstSchemaData,
 } from '@wibetter/json-utils';
 import { objClone, saveWebCacheData } from '$utils/index';
 import './index.scss';
@@ -170,17 +170,19 @@ class BaseFormSchema extends React.PureComponent {
       targetJsonSchema,
     } = this.props;
     const { isShowAdvance } = this.state;
-    const isFirstChild = this.props.isFirstSchema || false; // 是否是最外层的schema元素
+    const isFirstSchema = this.props.isFirstSchema || false; // 是否是最外层的schema元素
     const isFixed = this.props.isFixed || false; // 是否为固有的属性（不可编辑、不可删除）
     const keyIsFixed = this.props.keyIsFixed || false; // key是否为不可编辑的属性
     const typeIsFixed = this.props.typeIsFixed || false; // type是否为不可编辑的属性
     const titleIsFixed = this.props.titleIsFixed || false; // title是否为不可编辑的属性
-    const hideOperaBtn = isFirstChild || this.props.hideOperaBtn || false; // 是否隐藏操作类按钮
     const isShowAdvanceBtn = this.props.isShowAdvanceBtn || false; // 是否显示高级操作按钮
     const currentTypeList = this.getCurrentTypeList(parentType); // 根据父级元素类型获取可供使用的类型清单
     const currentFormat = getCurrentFormat(targetJsonSchema);
-    const isFirstSchema = isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
-    const readOnly = isFirstChild || isFirstSchema || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
+    const isFixedSchema =
+      targetJsonSchema.isFixedSchema || isFirstSchemaData(currentFormat); // 一级固定类型元素不允许拖拽
+    const hideOperaBtn =
+      isFixedSchema || isFirstSchema || this.props.hideOperaBtn || false; // 是否隐藏操作类按钮
+    const readOnly = isFixedSchema || isFirstSchema || isFixed || false; // 是否不可编辑状态，默认为可编辑状态
     const isBoxElem = isBoxSchemaData(currentFormat); // 判断是否是容器类型元素
 
     return (

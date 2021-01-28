@@ -17,6 +17,7 @@ import {
   isSameParent,
   getCurPosition,
   moveForward,
+  isStructuredSchema,
 } from '@wibetter/json-utils';
 import './index.scss';
 
