@@ -411,7 +411,7 @@ class IndexDemo extends React.PureComponent {
           'field_12',
         ],
       }, // 通用schema类型 显示 ok / update ok
-      jsonSchema: {
+      jsonSchema6: {
         type: 'object',
         title: 'jsonSchemaObject',
         properties: {
@@ -1214,11 +1214,12 @@ class IndexDemo extends React.PureComponent {
           'field_12',
         ],
       },
-      jsonSchema8: {
-        type: 'ui-widget',
+      jsonSchema: {
+        type: 'object',
         name: 'button',
         title: 'button 元子组件',
-        'ui-type': 'LEGAO',
+        'ui-name': 'LEGAO',
+        'ui-type': 'ui-widget',
         'ui-framework': 'react',
         format: 'object',
         properties: {
@@ -1242,7 +1243,7 @@ class IndexDemo extends React.PureComponent {
           },
           event: {
             type: 'object',
-            format: 'object',
+            format: 'event-schema',
             title: '事件设置',
             readOnly: false,
             isFixedSchema: true,
@@ -1366,7 +1367,7 @@ class IndexDemo extends React.PureComponent {
           'object',
           'array',
         ],
-        event: ['event'],
+        'event-schema': ['event'],
         object: [
           'input',
           'boolean',

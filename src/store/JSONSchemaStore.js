@@ -57,37 +57,10 @@ export default class JSONSchemaStore {
     if (!typeListOption || JSON.stringify(typeListOption) === '{}') {
       // 直接使用原有的TypeList数据
     } else if (!isEqual(typeListOption, this.SchemaTypeList)) {
-      // 属性&函数类参数子项类型
-      if (typeListOption.func) {
-        this.SchemaTypeList['func'] = typeListOption.func;
-      }
-      // 样式类参数子项类型
-      if (typeListOption.style) {
-        this.SchemaTypeList['style'] = typeListOption.style;
-      }
-      // 数据类参数子项类型
-      if (typeListOption.data) {
-        this.SchemaTypeList['data'] = typeListOption.data;
-      }
-      // 事件类参数子项类型
-      if (typeListOption.event) {
-        this.SchemaTypeList['event'] = typeListOption.event;
-      }
-      // 对象类参数子项类型
-      if (typeListOption.object) {
-        this.SchemaTypeList['object'] = typeListOption.object;
-      }
-      // 数组类参数子项类型
-      if (typeListOption.array) {
-        this.SchemaTypeList['array'] = typeListOption.array;
-      }
-      // 数组-对象类参数子项类型
-      if (typeListOption['array-object']) {
-        this.SchemaTypeList['array-object'] = typeListOption['array-object'];
-      }
-      // 所有参数子项类型
-      if (typeListOption.all) {
-        this.SchemaTypeList['all'] = typeListOption.all;
+      if (typeListOption) {
+        Object.keys(typeListOption).map((key) => {
+          this.SchemaTypeList[key] = typeListOption[key];
+        });
       }
     }
   }
