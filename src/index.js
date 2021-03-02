@@ -1356,6 +1356,7 @@ class IndexDemo extends React.PureComponent {
           'number',
           'radio',
           'select',
+          'box-style',
         ],
         data: [
           'json',

@@ -40,6 +40,7 @@ const MappingRender = (props) => {
       return EventSchema(props);
       break;
     case 'quantity':
+    case 'box-style':
       return QuantitySchema(props);
       break;
     case 'radio':

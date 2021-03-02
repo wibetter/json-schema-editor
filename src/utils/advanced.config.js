@@ -16,6 +16,7 @@ const BASE_TYPE = [
 /** 10种高级类型（特殊类型） */
 const HIGH_TYPE = [
   'quantity',
+  'box-style',
   'json',
   'codearea',
   'htmlarea',
@@ -54,6 +55,7 @@ export function isNeedDefaultOption(curFormat) {
   let isSupported = false;
   const supportedTypeList = [
     'input',
+    'string',
     'boolean',
     'number',
     'color',

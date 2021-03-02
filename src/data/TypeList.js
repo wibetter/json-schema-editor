@@ -25,6 +25,7 @@ export const STYLESCHEME_TYPE = [
   'radio',
   'select',
   'quantity',
+  'box-style', // 盒子模型样式：用于设置margin、padding类数值
   'htmlarea',
   'text-editor',
   'array',
