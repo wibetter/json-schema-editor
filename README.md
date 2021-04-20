@@ -6,14 +6,17 @@
 
 特点：
 1. 支持11种基础类型组件（input、boolean、 date、date-time、 time、 url、 textarea、number、color、radio、 select）
-2. 支持10个特殊类型组件（object、array、Json、datasource、dynamic-data、event、codearea、htmlarea、text-editor、quantity）
+2. 支持10个特殊类型组件（object、array、Json、datasource、dynamic-data、event、codearea、htmlarea、text-editor、quantity、box-style）
 3. 拖拽排序
 4. 复制功能
 5. 复杂嵌套
 6. 高级配置功能
 
-## 功能示例
+在线Demo：
+[点击访问在线Demo](https://wibetter.github.io/json-schema-editor/)
 
+
+JSONSchema效果图：
 ![image](https://user-images.githubusercontent.com/11958920/104154681-78f5e680-5420-11eb-978f-6219acfa933d.png)
 
 备注：JSONSchema仅用于生成结构化的json数据，需要配合JSONEditor（[git地址](https://github.com/wibetter/json-editor)）渲染其内容。
