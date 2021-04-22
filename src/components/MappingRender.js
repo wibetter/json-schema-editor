@@ -44,6 +44,7 @@ const MappingRender = (props) => {
       return QuantitySchema(props);
       break;
     case 'radio':
+    case 'single-select': // 下拉单选
       return RadioSchema(props);
       break;
     case 'select':

@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import { Switch } from 'antd';
 import JSONEditor from '@wibetter/json-editor';
 import JSONSchemaEditor from './main';
+import AceEditor from 'react-ace';
+import 'ace-builds/src-noconflict/mode-json';
+import 'ace-builds/src-noconflict/theme-solarized_light'; // ace-builds
 import '@wibetter/json-editor/dist/index.css';
 import './index.scss';
 
@@ -671,6 +674,7 @@ class IndexDemo extends React.PureComponent {
       ],
       wideScreen: false,
       jsonView: false,
+      schemaCodeView: false, // schema源码模式
       viewStyle: 'tabs', // 默认折叠模式
       curTypeList: {
         func: [
@@ -682,6 +686,7 @@ class IndexDemo extends React.PureComponent {
           'textarea',
           'text-editor',
           'radio',
+          'single-select',
           'select',
           'date',
           'date-time',
@@ -701,6 +706,7 @@ class IndexDemo extends React.PureComponent {
           'boolean',
           'number',
           'radio',
+          'single-select',
           'select',
           'box-style',
         ],
@@ -750,6 +756,7 @@ class IndexDemo extends React.PureComponent {
           'textarea',
           'text-editor',
           'radio',
+          'single-select',
           'select',
           'date',
           'date-time',
@@ -772,6 +779,7 @@ class IndexDemo extends React.PureComponent {
       jsonData,
       dynamicDataList,
       wideScreen,
+      schemaCodeView,
       jsonView,
       viewStyle,
       curTypeList,
@@ -783,7 +791,18 @@ class IndexDemo extends React.PureComponent {
             <p>
               <b>JSONSchema</b>: 提供可视化界面编辑json格式/结构；
               <br />
-              主要用于可视化模型设置（定义可配置项）。
+              主要用于可视化模型设置（定义可配置项）。&nbsp;&nbsp;
+              <Switch
+                style={{ display: 'inline-block' }}
+                defaultChecked={schemaCodeView}
+                checkedChildren="code"
+                unCheckedChildren="view"
+                onChange={(checked) => {
+                  this.setState({
+                    schemaCodeView: checked,
+                  });
+                }}
+              />
             </p>
           </div>
           <div className="title2-box">
@@ -833,16 +852,40 @@ class IndexDemo extends React.PureComponent {
         </div>
         <div className="json-action-container">
           <div className="json-schema-box">
-            <JSONSchemaEditor
-              data={jsonSchema}
-              typeList={curTypeList}
-              onChange={(newJsonSchema) => {
-                console.log('jsonSchemaChange', newJsonSchema);
-                this.setState({
-                  jsonSchema: newJsonSchema,
-                });
-              }}
-            />
+            {!schemaCodeView && (
+              <JSONSchemaEditor
+                data={jsonSchema}
+                typeList={curTypeList}
+                onChange={(newJsonSchema) => {
+                  this.setState({
+                    jsonSchema: newJsonSchema,
+                  });
+                }}
+              />
+            )}
+            {schemaCodeView && (
+              <AceEditor
+                id="json_area_ace"
+                value={JSON.stringify(jsonSchema, null, 2)}
+                className="json-view-ace"
+                mode="json"
+                theme="solarized_light"
+                name="JSON_CODE_EDIT"
+                fontSize={14}
+                showPrintMargin={true}
+                showGutter={true}
+                highlightActiveLine={true}
+                readOnly={false}
+                minLines={5}
+                maxLines={33}
+                width={'100%'}
+                setOptions={{
+                  useWorker: false,
+                  showLineNumbers: true,
+                  tabSize: 2,
+                }}
+              />
+            )}
           </div>
           <div className="json-editor-box">
             <JSONEditor
