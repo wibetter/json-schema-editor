@@ -5,8 +5,10 @@
 技术栈：React/Mobx/Ant Design
 
 特点：
-1. 支持11种基础类型组件（input、boolean、 date、date-time、 time、 url、 textarea、number、color、radio、 select）
-2. 支持10个特殊类型组件（object、array、Json、datasource、dynamic-data、event、codearea、htmlarea、text-editor、quantity、box-style）
+1. 支持12种基础类型组件（input、boolean、 date、date-time、 time、 url、
+ textarea、number、color、radio、 select、single-select）
+2. 支持11个特殊类型组件（object、array、json、datasource、dynamic-data、event、
+codearea、htmlarea、text-editor([使用说明](https://github.com/wibetter/json-editor/blob/master/docs/TextEditor.md))、quantity、box-style）
 3. 拖拽排序
 4. 复制功能
 5. 复杂嵌套

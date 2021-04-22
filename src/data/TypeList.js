@@ -10,6 +10,7 @@ export const FUNCSCHEME_TYPE = [
   'text-editor',
   'number',
   'radio',
+  'single-select',
   'select',
   'codearea',
   'array',
@@ -23,6 +24,7 @@ export const STYLESCHEME_TYPE = [
   'url',
   'number',
   'radio',
+  'single-select',
   'select',
   'quantity',
   'box-style', // 盒子模型样式：用于设置margin、padding类数值
@@ -58,6 +60,7 @@ export const OBJECT_TYPE = [
   'text-editor',
   'number',
   'radio',
+  'single-select',
   'select',
   'object',
   'array',
@@ -76,6 +79,7 @@ export const ARRAY_OBJECT_TYPE = [
   'text-editor',
   'number',
   'radio',
+  'single-select',
   'select',
   'array',
 ];
@@ -93,6 +97,7 @@ export const ALL_TYPE = [
   'textarea',
   'text-editor',
   'radio',
+  'single-select',
   'select',
   'date',
   'date-time',
@@ -122,6 +127,7 @@ export const TypeList = {
   array: ARRAY_TYPE,
   'array-object': ARRAY_OBJECT_TYPE,
   radio: RADIO_TYPE,
+  'single-select': RADIO_TYPE,
   select: SELECT_TYPE,
   all: ALL_TYPE,
 };

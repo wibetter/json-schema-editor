@@ -53,7 +53,7 @@ class AdvanceConfig extends React.PureComponent {
         />
       );
     }
-    if (currentFormat === 'radio') {
+    if (currentFormat === 'radio' || currentFormat === 'single-select') {
       // 如果是选择类型的组件，需要提取选择项
       const enumKeys = targetJsonSchema.items.enum;
       const enumTexts = targetJsonSchema.items.enumextra;
