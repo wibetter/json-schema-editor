@@ -303,36 +303,38 @@ class BaseFormSchema extends React.PureComponent {
                 &nbsp;
               </div>
             )}
-            <Modal
-              visible={isShowAdvance}
-              title={`高级设置 / 当前字段：${targetJsonSchema.title}(${jsonKey})`}
-              onCancel={() => {
-                this.setState({
-                  isShowAdvance: false,
-                });
-              }}
-              footer={[
-                <Button
-                  key="submit"
-                  type="primary"
-                  onClick={() => {
-                    this.setState({
-                      isShowAdvance: false,
-                    });
-                  }}
-                >
-                  保存并关闭
-                </Button>,
-              ]}
-            >
-              <AdvanceConfig
-                {...{
-                  indexRoute,
-                  jsonKey,
-                  targetJsonSchema,
+            {isShowAdvance && (
+              <Modal
+                visible={true}
+                title={`高级设置 / 当前字段：${targetJsonSchema.title}(${jsonKey})`}
+                onCancel={() => {
+                  this.setState({
+                    isShowAdvance: false,
+                  });
                 }}
-              />
-            </Modal>
+                footer={[
+                  <Button
+                    key="submit"
+                    type="primary"
+                    onClick={() => {
+                      this.setState({
+                        isShowAdvance: false,
+                      });
+                    }}
+                  >
+                    保存并关闭
+                  </Button>,
+                ]}
+              >
+                <AdvanceConfig
+                  {...{
+                    indexRoute,
+                    jsonKey,
+                    targetJsonSchema,
+                  }}
+                />
+              </Modal>
+            )}
           </div>
         )}
         {!targetJsonSchema && (

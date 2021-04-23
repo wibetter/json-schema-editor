@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Tree, message } from 'antd';
 import ObjectSchema from '$components/ObjectSchema/index';
 import MappingRender from '$components/MappingRender';
+import ConditionPropsSchema from '$components/ConditionPropsSchema/index';
 import {
   isEqual,
   isFirstSchemaElem,
@@ -17,7 +18,6 @@ import {
   isSameParent,
   getCurPosition,
   moveForward,
-  isStructuredSchema,
 } from '@wibetter/json-utils';
 import './index.scss';
 
@@ -219,37 +219,40 @@ class JSONSchema extends React.PureComponent {
     return (
       <div className="json-schema-container">
         {!isEmpty && (
-          <Tree
-            draggable={true}
-            selectable={false}
-            onDragStart={this.onDragStart}
-            onDrop={this.onDrop}
-            defaultExpandedKeys={
-              currentFormat === 'object' && !isEmpty
-                ? this.catchExpandedKeys(jsonSchema)
-                : []
-            }
-          >
-            {currentFormat === 'object' &&
-              ObjectSchema({
-                parentType: '',
-                jsonKey: '',
-                indexRoute: '',
-                nodeKey: '',
-                targetJsonSchema: jsonSchema,
-                isOnlyShowChild: true, // 一级object类型不显示，仅显示其子项
-              })}
-            {currentFormat !== 'object' &&
-              MappingRender({
-                parentType: '',
-                jsonKey: '',
-                indexRoute: '',
-                nodeKey: 'first-schema',
-                targetJsonSchema: jsonSchema,
-                key: 'schema',
-                isFirstSchema: true,
-              })}
-          </Tree>
+          <>
+            <ConditionPropsSchema />
+            <Tree
+              draggable={true}
+              selectable={false}
+              onDragStart={this.onDragStart}
+              onDrop={this.onDrop}
+              defaultExpandedKeys={
+                currentFormat === 'object' && !isEmpty
+                  ? this.catchExpandedKeys(jsonSchema)
+                  : []
+              }
+            >
+              {currentFormat === 'object' &&
+                ObjectSchema({
+                  parentType: '',
+                  jsonKey: '',
+                  indexRoute: '',
+                  nodeKey: '',
+                  targetJsonSchema: jsonSchema,
+                  isOnlyShowChild: true, // 一级object类型不显示，仅显示其子项
+                })}
+              {currentFormat !== 'object' &&
+                MappingRender({
+                  parentType: '',
+                  jsonKey: '',
+                  indexRoute: '',
+                  nodeKey: 'first-schema',
+                  targetJsonSchema: jsonSchema,
+                  key: 'schema',
+                  isFirstSchema: true,
+                })}
+            </Tree>
+          </>
         )}
         {isEmpty && (
           <p className="json-schema-empty">当前jsonSchema没有数据内容</p>
