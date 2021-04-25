@@ -567,4 +567,75 @@ export default class JSONSchemaStore {
     // 触发onChange事件
     this.jsonSchemaChange();
   };
+
+  /** 以下为字段联动相关代码
+   * 备注：jsonSchema新增conditionProps对象，以key-value的形式记录当前schema中的条件字段
+   */
+
+  /** 根据索引路径值(indexRoute)判断是否为条件字段
+   * */
+  @action.bound
+  checkConditionProp(indexRoute) {
+    const conditionProps =
+      this.jsonSchema && this.jsonSchema.conditionProps
+        ? this.jsonSchema.conditionProps
+        : {};
+    let isConditionProp = false;
+    if (conditionProps[indexRoute]) {
+      isConditionProp = true;
+    }
+    return isConditionProp;
+  }
+
+  /** 添加条件字段
+   * */
+  @action.bound
+  addConditionProp(conditionProp) {
+    if (!this.jsonSchema) {
+      message.error('当前schema为空');
+      return;
+    }
+    if (!this.jsonSchema.conditionProps) {
+      // 首次添加条件字段时
+      this.jsonSchema.conditionProps = {};
+    }
+    // 获取当前schema中的条件字段
+    const conditionProps = this.jsonSchema.conditionProps;
+    if (conditionProp && conditionProp.indexRoute) {
+      conditionProps[conditionProp.indexRoute] = conditionProp;
+      // 触发onChange事件
+      this.jsonSchemaChange();
+    }
+  }
+
+  /** 移除条件字段
+   * */
+  @action.bound
+  removeConditionProp(indexRoute) {
+    if (!this.jsonSchema) {
+      message.error('当前schema为空');
+      return;
+    }
+    if (!this.jsonSchema.conditionProps) {
+      // 首次添加条件字段时
+      this.jsonSchema.conditionProps = {};
+    }
+    // 获取当前schema中的条件字段
+    const conditionProps = this.jsonSchema.conditionProps;
+    if (indexRoute && conditionProps[indexRoute]) {
+      delete conditionProps[indexRoute];
+      // 触发onChange事件
+      this.jsonSchemaChange();
+    }
+  }
+
+  /** 根据索引路径值(indexRoute)和propKey 删除对应的schema属性字段
+   * */
+  @action.bound
+  deleteSchemaProp(curIndexRoute, propKey, ignoreOnChange) {
+    const schemaObj = getSchemaByIndexRoute(curIndexRoute, this.jsonSchema);
+    delete schemaObj[propKey];
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
+  }
 }

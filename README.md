@@ -13,6 +13,7 @@ codearea、htmlarea、text-editor([使用说明](https://github.com/wibetter/jso
 4. 复制功能
 5. 复杂嵌套
 6. 高级配置功能
+7. 支持字段联动
 
 在线Demo：
 [点击访问在线Demo](https://wibetter.github.io/json-schema-editor/)

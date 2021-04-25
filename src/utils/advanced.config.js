@@ -18,6 +18,7 @@ const BASE_TYPE = [
 const HIGH_TYPE = [
   'quantity',
   'box-style',
+  'text-editor',
   'json',
   'codearea',
   'htmlarea',
@@ -94,6 +95,31 @@ export function isNeedPlaceholderOption(curFormat) {
     'json',
     'codearea',
     'htmlarea',
+  ];
+  const supportedTypeListChar = `#${supportedTypeList.join('#')}#`;
+  if (supportedTypeListChar.indexOf(`#${curFormat}#`) >= 0) {
+    isSupported = true;
+  }
+  return isSupported;
+}
+
+/** 是否为条件字段（conditionProps）
+ *  根据type判断是否显示是否只读配置项
+ *  radio、boolean、number、string等类型的数值可以设置为条件字段
+ * */
+export function isNeedConditionOption(curFormat) {
+  let isSupported = false;
+  const supportedTypeList = [
+    'boolean',
+    'input',
+    'number',
+    'color',
+    'url',
+    'radio',
+    'single-select',
+    'date',
+    'date-time',
+    'time',
   ];
   const supportedTypeListChar = `#${supportedTypeList.join('#')}#`;
   if (supportedTypeListChar.indexOf(`#${curFormat}#`) >= 0) {

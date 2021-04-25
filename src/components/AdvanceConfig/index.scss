@@ -26,6 +26,7 @@
 
     .content-item {
       position: relative;
+      text-align: left;
 
       > .small-screen-element-warp,
       > .mobile-screen-element-warp {
@@ -35,16 +36,20 @@
       .color-item-form {
         width: 60px;
       }
+
+      .add-rule-condition-btn {
+        margin: 3px 0;
+      }
     }
   }
 
   // 默认为宽屏的展示样式
   .wide-screen-element-warp {
     position: relative;
-    line-height: 38px;
+    line-height: 30px;
     box-sizing: border-box;
     min-width: 350px;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
     display: inline-flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -63,9 +68,14 @@
 
     .content-item {
       flex: 1 1 200px;
+      text-align: left;
 
       .color-item-form {
         width: 60px;
+      }
+
+      .add-rule-condition-btn {
+        margin: 3px 0;
       }
     }
   }
@@ -74,6 +84,51 @@
   .code-area-item {
     min-width: 230px;
     max-width: 600px;
+  }
+  // 隐藏规则
+  .hidden-rule-box {
+    margin: 10px auto 0 auto;
+    width: 450px;
+    padding: 8px 15px;
+    box-sizing: border-box;
+    border-top: solid 1px #ccc;
+
+    .rule-title {
+      line-height: 30px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .rule-condition-box {
+      position: relative;
+      background-color: #f8f8f8;
+      padding: 8px 10px;
+      min-height: 30px;
+      line-height: 30px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+
+      .condition-title {
+        flex: 0 0 70px;
+        text-align: center;
+      }
+      .condition-equal {
+        flex: 0 0 40px;
+        text-align: center;
+      }
+      .condition-prop {
+        flex: 1 1 100px;
+        text-align: left;
+      }
+      .condition-value {
+        flex: 1 1 100px;
+        text-align: left;
+      }
+      .ant-select-single {
+        max-width: 145px;
+      }
+    }
   }
 
   // CodeArea类型组件格式错误提示相关的样式
@@ -108,7 +163,7 @@
 
   // 表单元素盒子样式，主要为了让表单元素垂直居中
   .form-item-box {
-    min-height: 38px;
+    min-height: 30px;
     display: flex;
     justify-content: stretch;
     align-items: center;
