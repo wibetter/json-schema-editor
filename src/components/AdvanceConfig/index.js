@@ -203,12 +203,14 @@ class AdvanceConfig extends React.PureComponent {
       targetJsonSchema,
       addConditionProp,
       removeConditionProp,
+      indexRoute2keyRoute,
     } = this.props;
     if (isConditionProp) {
       // 将当前字段添加为条件字段
       addConditionProp({
         indexRoute,
         key: jsonKey,
+        keyRoute: indexRoute2keyRoute(indexRoute),
         title: targetJsonSchema.title,
         format: targetJsonSchema.format,
         type: targetJsonSchema.type,
@@ -660,6 +662,7 @@ export default inject((stores) => ({
   editJsonData: stores.jsonSchemaStore.editJsonData,
   checkConditionProp: stores.jsonSchemaStore.checkConditionProp,
   addConditionProp: stores.jsonSchemaStore.addConditionProp,
+  indexRoute2keyRoute: stores.jsonSchemaStore.indexRoute2keyRoute,
   removeConditionProp: stores.jsonSchemaStore.removeConditionProp,
   deleteSchemaProp: stores.jsonSchemaStore.deleteSchemaProp,
   jsonSchema: stores.jsonSchemaStore.jsonSchema,

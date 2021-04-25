@@ -88,8 +88,9 @@
   // 隐藏规则
   .hidden-rule-box {
     margin: 10px auto 0 auto;
-    max-width: 450px;
+    width: 450px;
     padding: 8px 15px;
+    box-sizing: border-box;
     border-top: solid 1px #ccc;
 
     .rule-title {
@@ -99,10 +100,12 @@
     }
 
     .rule-condition-box {
+      position: relative;
       background-color: #f8f8f8;
       padding: 8px 10px;
       min-height: 30px;
       line-height: 30px;
+      box-sizing: border-box;
       display: flex;
       align-items: center;
 
@@ -115,12 +118,15 @@
         text-align: center;
       }
       .condition-prop {
-        flex: 1 1 120px;
+        flex: 1 1 100px;
         text-align: left;
       }
       .condition-value {
         flex: 1 1 100px;
         text-align: left;
+      }
+      .ant-select-single {
+        max-width: 145px;
       }
     }
   }

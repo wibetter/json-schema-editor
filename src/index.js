@@ -46,6 +46,16 @@ class IndexDemo extends React.PureComponent {
                 description: '',
                 placeholder: '',
                 readOnly: false,
+                hiddenRule: {
+                  conditionProp: {
+                    indexRoute: '0-8',
+                    key: 'field_9',
+                    keyRoute: 'func-field_9',
+                    title: '单选',
+                    format: 'radio',
+                    type: 'string',
+                  },
+                },
               },
               field_3: {
                 type: 'string',
@@ -56,6 +66,16 @@ class IndexDemo extends React.PureComponent {
                 description: '',
                 placeholder: '',
                 readOnly: false,
+                hiddenRule: {
+                  conditionProp: {
+                    indexRoute: '0-1',
+                    key: 'field_2',
+                    keyRoute: 'func-field_2',
+                    title: '布尔值',
+                    format: 'boolean',
+                    type: 'boolean',
+                  },
+                },
               },
               field_4: {
                 type: 'string',
@@ -76,6 +96,16 @@ class IndexDemo extends React.PureComponent {
                 description: '',
                 placeholder: '',
                 readOnly: false,
+                hiddenRule: {
+                  conditionProp: {
+                    indexRoute: '0-1',
+                    key: 'field_2',
+                    keyRoute: 'func-field_2',
+                    title: '布尔值',
+                    format: 'boolean',
+                    type: 'boolean',
+                  },
+                },
               },
               field_6: {
                 type: 'string',
@@ -137,6 +167,17 @@ class IndexDemo extends React.PureComponent {
                   enum: ['a', 'b', 'c'],
                   enumextra: ['选项a', '选项b', '选项c'],
                   format: 'string',
+                },
+                hiddenRule: {
+                  conditionProp: {
+                    indexRoute: '0-8',
+                    key: 'field_9',
+                    keyRoute: 'func-field_9',
+                    title: '单选',
+                    format: 'radio',
+                    type: 'string',
+                  },
+                  conditionValue: 'b',
                 },
               },
               field_11: {
@@ -598,15 +639,24 @@ class IndexDemo extends React.PureComponent {
         format: 'object',
         propertyOrder: ['func', 'style', 'data'],
         conditionProps: {
-          '0-0': {
-            indexRoute: '0-0',
-            key: 'field_1',
-            title: '单文本框',
-            format: 'input',
+          '0-1': {
+            indexRoute: '0-1',
+            key: 'field_2',
+            keyRoute: 'func-field_2',
+            title: '布尔值',
+            format: 'boolean',
+            type: 'boolean',
+          },
+          '0-8': {
+            indexRoute: '0-8',
+            key: 'field_9',
+            keyRoute: 'func-field_9',
+            title: '单选',
+            format: 'radio',
             type: 'string',
           },
         },
-        lastUpdateTime: '2021-04-25T01:59:20.402Z',
+        lastUpdateTime: '2021-04-25T08:15:19.630Z',
       }, // 用于组件配置的schema
       jsonData: {},
       dynamicDataList: [

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Select, Switch } from 'antd';
+import { Input, Select, Switch, Radio } from 'antd';
 import { inject, observer } from 'mobx-react';
 const { Option } = Select;
 
@@ -56,15 +56,20 @@ const ConditionValueSchema = (props) => {
     conditionRule.conditionProp.format === 'boolean'
   ) {
     return (
-      <Switch
+      <Radio.Group
         style={{ display: 'inline-block' }}
-        defaultChecked={conditionRule.conditionValue}
-        checkedChildren="true"
-        unCheckedChildren="false"
-        onChange={(checked) => {
-          hiddenRuleConditionValueChange(checked);
+        onChange={(event) => {
+          hiddenRuleConditionValueChange(event.target.value);
         }}
-      />
+        defaultValue={conditionRule.conditionValue}
+      >
+        <Radio value={true} key={true}>
+          true
+        </Radio>
+        <Radio value={false} key={false}>
+          false
+        </Radio>
+      </Radio.Group>
     );
   } else {
     return (
