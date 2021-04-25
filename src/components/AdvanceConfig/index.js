@@ -1,8 +1,20 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
+import { toJS } from 'mobx';
 import PropTypes from 'prop-types';
-import { Input, Switch, InputNumber, Checkbox, Radio, Tooltip } from 'antd';
+import {
+  Input,
+  Switch,
+  InputNumber,
+  Checkbox,
+  Radio,
+  Tooltip,
+  Button,
+  Select,
+} from 'antd';
 const { TextArea } = Input;
+const { Option } = Select;
+import ConditionValueSchema from '$components/ConditionValueSchema'; // 条件数值选择器
 import {
   isNeedDescriptionOption,
   isNeedDefaultOption,
@@ -25,6 +37,7 @@ class AdvanceConfig extends React.PureComponent {
     checkConditionProp: PropTypes.any,
     addConditionProp: PropTypes.any,
     removeConditionProp: PropTypes.any,
+    jsonSchema: PropTypes.any,
   };
 
   constructor(props) {
@@ -206,16 +219,69 @@ class AdvanceConfig extends React.PureComponent {
     }
   };
 
+  // 删除隐藏规则
+  deleteHiddenRule = () => {
+    const { indexRoute, deleteSchemaProp } = this.props;
+    deleteSchemaProp(indexRoute, 'hiddenRule');
+  };
+
+  // 添加隐藏规则
+  addHiddenRule = () => {
+    // 获取当前字段的条件规则
+    const hiddenRule = {};
+    this.handleValueChange('hiddenRule', hiddenRule);
+  };
+
+  // 隐藏规则条件字段变动
+  hiddenRuleConditionChange = (conditionPropItem) => {
+    const { targetJsonSchema } = this.props;
+    // 获取当前字段的条件规则
+    let hiddenRule = {};
+    if (targetJsonSchema.hiddenRule) {
+      hiddenRule = toJS(targetJsonSchema.hiddenRule);
+    }
+    hiddenRule.conditionProp = conditionPropItem;
+    this.handleValueChange('hiddenRule', hiddenRule);
+  };
+
+  // 隐藏规则条件数值变动
+  hiddenRuleConditionValueChange = (value) => {
+    const { targetJsonSchema } = this.props;
+    // 获取当前字段的条件规则
+    let hiddenRule = {};
+    if (targetJsonSchema.hiddenRule) {
+      hiddenRule = toJS(targetJsonSchema.hiddenRule);
+    }
+    hiddenRule.conditionValue = value;
+    this.handleValueChange('hiddenRule', hiddenRule);
+  };
+
   render() {
     const {
       nodeKey,
       indexRoute,
       targetJsonSchema,
       checkConditionProp,
+      jsonSchema,
+      getSchemaByIndexRoute,
     } = this.props;
     const currentFormat = getCurrentFormat(targetJsonSchema);
     // 判断当前是否是条件字段
     const isConditionProp = checkConditionProp(indexRoute);
+
+    // 获取全局的条件字段
+    let conditionProps = {};
+    if (jsonSchema.conditionProps) {
+      // 首次添加条件字段时
+      conditionProps = toJS(jsonSchema.conditionProps);
+    }
+    const conditionPropKeys = Object.keys(conditionProps);
+
+    // 获取当前字段的条件规则
+    let hiddenRule = {};
+    if (targetJsonSchema.hiddenRule) {
+      hiddenRule = targetJsonSchema.hiddenRule;
+    }
 
     /** 默认值需要进行细分
      *  输入形式的基础类型组件（input、boolean、 date、date-time、 time、 url、number），以input表单形式让用户填充；
@@ -517,6 +583,73 @@ class AdvanceConfig extends React.PureComponent {
             </div>
           </div>
         )}
+        {!targetJsonSchema.hiddenRule && (
+          <div className="wide-screen-element-warp">
+            <div className="element-title">
+              <span className="title-text">隐藏规则</span>
+            </div>
+            <div className="content-item">
+              <Button
+                size="small"
+                className="add-rule-condition-btn"
+                onClick={this.addHiddenRule}
+              >
+                添加隐藏规则
+              </Button>
+            </div>
+          </div>
+        )}
+        {targetJsonSchema.hiddenRule && (
+          <div className="hidden-rule-box">
+            <div className="rule-title">
+              <div className="title">隐藏规则：</div>
+              <div className="btn-box">
+                <Button size="small" onClick={this.deleteHiddenRule}>
+                  删除规则
+                </Button>
+              </div>
+            </div>
+            <div className="rule-condition-box">
+              <div className="condition-title">隐藏条件：</div>
+              <div className="condition-prop">
+                <Select
+                  defaultValue={
+                    hiddenRule.conditionProp
+                      ? hiddenRule.conditionProp.indexRoute
+                      : null
+                  }
+                  style={{ width: 150 }}
+                  onChange={(conditionKey) => {
+                    const conditionItem = conditionProps[conditionKey];
+                    this.hiddenRuleConditionChange(conditionItem);
+                  }}
+                >
+                  {conditionPropKeys.map((propKey) => {
+                    const conditionItem = conditionProps[propKey];
+                    return (
+                      <Option
+                        key={conditionItem.indexRoute}
+                        value={conditionItem.indexRoute}
+                        disabled={indexRoute === conditionItem.indexRoute}
+                      >
+                        {conditionItem.title}({conditionItem.indexRoute})
+                      </Option>
+                    );
+                  })}
+                </Select>
+              </div>
+              <div className="condition-equal">等于</div>
+              <div className="condition-value">
+                <ConditionValueSchema
+                  conditionRule={hiddenRule}
+                  hiddenRuleConditionValueChange={
+                    this.hiddenRuleConditionValueChange
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -528,4 +661,6 @@ export default inject((stores) => ({
   checkConditionProp: stores.jsonSchemaStore.checkConditionProp,
   addConditionProp: stores.jsonSchemaStore.addConditionProp,
   removeConditionProp: stores.jsonSchemaStore.removeConditionProp,
+  deleteSchemaProp: stores.jsonSchemaStore.deleteSchemaProp,
+  jsonSchema: stores.jsonSchemaStore.jsonSchema,
 }))(observer(AdvanceConfig));

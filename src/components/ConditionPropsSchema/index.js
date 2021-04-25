@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
-import { Tag } from 'antd';
+import { Tag, Tooltip } from 'antd';
 import './index.scss';
 
 /** 条件字段渲染组件 */
@@ -20,7 +20,14 @@ const ConditionPropsSchema = (props) => {
   } else {
     return (
       <div className="condition-props-box">
-        <div className="title">条件字段:</div>
+        <div className="title">
+          <Tooltip
+            title={'其他字段可根据条件字段的数值设置规则联动'}
+            placement="top"
+          >
+            条件字段:
+          </Tooltip>
+        </div>
         <div className="tags-box">
           {conditionPropKeys.map((conditionKey) => {
             const conditionProp = conditionProps[conditionKey];

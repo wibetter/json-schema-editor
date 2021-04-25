@@ -628,4 +628,14 @@ export default class JSONSchemaStore {
       this.jsonSchemaChange();
     }
   }
+
+  /** 根据索引路径值(indexRoute)和propKey 删除对应的schema属性字段
+   * */
+  @action.bound
+  deleteSchemaProp(curIndexRoute, propKey, ignoreOnChange) {
+    const schemaObj = getSchemaByIndexRoute(curIndexRoute, this.jsonSchema);
+    delete schemaObj[propKey];
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
+  }
 }
