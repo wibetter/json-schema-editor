@@ -634,7 +634,7 @@ class AdvanceConfig extends React.PureComponent {
                         value={conditionItem.indexRoute}
                         disabled={indexRoute === conditionItem.indexRoute}
                       >
-                        {conditionItem.title}({conditionItem.indexRoute})
+                        {conditionItem.title}({conditionItem.key})
                       </Option>
                     );
                   })}
