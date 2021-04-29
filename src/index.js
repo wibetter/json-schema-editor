@@ -134,7 +134,6 @@ class IndexDemo extends React.PureComponent {
                 propertyOrder: ['unit', 'quantity'],
                 hiddenRule: {
                   conditionProp: {
-                    indexRoute: '1-4',
                     key: 'fixedHeight',
                     keyRoute: 'style-fixedHeight',
                     title: '定高',
@@ -319,7 +318,6 @@ class IndexDemo extends React.PureComponent {
                 default: 'solid',
                 hiddenRule: {
                   conditionProp: {
-                    indexRoute: '1-10',
                     key: 'hasBorder',
                     keyRoute: 'style-hasBorder',
                     title: '展示边框',
@@ -361,7 +359,6 @@ class IndexDemo extends React.PureComponent {
                 description: ' border-width 属性为边框指定宽度',
                 hiddenRule: {
                   conditionProp: {
-                    indexRoute: '1-10',
                     key: 'hasBorder',
                     keyRoute: 'style-hasBorder',
                     title: '展示边框',
@@ -381,7 +378,6 @@ class IndexDemo extends React.PureComponent {
                 readOnly: false,
                 hiddenRule: {
                   conditionProp: {
-                    indexRoute: '1-10',
                     key: 'hasBorder',
                     keyRoute: 'style-hasBorder',
                     title: '展示边框',
@@ -447,10 +443,9 @@ class IndexDemo extends React.PureComponent {
         },
         required: ['props', 'style', 'data', 'event'],
         propertyOrder: ['props', 'style', 'data', 'event'],
-        lastUpdateTime: '2021-04-29T03:44:00.450Z',
+        lastUpdateTime: '2021-04-29T05:51:26.253Z',
         conditionProps: {
           'style-fixedHeight': {
-            indexRoute: '1-4',
             key: 'fixedHeight',
             keyRoute: 'style-fixedHeight',
             title: '定高',
@@ -458,7 +453,6 @@ class IndexDemo extends React.PureComponent {
             type: 'boolean',
           },
           'style-hasBorder': {
-            indexRoute: '1-10',
             key: 'hasBorder',
             keyRoute: 'style-hasBorder',
             title: '展示边框',

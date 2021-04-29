@@ -209,7 +209,6 @@ class AdvanceConfig extends React.PureComponent {
     if (isConditionProp) {
       // 将当前字段添加为条件字段
       addConditionProp({
-        indexRoute,
         key: jsonKey,
         keyRoute: curKeyRoute,
         title: targetJsonSchema.title,
