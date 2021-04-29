@@ -195,8 +195,8 @@ class AdvanceConfig extends React.PureComponent {
     );
   };
 
-  /** isConditionProp变动事件处理器 */
-  curConditionPropChange = (isConditionProp) => {
+  /** 条件字段开关变动事件处理器 */
+  curConditionPropChange = (isConditionProp, keyRoute) => {
     const {
       indexRoute,
       jsonKey,
@@ -205,19 +205,19 @@ class AdvanceConfig extends React.PureComponent {
       removeConditionProp,
       indexRoute2keyRoute,
     } = this.props;
+    const curKeyRoute = keyRoute || indexRoute2keyRoute(indexRoute);
     if (isConditionProp) {
       // 将当前字段添加为条件字段
       addConditionProp({
-        indexRoute,
         key: jsonKey,
-        keyRoute: indexRoute2keyRoute(indexRoute),
+        keyRoute: curKeyRoute,
         title: targetJsonSchema.title,
         format: targetJsonSchema.format,
         type: targetJsonSchema.type,
       });
     } else {
       // 将当前字段改为非条件字段
-      removeConditionProp(indexRoute);
+      removeConditionProp(curKeyRoute);
     }
   };
 
@@ -230,7 +230,7 @@ class AdvanceConfig extends React.PureComponent {
   // 添加隐藏规则
   addHiddenRule = () => {
     // 获取当前字段的条件规则
-    const hiddenRule = {};
+    const hiddenRule = {}; // 暂无对应的条件字段
     this.handleValueChange('hiddenRule', hiddenRule);
   };
 
@@ -265,11 +265,14 @@ class AdvanceConfig extends React.PureComponent {
       targetJsonSchema,
       checkConditionProp,
       jsonSchema,
+      indexRoute2keyRoute,
       getSchemaByIndexRoute,
     } = this.props;
     const currentFormat = getCurrentFormat(targetJsonSchema);
+    // 获取对应的keyRoute
+    const curKeyRoute = indexRoute2keyRoute(indexRoute);
     // 判断当前是否是条件字段
-    const isConditionProp = checkConditionProp(indexRoute);
+    const isConditionProp = checkConditionProp(curKeyRoute);
 
     // 获取全局的条件字段
     let conditionProps = {};
@@ -320,7 +323,7 @@ class AdvanceConfig extends React.PureComponent {
                   checkedChildren="是"
                   unCheckedChildren="否"
                   onChange={(checked) => {
-                    this.curConditionPropChange(checked);
+                    this.curConditionPropChange(checked, curKeyRoute);
                   }}
                 />
               </div>
@@ -617,7 +620,7 @@ class AdvanceConfig extends React.PureComponent {
                 <Select
                   defaultValue={
                     hiddenRule.conditionProp
-                      ? hiddenRule.conditionProp.indexRoute
+                      ? hiddenRule.conditionProp.keyRoute
                       : null
                   }
                   style={{ width: 150 }}
@@ -630,9 +633,9 @@ class AdvanceConfig extends React.PureComponent {
                     const conditionItem = conditionProps[propKey];
                     return (
                       <Option
-                        key={conditionItem.indexRoute}
-                        value={conditionItem.indexRoute}
-                        disabled={indexRoute === conditionItem.indexRoute}
+                        key={conditionItem.keyRoute}
+                        value={conditionItem.keyRoute}
+                        disabled={curKeyRoute === conditionItem.keyRoute}
                       >
                         {conditionItem.title}({conditionItem.key})
                       </Option>

@@ -33,11 +33,11 @@ const ConditionPropsSchema = (props) => {
             const conditionProp = conditionProps[conditionKey];
             return (
               <Tag
-                key={conditionProp.indexRoute}
+                key={conditionProp.keyRoute}
                 color="geekblue"
                 closable
                 onClose={() => {
-                  removeConditionProp(conditionProp.indexRoute);
+                  removeConditionProp(conditionProp.keyRoute);
                 }}
               >
                 {conditionProp.key}({conditionProp.title})
