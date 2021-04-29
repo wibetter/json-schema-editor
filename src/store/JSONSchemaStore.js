@@ -572,16 +572,15 @@ export default class JSONSchemaStore {
    * 备注：jsonSchema新增conditionProps对象，以key-value的形式记录当前schema中的条件字段
    */
 
-  /** 根据索引路径值(indexRoute)判断是否为条件字段
-   * */
+  /** 根据key值路径(keyRoute)判断是否为条件字段 */
   @action.bound
-  checkConditionProp(indexRoute) {
+  checkConditionProp(keyRoute) {
     const conditionProps =
       this.jsonSchema && this.jsonSchema.conditionProps
         ? this.jsonSchema.conditionProps
         : {};
     let isConditionProp = false;
-    if (conditionProps[indexRoute]) {
+    if (conditionProps[keyRoute]) {
       isConditionProp = true;
     }
     return isConditionProp;
@@ -601,8 +600,8 @@ export default class JSONSchemaStore {
     }
     // 获取当前schema中的条件字段
     const conditionProps = this.jsonSchema.conditionProps;
-    if (conditionProp && conditionProp.indexRoute) {
-      conditionProps[conditionProp.indexRoute] = conditionProp;
+    if (conditionProp && conditionProp.keyRoute) {
+      conditionProps[conditionProp.keyRoute] = conditionProp;
       // 触发onChange事件
       this.jsonSchemaChange();
     }
@@ -611,7 +610,7 @@ export default class JSONSchemaStore {
   /** 移除条件字段
    * */
   @action.bound
-  removeConditionProp(indexRoute) {
+  removeConditionProp(keyRoute) {
     if (!this.jsonSchema) {
       message.error('当前schema为空');
       return;
@@ -622,14 +621,15 @@ export default class JSONSchemaStore {
     }
     // 获取当前schema中的条件字段
     const conditionProps = this.jsonSchema.conditionProps;
-    if (indexRoute && conditionProps[indexRoute]) {
-      delete conditionProps[indexRoute];
+    if (keyRoute && conditionProps[keyRoute]) {
+      delete conditionProps[keyRoute];
       // 触发onChange事件
       this.jsonSchemaChange();
     }
   }
 
   /** 根据索引路径值(indexRoute)和propKey 删除对应的schema属性字段
+   * 备注：目前仅用于删除隐藏规则
    * */
   @action.bound
   deleteSchemaProp(curIndexRoute, propKey, ignoreOnChange) {
