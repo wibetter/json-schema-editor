@@ -637,9 +637,10 @@ class IndexDemo extends React.PureComponent {
         <div className="title-container">
           <div className="title1-box">
             <p>
-              <b>JSONSchema</b>: 提供可视化界面编辑json格式/结构；
+              <b className="title-name">JSONSchema</b>:
+              提供可视化界面编辑json格式/结构；
               <br />
-              主要用于可视化模型设置（定义可配置项）。
+              用于可视化模型设置（定义可配置项）。
             </p>
             <div>
               <b>自定义展示</b>: &nbsp;&nbsp;
@@ -658,8 +659,8 @@ class IndexDemo extends React.PureComponent {
           </div>
           <div className={`title2-box ${!wideScreen ? 'mobile-view' : ''}`}>
             <p>
-              <b>JSONEditor</b>:
-              提供可视化界面编辑json数据内容，用于可视化编辑配置项内容，避免用户直接编辑json数据内容。
+              <b className="title-name">JSONEditor</b>:
+              提供可视化界面编辑json数据内容，用于可视化配置，避免用户直接编辑json数据内容。
             </p>
             <div>
               <b>自定义展示</b>: &nbsp;&nbsp;

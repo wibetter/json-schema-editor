@@ -15,10 +15,17 @@ body {
   max-width: 1200px;
   display: flex;
 
+  .title-name {
+    font-size: 22px;
+  }
+
   .title1-box {
     flex: 1 1 600px;
     padding: 8px 10px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
 
   .title2-box {
