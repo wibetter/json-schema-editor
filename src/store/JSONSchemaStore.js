@@ -8,6 +8,7 @@ import {
   getParentIndexRoute,
   getParentIndexRoute_CurIndex,
   getSchemaByIndexRoute,
+  getSchemaByKeyRoute,
   oldSchemaToNewSchema,
   isBoxSchemaData,
   indexRoute2keyRoute,
@@ -112,10 +113,16 @@ export default class JSONSchemaStore {
     return indexRoute2keyRoute(indexRoute, this.jsonSchema);
   }
 
-  /** 根据索引路径获取对应的json数据[非联动式数据获取]  */
+  /** 根据索引路径获取对应的schema数据[非联动式数据获取]  */
   @action.bound
   getSchemaByIndexRoute(indexRoute) {
     return getSchemaByIndexRoute(indexRoute, this.jsonSchema, true); // useObjClone: true 避免后续产生数据联动
+  }
+
+  /** 根据key值路径获取对应的schema数据[非联动式数据获取]  */
+  @action.bound
+  getSchemaByKeyRoute(keyRoute) {
+    return getSchemaByKeyRoute(keyRoute, this.jsonSchema, true); // useObjClone: true 避免后续产生数据联动
   }
 
   /** 根据parentJSONObj自动生成jsonKey */
@@ -269,9 +276,8 @@ export default class JSONSchemaStore {
   @action.bound
   insertJsonData(curIndexRoute, jsonKey, curJSONObj, position, ignoreOnChange) {
     // 1.获取当前元素的父元素路径值和最后一个路径值，以便定位插入的位置
-    const parentIndexRoute_CurIndex = getParentIndexRoute_CurIndex(
-      curIndexRoute,
-    );
+    const parentIndexRoute_CurIndex =
+      getParentIndexRoute_CurIndex(curIndexRoute);
     const parentIndexRoute = parentIndexRoute_CurIndex[0];
     const curIndex = parentIndexRoute_CurIndex[1];
     // 2.获取父级元素

@@ -7,16 +7,13 @@ const { Option } = Select;
  * 备注：目前仅在高级设置面板中使用
  */
 const ConditionValueSchema = (props) => {
-  const {
-    conditionRule,
-    hiddenRuleConditionValueChange,
-    getSchemaByIndexRoute,
-  } = props;
+  const { conditionRule, hiddenRuleConditionValueChange, getSchemaByKeyRoute } =
+    props;
   // 获取当前条件字段的枚举值
   let curConditionValueItems = {};
-  if (conditionRule.conditionProp && conditionRule.conditionProp.indexRoute) {
-    const conditionSchema = getSchemaByIndexRoute(
-      conditionRule.conditionProp.indexRoute,
+  if (conditionRule.conditionProp && conditionRule.conditionProp.keyRoute) {
+    const conditionSchema = getSchemaByKeyRoute(
+      conditionRule.conditionProp.keyRoute,
     );
     if (conditionSchema.items) {
       curConditionValueItems = conditionSchema.items;
@@ -85,5 +82,5 @@ const ConditionValueSchema = (props) => {
 };
 
 export default inject((stores) => ({
-  getSchemaByIndexRoute: stores.jsonSchemaStore.getSchemaByIndexRoute,
+  getSchemaByKeyRoute: stores.jsonSchemaStore.getSchemaByKeyRoute,
 }))(observer(ConditionValueSchema));
