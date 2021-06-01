@@ -491,8 +491,7 @@ class IndexDemo extends React.PureComponent {
             erp: 'wangjianhui16',
           },
           dataName: 'getProjectDataSource',
-          body:
-            '{"param1":{"title":"参数名称","scope":"static","value":"111"},"param2":{"title":"参数名称","scope":"window","name":"PARAM1","value":"111"},"pageId":{"title":"页面id","scope":"hash","name":"pId","value":"111"},"param5":{"title":"参数名称","scope":"url","name":"pageId","value":"111"},"param7":{"title":"参数名称","scope":"dynamic","dataName":"api3","body":{"param2":{"title":"参数名称","scope":"static","value":"222"},"param3":{"title":"参数名称","scope":"static","value":"333"}}}}',
+          body: '{"param1":{"title":"参数名称","scope":"static","value":"111"},"param2":{"title":"参数名称","scope":"window","name":"PARAM1","value":"111"},"pageId":{"title":"页面id","scope":"hash","name":"pId","value":"111"},"param5":{"title":"参数名称","scope":"url","name":"pageId","value":"111"},"param7":{"title":"参数名称","scope":"dynamic","dataName":"api3","body":{"param2":{"title":"参数名称","scope":"static","value":"222"},"param3":{"title":"参数名称","scope":"static","value":"333"}}}}',
         },
         {
           id: 4,
@@ -518,8 +517,7 @@ class IndexDemo extends React.PureComponent {
             erp: 'wangjianhui16',
           },
           dataName: 'getAttr2',
-          body:
-            '{"param1":{"title":"参数名称","scope":"static","value":"111"},"param2":{"title":"参数名称","scope":"window","name":"PARAM1","value":"111"},"pageId":{"title":"页面id","scope":"hash","name":"pId","value":"111"}}',
+          body: '{"param1":{"title":"参数名称","scope":"static","value":"111"},"param2":{"title":"参数名称","scope":"window","name":"PARAM1","value":"111"},"pageId":{"title":"页面id","scope":"hash","name":"pId","value":"111"}}',
         },
       ],
       wideScreen: false,
@@ -641,7 +639,10 @@ class IndexDemo extends React.PureComponent {
             <p>
               <b>JSONSchema</b>: 提供可视化界面编辑json格式/结构；
               <br />
-              主要用于可视化模型设置（定义可配置项）。&nbsp;&nbsp;
+              主要用于可视化模型设置（定义可配置项）。
+            </p>
+            <div>
+              <b>自定义展示</b>: &nbsp;&nbsp;
               <Switch
                 style={{ display: 'inline-block' }}
                 defaultChecked={schemaCodeView}
@@ -653,9 +654,9 @@ class IndexDemo extends React.PureComponent {
                   });
                 }}
               />
-            </p>
+            </div>
           </div>
-          <div className="title2-box">
+          <div className={`title2-box ${!wideScreen ? 'mobile-view' : ''}`}>
             <p>
               <b>JSONEditor</b>:
               提供可视化界面编辑json数据内容，用于可视化编辑配置项内容，避免用户直接编辑json数据内容。
@@ -737,7 +738,9 @@ class IndexDemo extends React.PureComponent {
               />
             )}
           </div>
-          <div className="json-editor-box">
+          <div
+            className={`json-editor-box ${!wideScreen ? 'mobile-view' : ''}`}
+          >
             <JSONEditor
               viewStyle={viewStyle}
               jsonView={jsonView} // code模式

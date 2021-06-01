@@ -11,36 +11,48 @@ body {
 }
 
 .title-container {
+  margin: 0 auto;
+  max-width: 1200px;
   display: flex;
 
   .title1-box {
-    flex: 0 1 700px;
+    flex: 1 1 600px;
     padding: 8px 10px;
     box-sizing: border-box;
   }
 
   .title2-box {
-    flex: 1 1 600px;
+    flex: 0 1 600px;
     box-sizing: border-box;
     padding: 8px 10px;
+  }
+
+  .title2-box.mobile-view {
+    flex: 0 1 320px;
   }
 }
 
 .json-action-container {
+  margin: 0 auto;
+  max-width: 1200px;
   display: flex;
 
   .json-schema-box {
-    flex: 0 1 700px;
+    flex: 1 1 600px;
     padding: 8px 10px;
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   .json-editor-box {
-    flex: 1 1 600px;
+    flex: 0 1 600px;
     box-sizing: border-box;
     padding: 8px 10px;
     border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .json-editor-box.mobile-view {
+    flex: 0 1 320px;
   }
 }
 
