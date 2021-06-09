@@ -6,7 +6,7 @@ import './index.scss';
 
 /** 条件字段渲染组件 */
 const ConditionPropsSchema = (props) => {
-  const { jsonSchema, removeConditionProp } = props;
+  const { jsonSchema, removeConditionProp, cancelConditionProp } = props;
   let conditionProps = {};
   if (jsonSchema.conditionProps) {
     // 首次添加条件字段时
@@ -37,7 +37,13 @@ const ConditionPropsSchema = (props) => {
                 color="geekblue"
                 closable
                 onClose={() => {
+                  // 移除条件字段
                   removeConditionProp(conditionProp.keyRoute);
+                  // 将isConditionProp设置为false
+                  cancelConditionProp(
+                    conditionProp.keyRoute,
+                    conditionProp.key,
+                  );
                 }}
               >
                 {conditionProp.key}({conditionProp.title})
@@ -53,4 +59,5 @@ const ConditionPropsSchema = (props) => {
 export default inject((stores) => ({
   jsonSchema: stores.jsonSchemaStore.jsonSchema,
   removeConditionProp: stores.jsonSchemaStore.removeConditionProp,
+  cancelConditionProp: stores.jsonSchemaStore.cancelConditionProp,
 }))(observer(ConditionPropsSchema));

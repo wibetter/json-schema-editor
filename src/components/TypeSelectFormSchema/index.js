@@ -38,11 +38,11 @@ class TypeSelectFormSchema extends React.PureComponent {
       jsonKey,
       targetJsonSchema,
       typeSelectData,
-      editJsonData,
-      updateJsonData,
+      editSchemaData,
+      updateSchemaData,
     } = this.props;
     if (targetJsonSchema.default === newType) return; // default值未改变则直接跳出
-    editJsonData(indexRoute, jsonKey, {
+    editSchemaData(indexRoute, jsonKey, {
       default: newType,
     });
 
@@ -53,7 +53,7 @@ class TypeSelectFormSchema extends React.PureComponent {
         // 根据indexRoute获取下一个子元素的路径值
         const nextIndexRoute = getNextIndexRoute(indexRoute);
         // 类型改变时更新targetJsonSchema.properties.data中的数据
-        editJsonData(nextIndexRoute, 'data', newDataJSONObj);
+        editSchemaData(nextIndexRoute, 'data', newDataJSONObj);
       }
     }
     // event类型的特殊处理
@@ -63,7 +63,7 @@ class TypeSelectFormSchema extends React.PureComponent {
         // 根据indexRoute获取下一个子元素的路径值
         const parentIndexRoute = getParentIndexRoute(indexRoute);
         // 类型改变时更新父元素的json数据
-        updateJsonData(parentIndexRoute, newEventJSONObj);
+        updateSchemaData(parentIndexRoute, newEventJSONObj);
       }
     }
   };
@@ -110,6 +110,6 @@ class TypeSelectFormSchema extends React.PureComponent {
 }
 
 export default inject((stores) => ({
-  editJsonData: stores.jsonSchemaStore.editJsonData,
-  updateJsonData: stores.jsonSchemaStore.updateJsonData,
+  editSchemaData: stores.jsonSchemaStore.editSchemaData,
+  updateSchemaData: stores.jsonSchemaStore.updateSchemaData,
 }))(observer(TypeSelectFormSchema));

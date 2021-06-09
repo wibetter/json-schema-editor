@@ -12,6 +12,7 @@ import {
   oldSchemaToNewSchema,
   isBoxSchemaData,
   indexRoute2keyRoute,
+  keyRoute2indexRoute,
   getCurrentFormat,
   KeyWordList,
   TypeDataList,
@@ -113,6 +114,12 @@ export default class JSONSchemaStore {
     return indexRoute2keyRoute(indexRoute, this.jsonSchema);
   }
 
+  /** 根据key值路径获取对应的index索引路径 */
+  @action.bound
+  keyRoute2indexRoute(keyRoute) {
+    return keyRoute2indexRoute(keyRoute, this.jsonSchema);
+  }
+
   /** 根据索引路径获取对应的schema数据[非联动式数据获取]  */
   @action.bound
   getSchemaByIndexRoute(indexRoute) {
@@ -191,24 +198,6 @@ export default class JSONSchemaStore {
     }
   }
 
-  /** 根据索引路径值(indexRoute)编辑对应的json数据对象
-   *  备注：用于编辑对应的属性值（type、title、description、placeholder、isRequired、default、readOnly）
-   * */
-  @action.bound
-  editJsonData(curIndexRoute, jsonKey, newJsonDataObj, ignoreOnChange) {
-    const parentIndexRoute = getParentIndexRoute(curIndexRoute);
-    const parentJSONObj = getSchemaByIndexRoute(
-      parentIndexRoute,
-      this.jsonSchema,
-    );
-    parentJSONObj.properties[jsonKey] = {
-      ...objClone(parentJSONObj.properties[jsonKey]),
-      ...newJsonDataObj,
-    };
-    // 触发onChange事件
-    this.jsonSchemaChange(ignoreOnChange);
-  }
-
   /** 根据索引路径值(indexRoute)更新对应的json数据对象
    *  备注：主要用于变更对应的type属性值
    * */
@@ -228,13 +217,30 @@ export default class JSONSchemaStore {
    *  备注：用于覆盖整个json对象
    * */
   @action.bound
-  updateJsonData(curIndexRoute, newJsonDataObj, ignoreOnChange) {
+  updateSchemaData(curIndexRoute, newJsonDataObj, ignoreOnChange) {
     const curJSONObj = getSchemaByIndexRoute(curIndexRoute, this.jsonSchema);
     Object.assign(curJSONObj, objClone(newJsonDataObj));
     // 触发onChange事件
     this.jsonSchemaChange(ignoreOnChange);
   }
 
+  /** 根据索引路径值(indexRoute)编辑对应的json数据对象
+   *  备注：用于编辑对应的属性值（type、title、description、placeholder、isRequired、default、readOnly）
+   * */
+  @action.bound
+  editSchemaData(curIndexRoute, jsonKey, newJsonDataObj, ignoreOnChange) {
+    const parentIndexRoute = getParentIndexRoute(curIndexRoute);
+    const parentSchemaObj = getSchemaByIndexRoute(
+      parentIndexRoute,
+      this.jsonSchema,
+    );
+    parentSchemaObj.properties[jsonKey] = {
+      ...objClone(parentSchemaObj.properties[jsonKey]),
+      ...newJsonDataObj,
+    };
+    // 触发onChange事件
+    this.jsonSchemaChange(ignoreOnChange);
+  }
   /** 根据索引路径值(indexRoute)编辑对应的jsonKey
    *  备注：仅用于修改jsonKey值
    * */
@@ -632,6 +638,26 @@ export default class JSONSchemaStore {
       // 触发onChange事件
       this.jsonSchemaChange();
     }
+  }
+
+  /**
+   * 取消条件字段
+   * 备注：将isConditionProp设置为false
+   * */
+  @action.bound
+  cancelConditionProp(keyRoute, curKey) {
+    if (!this.jsonSchema) {
+      message.error('当前schema为空');
+      return;
+    }
+    // 获取当前schema
+    const curSchema = this.getSchemaByKeyRoute(keyRoute);
+    // 取消条件字段：将isConditionProp设置为false
+    curSchema['isConditionProp'] = false;
+    // 获取对应的indexRoute
+    const curIndexRoute = this.keyRoute2indexRoute(keyRoute);
+    // 更新Schema数据
+    this.editSchemaData(curIndexRoute, curKey, curSchema);
   }
 
   /** 根据索引路径值(indexRoute)和propKey 删除对应的schema属性字段

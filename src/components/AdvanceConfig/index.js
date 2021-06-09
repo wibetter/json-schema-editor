@@ -48,12 +48,13 @@ class AdvanceConfig extends React.PureComponent {
 
   /** 数值变动事件处理器 */
   handleValueChange = (curKey, newVal) => {
-    const { indexRoute, jsonKey, targetJsonSchema, editJsonData } = this.props;
+    const { indexRoute, jsonKey, targetJsonSchema, editSchemaData } =
+      this.props;
     if (targetJsonSchema[curKey] === newVal) return; // title值未改变则直接跳出
-    const newJsonData = {};
-    newJsonData[curKey] = newVal;
+    const newSchemaData = {};
+    newSchemaData[curKey] = newVal;
     // jsonKey是当前字段项的key，curKey是当前字段对象的属性key
-    editJsonData(indexRoute, jsonKey, newJsonData);
+    editSchemaData(indexRoute, jsonKey, newSchemaData);
   };
 
   /** 根据当前类型显示对应的输入组件 */
@@ -215,9 +216,13 @@ class AdvanceConfig extends React.PureComponent {
         format: targetJsonSchema.format,
         type: targetJsonSchema.type,
       });
+      // 增加条件字段标记
+      this.handleValueChange('isConditionProp', true);
     } else {
       // 将当前字段改为非条件字段
       removeConditionProp(curKeyRoute);
+      // 取消条件字段标记
+      this.handleValueChange('isConditionProp', false);
     }
   };
 
@@ -662,7 +667,7 @@ class AdvanceConfig extends React.PureComponent {
 
 export default inject((stores) => ({
   getSchemaByIndexRoute: stores.jsonSchemaStore.getSchemaByIndexRoute,
-  editJsonData: stores.jsonSchemaStore.editJsonData,
+  editSchemaData: stores.jsonSchemaStore.editSchemaData,
   checkConditionProp: stores.jsonSchemaStore.checkConditionProp,
   addConditionProp: stores.jsonSchemaStore.addConditionProp,
   indexRoute2keyRoute: stores.jsonSchemaStore.indexRoute2keyRoute,

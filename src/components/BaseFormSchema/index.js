@@ -76,9 +76,10 @@ class BaseFormSchema extends React.PureComponent {
   /** title类型输入值变动事件处理器 */
   handleTitleChange = (event) => {
     const { value } = event.target;
-    const { indexRoute, jsonKey, editJsonData, targetJsonSchema } = this.props;
+    const { indexRoute, jsonKey, editSchemaData, targetJsonSchema } =
+      this.props;
     if (targetJsonSchema.title === value) return; // title值未改变则直接跳出
-    editJsonData(indexRoute, jsonKey, {
+    editSchemaData(indexRoute, jsonKey, {
       title: value,
     });
   };
@@ -98,12 +99,8 @@ class BaseFormSchema extends React.PureComponent {
   /** 新增字段项
    *  备注：如果当前字段是容器类型，则为其添加子字段项，如果是基本类型则为其添加兄弟节点字段项 */
   onAddBtnEvent = () => {
-    const {
-      indexRoute,
-      targetJsonSchema,
-      addChildJson,
-      addNextJsonData,
-    } = this.props;
+    const { indexRoute, targetJsonSchema, addChildJson, addNextJsonData } =
+      this.props;
     const currentFormat = getCurrentFormat(targetJsonSchema);
 
     if (isBoxSchemaData(currentFormat)) {
@@ -162,13 +159,8 @@ class BaseFormSchema extends React.PureComponent {
   };
 
   render() {
-    const {
-      parentType,
-      indexRoute,
-      jsonKey,
-      nodeKey,
-      targetJsonSchema,
-    } = this.props;
+    const { parentType, indexRoute, jsonKey, nodeKey, targetJsonSchema } =
+      this.props;
     const { isShowAdvance } = this.state;
     const isFirstSchema = this.props.isFirstSchema || false; // 是否是最外层的schema元素
     const isFixed = this.props.isFixed || false; // 是否为固有的属性（不可编辑、不可删除）
@@ -357,7 +349,7 @@ export default inject((stores) => ({
   addNextJsonData: stores.jsonSchemaStore.addNextJsonData,
   insertJsonData: stores.jsonSchemaStore.insertJsonData,
   childElemSort: stores.jsonSchemaStore.childElemSort,
-  editJsonData: stores.jsonSchemaStore.editJsonData,
+  editSchemaData: stores.jsonSchemaStore.editSchemaData,
   editJsonKey: stores.jsonSchemaStore.editJsonKey,
   changeType: stores.jsonSchemaStore.changeType,
   isExitJsonKey: stores.jsonSchemaStore.isExitJsonKey,
