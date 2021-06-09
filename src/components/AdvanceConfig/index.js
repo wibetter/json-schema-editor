@@ -25,7 +25,7 @@ import {
   isNeedMinMaxOption,
   isNeedMinMaxChildOption,
 } from '$utils/advanced.config';
-import { getCurrentFormat } from '@wibetter/json-utils';
+import { getCurrentFormat, exitPropertie } from '@wibetter/json-utils';
 import './index.scss';
 
 class AdvanceConfig extends React.PureComponent {
@@ -271,13 +271,17 @@ class AdvanceConfig extends React.PureComponent {
       checkConditionProp,
       jsonSchema,
       indexRoute2keyRoute,
-      getSchemaByIndexRoute,
     } = this.props;
     const currentFormat = getCurrentFormat(targetJsonSchema);
     // 获取对应的keyRoute
     const curKeyRoute = indexRoute2keyRoute(indexRoute);
     // 判断当前是否是条件字段
-    const isConditionProp = checkConditionProp(curKeyRoute);
+    let isConditionProp = false;
+    if (exitPropertie(targetJsonSchema.isConditionProp)) {
+      isConditionProp = targetJsonSchema.isConditionProp;
+    } else {
+      isConditionProp = checkConditionProp(curKeyRoute);
+    }
 
     // 获取全局的条件字段
     let conditionProps = {};
