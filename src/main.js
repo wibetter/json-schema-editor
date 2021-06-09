@@ -2,7 +2,6 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
 import PropTypes from 'prop-types';
-
 import JSONStore from '$store/index';
 import JSONSchema from '$components/JSONSchema/index';
 
@@ -20,11 +19,20 @@ export default class JSONSchemaEditor extends React.PureComponent {
     element: PropTypes.any,
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      jsonSchemaStore: new JSONStore.jsonSchemaStore(), // 初始化一份schemaStore
+    };
+  }
+
   render() {
     const { data, typeList, onChange, element, wideScreen } = this.props;
+    const { jsonSchemaStore } = this.state;
 
     const renderContent = (
-      <Provider jsonSchemaStore={JSONStore.jsonSchemaStore}>
+      <Provider jsonSchemaStore={jsonSchemaStore}>
         <JSONSchema
           data={data}
           typeList={typeList}
