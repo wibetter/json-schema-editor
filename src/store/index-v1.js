@@ -1,7 +1,8 @@
 import JSONSchemaStore from './JSONSchemaStore';
-// 非单例模式
+
+// 单例模式
 const JSONStore = {
-  jsonSchemaStore: JSONSchemaStore,
+  jsonSchemaStore: new JSONSchemaStore(),
 };
 
 export default JSONStore;

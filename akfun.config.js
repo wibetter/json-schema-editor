@@ -51,7 +51,7 @@ module.exports = {
         },
       },
     ],
-    template: resolve('./src/index.html'), // 默认html模板
+    template: resolve('./src/demo2.html'), // 默认html模板
     // sassResources中的sass文件会自动注入每一个sass文件中
     sassResources: [
       resolve('./src/assets/css/common.scss'),
@@ -101,5 +101,5 @@ module.exports = {
     productionGzip: false,
     productionGzipExtensions: ['js', 'css', 'json'],
     bundleAnalyzerReport: false,
-  }
+  },
 };
