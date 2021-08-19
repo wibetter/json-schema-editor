@@ -28,7 +28,7 @@ JSONSchema效果图：
 ## 安装
 
 ```bash
-npm install --save @wibtter/json-schema-editor
+npm install --save @wibetter/json-schema-editor
 ```
 
 ## 使用示例
