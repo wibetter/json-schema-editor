@@ -16,7 +16,7 @@ codearea、htmlarea、text-editor([使用说明](https://github.com/wibetter/jso
 7. 支持字段联动
 
 在线Demo：
-[点击访问在线Demo](https://wibetter.github.io/json-schema-editor/demo1/index.html)
+[点击访问在线Demo](https://wibetter.github.io/json-schema-editor/demo/demo1/index.html)
 
 
 JSONSchema效果图：
