@@ -8,7 +8,7 @@
   ],
   "author": "ldan@wibetter",
   "license": "MIT",
-  "main": "dist/index.umd.js",
+  "main": "lib/index.js",
   "scripts": {
     "dev": "akfun dev",
     "build2demo": "akfun build",

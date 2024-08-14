@@ -1,11 +1,11 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { Switch } from 'antd';
-import JSONSchemaEditor from './main';
+// import JSONSchemaEditor from './main';
+// import './index.scss';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/theme-solarized_light'; // ace-builds
-import './index.scss';
 
 /**
  * json-schema-editor的测试Demo：含json-editor

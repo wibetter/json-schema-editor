@@ -16,7 +16,7 @@ module.exports = {
   webpack: {
     resolve: {
       // webpack的resolve配置
-      extensions: ['.js', '.jsx', '.vue', 'json'], // 用于配置webpack在尝试过程中用到的后缀列表
+      extensions: ['.js', '.jsx', '.umd.js', '.vue', 'json'], // 用于配置webpack在尝试过程中用到的后缀列表
       alias: {
         '@': resolve('src'),
         $components: resolve('src/components'),
@@ -88,9 +88,12 @@ module.exports = {
     entry: {
       index: './src/main.js',
     },
+    output: {
+      filename: '[name].js'
+    },
     NODE_ENV: 'production', // development / production
     libraryName: 'JSONSchemaEditor', // 构建第三方功能包时最后导出的引用变量名
-    assetsRoot: resolve('./dist'), // 打包后的文件绝对路径（物理路径）
+    assetsRoot: resolve('./lib'), // 打包后的文件绝对路径（物理路径）
     assetsPublicPath: '/', // 设置静态资源的引用路径（根域名+路径）
     assetsSubDirectory: '', // 资源引用二级路径
     ignoreNodeModules: true,
@@ -98,18 +101,5 @@ module.exports = {
     productionGzip: false,
     productionGzipExtensions: ['js', 'css', 'json'],
     bundleAnalyzerReport: false,
-  },
-  build2esm: {
-    index: './src/main.js',
-    output: {
-      dir: resolve('./esm'),
-      entryFileNames: '[name].js'
-    },
-    outDir: resolve('./esm'),
-    excludeList: [
-      'react',
-      'react-dom',
-      'antd'
-    ]
   }
 };
