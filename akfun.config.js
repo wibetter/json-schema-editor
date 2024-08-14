@@ -10,7 +10,7 @@ module.exports = {
   settings: {
     enableESLint: false, // 调试模式是否开启ESLint，默认开启ESLint检测代码格式
     enableESLintFix: false, // 是否自动修正代码格式，默认不自动修正
-    enableStyleLint: true, // 是否开启StyleLint，默认开启ESLint检测代码格式
+    enableStyleLint: false, // 是否开启StyleLint，默认开启ESLint检测代码格式
     enableStyleLintFix: false // 是否需要StyleLint自动修正代码格式
   },
   webpack: {
@@ -32,38 +32,23 @@ module.exports = {
         $mixins: resolve('src/mixins'),
       },
     },
-    // 从输出的 bundle 中排除依赖
-    externals: [
-      {
-        react: {
-          commonjs: 'react',
-          commonjs2: 'react',
-          amd: 'react',
-          root: ['React'],
-        },
-      },
-      {
-        'react-dom': {
-          commonjs: 'react-dom',
-          commonjs2: 'react-dom',
-          amd: 'react-dom',
-          root: ['ReactDOM'],
-        },
-      },
-    ],
+    // createDeclaration: true, // 打包时是否创建ts声明文件
+    ignoreNodeModules: false, // 打包时是否忽略 node_modules
+    allowList: [], // ignoreNodeModules为true时生效
+    externals: [],
+    projectDir: ['src'],
     template: resolve('./src/index.html'), // 默认html模板
     // sassResources中的sass文件会自动注入每一个sass文件中
     sassResources: [
       resolve('./src/assets/css/common.scss'),
       resolve('./src/assets/css/mixin.scss'),
     ],
+    plugins: [], // 用于配置自定义plugins
   },
   dev: {
     entry: {
-      // webpack构建入口
-      index: './src/index.js', // 调试模式的入口
+      index: './src/demo1.js',
     },
-    // 用于开启本地调试模式的相关配置信息
     NODE_ENV: 'development',
     port: 80,
     autoOpenBrowser: true,
@@ -72,30 +57,14 @@ module.exports = {
     hostname: 'localhost',
     cssSourceMap: false,
   },
-  build2lib: {
-    entry: {
-      // webpack构建入口
-      index: './src/main.js', // 构建lib的入口
-    },
-    // 用于构建生产环境代码的相关配置信息
-    NODE_ENV: 'production', // development / production
-    libraryName: 'JSONSchemaEditor', // 构建第三方功能包时最后导出的引用变量名
-    assetsRoot: resolve('./dist'), // 打包后的文件绝对路径（物理路径）
-    assetsPublicPath: '/', // 设置静态资源的引用路径（根域名+路径）
-    assetsSubDirectory: '', // 资源引用二级路径
-    productionSourceMap: false,
-    productionGzip: false,
-    productionGzipExtensions: ['js', 'css', 'json'],
-    bundleAnalyzerReport: false,
-  },
   build: {
-    entry: { // webpack构建入口
-      index: './src/index.js', // 构建测试Demo的入口
+    entry: {
+      index: './src/demo1.js',
     },
     // 用于构建生产环境代码的相关配置信息
     NODE_ENV: 'production',
-    assetsRoot: resolve('./demo1'), // 打包后的文件绝对路径（物理路径）
-    assetsPublicPath: '/json-schema-editor/demo1/', // 设置静态资源的引用路径（根域名+路径）
+    assetsRoot: resolve('./demo/demo1'), // 打包后的文件绝对路径（物理路径）
+    assetsPublicPath: '/json-schema-editor/demo/demo1/', // 设置静态资源的引用路径（根域名+路径）
     assetsSubDirectory: '', // 资源引用二级路径
     productionSourceMap: false,
     productionGzip: false,
@@ -103,17 +72,44 @@ module.exports = {
     bundleAnalyzerReport: false,
   },
   build2: {
-    entry: { // webpack构建入口
-      index: './src/demo2.js', // 构建测试Demo的入口
+    entry: {
+      index: './src/demo2.js',
     },
-    // 用于构建生产环境代码的相关配置信息
     NODE_ENV: 'production',
-    assetsRoot: resolve('./demo2'), // 打包后的文件绝对路径（物理路径）
-    assetsPublicPath: '/json-schema-editor/demo2/', // 设置静态资源的引用路径（根域名+路径）
-    assetsSubDirectory: '', // 资源引用二级路径
+    assetsRoot: resolve('./demo/demo2'),
+    assetsPublicPath: '/json-schema-editor/demo/demo2/',
+    assetsSubDirectory: '',
     productionSourceMap: false,
     productionGzip: false,
     productionGzipExtensions: ['js', 'css', 'json'],
     bundleAnalyzerReport: false,
   },
+  build2lib: {
+    entry: {
+      index: './src/main.js',
+    },
+    NODE_ENV: 'production', // development / production
+    libraryName: 'JSONSchemaEditor', // 构建第三方功能包时最后导出的引用变量名
+    assetsRoot: resolve('./dist'), // 打包后的文件绝对路径（物理路径）
+    assetsPublicPath: '/', // 设置静态资源的引用路径（根域名+路径）
+    assetsSubDirectory: '', // 资源引用二级路径
+    ignoreNodeModules: true,
+    productionSourceMap: false,
+    productionGzip: false,
+    productionGzipExtensions: ['js', 'css', 'json'],
+    bundleAnalyzerReport: false,
+  },
+  build2esm: {
+    index: './src/main.js',
+    output: {
+      dir: resolve('./esm'),
+      entryFileNames: '[name].js'
+    },
+    outDir: resolve('./esm'),
+    excludeList: [
+      'react',
+      'react-dom',
+      'antd'
+    ]
+  }
 };
